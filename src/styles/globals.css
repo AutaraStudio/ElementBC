@@ -615,7 +615,7 @@ input:focus-visible {
 }
 
 .preloader2-wrap {
-  display: block !important;
+  display: none;
 }
 
 [data-preloader2-wrap] {
