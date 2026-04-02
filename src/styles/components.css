@@ -1952,3 +1952,95 @@
 .projects_heading-heading {
   max-width: 14ch;
 }
+
+/* =============================================================================
+   SCROLL TRACK STATES
+   ============================================================================= */
+
+.scroll-track:hover {
+  opacity: 1 !important;
+  width: 0.6rem;
+  background: color-mix(in srgb, var(--_brand-egg-blue---swatch--brand-eggblue-500), var(--swatch--transparent) 70%);
+}
+.scroll-track.is-visible {
+  opacity: 1;
+}
+.scroll-thumb:active {
+  cursor: grabbing;
+  background: var(--_brand-egg-blue---swatch--brand-eggblue-500);
+}
+.scroll-track:hover .scroll-thumb {
+  background: var(--_brand-egg-blue---swatch--brand-eggblue-500);
+}
+
+/* =============================================================================
+   COLOUR REVEAL OVERLAY VARIANTS
+   ============================================================================= */
+
+/* ── Original (light) ──────────────────────────────────── */
+[data-overlay-light]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at top left,  rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 50%),
+    radial-gradient(ellipse at top right, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 50%);
+  pointer-events: none;
+  z-index: 2;
+}
+[data-overlay-light]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.20) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+/* ── Medium ────────────────────────────────────────────── */
+[data-overlay-medium]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at top left,  rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 55%),
+    radial-gradient(ellipse at top right, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 55%);
+  pointer-events: none;
+  z-index: 2;
+}
+[data-overlay-medium]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(0,0,0,0.50) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+/* ── Dark ──────────────────────────────────────────────── */
+[data-overlay-dark]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at top left,  rgba(0,0,0,0.70) 0%, rgba(0,0,0,0) 60%),
+    radial-gradient(ellipse at top right, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0) 60%);
+  pointer-events: none;
+  z-index: 2;
+}
+[data-overlay-dark]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,0.75) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* =============================================================================
+   FILTER ACTIVE STATE
+   ============================================================================= */
+
+[data-filter].is-active .button_main_element {
+  background-color: var(--_theme---button-primary--background);
+  color: var(--_theme---button-primary--text);
+  border-color: var(--_theme---button-primary--background);
+}

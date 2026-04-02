@@ -752,6 +752,59 @@ input:focus-visible {
 
 
 /* =============================================================================
+   CURSOR MARQUEE
+   ============================================================================= */
+
+.cursor-marquee_wrap {
+  z-index: 100;
+  pointer-events: none;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: fixed;
+  transform: translate(-50%, -50%);
+}
+.cursor-marquee_card {
+  background: linear-gradient(180deg, rgba(255,255,255,.25), rgba(255,255,255,.3));
+  -webkit-backdrop-filter: blur(2rem);
+  backdrop-filter: blur(2rem);
+  display: flex;
+  position: absolute;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(.75, 0, .25, 1);
+  clip-path: inset(calc(50% - 0.25em));
+  will-change: clip-path;
+  opacity: 0;
+  max-width: 10em;
+}
+[data-cursor-marquee-status="active"] .cursor-marquee_card {
+  clip-path: inset(0);
+  opacity: 1;
+}
+@keyframes translateXCursor {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.cursor-marquee_track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: translateXCursor 4s linear infinite paused;
+  transition: opacity 0.15s ease-in-out 0.25s;
+  opacity: 0;
+}
+[data-cursor-marquee-status="active"] .cursor-marquee_track {
+  transition: opacity 0.15s ease-in-out 0s;
+  opacity: 1;
+}
+.cursor-marquee_text {
+  white-space: nowrap;
+  padding: 1.2em 1em;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+/* =============================================================================
    HOME STATS BORDER + DIRECTIONAL HOVER ANIMATION
    ============================================================================= */
 
