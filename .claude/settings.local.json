@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(mkdir -p \"src/app/\\(main\\)/about\" \"src/app/\\(main\\)/projects/[slug]\")",
+      "Bash(cp \"src/app/page.tsx\" \"src/app/\\(main\\)/page.tsx\")",
+      "Bash(cp \"src/app/about/page.tsx\" \"src/app/\\(main\\)/about/page.tsx\")",
+      "Bash(cp \"src/app/projects/page.tsx\" \"src/app/\\(main\\)/projects/page.tsx\")",
+      "Bash(cp \"src/app/projects/[slug]/page.tsx\" \"src/app/\\(main\\)/projects/[slug]/page.tsx\")",
+      "Bash(rm:*)",
+      "Bash(node -e ':*)",
+      "Bash(node:*)"
+    ]
+  }
+}
