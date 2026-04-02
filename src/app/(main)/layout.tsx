@@ -90,7 +90,7 @@ export default async function MainLayout({
           {/* Preloader 2 */}
           <div data-preloader2-wrap=" " className="preloader2-wrap u-position-fixed u-theme-charcoal">
             <div className="u-container u-height-full u-flex-vertical-nowrap u-alignment-center">
-              <div style={{ visibility: 'hidden' }} data-preloader2-text=" " className="u-text-style-h2 u-text-transform-uppercase"></div>
+              <div style={{ visibility: 'hidden' }} data-preloader2-text=" " className="u-text-style-h2 u-text-transform-uppercase">Loading</div>
             </div>
           </div>
           {/* Cursor Marquee */}
