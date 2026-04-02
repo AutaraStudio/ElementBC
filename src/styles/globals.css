@@ -1,5 +1,13 @@
 @import url('https://cdn.jsdelivr.net/npm/locomotive-scroll/bundled/locomotive-scroll.css');
 
+@font-face {
+  font-family: 'Adelphi Variable';
+  src: url('/fonts/AdelphiPEVFWeb-All.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* =============================================================================
    CSS CUSTOM PROPERTIES
    ============================================================================= */
@@ -428,6 +436,7 @@ html::-webkit-scrollbar {
 }
 
 body {
+  font-family: 'Adelphi Variable', sans-serif;
   font-smoothing: antialiased;
   -webkit-font-smoothing: antialiased;
 }
