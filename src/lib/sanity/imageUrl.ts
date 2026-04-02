@@ -12,3 +12,12 @@ export function urlFor(source: SanityImageSource | null | undefined): string {
     return '';
   }
 }
+
+export function getImageUrl(sanityImage: unknown, externalUrl?: string): string | null {
+  if (sanityImage) {
+    const url = urlFor(sanityImage as SanityImageSource);
+    if (url) return url;
+  }
+  if (externalUrl) return externalUrl;
+  return null;
+}

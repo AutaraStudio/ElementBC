@@ -16,14 +16,14 @@ const client = createClient({
 })
 
 const DOC_TYPES = [
+  'project',
+  'projectCategory',
   'siteSettings',
   'navigation',
   'footer',
   'homePage',
   'aboutPage',
   'projectsPage',
-  'projectCategory',
-  'project',
 ]
 
 // ─── helpers ────────────────────────────────────────────────────────────────
@@ -244,6 +244,18 @@ async function createProjects(categoryMap: Record<string, string>): Promise<stri
       ['size', 'Size'],
       ['duration', 'Duration'],
       ['featuredTitle', 'Featured title'],
+      ['featuredImage1Url', 'Featured Image 1'],
+      ['featuredImage2Url', 'Featured Image 2'],
+      ['galleryImage1Url', 'Gallery Image 1'],
+      ['galleryImage2Url', 'Gallery Image 2'],
+      ['galleryImage3Url', 'Gallery Image 3'],
+      ['galleryImage4Url', 'Gallery Image 4'],
+      ['galleryImage5Url', 'Gallery Image 5'],
+      ['galleryImage6Url', 'Gallery Image 6'],
+      ['galleryImage7Url', 'Gallery Image 7'],
+      ['galleryImage8Url', 'Gallery Image 8'],
+      ['galleryImage9Url', 'Gallery Image 9'],
+      ['galleryImage10Url', 'Gallery Image 10'],
       ['sectionEyebrow1', 'Section Eyebrow 1'],
       ['sectionHeading1', 'Section Heading 1'],
       ['tableHeader1', 'Table Header 1'],

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getAllProjects, getProjectBySlug } from '@/lib/sanity/queries';
-import { urlFor } from '@/lib/sanity/imageUrl';
+import { getImageUrl } from '@/lib/sanity/imageUrl';
 
 const EyebrowSvg = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 61 42" fill="none" data-stagger-item="" className={className}>
@@ -71,9 +71,9 @@ export default async function ProjectDetailPage({
             </div>
 
             <div className="project_hero_featured-wrap u-position-relative u-ratio-4-5">
-              {urlFor(project.featuredImage1) && (
+              {getImageUrl(project.featuredImage1, project.featuredImage1Url) && (
                 <Image
-                  src={urlFor(project.featuredImage1)}
+                  src={getImageUrl(project.featuredImage1, project.featuredImage1Url)!}
                   fill
                   priority
                   alt={project.featuredImage1?.alt ?? project.projectName}
@@ -324,10 +324,10 @@ export default async function ProjectDetailPage({
         <div className="project_content-contain u-container u-padding-top-4">
           <div className="project_content-layout u-grid-custom u-gap-row-4">
 
-            {urlFor(project.galleryImage1) && (
+            {getImageUrl(project.galleryImage1, project.galleryImage1Url) && (
               <div className="project_content-col u-column-start-1 u-column-span-12 u-position-relative u-ratio-2-1">
                 <Image
-                  src={urlFor(project.galleryImage1)}
+                  src={getImageUrl(project.galleryImage1, project.galleryImage1Url)!}
                   fill
                   alt={project.galleryImage1?.alt ?? project.projectName}
                   className="project_content-img u-cover-absolute"
@@ -335,10 +335,10 @@ export default async function ProjectDetailPage({
               </div>
             )}
 
-            {urlFor(project.galleryImage2) && (
+            {getImageUrl(project.galleryImage2, project.galleryImage2Url) && (
               <div className="project_content-col u-column-start-1 u-column-span-6 u-position-relative u-ratio-4-5">
                 <Image
-                  src={urlFor(project.galleryImage2)}
+                  src={getImageUrl(project.galleryImage2, project.galleryImage2Url)!}
                   fill
                   alt={project.galleryImage2?.alt ?? project.projectName}
                   className="project_content-img u-cover-absolute"
@@ -346,10 +346,10 @@ export default async function ProjectDetailPage({
               </div>
             )}
 
-            {urlFor(project.galleryImage3) && (
+            {getImageUrl(project.galleryImage3, project.galleryImage3Url) && (
               <div className="project_content-col u-column-start-7 u-column-span-6 u-position-relative u-ratio-4-5">
                 <Image
-                  src={urlFor(project.galleryImage3)}
+                  src={getImageUrl(project.galleryImage3, project.galleryImage3Url)!}
                   fill
                   alt={project.galleryImage3?.alt ?? project.projectName}
                   className="project_content-img u-cover-absolute"
@@ -357,10 +357,10 @@ export default async function ProjectDetailPage({
               </div>
             )}
 
-            {urlFor(project.galleryImage4) && (
+            {getImageUrl(project.galleryImage4, project.galleryImage4Url) && (
               <div className="project_content-col u-column-start-1 u-column-span-12 u-position-relative u-ratio-2-1">
                 <Image
-                  src={urlFor(project.galleryImage4)}
+                  src={getImageUrl(project.galleryImage4, project.galleryImage4Url)!}
                   fill
                   alt={project.galleryImage4?.alt ?? project.projectName}
                   className="project_content-img u-cover-absolute"
@@ -368,10 +368,10 @@ export default async function ProjectDetailPage({
               </div>
             )}
 
-            {urlFor(project.galleryImage5) && (
+            {getImageUrl(project.galleryImage5, project.galleryImage5Url) && (
               <div className="project_content-col u-column-start-1 u-column-span-12 u-position-relative u-ratio-2-1">
                 <Image
-                  src={urlFor(project.galleryImage5)}
+                  src={getImageUrl(project.galleryImage5, project.galleryImage5Url)!}
                   fill
                   alt={project.galleryImage5?.alt ?? project.projectName}
                   className="project_content-img u-cover-absolute"
@@ -379,10 +379,10 @@ export default async function ProjectDetailPage({
               </div>
             )}
 
-            {urlFor(project.galleryImage6) && (
+            {getImageUrl(project.galleryImage6, project.galleryImage6Url) && (
               <div className="project_content-col u-column-start-1 u-column-span-6 u-position-relative u-ratio-4-5">
                 <Image
-                  src={urlFor(project.galleryImage6)}
+                  src={getImageUrl(project.galleryImage6, project.galleryImage6Url)!}
                   fill
                   alt={project.galleryImage6?.alt ?? project.projectName}
                   className="project_content-img u-cover-absolute"
@@ -390,10 +390,10 @@ export default async function ProjectDetailPage({
               </div>
             )}
 
-            {urlFor(project.galleryImage7) && (
+            {getImageUrl(project.galleryImage7, project.galleryImage7Url) && (
               <div className="project_content-col u-column-start-7 u-column-span-6 u-position-relative u-ratio-4-5">
                 <Image
-                  src={urlFor(project.galleryImage7)}
+                  src={getImageUrl(project.galleryImage7, project.galleryImage7Url)!}
                   fill
                   alt={project.galleryImage7?.alt ?? project.projectName}
                   className="project_content-img u-cover-absolute"
@@ -425,9 +425,9 @@ export default async function ProjectDetailPage({
                 <div key={related.slug} className="projects_related-item">
                   <Link href={`/projects/${related.slug}`} className="projects_related-link u-flex-vertical-nowrap u-gap-4">
                     <div className="projects_related_image-wrap u-position-relative u-overflow-hidden">
-                      {urlFor(related.featuredImage1) && (
+                      {getImageUrl(related.featuredImage1, related.featuredImage1Url) && (
                         <Image
-                          src={urlFor(related.featuredImage1)}
+                          src={getImageUrl(related.featuredImage1, related.featuredImage1Url)!}
                           fill
                           alt={related.featuredImage1?.alt ?? related.projectName}
                           className="projects_related-image u-cover-absolute"

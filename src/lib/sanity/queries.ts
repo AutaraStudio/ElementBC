@@ -8,7 +8,8 @@ const projectListFields = `
   projectName,
   "slug": slug.current,
   "category": projectCategory-> { name, "slug": slug.current },
-  featuredImage1
+  featuredImage1,
+  featuredImage1Url
 `;
 
 // ---------------------------------------------------------------------------
@@ -35,18 +36,18 @@ export async function getProjectBySlug(slug: string) {
       size,
       duration,
       featuredTitle,
-      featuredImage1 { ..., alt },
-      featuredImage2 { ..., alt },
-      galleryImage1 { ..., alt },
-      galleryImage2 { ..., alt },
-      galleryImage3 { ..., alt },
-      galleryImage4 { ..., alt },
-      galleryImage5 { ..., alt },
-      galleryImage6 { ..., alt },
-      galleryImage7 { ..., alt },
-      galleryImage8 { ..., alt },
-      galleryImage9 { ..., alt },
-      galleryImage10 { ..., alt },
+      featuredImage1 { ..., alt }, featuredImage1Url,
+      featuredImage2 { ..., alt }, featuredImage2Url,
+      galleryImage1 { ..., alt }, galleryImage1Url,
+      galleryImage2 { ..., alt }, galleryImage2Url,
+      galleryImage3 { ..., alt }, galleryImage3Url,
+      galleryImage4 { ..., alt }, galleryImage4Url,
+      galleryImage5 { ..., alt }, galleryImage5Url,
+      galleryImage6 { ..., alt }, galleryImage6Url,
+      galleryImage7 { ..., alt }, galleryImage7Url,
+      galleryImage8 { ..., alt }, galleryImage8Url,
+      galleryImage9 { ..., alt }, galleryImage9Url,
+      galleryImage10 { ..., alt }, galleryImage10Url,
       sectionEyebrow1, sectionHeading1,
       tableHeader1, tableColumnStat1A, tableColumnStat1B, tableColumnStat1C,
       tableHeader2, tableColumnStat2A, tableColumnStat2B, tableColumnStat2C,
@@ -92,8 +93,8 @@ export async function getHomePage() {
         projectName,
         "slug": slug.current,
         "category": projectCategory-> { name, "slug": slug.current },
-        featuredImage1,
-        featuredImage2
+        featuredImage1, featuredImage1Url,
+        featuredImage2, featuredImage2Url
       }
     }
   `);
@@ -172,6 +173,7 @@ export interface SanityProject {
   slug: string;
   category?: { name: string; slug: string } | null;
   featuredImage1?: SanityImage | null;
+  featuredImage1Url?: string;
 }
 
 export interface SanityProjectFull extends SanityProject {
@@ -181,16 +183,27 @@ export interface SanityProjectFull extends SanityProject {
   duration?: string;
   featuredTitle?: string;
   featuredImage2?: SanityImage | null;
+  featuredImage2Url?: string;
   galleryImage1?: SanityImage | null;
+  galleryImage1Url?: string;
   galleryImage2?: SanityImage | null;
+  galleryImage2Url?: string;
   galleryImage3?: SanityImage | null;
+  galleryImage3Url?: string;
   galleryImage4?: SanityImage | null;
+  galleryImage4Url?: string;
   galleryImage5?: SanityImage | null;
+  galleryImage5Url?: string;
   galleryImage6?: SanityImage | null;
+  galleryImage6Url?: string;
   galleryImage7?: SanityImage | null;
+  galleryImage7Url?: string;
   galleryImage8?: SanityImage | null;
+  galleryImage8Url?: string;
   galleryImage9?: SanityImage | null;
+  galleryImage9Url?: string;
   galleryImage10?: SanityImage | null;
+  galleryImage10Url?: string;
   sectionEyebrow1?: string;
   sectionHeading1?: string;
   tableHeader1?: string;
@@ -236,7 +249,7 @@ export interface SanityHomePage {
   aboutImage?: SanityImage | null;
   statsHeading?: string;
   statsItems?: SanityStatItem[];
-  featuredProjects?: (SanityProject & { featuredImage2?: SanityImage | null })[];
+  featuredProjects?: (SanityProject & { featuredImage2?: SanityImage | null; featuredImage2Url?: string })[];
 }
 
 export interface SanityAboutPage {

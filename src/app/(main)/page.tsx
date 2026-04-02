@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getHomePage } from '@/lib/sanity/queries';
-import { urlFor } from '@/lib/sanity/imageUrl';
+import { getImageUrl, urlFor } from '@/lib/sanity/imageUrl';
 import HomeAboutSvg from '@/components/ui/svgs/HomeAboutSvg';
 
 const heroCSS = `
@@ -218,9 +218,9 @@ export default async function HomePage() {
                   <div data-cursor-marquee-text="View Project" className="projects_archive_image-wrap u-position-relative u-overflow-hidden">
                     <Link href={`/projects/${project.slug}`} className="projects_archive-link u-cover-absolute w-inline-block"></Link>
                     <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
-                    {urlFor(project.featuredImage1) && (
+                    {getImageUrl(project.featuredImage1, project.featuredImage1Url) && (
                       <Image
-                        src={urlFor(project.featuredImage1)}
+                        src={getImageUrl(project.featuredImage1, project.featuredImage1Url)!}
                         fill
                         loading="lazy"
                         alt={project.projectName}

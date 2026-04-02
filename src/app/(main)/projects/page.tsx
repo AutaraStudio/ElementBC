@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAllProjects, getAllProjectCategories } from '@/lib/sanity/queries';
-import { urlFor } from '@/lib/sanity/imageUrl';
+import { getImageUrl } from '@/lib/sanity/imageUrl';
 
 const heroCSS = `
 /* Section */
@@ -201,10 +201,10 @@ export default async function ProjectsPage() {
               <div key={project._id} data-slider-item="" role="listitem" className="projects_hero-item u-cover-absolute u-pointer-off u-position-absolute">
                 <div data-overlay-dark="" data-slider-asset="" className="projects_hero-asset u-cover-absolute u-overflow-clip">
                   <Link href={`/projects/${project.slug}`} className="projects_hero-link u-cover-absolute u-zindex-1"></Link>
-                  {urlFor(project.featuredImage1) && (
+                  {getImageUrl(project.featuredImage1, project.featuredImage1Url) && (
                     <Image
                       fill
-                      src={urlFor(project.featuredImage1)}
+                      src={getImageUrl(project.featuredImage1, project.featuredImage1Url)!}
                       alt={project.projectName}
                       loading="lazy"
                       className="projects_hero-image u-cover-absolute u-object-fit-cover"
@@ -325,10 +325,10 @@ export default async function ProjectsPage() {
                   <div data-cursor-marquee-text="View Project" className="projects_archive_image-wrap u-position-relative u-overflow-hidden u-pointer-on">
                     <Link href={`/projects/${project.slug}`} className="projects_archive-link u-cover-absolute u-zindex-3"></Link>
                     <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
-                    {urlFor(project.featuredImage1) && (
+                    {getImageUrl(project.featuredImage1, project.featuredImage1Url) && (
                       <Image
                         fill
-                        src={urlFor(project.featuredImage1)}
+                        src={getImageUrl(project.featuredImage1, project.featuredImage1Url)!}
                         alt={project.projectName}
                         loading="lazy"
                         className="projects_archive-image u-cover-absolute"
