@@ -52,4 +52,8 @@ export const project = defineType({
     defineField({ name: "seoDescription", title: "SEO Description", type: "text" }),
     defineField({ name: "seoImage", title: "SEO Image", type: "image" }),
   ],
+  preview: {
+    select: { title: 'projectName', subtitle: 'client' },
+    prepare: ({ title, subtitle }: { title: string; subtitle: string }) => ({ title, subtitle }),
+  },
 });

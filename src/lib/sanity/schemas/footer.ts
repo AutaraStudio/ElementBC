@@ -36,4 +36,5 @@ export const footer = defineType({
     defineField({ name: "builtByText", title: "Built By Text", type: "string" }),
     defineField({ name: "builtByUrl", title: "Built By URL", type: "string" }),
   ],
+  preview: { prepare: () => ({ title: 'Footer' }) },
 });

@@ -13,7 +13,17 @@
       "Bash(awk 'NR>=20 && NR<=100')",
       "Bash(npx tsc:*)",
       "Bash(python3:*)",
-      "Bash(powershell.exe:*)"
+      "Bash(powershell.exe:*)",
+      "Bash(awk 'NR>=134 && NR<=310' \"C:\\\\Users\\\\mattc\\\\Documents\\\\Autara Studio\\\\element-bc\\\\src\\\\app\\\\\\(main\\)\\\\page.tsx\")",
+      "Bash(awk 'NR>=72 && NR<=80' \"C:\\\\Users\\\\mattc\\\\Documents\\\\Autara Studio\\\\element-bc\\\\src\\\\components\\\\layout\\\\Navbar.tsx\")",
+      "Bash(awk 'NR>=454 && NR<=472' \"C:\\\\Users\\\\mattc\\\\Documents\\\\Autara Studio\\\\element-bc\\\\src\\\\app\\\\\\(main\\)\\\\page.tsx\")",
+      "Bash(awk 'NR>=480 && NR<=487' \"C:\\\\Users\\\\mattc\\\\Documents\\\\Autara Studio\\\\element-bc\\\\src\\\\app\\\\\\(main\\)\\\\page.tsx\")",
+      "Bash(awk 'NR>=495 && NR<=517' \"C:\\\\Users\\\\mattc\\\\Documents\\\\Autara Studio\\\\element-bc\\\\src\\\\app\\\\\\(main\\)\\\\page.tsx\")",
+      "Bash(awk 'NR>=525 && NR<=527' \"C:\\\\Users\\\\mattc\\\\Documents\\\\Autara Studio\\\\element-bc\\\\src\\\\app\\\\\\(main\\)\\\\page.tsx\")",
+      "Bash(awk 'NR>=535 && NR<=546' \"C:\\\\Users\\\\mattc\\\\Documents\\\\Autara Studio\\\\element-bc\\\\src\\\\app\\\\\\(main\\)\\\\page.tsx\")",
+      "Bash(awk 'NR>=554 && NR<=557' \"C:\\\\Users\\\\mattc\\\\Documents\\\\Autara Studio\\\\element-bc\\\\src\\\\app\\\\\\(main\\)\\\\page.tsx\")",
+      "Bash(awk 'NR>=96 && NR<=308' \"C:\\\\Users\\\\mattc\\\\Documents\\\\Autara Studio\\\\element-bc\\\\src\\\\components\\\\layout\\\\Navbar.tsx\")",
+      "Bash(npm run:*)"
     ]
   }
 }

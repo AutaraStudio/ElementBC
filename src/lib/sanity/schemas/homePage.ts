@@ -36,4 +36,5 @@ export const homePage = defineType({
       of: [{ type: "reference", to: [{ type: "project" }] }],
     }),
   ],
+  preview: { prepare: () => ({ title: 'Home Page' }) },
 });

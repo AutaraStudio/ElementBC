@@ -9,4 +9,5 @@ export const projectsPage = defineType({
     defineField({ name: "seoTitle", title: "SEO Title", type: "string" }),
     defineField({ name: "seoDescription", title: "SEO Description", type: "text" }),
   ],
+  preview: { prepare: () => ({ title: 'Projects Page' }) },
 });

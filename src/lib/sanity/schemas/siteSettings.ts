@@ -10,4 +10,5 @@ export const siteSettings = defineType({
     defineField({ name: "seoImage", title: "SEO Image", type: "image" }),
     defineField({ name: "favicon", title: "Favicon", type: "image" }),
   ],
+  preview: { select: { title: 'siteTitle' } },
 });

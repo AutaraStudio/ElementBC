@@ -6,10 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "npx tsx scripts/seed.ts"
   },
   "dependencies": {
     "@sanity/image-url": "^2.1.1",
+    "csv-parse": "^6.2.1",
+    "dotenv": "^17.4.0",
     "gsap": "^3.14.2",
     "next": "16.2.2",
     "next-sanity": "^12.2.1",

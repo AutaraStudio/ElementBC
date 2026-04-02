@@ -22,4 +22,5 @@ export const navigation = defineType({
     defineField({ name: "ctaLabel", title: "CTA Label", type: "string" }),
     defineField({ name: "ctaUrl", title: "CTA URL", type: "string" }),
   ],
+  preview: { select: { title: '_type' }, prepare: () => ({ title: 'Navigation' }) },
 });
