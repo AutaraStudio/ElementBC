@@ -212,7 +212,7 @@ export default async function ProjectsPage() {
                   )}
                 </div>
                 <div aria-hidden="true" data-slider-data="" className="u-sr-only">
-                  <span data-slider-data-heading="" data-slider-data-heading={project.projectName}>{project.projectName}</span>
+                  <span data-slider-data-heading={project.projectName}>{project.projectName}</span>
                   <span data-slider-data-title="">{project.category?.name ?? ''}</span>
                 </div>
               </div>

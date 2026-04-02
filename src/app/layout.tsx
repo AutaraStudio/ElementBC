@@ -3,7 +3,10 @@ import "@/styles/globals.css";
 import "@/styles/lumos-utilities.css";
 import "@/styles/components.css";
 
-export const metadata: Metadata = {};
+export const metadata: Metadata = {
+  title: 'Element BC',
+  description: 'Element BC — Building Consultancy',
+};
 
 export default function RootLayout({
   children,
