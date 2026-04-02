@@ -401,6 +401,39 @@ export default async function ProjectDetailPage({
               </div>
             )}
 
+            {getImageUrl(project.galleryImage8, project.galleryImage8Url) && (
+              <div className="project_content-col u-column-start-1 u-column-span-12 u-position-relative u-ratio-2-1">
+                <Image
+                  src={getImageUrl(project.galleryImage8, project.galleryImage8Url)!}
+                  fill
+                  alt={project.galleryImage8?.alt ?? project.projectName}
+                  className="project_content-img u-cover-absolute"
+                />
+              </div>
+            )}
+
+            {getImageUrl(project.galleryImage9, project.galleryImage9Url) && (
+              <div className="project_content-col u-column-start-1 u-column-span-6 u-position-relative u-ratio-4-5">
+                <Image
+                  src={getImageUrl(project.galleryImage9, project.galleryImage9Url)!}
+                  fill
+                  alt={project.galleryImage9?.alt ?? project.projectName}
+                  className="project_content-img u-cover-absolute"
+                />
+              </div>
+            )}
+
+            {getImageUrl(project.galleryImage10, project.galleryImage10Url) && (
+              <div className="project_content-col u-column-start-7 u-column-span-6 u-position-relative u-ratio-4-5">
+                <Image
+                  src={getImageUrl(project.galleryImage10, project.galleryImage10Url)!}
+                  fill
+                  alt={project.galleryImage10?.alt ?? project.projectName}
+                  className="project_content-img u-cover-absolute"
+                />
+              </div>
+            )}
+
           </div>
         </div>
         <div data-wf--spacer--variant="main" className="u-section-spacer w-variant-60a7ad7d-02b0-6682-95a5-2218e6fd1490 u-ignore-trim"></div>
@@ -412,34 +445,32 @@ export default async function ProjectDetailPage({
       {relatedProjects.length > 0 && (
         <section className="project_related-wrap u-position-relative">
           <style>{`
-            .projects_related_image-wrap .projects_related-image { transform: scale(1); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: transform; }
-            .projects_related_image-wrap:hover .projects_related-image { transform: scale(1.05); }
+            .project_related_image-wrap .projects_related-img { transform: scale(1); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: transform; }
+            .projects_related_image-wrap:hover .projects_related-img { transform: scale(1.05); }
             .projects_related-item { grid-column: span 6; }
             .projects_related_image-wrap { aspect-ratio: 3 / 4; }
             .projects_related-item { transition: opacity 0.3s ease, transform 0.3s ease; }
           `}</style>
           <div data-wf--spacer--variant="main" className="u-section-spacer w-variant-60a7ad7d-02b0-6682-95a5-2218e6fd1490 u-ignore-trim"></div>
-          <div className="project_related-contain u-container">
-            <div className="project_related-layout u-grid-custom u-gap-row-6">
+          <div className="project_related-contain u-container u-margin-top-5">
+            <div className="projects_related-list u-grid-custom u-gap-row-6">
               {relatedProjects.map((related) => (
-                <div key={related.slug} className="projects_related-item">
-                  <Link href={`/projects/${related.slug}`} className="projects_related-link u-flex-vertical-nowrap u-gap-4">
-                    <div className="projects_related_image-wrap u-position-relative u-overflow-hidden">
-                      {getImageUrl(related.featuredImage1, related.featuredImage1Url) && (
-                        <Image
-                          src={getImageUrl(related.featuredImage1, related.featuredImage1Url)!}
-                          fill
-                          alt={related.featuredImage1?.alt ?? related.projectName}
-                          className="projects_related-image u-cover-absolute"
-                        />
-                      )}
-                      <div data-overlay-medium="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
-                    </div>
-                    <div className="projects_related_info-wrap u-flex-vertical-nowrap u-gap-2">
-                      <div className="projects_related_info-category u-text-style-x-small u-text-transform-uppercase">{related.category?.name}</div>
-                      <div className="projects_related_info-name u-text-style-large u-text-transform-uppercase">{related.projectName}</div>
-                    </div>
-                  </Link>
+                <div key={related.slug} className="projects_related-item u-position-relative u-flex-vertical-nowrap u-gap-3">
+                  <div data-overlay-medium="" data-cursor-marquee-text="View Project" className="projects_related_image-wrap u-position-relative u-overflow-hidden">
+                    <Link href={`/projects/${related.slug}`} className="projects_related-link u-cover-absolute w-inline-block"></Link>
+                    {getImageUrl(related.featuredImage1, related.featuredImage1Url) && (
+                      <Image
+                        src={getImageUrl(related.featuredImage1, related.featuredImage1Url)!}
+                        fill
+                        alt={related.featuredImage1?.alt ?? related.projectName}
+                        className="projects_related-img u-cover-absolute"
+                      />
+                    )}
+                    <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
+                  </div>
+                  <div className="projects_related_info-wrap u-flex-horizontal-nowrap u-justify-content-between">
+                    <div data-split="word" className="projects_related_info-title u-text-style-large">{related.projectName}</div>
+                  </div>
                 </div>
               ))}
             </div>
