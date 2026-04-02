@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import "@/styles/lumos-utilities.css";
 import "@/styles/components.css";
+import "locomotive-scroll/locomotive-scroll.css";
 
 export const metadata: Metadata = {
   title: 'Element BC',
