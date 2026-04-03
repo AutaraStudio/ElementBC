@@ -115,10 +115,6 @@ async function createHomePage() {
     _id: 'homePage',
     heroHeading: 'element',
     heroViewProjectText: 'View Project',
-    heroProject: {
-      _type: 'reference',
-      _ref: 'project-belgravia-townhouse',
-    },
     aboutHeading: 'We started Element to raise the standard.',
     statsHeading: 'Built on detail.',
     statsItems: [
@@ -203,7 +199,7 @@ async function createCategories(): Promise<Record<string, string>> {
 
 // ─── Step 9: projects ───────────────────────────────────────────────────────
 
-async function createProjects(categoryMap: Record<string, string>): Promise<string[]> {
+async function createProjects(categoryMap: Record<string, string>): Promise<{ featuredIds: string[]; allIds: string[] }> {
   console.log('\nStep 9 — Creating projects...')
 
   const csvPath = path.resolve('reference/dynamic/Element BC - Projects.csv')
@@ -211,6 +207,7 @@ async function createProjects(categoryMap: Record<string, string>): Promise<stri
   const rows = parse(raw, { columns: true, skip_empty_lines: true }) as Record<string, string>[]
 
   const featuredIds: string[] = []
+  const allIds: string[] = []
 
   for (const row of rows) {
     const projectName = val(row['Project Name'])
@@ -284,19 +281,20 @@ async function createProjects(categoryMap: Record<string, string>): Promise<stri
 
     try {
       await client.createOrReplace(doc as Parameters<typeof client.createOrReplace>[0])
+      allIds.push(id)
       console.log(`  ✓ project: ${projectName}`)
     } catch (err) {
       console.error(`  ✗ project: ${projectName}`, err)
     }
   }
 
-  return featuredIds
+  return { featuredIds, allIds }
 }
 
 // ─── Step 10: patch homePage featuredProjects ────────────────────────────────
 
-async function patchFeaturedProjects(featuredIds: string[]) {
-  console.log('\nStep 10 — Patching homePage featuredProjects...')
+async function patchFeaturedProjects(featuredIds: string[], allProjectIds: string[]) {
+  console.log('\nStep 10 — Patching homePage featuredProjects + heroProject...')
 
   const top3 = featuredIds.slice(0, 3)
   if (top3.length === 0) {
@@ -310,8 +308,16 @@ async function patchFeaturedProjects(featuredIds: string[]) {
     _ref: ref,
   }))
 
-  await client.patch('homePage').set({ featuredProjects: refs }).commit()
+  // Use the first non-featured project as the hero, or the first project overall
+  const heroRef = allProjectIds.find((id) => !featuredIds.includes(id)) ?? allProjectIds[0]
+
+  await client.patch('homePage').set({
+    featuredProjects: refs,
+    ...(heroRef ? { heroProject: { _type: 'reference', _ref: heroRef } } : {}),
+  }).commit()
+
   console.log(`  ✓ featuredProjects set to: ${top3.join(', ')}`)
+  if (heroRef) console.log(`  ✓ heroProject set to: ${heroRef}`)
 }
 
 // ─── Main ────────────────────────────────────────────────────────────────────
@@ -332,8 +338,8 @@ async function main() {
   await createAboutPage()
   await createProjectsPage()
   const categoryMap = await createCategories()
-  const featuredIds = await createProjects(categoryMap)
-  await patchFeaturedProjects(featuredIds)
+  const { featuredIds, allIds } = await createProjects(categoryMap)
+  await patchFeaturedProjects(featuredIds, allIds)
 
   console.log('\nSeed complete.\n')
 }
