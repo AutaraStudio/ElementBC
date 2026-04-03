@@ -7,6 +7,13 @@ export const homePage = defineType({
   fields: [
     defineField({ name: "heroHeading", title: "Hero Heading", type: "string" }),
     defineField({ name: "heroViewProjectText", title: "Hero View Project Text", type: "string" }),
+    defineField({
+      name: "heroProject",
+      title: "Hero Featured Project",
+      description: "The project displayed in the homepage hero. Its Featured Image 1 becomes the primary image and Featured Image 2 becomes the hover image.",
+      type: "reference",
+      to: [{ type: "project" }],
+    }),
     defineField({ name: "aboutHeading", title: "About Heading", type: "string" }),
     defineField({
       name: "aboutImage",

@@ -115,6 +115,10 @@ async function createHomePage() {
     _id: 'homePage',
     heroHeading: 'element',
     heroViewProjectText: 'View Project',
+    heroProject: {
+      _type: 'reference',
+      _ref: 'project-belgravia-townhouse',
+    },
     aboutHeading: 'We started Element to raise the standard.',
     statsHeading: 'Built on detail.',
     statsItems: [

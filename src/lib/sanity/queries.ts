@@ -82,6 +82,14 @@ export async function getHomePage() {
     *[_type == "homePage"][0] {
       heroHeading,
       heroViewProjectText,
+      heroProject-> {
+        _id,
+        projectName,
+        "slug": slug.current,
+        featuredImage1 { ..., alt },
+        featuredImage2 { ..., alt },
+        "category": projectCategory->{ name }
+      },
       aboutHeading,
       aboutImage,
       statsHeading,
@@ -221,6 +229,14 @@ export interface SanityStatItem {
 export interface SanityHomePage {
   heroHeading?: string;
   heroViewProjectText?: string;
+  heroProject?: {
+    _id: string;
+    projectName: string;
+    slug: string;
+    featuredImage1?: SanityImage | null;
+    featuredImage2?: SanityImage | null;
+    category?: { name: string } | null;
+  } | null;
   aboutHeading?: string;
   aboutImage?: SanityImage | null;
   statsHeading?: string;

@@ -65,22 +65,28 @@ export default async function HomePage() {
               <style dangerouslySetInnerHTML={{ __html: heroCSS }} />
             </div>
             <div data-overlay-dark="" className="home_hero_featured_img-wrap u-cover-absolute">
-              <Image
-                src="/images/hero-1.avif"
-                fill
-                loading="lazy"
-                data-hero-img="primary"
-                alt=""
-                className="home_hero_featured-img u-cover-absolute u-height-full"
-              />
-              <Image
-                src="/images/hero-2.avif"
-                fill
-                loading="lazy"
-                data-hero-img="secondary"
-                alt=""
-                className="home_hero_featured-img u-cover-absolute u-height-full"
-              />
+              {homePage?.heroProject?.featuredImage1 && (
+                <Image
+                  src={urlFor(homePage.heroProject.featuredImage1)!}
+                  fill
+                  priority
+                  data-hero-img="primary"
+                  alt={homePage.heroProject.featuredImage1.alt ?? homePage.heroProject.projectName ?? ''}
+                  sizes="100vw"
+                  className="home_hero_featured-img u-cover-absolute u-height-full"
+                />
+              )}
+              {homePage?.heroProject?.featuredImage2 && (
+                <Image
+                  src={urlFor(homePage.heroProject.featuredImage2)!}
+                  fill
+                  loading="eager"
+                  data-hero-img="secondary"
+                  alt={homePage.heroProject.featuredImage2.alt ?? homePage.heroProject.projectName ?? ''}
+                  sizes="100vw"
+                  className="home_hero_featured-img u-cover-absolute u-height-full"
+                />
+              )}
             </div>
             <div className="home_hero_featured-contain u-container u-height-full">
               <div className="home_hero_featured-layout u-height-full u-flex-vertical-nowrap">
@@ -101,10 +107,14 @@ export default async function HomePage() {
                     <div className="home_hero-featured-text u-text-style-main u-text-transform-uppercase"></div>
                   </div>
                   <div data-stagger-item="" className="home_hero_featured-col">
-                    <div data-wf--global-link--variant="base" data-hero-trigger="" className="link_underline-wrap u-padding-bottom-1">
+                    <Link
+                      href={homePage?.heroProject?.slug ? `/projects/${homePage.heroProject.slug}` : '/projects'}
+                      data-hero-trigger=""
+                      className="link_underline-wrap u-padding-bottom-1"
+                    >
                       <div data-featured-text="" className="link_underline-text u-text-style-main u-text-transform-uppercase">{homePage?.heroViewProjectText ?? 'View Project'}</div>
                       <div className="link_underline-line"></div>
-                    </div>
+                    </Link>
                   </div>
                 </div>
                 <div className="home_hero_heading-wrap u-position-absolute">
