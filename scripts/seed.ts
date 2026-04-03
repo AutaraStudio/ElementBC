@@ -238,38 +238,15 @@ async function createProjects(categoryMap: Record<string, string>): Promise<stri
 
     const str = (key: string) => val(row[key])
 
+    // Scalar fields (no *Url fields — images are uploaded separately via upload-images script)
     const fields: [string, string][] = [
       ['client', 'Client'],
       ['completedDate', 'Completed Date'],
       ['size', 'Size'],
       ['duration', 'Duration'],
       ['featuredTitle', 'Featured title'],
-      ['featuredImage1Url', 'Featured Image 1'],
-      ['featuredImage2Url', 'Featured Image 2'],
-      ['galleryImage1Url', 'Gallery Image 1'],
-      ['galleryImage2Url', 'Gallery Image 2'],
-      ['galleryImage3Url', 'Gallery Image 3'],
-      ['galleryImage4Url', 'Gallery Image 4'],
-      ['galleryImage5Url', 'Gallery Image 5'],
-      ['galleryImage6Url', 'Gallery Image 6'],
-      ['galleryImage7Url', 'Gallery Image 7'],
-      ['galleryImage8Url', 'Gallery Image 8'],
-      ['galleryImage9Url', 'Gallery Image 9'],
-      ['galleryImage10Url', 'Gallery Image 10'],
       ['sectionEyebrow1', 'Section Eyebrow 1'],
       ['sectionHeading1', 'Section Heading 1'],
-      ['tableHeader1', 'Table Header 1'],
-      ['tableColumnStat1A', 'Table Column Stat 1A'],
-      ['tableColumnStat1B', 'Table Column Stat 1B'],
-      ['tableColumnStat1C', 'Table Column Stat 1C'],
-      ['tableHeader2', 'Table Header 2'],
-      ['tableColumnStat2A', 'Table Column Stat 2A'],
-      ['tableColumnStat2B', 'Table Column Stat 2B'],
-      ['tableColumnStat2C', 'Table Column Stat 2C'],
-      ['tableHeader3', 'Table Header 3'],
-      ['tableColumnStat3A', 'Table Column Stat 3A'],
-      ['tableColumnStat3B', 'Table Column Stat 3B'],
-      ['tableColumnStat3C', 'Table Column Stat 3C'],
       ['sectionEyebrow2', 'Section Eyebrow 2'],
       ['sectionHeading2', 'Section Heading 2'],
       ['sectionParagraph2', 'Section Paragraph 2'],
@@ -285,6 +262,19 @@ async function createProjects(categoryMap: Record<string, string>): Promise<stri
       const v = str(csvKey)
       if (v) doc[docKey] = v
     }
+
+    // Build tableStats array from CSV columns
+    const tableStats: Array<{ _key: string; header?: string; statA?: string; statB?: string; statC?: string }> = []
+    for (let i = 1; i <= 3; i++) {
+      const header = str(`Table Header ${i}`)
+      const statA = str(`Table Column Stat ${i}A`)
+      const statB = str(`Table Column Stat ${i}B`)
+      const statC = str(`Table Column Stat ${i}C`)
+      if (header || statA || statB || statC) {
+        tableStats.push({ _key: randomUUID(), header, statA, statB, statC })
+      }
+    }
+    if (tableStats.length > 0) doc.tableStats = tableStats
 
     try {
       await client.createOrReplace(doc as Parameters<typeof client.createOrReplace>[0])

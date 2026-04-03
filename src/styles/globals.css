@@ -1,13 +1,5 @@
 @import url('https://cdn.jsdelivr.net/npm/locomotive-scroll/bundled/locomotive-scroll.css');
 
-@font-face {
-  font-family: 'Adelphi Variable';
-  src: url('/fonts/AdelphiPEVFWeb-All.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* =============================================================================
    CSS CUSTOM PROPERTIES
    ============================================================================= */
@@ -62,7 +54,7 @@
   --_theme---svg-accent: var(--_brand-buff---swatch--brand-buff-svg);
   --_spacing---space--1-8px: clamp(.5 * 1rem, ((.5 - ((.5 - .5) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((.5 - .5) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), .5 * 1rem);
   --_spacing---space--4-24px: clamp(1.5 * 1rem, ((1.5 - ((2 - 1.5) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((2 - 1.5) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 2 * 1rem);
-  --_typography---font--primary-family: "Adelphi Variable", Arial, sans-serif;
+  --_typography---font--primary-family: var(--font-adelphi, "Adelphi Variable"), Arial, sans-serif;
   --_typography---font--primary-regular: 350;
   --_typography---font--primary-medium: 430;
   --_typography---font--primary-bold: 550;
@@ -428,6 +420,10 @@ html::-webkit-scrollbar {
   padding: 0;
 }
 
+/* .w-embed — wrapper div used by Webflow to inject inline CSS/JS; kept for Navbar CSS embed compatibility */
+/* .w-richtext — Webflow rich text reset; harmless, keeps Sanity portable text styling clean */
+/* .w-inline-block — applied to nav links in JSX; no CSS rule needed, display is handled by component styles */
+/* .w--current — applied to active nav links in JSX; no CSS rule needed, active styles handled by component */
 .w-embed:before,
 .w-embed:after,
 .w-richtext:before,
@@ -436,7 +432,7 @@ html::-webkit-scrollbar {
 }
 
 body {
-  font-family: 'Adelphi Variable', sans-serif;
+  font-family: var(--font-adelphi, 'Adelphi Variable'), sans-serif;
   font-smoothing: antialiased;
   -webkit-font-smoothing: antialiased;
 }

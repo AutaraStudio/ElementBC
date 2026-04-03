@@ -4,6 +4,8 @@ import Footer from "@/components/layout/Footer";
 import AnimationProvider from "@/components/ui/AnimationProvider";
 import { getNavigation, getFooter } from "@/lib/sanity/queries";
 
+export const revalidate = 3600;
+
 export default async function MainLayout({
   children,
 }: {

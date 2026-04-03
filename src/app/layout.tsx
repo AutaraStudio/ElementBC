@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "@/styles/globals.css";
 import "@/styles/lumos-utilities.css";
 import "@/styles/components.css";
-import "locomotive-scroll/locomotive-scroll.css";
+
+const adelphi = localFont({
+  src: "../../public/fonts/AdelphiPEVFWeb-All.woff2",
+  variable: "--font-adelphi",
+  weight: "100 900",
+  display: "swap",
+  preload: true,
+});
 
 export const metadata: Metadata = {
-  title: 'Element BC',
-  description: 'Element BC — Building Consultancy',
+  title: "Element BC",
+  description: "Element BC — Building Consultancy",
 };
 
 export default function RootLayout({
@@ -15,16 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link
-          rel="preload"
-          href="/fonts/AdelphiPEVFWeb-All.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-      </head>
+    <html lang="en" className={adelphi.variable}>
       <body suppressHydrationWarning>{children}</body>
     </html>
   );

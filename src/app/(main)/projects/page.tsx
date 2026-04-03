@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAllProjects, getAllProjectCategories } from '@/lib/sanity/queries';
-import { getImageUrl } from '@/lib/sanity/imageUrl';
+import { urlFor } from '@/lib/sanity/imageUrl';
+
+export const revalidate = 3600;
 
 const heroCSS = `
 /* Section */
@@ -201,10 +203,10 @@ export default async function ProjectsPage() {
               <div key={project._id} data-slider-item="" role="listitem" className="projects_hero-item u-cover-absolute u-pointer-off u-position-absolute">
                 <div data-overlay-dark="" data-slider-asset="" className="projects_hero-asset u-cover-absolute u-overflow-clip">
                   <Link href={`/projects/${project.slug}`} className="projects_hero-link u-cover-absolute u-zindex-1"></Link>
-                  {getImageUrl(project.featuredImage1, project.featuredImage1Url) && (
+                  {urlFor(project.featuredImage1) && (
                     <Image
                       fill
-                      src={getImageUrl(project.featuredImage1, project.featuredImage1Url)!}
+                      src={urlFor(project.featuredImage1)!}
                       alt={project.projectName}
                       loading="lazy"
                       className="projects_hero-image u-cover-absolute u-object-fit-cover"
@@ -258,7 +260,7 @@ export default async function ProjectsPage() {
           <style dangerouslySetInnerHTML={{ __html: archiveCSS }} />
         </div>
 
-        <div data-wf--spacer--variant="main" className="u-section-spacer w-variant-60a7ad7d-02b0-6682-95a5-2218e6fd1490 u-ignore-trim"></div>
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
 
         {/* Filter bar */}
         <div data-cursor-marquee-hide="" className="projects_filter-contain u-container u-padding-block-4 u-position-sticky">
@@ -325,10 +327,10 @@ export default async function ProjectsPage() {
                   <div data-cursor-marquee-text="View Project" className="projects_archive_image-wrap u-position-relative u-overflow-hidden u-pointer-on">
                     <Link href={`/projects/${project.slug}`} className="projects_archive-link u-cover-absolute u-zindex-3"></Link>
                     <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
-                    {getImageUrl(project.featuredImage1, project.featuredImage1Url) && (
+                    {urlFor(project.featuredImage1) && (
                       <Image
                         fill
-                        src={getImageUrl(project.featuredImage1, project.featuredImage1Url)!}
+                        src={urlFor(project.featuredImage1)!}
                         alt={project.projectName}
                         loading="lazy"
                         className="projects_archive-image u-cover-absolute"
@@ -351,14 +353,14 @@ export default async function ProjectsPage() {
           </div>
         </div>
 
-        <div data-wf--spacer--variant="main" className="u-section-spacer w-variant-60a7ad7d-02b0-6682-95a5-2218e6fd1490 u-ignore-trim"></div>
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
 
       {/* ============================================================
           PARTNER CAROUSEL SECTION
       ============================================================ */}
       <section data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" className="partner_carousel-wrap">
-        <div data-wf--spacer--variant="main" className="u-section-spacer w-variant-60a7ad7d-02b0-6682-95a5-2218e6fd1490 u-ignore-trim"></div>
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="partner_carousel-contain">
           <div className="partner_carousel_heading-contain u-container u-margin-bottom-8">
             <div data-split-wrapper="" className="partner_carousel_heading-wrap u-flex-horizontal-nowrap u-justify-content-between u-align-items-end">
@@ -486,7 +488,7 @@ export default async function ProjectsPage() {
             </div>
           </div>
         </div>
-        <div data-wf--spacer--variant="main" className="u-section-spacer w-variant-60a7ad7d-02b0-6682-95a5-2218e6fd1490 u-ignore-trim"></div>
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
 
     </div>

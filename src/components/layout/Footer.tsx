@@ -77,7 +77,7 @@ export default function Footer({ navLinks: sanityNavLinks, legalLinks, builtByTe
         </div>
       </div>
 
-      <div data-wf--spacer--variant="small" className="u-section-spacer w-variant-d422cbd0-f212-c815-68df-63414354c21d u-ignore-trim" />
+      <div data-wf--spacer--variant="small" className="u-section-spacer is-small u-ignore-trim" />
     </section>
   );
 }

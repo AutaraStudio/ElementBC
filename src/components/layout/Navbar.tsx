@@ -23,43 +23,6 @@ export default function Navbar({ navLinks: sanityNavLinks }: NavbarProps) {
 
   return (
     <div className="nav_main-wrap u-position-fixed u-width-full u-pointer-off">
-      <div className="u-embed-css w-embed">
-        <style>{`
-/* Menu wrapper — hidden by default */
-[data-nav-menu] {
-  clip-path: inset(0 0 100% 0);
-  visibility: hidden;
-  pointer-events: none;
-}
-/* When menu is open, allow pointer events */
-[data-nav-menu].is-open {
-  visibility: visible;
-  pointer-events: auto;
-}
-/* Menu list items — hidden by default (GSAP animates these) */
-[data-nav-item] {
-  opacity: 0;
-  filter: blur(12px);
-  will-change: opacity, filter, transform;
-}
-/* SVG background paths — hidden by default (GSAP animates these) */
-[data-nav-path] {
-  opacity: 0;
-  will-change: opacity;
-}
-/* Menu link text */
-[data-nav-link-text] {
-  will-change: transform, opacity;
-}
-/* Logo letters — prevent FOUC */
-[data-nav-letter] {
-  opacity: 0;
-  filter: blur(8px);
-  will-change: opacity, filter;
-}
-        `}</style>
-      </div>
-
       <div className="nav_main-contain u-container">
         <div className="nav_main-layout u-grid-custom u-theme-charcoal">
 

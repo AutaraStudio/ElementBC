@@ -1,0 +1,230 @@
+'use client';
+import { useEffect } from 'react';
+import gsap from '@/lib/gsap';
+import { CustomEase } from '@/lib/gsap';
+
+export function useNavAnimation() {
+  useEffect(() => {
+    let openTl: gsap.core.Timeline | null = null;
+    let closeTl: gsap.core.Timeline | null = null;
+
+    let _toggleBtn: Element | null = null;
+    let _toggleHandler: ((e: Event) => void) | null = null;
+    let _keyHandler: ((e: KeyboardEvent) => void) | null = null;
+    let _logoEl: Element | null = null;
+    let _revealLetters: (() => void) | null = null;
+    let _hideLetters: (() => void) | null = null;
+
+    function run() {
+      if (!document.querySelector('[data-nav-toggle]')) return;
+
+      const { ANIM: anim, shuffleArray } = window.animUtils;
+
+      CustomEase.create('menuReveal', anim.ease.menuIn);
+      CustomEase.create('menuHide', anim.ease.menuOut);
+      CustomEase.create('linkReveal', anim.ease.reveal);
+
+      const toggleBtn = document.querySelector('[data-nav-toggle]');
+      const menu = document.querySelector('[data-nav-menu]');
+      const navItems = gsap.utils.toArray('[data-nav-item]') as Element[];
+      const navPaths = gsap.utils.toArray('[data-nav-path]') as Element[];
+      const linkText = toggleBtn?.querySelector('.nav_main_link-text') as HTMLElement | null;
+      const logoEl = document.querySelector('[data-nav-logo]');
+      const logoLetters = gsap.utils.toArray('[data-nav-letter]') as Element[];
+
+      let isOpen = false;
+      const shuffledPaths = shuffleArray(navPaths);
+
+      function openMenu() {
+        if (isOpen) return;
+        isOpen = true;
+        if (closeTl) closeTl.kill();
+        if (linkText) linkText.textContent = 'CLOSE';
+        openTl = gsap.timeline({
+          paused: true,
+          onStart: () => {
+            menu?.classList.add('is-open');
+            window.locomotiveScroll?.stop();
+          },
+        });
+        openTl.fromTo(menu, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: anim.duration.xl, ease: 'menuReveal' }, 0);
+        openTl.fromTo(navItems, { opacity: 0, filter: `blur(${anim.blur.lg}px)`, y: anim.y.lg }, {
+          opacity: 1, filter: 'blur(0px)', y: 0, duration: anim.duration.md, ease: 'linkReveal',
+          stagger: { each: anim.stagger.item, from: 'start' },
+        }, `-=${anim.duration.sm}`);
+        openTl.fromTo(shuffledPaths, { opacity: 0 }, {
+          opacity: 1, duration: anim.duration.xs, ease: anim.ease.out,
+          stagger: { each: anim.stagger.path, from: 'random' },
+        }, `-=${anim.duration.md}`);
+        openTl.restart();
+      }
+
+      function closeMenu() {
+        if (!isOpen) return;
+        isOpen = false;
+        if (openTl) openTl.kill();
+        if (linkText) linkText.textContent = 'MENU';
+        closeTl = gsap.timeline({
+          paused: true,
+          onComplete: () => {
+            menu?.classList.remove('is-open');
+            window.locomotiveScroll?.start();
+          },
+        });
+        closeTl.to(shuffledPaths, {
+          opacity: 0, duration: 0.5 * anim.duration.xs, ease: anim.ease.in,
+          stagger: { each: 0.25 * anim.stagger.path, from: 'random' },
+        });
+        closeTl.to(navItems, {
+          opacity: 0, filter: `blur(${anim.blur.md}px)`, y: -anim.y.sm,
+          duration: anim.duration.sm, ease: anim.ease.in,
+          stagger: { each: 0.33 * anim.stagger.item, from: 'end' },
+        }, 0.05);
+        closeTl.to(menu, { clipPath: 'inset(0 0 100% 0)', duration: anim.duration.md, ease: 'menuHide' }, 0.1);
+        closeTl.restart();
+      }
+
+      function toggleMenu(ev: Event) { ev.preventDefault(); isOpen ? closeMenu() : openMenu(); }
+
+      if (toggleBtn && menu) {
+        toggleBtn.addEventListener('click', toggleMenu);
+        const keyHandler = (ev: KeyboardEvent) => { if (ev.key === 'Escape' && isOpen) closeMenu(); };
+        document.addEventListener('keydown', keyHandler);
+        menu.querySelectorAll('[data-nav-link]').forEach((el) => el.addEventListener('click', closeMenu));
+
+        _toggleBtn = toggleBtn;
+        _toggleHandler = toggleMenu;
+        _keyHandler = keyHandler;
+      }
+
+      // Logo letter hover animations
+      if (logoEl && logoLetters.length) {
+        gsap.set(logoLetters, { opacity: 0, filter: `blur(${anim.blur.md}px)` });
+        let inTl: gsap.core.Timeline | null = null;
+        let outTl: gsap.core.Timeline | null = null;
+
+        function revealLetters() {
+          if (outTl) { outTl.kill(); outTl = null; }
+          inTl = gsap.timeline({ paused: true }).to(logoLetters, {
+            opacity: 1, filter: 'blur(0px)', duration: anim.duration.sm, ease: anim.ease.out,
+            stagger: { each: 0.035, from: 'start' },
+          });
+          inTl.restart();
+        }
+        function hideLetters() {
+          if (inTl) { inTl.kill(); inTl = null; }
+          outTl = gsap.timeline({ paused: true }).to(logoLetters, {
+            opacity: 0, filter: `blur(${anim.blur.md}px)`, duration: anim.duration.xs, ease: anim.ease.in,
+            stagger: { each: 0.025, from: 'end' },
+          });
+          outTl.restart();
+        }
+        logoEl.addEventListener('mouseenter', revealLetters);
+        logoEl.addEventListener('mouseleave', hideLetters);
+
+        _logoEl = logoEl;
+        _revealLetters = revealLetters;
+        _hideLetters = hideLetters;
+      }
+
+      // Nav path glow on mouse move
+      const glowStyle = document.createElement('style');
+      glowStyle.textContent = `
+        [data-nav-path][data-glow-active] {
+          --glow-brightness: 1; --glow-sepia: 0; --glow-saturate: 1;
+          filter: brightness(var(--glow-brightness)) sepia(var(--glow-sepia)) saturate(var(--glow-saturate));
+        }
+      `;
+      document.head.appendChild(glowStyle);
+
+      const GLOW_RADIUS = 500, GLOW_PEAK = 2.2, GLOW_SEPIA = 0.12, GLOW_SAT = 1.35, SPEED_ON = 0.11, SPEED_OFF = 0.055;
+      type GlowPath = { el: Element; cx: number; cy: number; brightness: number };
+      let glowPaths: GlowPath[] = [];
+      let mouse = { x: -9999, y: -9999 };
+      let rafId: number | null = null;
+      let glowActive = false;
+
+      function recalcPositions() {
+        glowPaths = navPaths.map((el) => {
+          const r = (el as HTMLElement).getBoundingClientRect();
+          return { el, cx: r.left + r.width / 2, cy: r.top + r.height / 2, brightness: 1 };
+        });
+      }
+
+      function glowFrame() {
+        const r2 = GLOW_RADIUS * GLOW_RADIUS;
+        let dirty = false;
+        for (const p of glowPaths) {
+          const dx = mouse.x - p.cx, dy = mouse.y - p.cy, dist2 = dx * dx + dy * dy;
+          const lum = dist2 < r2 ? Math.pow(1 - Math.sqrt(dist2) / GLOW_RADIUS, 2) : 0;
+          const target = 1 + lum * (GLOW_PEAK - 1);
+          p.brightness += (target - p.brightness) * (lum > 0.01 ? SPEED_ON : SPEED_OFF);
+          const delta = Math.abs(p.brightness - 1);
+          if (delta > 0.005) {
+            dirty = true;
+            p.el.hasAttribute('data-glow-active') || p.el.setAttribute('data-glow-active', '');
+            const norm = delta / (GLOW_PEAK - 1);
+            (p.el as HTMLElement).style.setProperty('--glow-brightness', p.brightness.toFixed(3));
+            (p.el as HTMLElement).style.setProperty('--glow-sepia', (norm * GLOW_SEPIA).toFixed(3));
+            (p.el as HTMLElement).style.setProperty('--glow-saturate', (1 + norm * (GLOW_SAT - 1)).toFixed(3));
+          } else if (p.brightness !== 1) {
+            p.brightness = 1;
+            (p.el as HTMLElement).style.removeProperty('--glow-brightness');
+            (p.el as HTMLElement).style.removeProperty('--glow-sepia');
+            (p.el as HTMLElement).style.removeProperty('--glow-saturate');
+            p.el.removeAttribute('data-glow-active');
+          }
+        }
+        rafId = (glowActive || dirty) ? requestAnimationFrame(glowFrame) : null;
+      }
+
+      function onMouseMove(ev: MouseEvent) {
+        mouse.x = ev.clientX; mouse.y = ev.clientY;
+        if (!rafId) rafId = requestAnimationFrame(glowFrame);
+      }
+      function startGlow() {
+        if (glowActive) return;
+        glowActive = true; recalcPositions();
+        document.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('resize', recalcPositions);
+      }
+      function stopGlow() {
+        if (!glowActive) return;
+        glowActive = false; mouse = { x: -9999, y: -9999 };
+        document.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('resize', recalcPositions);
+        if (!rafId) rafId = requestAnimationFrame(glowFrame);
+      }
+
+      if (menu) {
+        new MutationObserver((entries) => {
+          for (const entry of entries) {
+            if (entry.attributeName === 'class') {
+              menu.classList.contains('is-open')
+                ? requestAnimationFrame(() => requestAnimationFrame(startGlow))
+                : stopGlow();
+            }
+          }
+        }).observe(menu, { attributes: true, attributeFilter: ['class'] });
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).siteNav = { isOpen: () => isOpen, open: openMenu, close: closeMenu, toggle: toggleMenu };
+    }
+
+    if (window.animUtils) {
+      run();
+    } else {
+      window.addEventListener('animUtils:ready', run, { once: true });
+    }
+
+    return () => {
+      openTl?.kill();
+      closeTl?.kill();
+      if (_toggleBtn && _toggleHandler) _toggleBtn.removeEventListener('click', _toggleHandler);
+      if (_keyHandler) document.removeEventListener('keydown', _keyHandler);
+      if (_logoEl && _revealLetters) _logoEl.removeEventListener('mouseenter', _revealLetters);
+      if (_logoEl && _hideLetters) _logoEl.removeEventListener('mouseleave', _hideLetters);
+    };
+  }, []);
+}

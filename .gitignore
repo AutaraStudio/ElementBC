@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# Claude Code local config
+.claude/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
@@ -35,6 +38,9 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Local project images (upload to Sanity instead)
+/public/element-bc-project-images/
 
 # reference files
 
