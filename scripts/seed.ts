@@ -15,15 +15,17 @@ const client = createClient({
   token: process.env.SANITY_API_TOKEN,
 })
 
+// Delete referencing documents before referenced ones to avoid constraint errors:
+// homePage → project → projectCategory
 const DOC_TYPES = [
-  'project',
-  'projectCategory',
-  'siteSettings',
-  'navigation',
-  'footer',
   'homePage',
   'aboutPage',
   'projectsPage',
+  'navigation',
+  'footer',
+  'siteSettings',
+  'project',
+  'projectCategory',
 ]
 
 // ─── helpers ────────────────────────────────────────────────────────────────
