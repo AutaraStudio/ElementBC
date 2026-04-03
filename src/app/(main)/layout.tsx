@@ -1,10 +1,22 @@
+import type { Metadata } from 'next';
 import Script from 'next/script';
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AnimationProvider from "@/components/ui/AnimationProvider";
-import { getNavigation, getFooter } from "@/lib/sanity/queries";
+import { getNavigation, getFooter, getSiteSettings } from "@/lib/sanity/queries";
 
 export const revalidate = 3600;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  return {
+    title: {
+      default: settings?.siteTitle ?? 'Element BC',
+      template: `%s | ${settings?.siteTitle ?? 'Element BC'}`,
+    },
+    description: settings?.seoDescription ?? 'Element BC — Building Consultancy',
+  };
+}
 
 export default async function MainLayout({
   children,

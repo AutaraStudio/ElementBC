@@ -117,6 +117,7 @@ async function createHomePage() {
     heroViewProjectText: 'View Project',
     aboutHeading: 'We started Element to raise the standard.',
     statsHeading: 'Built on detail.',
+    statsSubheading: 'From programme to budget, we manage every detail — and the results speak for themselves.',
     statsItems: [
       { _key: randomUUID(), statLabel: 'Projects Delivered', statValue: '200+' },
       { _key: randomUUID(), statLabel: 'Years Experience', statValue: '15+' },
@@ -140,6 +141,20 @@ async function createAboutPage() {
     introHeading: 'Built on precision.',
     introParagraph:
       'Element transforms complex projects into confident outcomes. We specialise in building consultancy that uncovers risk, sharpens performance, and protects your investment. Every project is guided by precision, meticulous management, and an unwavering attention to detail.',
+    introLargeHeading:
+      'Each stage of our process carries the same intent; to analyse before we advise, to challenge before we commit, and to deliver with a precision that protects every outcome.',
+    introSecondaryParagraph:
+      'Element transforms complex projects into confident outcomes. We specialise in building consultancy that uncovers risk, sharpens performance, and protects your investment.',
+    ctaLabel: 'View Our Work',
+    ctaUrl: '/projects',
+    teamMembers: [
+      {
+        _key: randomUUID(),
+        name: 'Team Member Name',
+        role: 'Director',
+        bio: 'Bio placeholder — update in Sanity Studio.',
+      },
+    ],
     seoTitle: 'About | Element BC',
     seoDescription: 'Learn about Element BC and our approach to building consultancy.',
   })
@@ -154,6 +169,7 @@ async function createProjectsPage() {
     _type: 'projectsPage',
     _id: 'projectsPage',
     pageHeading: 'Detail in every project.',
+    heroEyebrow: 'Our Work',
     seoTitle: 'Projects | Element BC',
     seoDescription:
       'Browse all Element BC projects across Cat A, Cat B, Commercial, Residential and Structural categories.',

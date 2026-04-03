@@ -23,7 +23,13 @@
       "Bash(awk 'NR>=535 && NR<=546' \"C:\\\\Users\\\\mattc\\\\Documents\\\\Autara Studio\\\\element-bc\\\\src\\\\app\\\\\\(main\\)\\\\page.tsx\")",
       "Bash(awk 'NR>=554 && NR<=557' \"C:\\\\Users\\\\mattc\\\\Documents\\\\Autara Studio\\\\element-bc\\\\src\\\\app\\\\\\(main\\)\\\\page.tsx\")",
       "Bash(awk 'NR>=96 && NR<=308' \"C:\\\\Users\\\\mattc\\\\Documents\\\\Autara Studio\\\\element-bc\\\\src\\\\components\\\\layout\\\\Navbar.tsx\")",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(npx tsx -e ':*)",
+      "Bash(sed:*)",
+      "Bash(npx tsx:*)",
+      "Bash(curl -s -X POST \"https://element-bc.vercel.app/api/revalidate?secret=23fb9a8a824b3c6fea827a71d311cdae5bcab3dbb29ef52d79aaba82cf4ea4e5\" -H \"Content-Type: application/json\" -d \"{\\\\\"_type\\\\\":\\\\\"homePage\\\\\"}\")",
+      "Bash(curl -s -X POST \"https://element-bc.vercel.app/api/revalidate?secret=23fb9a8a824b3c6fea827a71d311cdae5bcab3dbb29ef52d79aaba82cf4ea4e5\" -H \"Content-Type: application/json\" -d \"{\\\\\"_type\\\\\":\\\\\"aboutPage\\\\\"}\")",
+      "Bash(curl -s -X POST \"https://element-bc.vercel.app/api/revalidate?secret=23fb9a8a824b3c6fea827a71d311cdae5bcab3dbb29ef52d79aaba82cf4ea4e5\" -H \"Content-Type: application/json\" -d \"{\\\\\"_type\\\\\":\\\\\"projectsPage\\\\\"}\")"
     ]
   }
 }

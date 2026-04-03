@@ -93,6 +93,7 @@ export async function getHomePage() {
       aboutHeading,
       aboutImage,
       statsHeading,
+      statsSubheading,
       statsItems[] { statLabel, statValue },
       featuredProjects[]-> {
         _id,
@@ -116,6 +117,17 @@ export async function getAboutPage() {
       introHeading,
       introParagraph,
       introImage { ..., alt },
+      introLargeHeading,
+      introSecondaryParagraph,
+      ctaLabel,
+      ctaUrl,
+      teamMembers[] {
+        _key,
+        name,
+        role,
+        bio,
+        photo { asset->{ _id, url }, alt }
+      },
       seoTitle,
       seoDescription
     }
@@ -126,6 +138,7 @@ export async function getProjectsPage() {
   return sanityClient.fetch<SanityProjectsPage | null>(`
     *[_type == "projectsPage"][0] {
       pageHeading,
+      heroEyebrow,
       seoTitle,
       seoDescription
     }
@@ -240,6 +253,7 @@ export interface SanityHomePage {
   aboutHeading?: string;
   aboutImage?: SanityImage | null;
   statsHeading?: string;
+  statsSubheading?: string;
   statsItems?: SanityStatItem[];
   featuredProjects?: (SanityProject & { featuredImage2?: SanityImage | null })[];
 }
@@ -252,12 +266,24 @@ export interface SanityAboutPage {
   introHeading?: string;
   introParagraph?: string;
   introImage?: SanityImage | null;
+  introLargeHeading?: string;
+  introSecondaryParagraph?: string;
+  ctaLabel?: string;
+  ctaUrl?: string;
+  teamMembers?: Array<{
+    _key: string;
+    name?: string;
+    role?: string;
+    bio?: string;
+    photo?: { asset?: { _id: string; url: string }; alt?: string };
+  }>;
   seoTitle?: string;
   seoDescription?: string;
 }
 
 export interface SanityProjectsPage {
   pageHeading?: string;
+  heroEyebrow?: string;
   seoTitle?: string;
   seoDescription?: string;
 }

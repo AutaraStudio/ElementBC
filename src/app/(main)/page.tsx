@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { getHomePage } from '@/lib/sanity/queries';
+import { getHomePage, getProjectsPage } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 import HomeAboutSvg from '@/components/ui/svgs/HomeAboutSvg';
 
@@ -51,7 +51,7 @@ const projectsArchiveCSS = `
 `;
 
 export default async function HomePage() {
-  const homePage = await getHomePage();
+  const [homePage, projectsPage] = await Promise.all([getHomePage(), getProjectsPage()]);
   return (
     <div className="page_main">
 
@@ -118,7 +118,7 @@ export default async function HomePage() {
                   </div>
                 </div>
                 <div className="home_hero_heading-wrap u-position-absolute">
-                  <h1 data-split="char" data-anim-hero="" className="section_heading u-text-style-display">element</h1>
+                  <h1 data-split="char" data-anim-hero="" className="section_heading u-text-style-display">{homePage?.heroHeading ?? 'element'}</h1>
                 </div>
               </div>
             </div>
@@ -175,7 +175,7 @@ export default async function HomePage() {
               <h2 data-split="word" className="home_stats_heading-heading u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{homePage?.statsHeading ?? 'Built on detail. Proven in results.'}</h2>
             </div>
             <div className="home_stats_heading-inner">
-              <p data-split="line" className="home_stats_p u-text-style-main u-text-decoration-justify">From programme to budget, we manage every detail — and the results speak for themselves.</p>
+              <p data-split="line" className="home_stats_p u-text-style-main u-text-decoration-justify">{homePage?.statsSubheading ?? 'From programme to budget, we manage every detail — and the results speak for themselves.'}</p>
             </div>
           </div>
           <div data-stagger="" className="home_stats-list">
@@ -217,7 +217,7 @@ export default async function HomePage() {
             </div>
             <div className="projects_filter-col u-column-start-6 u-column-span-7">
               <div className="projects_filter_col-inner u-flex-horizontal-nowrap u-gap-2 u-justify-content-end">
-                <h2 data-split="word" className="projects_heading-heading u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">Detail in every project.</h2>
+                <h2 data-split="word" className="projects_heading-heading u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{projectsPage?.pageHeading ?? 'Detail in every project.'}</h2>
               </div>
             </div>
           </div>

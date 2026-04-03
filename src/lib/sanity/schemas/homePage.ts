@@ -23,6 +23,12 @@ export const homePage = defineType({
     }),
     defineField({ name: "statsHeading", title: "Stats Heading", type: "string" }),
     defineField({
+      name: 'statsSubheading',
+      title: 'Stats Subheading Paragraph',
+      type: 'text',
+      description: 'The paragraph that appears next to the stats heading. e.g. "From programme to budget, we manage every detail..."',
+    }),
+    defineField({
       name: "statsItems",
       title: "Stats Items",
       type: "array",

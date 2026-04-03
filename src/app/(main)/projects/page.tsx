@@ -1,9 +1,18 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getAllProjects, getAllProjectCategories } from '@/lib/sanity/queries';
+import { getAllProjects, getAllProjectCategories, getProjectsPage } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 
 export const revalidate = 3600;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const projectsPage = await getProjectsPage();
+  return {
+    title: projectsPage?.seoTitle ?? 'Projects',
+    description: projectsPage?.seoDescription,
+  };
+}
 
 const heroCSS = `
 /* Section */
@@ -176,9 +185,10 @@ const archiveCSS = `
 `;
 
 export default async function ProjectsPage() {
-  const [projects, categories] = await Promise.all([
+  const [projects, categories, projectsPage] = await Promise.all([
     getAllProjects(),
     getAllProjectCategories(),
+    getProjectsPage(),
   ]);
   return (
     <div className="page_main">

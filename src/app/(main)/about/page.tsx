@@ -87,15 +87,15 @@ export default async function AboutPage() {
             {/* Large heading + CTA */}
             <div className="about_intro-col u-column-start-1 u-column-span-10 u-margin-top-8">
               <div className="about_intro_col-inner u-flex-vertical-nowrap">
-                <h3 data-split="line" className="about_intro-heading u-text-style-h3">Each stage of our process carries the same intent; to analyse before we advise, to challenge before we commit, and to deliver with a precision that protects every outcome.</h3>
+                <h3 data-split="line" className="about_intro-heading u-text-style-h3">{aboutPage?.introLargeHeading ?? 'Each stage of our process carries the same intent; to analyse before we advise, to challenge before we commit, and to deliver with a precision that protects every outcome.'}</h3>
                 <div className="u-button-wrapper u-alignment-start">
                   <div className="u-display-contents">
                     <div data-wf--button-main--variant="primary" className="button_main_wrap" data-button=" " data-trigger="hover focus">
                       <div data-wf--clickable--variant="focus-ring-outside" className="clickable_wrap u-cover-absolute">
-                        <button type="button" aria-label="View Our Work" className="clickable_btn"></button>
+                        <Link href={aboutPage?.ctaUrl ?? '/projects'} aria-label={aboutPage?.ctaLabel ?? 'View Our Work'} className="clickable_link w-inline-block"></Link>
                       </div>
                       <div className="button_main_element">
-                        <div aria-hidden="true" className="button_main_text u-text-style-main u-text-transform-uppercase u-weight-bold">View Our Work</div>
+                        <div aria-hidden="true" className="button_main_text u-text-style-main u-text-transform-uppercase u-weight-bold">{aboutPage?.ctaLabel ?? 'View Our Work'}</div>
                         <div className="button_main_icon u-hide-if-empty"></div>
                       </div>
                     </div>
@@ -111,7 +111,7 @@ export default async function AboutPage() {
                   <EyebrowSvg className="about_intro_eyebrow-svg" />
                   <div data-anim-hero="" className="about_intro_eyebrowheading u-text-style-large u-text-transform-uppercase u-weight-bold">About Element bc</div>
                 </div>
-                <p data-split="line" className="about_intro-p u-text-style-large u-text-decoration-justify">Element transforms complex projects into confident outcomes. We specialise in building consultancy that uncovers risk, sharpens performance, and protects your investment. Every project is guided by precision, meticulous management, and an unwavering attention to detail.</p>
+                <p data-split="line" className="about_intro-p u-text-style-large u-text-decoration-justify">{aboutPage?.introSecondaryParagraph ?? 'Element transforms complex projects into confident outcomes. We specialise in building consultancy that uncovers risk, sharpens performance, and protects your investment. Every project is guided by precision, meticulous management, and an unwavering attention to detail.'}</p>
               </div>
               <div className="about_intro_col-inner u-flex-vertical-nowrap u-column-start-7 u-column-span-6">
                 <div className="about_intro_image-wrap u-position-relative u-ratio-2-3">
@@ -132,6 +132,45 @@ export default async function AboutPage() {
         </div>
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
+
+      {/* ============================================================
+          TEAM MEMBERS SECTION
+      ============================================================ */}
+      {aboutPage?.teamMembers && aboutPage.teamMembers.length > 0 && (
+        <section className="about_team-wrap u-theme-buff">
+          <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+          <div className="about_team-contain u-container">
+            <div className="about_team-layout u-grid-custom u-gap-row-6">
+              {aboutPage.teamMembers.map((member) => (
+                <div key={member._key} data-stagger-item="" className="about_team-item u-column-span-3 u-flex-vertical-nowrap u-gap-4">
+                  {member.photo && member.photo.asset?.url && (
+                    <div className="about_team_image-wrap u-position-relative u-ratio-3-4">
+                      <Image
+                        fill
+                        src={member.photo.asset.url}
+                        alt={member.photo.alt ?? member.name ?? ''}
+                        className="about_team-img u-cover-absolute"
+                      />
+                    </div>
+                  )}
+                  <div className="about_team_info-wrap u-flex-vertical-nowrap u-gap-2">
+                    {member.name && (
+                      <div className="about_team-name u-text-style-large u-weight-bold">{member.name}</div>
+                    )}
+                    {member.role && (
+                      <div className="about_team-role u-text-style-small u-text-transform-uppercase">{member.role}</div>
+                    )}
+                    {member.bio && (
+                      <p className="about_team-bio u-text-style-main">{member.bio}</p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+        </section>
+      )}
 
       {/* ============================================================
           VALUES SECTION
