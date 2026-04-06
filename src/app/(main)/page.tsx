@@ -53,7 +53,7 @@ const projectsArchiveCSS = `
 export default async function HomePage() {
   const [homePage, projectsPage] = await Promise.all([getHomePage(), getProjectsPage()]);
   return (
-    <div className="page_main">
+    <>
 
       {/* ============================================================
           HERO SECTION
@@ -401,6 +401,6 @@ export default async function HomePage() {
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
 
-    </div>
+    </>
   );
 }

@@ -15,7 +15,7 @@ const EyebrowSvg = ({ className }: { className?: string }) => (
 export default async function AboutPage() {
   const aboutPage = await getAboutPage();
   return (
-    <div className="page_main">
+    <>
 
       {/* ============================================================
           HERO SECTION
@@ -374,6 +374,6 @@ export default async function AboutPage() {
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
 
-    </div>
+    </>
   );
 }

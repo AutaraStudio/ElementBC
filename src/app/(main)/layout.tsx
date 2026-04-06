@@ -35,7 +35,7 @@ export default async function MainLayout({
       <div aria-hidden="true" data-bg="next" className="bg-next"></div>
       <div aria-hidden="true" data-bg="current" className="bg-current"></div>
       <div className="page_wrap">
-        <div className="u-position-fixed">
+        <div className="u-position-fixed u-fixed-overlay">
           {/* Nav */}
           <Navbar navLinks={nav?.navLinks} />
           {/* Preloader */}

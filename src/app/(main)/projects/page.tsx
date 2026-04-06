@@ -191,7 +191,7 @@ export default async function ProjectsPage() {
     getProjectsPage(),
   ]);
   return (
-    <div className="page_main">
+    <>
 
       {/* ============================================================
           HERO SECTION — SLIDER
@@ -501,6 +501,6 @@ export default async function ProjectsPage() {
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
 
-    </div>
+    </>
   );
 }
