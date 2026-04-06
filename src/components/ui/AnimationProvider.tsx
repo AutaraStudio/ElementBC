@@ -9,7 +9,6 @@ import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { usePreloader } from '@/hooks/usePreloader';
 import { useNavAnimation } from '@/hooks/useNavAnimation';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { usePageTransition } from '@/hooks/usePageTransition';
 
 // ---------------------------------------------------------------------------
 // List Hover
@@ -430,7 +429,6 @@ export default function AnimationProvider() {
   usePreloader(pathname);
   useNavAnimation();
   useScrollReveal();
-  usePageTransition();
 
   // Initial mount — one-time inits
   useEffect(() => {
@@ -452,16 +450,6 @@ export default function AnimationProvider() {
       return;
     }
 
-    // If a page transition is in progress, wait for it to complete before reinit
-    const hasTransition = !!document.querySelector('.page-transition_leaving');
-
-    if (hasTransition) {
-      const handler = () => reinitPageAnimations();
-      window.addEventListener('page:enter-complete', handler, { once: true });
-      return () => window.removeEventListener('page:enter-complete', handler);
-    }
-
-    // No transition (browser back/forward, direct URL) — use timeout
     const timer = setTimeout(() => {
       reinitPageAnimations();
     }, 150);

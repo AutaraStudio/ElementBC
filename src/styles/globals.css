@@ -538,39 +538,6 @@ input:focus-visible {
 
 
 /* =============================================================================
-   PAGE TRANSITION — 3D perspective container + leaving clone
-   ============================================================================= */
-
-.page-transition_perspective {
-  position: fixed;
-  inset: 0;
-  z-index: 499;
-  perspective: 100vw;
-  transform-style: preserve-3d;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.page-transition_leaving {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100vh;
-  overflow: hidden;
-  transform-style: preserve-3d;
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .page-transition_perspective {
-    display: none;
-  }
-}
-
-
-/* =============================================================================
    BACKGROUND TRANSITION LAYERS
    ============================================================================= */
 
