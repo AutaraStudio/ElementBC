@@ -29,7 +29,11 @@
       "Bash(npx tsx:*)",
       "Bash(curl -s -X POST \"https://element-bc.vercel.app/api/revalidate?secret=23fb9a8a824b3c6fea827a71d311cdae5bcab3dbb29ef52d79aaba82cf4ea4e5\" -H \"Content-Type: application/json\" -d \"{\\\\\"_type\\\\\":\\\\\"homePage\\\\\"}\")",
       "Bash(curl -s -X POST \"https://element-bc.vercel.app/api/revalidate?secret=23fb9a8a824b3c6fea827a71d311cdae5bcab3dbb29ef52d79aaba82cf4ea4e5\" -H \"Content-Type: application/json\" -d \"{\\\\\"_type\\\\\":\\\\\"aboutPage\\\\\"}\")",
-      "Bash(curl -s -X POST \"https://element-bc.vercel.app/api/revalidate?secret=23fb9a8a824b3c6fea827a71d311cdae5bcab3dbb29ef52d79aaba82cf4ea4e5\" -H \"Content-Type: application/json\" -d \"{\\\\\"_type\\\\\":\\\\\"projectsPage\\\\\"}\")"
+      "Bash(curl -s -X POST \"https://element-bc.vercel.app/api/revalidate?secret=23fb9a8a824b3c6fea827a71d311cdae5bcab3dbb29ef52d79aaba82cf4ea4e5\" -H \"Content-Type: application/json\" -d \"{\\\\\"_type\\\\\":\\\\\"projectsPage\\\\\"}\")",
+      "Bash(npx next:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(grep -r \"\\\\-\\\\-anim\\\\-\\\\|page-transition\\\\|locomotiveScroll\" . --include=*.css --include=*.scss -l)",
+      "Bash(grep -n \"page-transition\\\\|page_main\\\\|page_wrap\" src/styles/*.css)"
     ]
   }
 }

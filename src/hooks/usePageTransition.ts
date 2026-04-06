@@ -63,16 +63,14 @@ export function usePageTransition() {
       // Double rAF ensures the browser has painted the new content
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          const duration = 1.2;
+          const duration = 0.8;
           const ease = 'power3.inOut';
 
-          // Prepare new page_main for entry
+          // Prepare new page_main underneath — slightly scaled down
           gsap.set(pageMain, {
             autoAlpha: 1,
-            xPercent: 100,
-            z: -200,
-            clipPath: 'rect(2% 98% 98% 2% round 1.5em)',
-            transformOrigin: 'center center',
+            scale: 0.95,
+            opacity: 0.8,
           });
 
           // Also hide footer during transition (it's outside page_main)
@@ -100,36 +98,20 @@ export function usePageTransition() {
             },
           });
 
-          // Leave animation — old page pushes back + slides left
+          // Leave — swipe old page up
           tl.to(clone, {
-            z: -800,
-            duration: duration * 0.75,
+            yPercent: -100,
+            duration,
             ease,
-            clipPath: 'rect(2% 98% 98% 2% round 1.5em)',
           }, 0);
 
-          tl.to(clone, {
-            xPercent: -120,
+          // Enter — subtle scale-up reveal underneath
+          tl.to(pageMain, {
+            scale: 1,
+            opacity: 1,
             duration,
             ease,
-            overwrite: 'auto',
-          }, 0.15);
-
-          // Enter animation — new page slides in from right
-          tl.to(pageMain, {
-            xPercent: 0,
-            duration,
-            ease,
-            overwrite: 'auto',
-          }, 0.15);
-
-          tl.to(pageMain, {
-            z: 0,
-            duration: duration * 0.75,
-            ease,
-            clipPath: 'rect(0% 100% 100% 0% round 0em)',
-            overwrite: 'auto',
-          }, duration * 0.4);
+          }, 0);
 
           // Fade footer back in near the end
           if (realFooter && realFooter.tagName === 'SECTION') {
