@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import gsap from '@/lib/gsap';
 import { ScrollTrigger } from '@/lib/gsap';
 import { useAnimUtils } from '@/hooks/useAnimUtils';
@@ -339,15 +340,43 @@ function initHeroImageHover() {
 }
 
 // ---------------------------------------------------------------------------
+// Re-init page animations after client-side navigation
+// ---------------------------------------------------------------------------
+function reinitPageAnimations() {
+  // Call the scroll-reveal init functions exposed on window
+  const w = window as Record<string, unknown>;
+  if (typeof w.initOverlayFadeouts === 'function') (w.initOverlayFadeouts as () => void)();
+  if (typeof w.initSvgReveal === 'function') (w.initSvgReveal as () => void)();
+  if (typeof w.initInstantSvgStagger === 'function') (w.initInstantSvgStagger as () => void)();
+  if (typeof w.initSplitWrappers === 'function') (w.initSplitWrappers as () => void)();
+  if (typeof w.initSplitText === 'function') (w.initSplitText as () => void)();
+  if (typeof w.initStaggerReveal === 'function') (w.initStaggerReveal as () => void)();
+
+  // Re-init component-level animations
+  initListHover();
+  initCarouselManager();
+  initProjectSlider();
+  initHeroImageHover();
+
+  // Refresh LocomotiveScroll + ScrollTrigger for new page height
+  window.locomotiveScroll?.update?.();
+  ScrollTrigger.refresh();
+}
+
+// ---------------------------------------------------------------------------
 // Orchestrator
 // ---------------------------------------------------------------------------
 export default function AnimationProvider() {
+  const pathname = usePathname();
+  const isFirstRender = useRef(true);
+
   useAnimUtils();
   useSmoothScroll();
   usePreloader();
   useNavAnimation();
   useScrollReveal();
 
+  // Initial mount — one-time inits
   useEffect(() => {
     initListHover();
     initCarouselManager();
@@ -359,6 +388,22 @@ export default function AnimationProvider() {
       ScrollTrigger.getAll().forEach((st) => st.kill());
     };
   }, []);
+
+  // Re-init on client-side navigation (skip first render — handled above)
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    // Wait for Next.js to finish rendering new page DOM before re-initializing.
+    // requestAnimationFrame is too early; use a short timeout to let React commit.
+    const timer = setTimeout(() => {
+      reinitPageAnimations();
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
   return null;
 }
