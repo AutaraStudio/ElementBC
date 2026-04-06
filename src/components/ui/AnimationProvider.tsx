@@ -292,9 +292,12 @@ function initCustomCursor() {
 // Hero Image Hover (View Project trigger)
 // ---------------------------------------------------------------------------
 function initHeroImageHover() {
-  console.log('[HeroHover] init called');
-  const trigger = document.querySelector('[data-hero-trigger]');
-  if (!trigger) { console.log('[HeroHover] no trigger found'); return; }
+  const trigger = document.querySelector('[data-hero-trigger]') as HTMLElement | null;
+  if (!trigger) return;
+
+  // Prevent duplicate listeners from strict mode / HMR
+  if (trigger.dataset._heroHoverInit) return;
+  trigger.dataset._heroHoverInit = 'true';
 
   const wrap = trigger.closest('[data-hero-item]') || trigger.closest('[data-hero-wrap]');
   if (!wrap) return;
@@ -306,25 +309,33 @@ function initHeroImageHover() {
   const duration = 1;
   const ease = 'power3.inOut';
 
-  let hoverTl: gsap.core.Timeline | null = null;
+  // Proxy object — GSAP tweens a number, we build the clip-path string manually
+  const clip = { top: 100 };
 
-  function enter() {
-    console.log('[HeroHover] enter fired', { primary, secondary });
-    if (hoverTl) hoverTl.kill();
-    hoverTl = gsap.timeline()
-      .to(secondary, { clipPath: 'inset(0% 0 0 0)', duration, ease }, 0)
-      .to(primary, { scale: 1, duration, ease }, 0);
+  function applyClip() {
+    secondary.style.clipPath = `inset(${clip.top}% 0% 0% 0%)`;
   }
 
-  function leave() {
-    if (hoverTl) hoverTl.kill();
-    hoverTl = gsap.timeline()
-      .to(secondary, { clipPath: 'inset(100% 0 0 0)', duration, ease }, 0)
-      .to(primary, { scale: 1.1, duration, ease }, 0);
-  }
+  let hoverTl: gsap.core.Tween | null = null;
+  let scaleTl: gsap.core.Tween | null = null;
 
-  trigger.addEventListener('mouseenter', enter);
-  trigger.addEventListener('mouseleave', leave);
+  trigger.addEventListener('mouseenter', () => {
+    if (hoverTl) hoverTl.kill();
+    if (scaleTl) scaleTl.kill();
+    hoverTl = gsap.to(clip, { top: 0, duration, ease, onUpdate: applyClip });
+    scaleTl = gsap.to(primary, { scale: 1, duration, ease });
+  });
+
+  trigger.addEventListener('mouseleave', () => {
+    if (hoverTl) hoverTl.kill();
+    if (scaleTl) scaleTl.kill();
+    hoverTl = gsap.to(clip, { top: 100, duration, ease, onUpdate: applyClip });
+    scaleTl = gsap.to(primary, { scale: 1.1, duration, ease });
+  });
+
+  // Set initial state
+  applyClip();
+  gsap.set(primary, { scale: 1.1 });
 }
 
 // ---------------------------------------------------------------------------
