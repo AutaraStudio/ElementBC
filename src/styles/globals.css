@@ -420,6 +420,11 @@ html::-webkit-scrollbar {
   padding: 0;
 }
 
+[role="list"],
+[role="listitem"] {
+  list-style: none;
+}
+
 /* .w-embed — wrapper div used by Webflow to inject inline CSS/JS; kept for Navbar CSS embed compatibility */
 /* .w-richtext — Webflow rich text reset; harmless, keeps Sanity portable text styling clean */
 /* .w-inline-block — applied to nav links in JSX; no CSS rule needed, display is handled by component styles */
