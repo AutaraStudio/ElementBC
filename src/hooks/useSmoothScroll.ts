@@ -127,6 +127,7 @@ export function useSmoothScroll() {
     window.addEventListener('resize', updateThumbHeight);
 
     return () => {
+      window.removeEventListener('resize', updateThumbHeight);
       window.locomotiveScroll?.destroy?.();
       ScrollTrigger.getAll().forEach(t => t.kill());
     };

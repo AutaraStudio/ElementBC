@@ -7,6 +7,10 @@ export function useScrollReveal() {
   useEffect(() => {
     let resizeTimer: ReturnType<typeof setTimeout>;
     let rafId: number | null = null;
+    let glowMouseHandler: ((evt: MouseEvent) => void) | null = null;
+    let glowResizeHandler: (() => void) | null = null;
+    let resizeHandler: (() => void) | null = null;
+    let styleEl: HTMLStyleElement | null = null;
 
     function run() {
       const animUtils = window.animUtils;
@@ -99,8 +103,8 @@ export function useScrollReveal() {
         });
       }
 
-      // Inject style for svg glow baseline
-      const styleEl = document.createElement('style');
+      // Inject style for svg glow baseline (store ref for cleanup)
+      styleEl = document.createElement('style');
       styleEl.textContent =
         '[data-svg-stagger] [data-svg-path]{opacity:0;}' +
         '[data-svg-path][data-glow-active]{--glow-brightness:1;filter:brightness(var(--glow-brightness)) !important;}';
@@ -433,8 +437,8 @@ export function useScrollReveal() {
         });
       }
 
-      // Resize — re-init split/stagger animations
-      window.addEventListener('resize', () => {
+      // Resize — re-init split/stagger animations (store ref for cleanup)
+      resizeHandler = () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
           document.querySelectorAll('[data-split]').forEach((el) => { delete (el as HTMLElement).dataset._splitInit; });
@@ -457,7 +461,8 @@ export function useScrollReveal() {
           window.locomotiveScroll?.update?.();
           ScrollTrigger.refresh();
         }, 300);
-      });
+      };
+      window.addEventListener('resize', resizeHandler);
 
       // Run all inits
       initOverlayFadeouts();
@@ -467,14 +472,16 @@ export function useScrollReveal() {
       initSplitText();
       initStaggerReveal();
 
-      // Set up glow if svg paths present
+      // Set up glow if svg paths present (store handler refs for cleanup)
       glowPaths = gsap.utils.toArray('[data-svg-path]') as Element[];
       if (glowPaths.length) {
         glowActive = true;
         updateGlowPositions();
-        document.addEventListener('mousemove', onMouseMove);
+        glowMouseHandler = onMouseMove;
+        glowResizeHandler = updateGlowPositions;
+        document.addEventListener('mousemove', glowMouseHandler);
         waitForLenis();
-        window.addEventListener('resize', updateGlowPositions);
+        window.addEventListener('resize', glowResizeHandler);
         if (!rafId) rafId = requestAnimationFrame(glowTick);
       }
 
@@ -486,6 +493,16 @@ export function useScrollReveal() {
         });
         heroQueue.length = 0;
       });
+
+      // Expose hero queue player for use by reinitPageAnimations on navigation
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any)._playHeroAnimations = () => {
+        heroQueue.forEach((item) => {
+          if (item.tl) item.tl.play();
+          else if (item.targets) gsap.to(item.targets, item.animProps!);
+        });
+        heroQueue.length = 0;
+      };
 
       // Expose to window for use by other scripts
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -508,6 +525,10 @@ export function useScrollReveal() {
       window.removeEventListener('preloader:complete', run);
       clearTimeout(resizeTimer);
       if (rafId) cancelAnimationFrame(rafId);
+      if (glowMouseHandler) document.removeEventListener('mousemove', glowMouseHandler);
+      if (glowResizeHandler) window.removeEventListener('resize', glowResizeHandler);
+      if (resizeHandler) window.removeEventListener('resize', resizeHandler);
+      if (styleEl) styleEl.remove();
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, []);

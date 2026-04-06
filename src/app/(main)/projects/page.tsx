@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
+import TransitionLink from '@/components/ui/TransitionLink';
 import { getAllProjects, getAllProjectCategories, getProjectsPage } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 
@@ -212,7 +212,7 @@ export default async function ProjectsPage() {
             {projects.slice(0, 5).map((project) => (
               <div key={project._id} data-slider-item="" role="listitem" className="projects_hero-item u-cover-absolute u-pointer-off u-position-absolute">
                 <div data-overlay-dark="" data-slider-asset="" className="projects_hero-asset u-cover-absolute u-overflow-clip">
-                  <Link href={`/projects/${project.slug}`} className="projects_hero-link u-cover-absolute u-zindex-1"></Link>
+                  <TransitionLink href={`/projects/${project.slug}`} className="projects_hero-link u-cover-absolute u-zindex-1"></TransitionLink>
                   {urlFor(project.featuredImage1) && (
                     <Image
                       fill
@@ -335,7 +335,7 @@ export default async function ProjectsPage() {
                   className="projects_archive-item u-position-relative u-flex-vertical-nowrap u-gap-3"
                 >
                   <div data-cursor-marquee-text="View Project" className="projects_archive_image-wrap u-position-relative u-overflow-hidden u-pointer-on">
-                    <Link href={`/projects/${project.slug}`} className="projects_archive-link u-cover-absolute u-zindex-3"></Link>
+                    <TransitionLink href={`/projects/${project.slug}`} className="projects_archive-link u-cover-absolute u-zindex-3"></TransitionLink>
                     <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
                     {urlFor(project.featuredImage1) && (
                       <Image

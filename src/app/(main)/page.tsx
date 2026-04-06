@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import TransitionLink from '@/components/ui/TransitionLink';
 import { getHomePage, getProjectsPage } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 import HomeAboutSvg from '@/components/ui/svgs/HomeAboutSvg';
@@ -107,14 +107,14 @@ export default async function HomePage() {
                     <div className="home_hero-featured-text u-text-style-main u-text-transform-uppercase"></div>
                   </div>
                   <div data-stagger-item="" className="home_hero_featured-col">
-                    <Link
+                    <TransitionLink
                       href={homePage?.heroProject?.slug ? `/projects/${homePage.heroProject.slug}` : '/projects'}
                       data-hero-trigger=""
                       className="link_underline-wrap u-padding-bottom-1"
                     >
                       <div data-featured-text="" className="link_underline-text u-text-style-main u-text-transform-uppercase">{homePage?.heroViewProjectText ?? 'View Project'}</div>
                       <div className="link_underline-line"></div>
-                    </Link>
+                    </TransitionLink>
                   </div>
                 </div>
                 <div className="home_hero_heading-wrap u-position-absolute">
@@ -228,7 +228,7 @@ export default async function HomePage() {
               {(homePage?.featuredProjects ?? []).map((project) => (
                 <div key={project._id} role="listitem" className="projects_archive-item u-position-relative u-flex-vertical-nowrap u-gap-3">
                   <div data-cursor-marquee-text="View Project" className="projects_archive_image-wrap u-position-relative u-overflow-hidden">
-                    <Link href={`/projects/${project.slug}`} className="projects_archive-link u-cover-absolute w-inline-block"></Link>
+                    <TransitionLink href={`/projects/${project.slug}`} className="projects_archive-link u-cover-absolute w-inline-block"></TransitionLink>
                     <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
                     {urlFor(project.featuredImage1) && (
                       <Image
@@ -252,7 +252,7 @@ export default async function HomePage() {
               <div className="u-display-contents">
                 <div data-wf--button-main--variant="secondary" className="button_main_wrap u-width-full" data-button=" " data-trigger="hover focus">
                   <div data-wf--clickable--variant="focus-ring-outside" className="clickable_wrap u-cover-absolute">
-                    <Link aria-label="View All Projects" href="/projects" className="clickable_link w-inline-block"></Link>
+                    <TransitionLink aria-label="View All Projects" href="/projects" className="clickable_link w-inline-block"></TransitionLink>
                   </div>
                   <div className="button_main_element w-variant-e85564cd-af30-a478-692b-71732aefb3ab">
                     <div aria-hidden="true" className="button_main_text u-text-style-main u-text-transform-uppercase u-weight-bold">View All Projects</div>

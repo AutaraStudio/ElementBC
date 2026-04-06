@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import TransitionLink from '@/components/ui/TransitionLink';
 import { usePathname } from 'next/navigation';
 import type { SanityNavLink } from '@/lib/sanity/queries';
 import NavBackgroundSvg from '@/components/ui/svgs/NavBackgroundSvg';
@@ -69,7 +70,7 @@ export default function Navbar({ navLinks: sanityNavLinks }: NavbarProps) {
                   const isActive = url !== '#' && pathname === url;
                   return (
                     <li key={url + label} data-nav-item="" className="nav_mega_list-item u-position-relative">
-                      <Link
+                      <TransitionLink
                         data-nav-link=""
                         href={url}
                         aria-current={isActive ? 'page' : undefined}
@@ -78,7 +79,7 @@ export default function Navbar({ navLinks: sanityNavLinks }: NavbarProps) {
                         <div data-nav-link-text="" className="nav_mega_link-text u-text-style-h2 u-text-transform-uppercase">
                           {label === 'About & Team' ? <>About &amp; Team</> : label}
                         </div>
-                      </Link>
+                      </TransitionLink>
                     </li>
                   );
                 })}

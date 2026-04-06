@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import TransitionLink from '@/components/ui/TransitionLink';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getAllProjects, getProjectBySlug } from '@/lib/sanity/queries';
@@ -357,7 +357,7 @@ export default async function ProjectDetailPage({
               {relatedProjects.map((related) => (
                 <div key={related.slug} className="projects_related-item u-position-relative u-flex-vertical-nowrap u-gap-3">
                   <div data-overlay-medium="" data-cursor-marquee-text="View Project" className="projects_related_image-wrap u-position-relative u-overflow-hidden">
-                    <Link href={`/projects/${related.slug}`} className="projects_related-link u-cover-absolute w-inline-block"></Link>
+                    <TransitionLink href={`/projects/${related.slug}`} className="projects_related-link u-cover-absolute w-inline-block"></TransitionLink>
                     {urlFor(related.featuredImage1) && (
                       <Image
                         src={urlFor(related.featuredImage1)}

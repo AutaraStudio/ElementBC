@@ -22,7 +22,23 @@ declare global {
     animUtils: AnimUtils;
     locomotiveScroll: InstanceType<typeof LocomotiveScroll> & {
       update?: () => void;
+      stop?: () => void;
+      start?: () => void;
     };
+    _playHeroAnimations?: () => void;
+    _lenisProxyReady?: boolean;
+    siteNav?: {
+      isOpen: () => boolean;
+      open: () => void;
+      close: () => void;
+      toggle: (ev: Event) => void;
+    };
+    initOverlayFadeouts?: (container?: Element | null) => void;
+    initSvgReveal?: (container?: Element | null) => void;
+    initInstantSvgStagger?: (container?: Element | null) => void;
+    initSplitText?: (container?: Element | null) => void;
+    initSplitWrappers?: (container?: Element | null) => void;
+    initStaggerReveal?: (container?: Element | null) => void;
   }
 }
 

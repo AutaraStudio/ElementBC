@@ -3,14 +3,31 @@ import { useEffect } from 'react';
 import gsap from '@/lib/gsap';
 import { CustomEase } from '@/lib/gsap';
 
-export function usePreloader() {
+export function usePreloader(pathname: string) {
   useEffect(() => {
+    // Always create custom eases — they're used by other animations too
+    CustomEase.create('cin', 'M0,0 C0.22,0.6 0.36,1 1,1');
+    CustomEase.create('cinOut', 'M0,0 C0.64,0 0.78,0.4 1,1');
+    CustomEase.create('reveal', 'M0,0 C0.62,0.05 0.01,0.99 1,1');
+
+    const shouldPlay = pathname === '/' && !sessionStorage.getItem('preloaderDone');
+
+    if (!shouldPlay) {
+      // Skip preloader — hide wraps immediately and fire the event
+      const wrap = document.querySelector('[data-preloader-wrap]') as HTMLElement | null;
+      const wrap2 = document.querySelector('[data-preloader2-wrap]') as HTMLElement | null;
+      if (wrap) wrap.style.display = 'none';
+      if (wrap2) wrap2.style.display = 'none';
+
+      // Use rAF to ensure useScrollReveal's preloader:complete listener is registered first
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new Event('preloader:complete'));
+      });
+      return;
+    }
+
     function run() {
       if (!window.animUtils) return;
-
-      CustomEase.create('cin', 'M0,0 C0.22,0.6 0.36,1 1,1');
-      CustomEase.create('cinOut', 'M0,0 C0.64,0 0.78,0.4 1,1');
-      CustomEase.create('reveal', 'M0,0 C0.62,0.05 0.01,0.99 1,1');
 
       const wrap = document.querySelector('[data-preloader-wrap]');
       const svgEl = document.querySelector('[data-preloader-svg]');
@@ -67,6 +84,7 @@ export function usePreloader() {
               } else {
                 document.documentElement.style.overflow = '';
               }
+              sessionStorage.setItem('preloaderDone', '1');
               window.dispatchEvent(new Event('preloader:complete'));
             },
           },
@@ -81,5 +99,5 @@ export function usePreloader() {
     }
 
     // No cleanup needed — preloader runs once on mount only
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 }

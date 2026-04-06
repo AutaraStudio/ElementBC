@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import TransitionLink from '@/components/ui/TransitionLink';
 import { getAboutPage } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 import AboutHeroBackgroundSvg from '@/components/ui/svgs/AboutHeroBackgroundSvg';
@@ -92,7 +92,7 @@ export default async function AboutPage() {
                   <div className="u-display-contents">
                     <div data-wf--button-main--variant="primary" className="button_main_wrap" data-button=" " data-trigger="hover focus">
                       <div data-wf--clickable--variant="focus-ring-outside" className="clickable_wrap u-cover-absolute">
-                        <Link href={aboutPage?.ctaUrl ?? '/projects'} aria-label={aboutPage?.ctaLabel ?? 'View Our Work'} className="clickable_link w-inline-block"></Link>
+                        <TransitionLink href={aboutPage?.ctaUrl ?? '/projects'} aria-label={aboutPage?.ctaLabel ?? 'View Our Work'} className="clickable_link w-inline-block"></TransitionLink>
                       </div>
                       <div className="button_main_element">
                         <div aria-hidden="true" className="button_main_text u-text-style-main u-text-transform-uppercase u-weight-bold">{aboutPage?.ctaLabel ?? 'View Our Work'}</div>

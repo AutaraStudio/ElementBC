@@ -34,6 +34,7 @@ export default async function MainLayout({
       <AnimationProvider />
       <div aria-hidden="true" data-bg="next" className="bg-next"></div>
       <div aria-hidden="true" data-bg="current" className="bg-current"></div>
+      <div className="page-transition_perspective" aria-hidden="true"></div>
       <div className="page_wrap">
         <div className="u-position-fixed u-fixed-overlay">
           {/* Nav */}

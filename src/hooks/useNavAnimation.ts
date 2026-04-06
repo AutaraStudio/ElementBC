@@ -14,6 +14,9 @@ export function useNavAnimation() {
     let _logoEl: Element | null = null;
     let _revealLetters: (() => void) | null = null;
     let _hideLetters: (() => void) | null = null;
+    let _observer: MutationObserver | null = null;
+    let _glowStyle: HTMLStyleElement | null = null;
+    let _stopGlow: (() => void) | null = null;
 
     function run() {
       if (!document.querySelector('[data-nav-toggle]')) return;
@@ -127,15 +130,15 @@ export function useNavAnimation() {
         _hideLetters = hideLetters;
       }
 
-      // Nav path glow on mouse move
-      const glowStyle = document.createElement('style');
-      glowStyle.textContent = `
+      // Nav path glow on mouse move (store ref for cleanup)
+      _glowStyle = document.createElement('style');
+      _glowStyle.textContent = `
         [data-nav-path][data-glow-active] {
           --glow-brightness: 1; --glow-sepia: 0; --glow-saturate: 1;
           filter: brightness(var(--glow-brightness)) sepia(var(--glow-sepia)) saturate(var(--glow-saturate));
         }
       `;
-      document.head.appendChild(glowStyle);
+      document.head.appendChild(_glowStyle);
 
       const GLOW_RADIUS = 500, GLOW_PEAK = 2.2, GLOW_SEPIA = 0.12, GLOW_SAT = 1.35, SPEED_ON = 0.11, SPEED_OFF = 0.055;
       type GlowPath = { el: Element; cx: number; cy: number; brightness: number };
@@ -196,8 +199,10 @@ export function useNavAnimation() {
         if (!rafId) rafId = requestAnimationFrame(glowFrame);
       }
 
+      _stopGlow = stopGlow;
+
       if (menu) {
-        new MutationObserver((entries) => {
+        _observer = new MutationObserver((entries) => {
           for (const entry of entries) {
             if (entry.attributeName === 'class') {
               menu.classList.contains('is-open')
@@ -205,7 +210,8 @@ export function useNavAnimation() {
                 : stopGlow();
             }
           }
-        }).observe(menu, { attributes: true, attributeFilter: ['class'] });
+        });
+        _observer.observe(menu, { attributes: true, attributeFilter: ['class'] });
       }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -225,6 +231,9 @@ export function useNavAnimation() {
       if (_keyHandler) document.removeEventListener('keydown', _keyHandler);
       if (_logoEl && _revealLetters) _logoEl.removeEventListener('mouseenter', _revealLetters);
       if (_logoEl && _hideLetters) _logoEl.removeEventListener('mouseleave', _hideLetters);
+      _observer?.disconnect();
+      _stopGlow?.();
+      _glowStyle?.remove();
     };
   }, []);
 }

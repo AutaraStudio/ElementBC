@@ -9,6 +9,7 @@ import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { usePreloader } from '@/hooks/usePreloader';
 import { useNavAnimation } from '@/hooks/useNavAnimation';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { usePageTransition } from '@/hooks/usePageTransition';
 
 // ---------------------------------------------------------------------------
 // List Hover
@@ -36,6 +37,8 @@ function initListHover() {
   document.querySelectorAll('[data-hover]').forEach((hoverGroup) => {
     const axis = hoverGroup.getAttribute('data-hover-axis') || 'all';
     hoverGroup.querySelectorAll('[data-hover-item]').forEach((item) => {
+      if ((item as HTMLElement).dataset._hoverInit) return;
+      (item as HTMLElement).dataset._hoverInit = 'true';
       const tile = item.querySelector('[data-hover-tile]') as HTMLElement | null;
       if (!tile) return;
       item.addEventListener('mouseenter', (evt) => {
@@ -59,9 +62,20 @@ function initListHover() {
 // ---------------------------------------------------------------------------
 // Project Slider
 // ---------------------------------------------------------------------------
+let _sliderProgressTween: gsap.core.Tween | null = null;
+let _sliderTransitionCtx: gsap.Context | null = null;
+
 function initProjectSlider() {
-  const sliderEl = document.querySelector('[data-slider]');
+  const sliderEl = document.querySelector('[data-slider]') as HTMLElement | null;
   if (!sliderEl) return;
+
+  // Dedup guard
+  if (sliderEl.dataset._sliderInit) return;
+  sliderEl.dataset._sliderInit = 'true';
+
+  // Kill stale tweens from previous page
+  if (_sliderProgressTween) { _sliderProgressTween.kill(); _sliderProgressTween = null; }
+  if (_sliderTransitionCtx) { _sliderTransitionCtx.kill(); _sliderTransitionCtx = null; }
 
   const indicator = sliderEl.querySelector('[data-slider-indicator]');
   const indicatorTitle = sliderEl.querySelector('[data-slider-indicator-title]');
@@ -100,8 +114,6 @@ function initProjectSlider() {
   let isTransitioning = false;
   let touchStartX = 0;
   let touchStartY = 0;
-  let progressTween: gsap.core.Tween | null = null;
-  let transitionCtx: gsap.Context | null = null;
 
   const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -111,9 +123,9 @@ function initProjectSlider() {
   }
 
   function startProgress() {
-    if (progressTween) progressTween.kill();
+    if (_sliderProgressTween) _sliderProgressTween.kill();
     gsap.set(progressEl, { scaleX: 0 });
-    progressTween = gsap.fromTo(
+    _sliderProgressTween = gsap.fromTo(
       progressEl,
       { scaleX: 0 },
       { scaleX: 1, duration: 8, ease: 'linear', onComplete: () => go(1) }
@@ -129,14 +141,14 @@ function initProjectSlider() {
     if (current > count) current = 1;
     updateUI();
 
-    if (transitionCtx) transitionCtx.kill();
+    if (_sliderTransitionCtx) _sliderTransitionCtx.kill();
     const fromIdx = prev - 1;
     const toIdx = current - 1;
     const dur = { duration: 1, ease: 'power3.inOut' };
     const durLong = { duration: 1.8, ease: 'power3.inOut' };
 
     startProgress();
-    transitionCtx = gsap.context(() => {
+    _sliderTransitionCtx = gsap.context(() => {
       gsap.fromTo(slideEls[fromIdx], { autoAlpha: 1 }, { autoAlpha: 0, ...dur });
       gsap.fromTo(slideEls[toIdx], { autoAlpha: 0 }, { autoAlpha: 1, delay: 0.5, ...dur });
       gsap.set(assets, { zIndex: 1 });
@@ -187,6 +199,9 @@ function initCarouselManager() {
   if (!document.querySelector('[data-marquee]')) return;
 
   document.querySelectorAll('[data-marquee]').forEach((el) => {
+    if ((el as HTMLElement).dataset._marqueeInit) return;
+    (el as HTMLElement).dataset._marqueeInit = 'true';
+
     const collection = el.querySelector('[data-marquee-collection]') as HTMLElement | null;
     const track = el.querySelector('[data-marquee-track]') as HTMLElement | null;
     if (!collection || !track) return;
@@ -232,11 +247,17 @@ function initCarouselManager() {
 }
 
 // ---------------------------------------------------------------------------
-// Custom Cursor
+// Custom Cursor (singleton — init once only)
 // ---------------------------------------------------------------------------
+let _cursorInitialized = false;
+
 function initCustomCursor() {
+  if (_cursorInitialized) return;
+
   const wrap = document.querySelector('[data-cursor-marquee-status]') as Element | null;
   if (!wrap) return;
+
+  _cursorInitialized = true;
 
   const targets = wrap.querySelectorAll('[data-cursor-marquee-text-target]');
   const trackEl = wrap.querySelector('.cursor-marquee_track') as HTMLElement | null;
@@ -340,12 +361,36 @@ function initHeroImageHover() {
 }
 
 // ---------------------------------------------------------------------------
-// Re-init page animations after client-side navigation
+// Cleanup + Re-init page animations after client-side navigation
 // ---------------------------------------------------------------------------
+function cleanupPageAnimations() {
+  const pageMain = document.querySelector('.page_main');
+  if (!pageMain) return;
+
+  // Kill ScrollTriggers whose trigger is inside page_main
+  ScrollTrigger.getAll().forEach((st) => {
+    const trigger = st.vars.trigger || st.trigger;
+    if (trigger && pageMain.contains(trigger as Element)) {
+      st.kill();
+    }
+  });
+
+  // Kill all GSAP tweens targeting elements inside page_main
+  gsap.killTweensOf(pageMain.querySelectorAll('*'));
+
+  // Kill stale slider tweens
+  if (_sliderProgressTween) { _sliderProgressTween.kill(); _sliderProgressTween = null; }
+  if (_sliderTransitionCtx) { _sliderTransitionCtx.kill(); _sliderTransitionCtx = null; }
+}
+
 function reinitPageAnimations() {
-  // Call the scroll-reveal init functions exposed on window
+  // Clean up old page's animations first
+  cleanupPageAnimations();
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const w = window as any;
+
+  // Call the scroll-reveal init functions exposed on window
   if (typeof w.initOverlayFadeouts === 'function') (w.initOverlayFadeouts as () => void)();
   if (typeof w.initSvgReveal === 'function') (w.initSvgReveal as () => void)();
   if (typeof w.initInstantSvgStagger === 'function') (w.initInstantSvgStagger as () => void)();
@@ -359,9 +404,18 @@ function reinitPageAnimations() {
   initProjectSlider();
   initHeroImageHover();
 
+  // Play hero animations for the new page (preloader already done)
+  if (typeof w._playHeroAnimations === 'function') w._playHeroAnimations();
+
   // Refresh LocomotiveScroll + ScrollTrigger for new page height
   window.locomotiveScroll?.update?.();
   ScrollTrigger.refresh();
+
+  // Second pass after images may have loaded
+  setTimeout(() => {
+    window.locomotiveScroll?.update?.();
+    ScrollTrigger.refresh();
+  }, 500);
 }
 
 // ---------------------------------------------------------------------------
@@ -373,9 +427,10 @@ export default function AnimationProvider() {
 
   useAnimUtils();
   useSmoothScroll();
-  usePreloader();
+  usePreloader(pathname);
   useNavAnimation();
   useScrollReveal();
+  usePageTransition();
 
   // Initial mount — one-time inits
   useEffect(() => {
@@ -397,8 +452,16 @@ export default function AnimationProvider() {
       return;
     }
 
-    // Wait for Next.js to finish rendering new page DOM before re-initializing.
-    // requestAnimationFrame is too early; use a short timeout to let React commit.
+    // If a page transition is in progress, wait for it to complete before reinit
+    const hasTransition = !!document.querySelector('.page-transition_leaving');
+
+    if (hasTransition) {
+      const handler = () => reinitPageAnimations();
+      window.addEventListener('page:enter-complete', handler, { once: true });
+      return () => window.removeEventListener('page:enter-complete', handler);
+    }
+
+    // No transition (browser back/forward, direct URL) — use timeout
     const timer = setTimeout(() => {
       reinitPageAnimations();
     }, 150);

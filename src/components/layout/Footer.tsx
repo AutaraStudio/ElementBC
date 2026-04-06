@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import TransitionLink from '@/components/ui/TransitionLink';
 import { usePathname } from 'next/navigation';
 import type { SanityNavLink } from '@/lib/sanity/queries';
 import FooterBackgroundSvg from '@/components/ui/svgs/FooterBackgroundSvg';
@@ -42,7 +43,7 @@ export default function Footer({ navLinks: sanityNavLinks, legalLinks, builtByTe
                   const isActive = url !== '#' && pathname === url;
                   return (
                     <li key={url + label} data-stagger-item="" className="footer_main_nav-item">
-                      <Link
+                      <TransitionLink
                         href={url}
                         aria-current={isActive ? 'page' : undefined}
                         className={`footer_main_nav-link w-inline-block${isActive ? ' w--current' : ''}`}
@@ -50,7 +51,7 @@ export default function Footer({ navLinks: sanityNavLinks, legalLinks, builtByTe
                         <div className="footer_main_nav-text u-text-style-h2 u-text-transform-uppercase">
                           {label === 'About & Team' ? <>About &amp; Team</> : label}
                         </div>
-                      </Link>
+                      </TransitionLink>
                     </li>
                   );
                 })}
