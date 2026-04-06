@@ -289,6 +289,45 @@ function initCustomCursor() {
 }
 
 // ---------------------------------------------------------------------------
+// Hero Image Hover (View Project trigger)
+// ---------------------------------------------------------------------------
+function initHeroImageHover() {
+  console.log('[HeroHover] init called');
+  const trigger = document.querySelector('[data-hero-trigger]');
+  if (!trigger) { console.log('[HeroHover] no trigger found'); return; }
+
+  const wrap = trigger.closest('[data-hero-item]') || trigger.closest('[data-hero-wrap]');
+  if (!wrap) return;
+
+  const primary = wrap.querySelector('[data-hero-img="primary"]') as HTMLElement | null;
+  const secondary = wrap.querySelector('[data-hero-img="secondary"]') as HTMLElement | null;
+  if (!primary || !secondary) return;
+
+  const duration = 1;
+  const ease = 'power3.inOut';
+
+  let hoverTl: gsap.core.Timeline | null = null;
+
+  function enter() {
+    console.log('[HeroHover] enter fired', { primary, secondary });
+    if (hoverTl) hoverTl.kill();
+    hoverTl = gsap.timeline()
+      .to(secondary, { clipPath: 'inset(0% 0 0 0)', duration, ease }, 0)
+      .to(primary, { scale: 1, duration, ease }, 0);
+  }
+
+  function leave() {
+    if (hoverTl) hoverTl.kill();
+    hoverTl = gsap.timeline()
+      .to(secondary, { clipPath: 'inset(100% 0 0 0)', duration, ease }, 0)
+      .to(primary, { scale: 1.1, duration, ease }, 0);
+  }
+
+  trigger.addEventListener('mouseenter', enter);
+  trigger.addEventListener('mouseleave', leave);
+}
+
+// ---------------------------------------------------------------------------
 // Orchestrator
 // ---------------------------------------------------------------------------
 export default function AnimationProvider() {
@@ -303,6 +342,7 @@ export default function AnimationProvider() {
     initCarouselManager();
     initCustomCursor();
     initProjectSlider();
+    initHeroImageHover();
 
     return () => {
       ScrollTrigger.getAll().forEach((st) => st.kill());
