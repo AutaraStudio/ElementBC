@@ -313,7 +313,7 @@ function initHeroImageHover() {
   const clip = { top: 100 };
 
   function applyClip() {
-    secondary.style.clipPath = `inset(${clip.top}% 0% 0% 0%)`;
+    secondary!.style.clipPath = `inset(${clip.top}% 0% 0% 0%)`;
   }
 
   let hoverTl: gsap.core.Tween | null = null;
