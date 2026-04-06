@@ -344,7 +344,8 @@ function initHeroImageHover() {
 // ---------------------------------------------------------------------------
 function reinitPageAnimations() {
   // Call the scroll-reveal init functions exposed on window
-  const w = window as Record<string, unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const w = window as any;
   if (typeof w.initOverlayFadeouts === 'function') (w.initOverlayFadeouts as () => void)();
   if (typeof w.initSvgReveal === 'function') (w.initSvgReveal as () => void)();
   if (typeof w.initInstantSvgStagger === 'function') (w.initInstantSvgStagger as () => void)();
