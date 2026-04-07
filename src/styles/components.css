@@ -2079,10 +2079,10 @@
 }
 
 /* =============================================================================
-   RESPONSIVE — TABLET (container < 50em / ~800px)
+   RESPONSIVE — TABLET (~800px)
    ============================================================================= */
 
-@container (max-width: 50em) {
+@media screen and (max-width: 50em) {
 
   /* --- Global grid collapse: columns collapse to full-width --- */
   .u-grid-custom > .u-column-start-4,
@@ -2253,10 +2253,10 @@
 
 
 /* =============================================================================
-   RESPONSIVE — MOBILE (container < 35em / ~560px)
+   RESPONSIVE — MOBILE (~560px)
    ============================================================================= */
 
-@container (max-width: 35em) {
+@media screen and (max-width: 35em) {
 
   /* --- Global grid: single column --- */
   .u-grid-custom {
