@@ -16,8 +16,8 @@ export function usePreloader(pathname: string) {
       // Skip preloader — hide wraps immediately and fire the event
       const wrap = document.querySelector('[data-preloader-wrap]') as HTMLElement | null;
       const wrap2 = document.querySelector('[data-preloader2-wrap]') as HTMLElement | null;
-      if (wrap) wrap.style.display = 'none';
-      if (wrap2) wrap2.style.display = 'none';
+      if (wrap) wrap.style.setProperty('display', 'none', 'important');
+      if (wrap2) wrap2.style.setProperty('display', 'none', 'important');
 
       // Use rAF to ensure useScrollReveal's preloader:complete listener is registered first
       requestAnimationFrame(() => {
@@ -128,7 +128,7 @@ export function usePreloader(pathname: string) {
             duration: 1.1,
             ease: 'reveal',
             onComplete: () => {
-              (wrap as HTMLElement).style.display = 'none';
+              (wrap as HTMLElement).style.setProperty('display', 'none', 'important');
               if (window.locomotiveScroll) {
                 window.locomotiveScroll.start();
               } else {
