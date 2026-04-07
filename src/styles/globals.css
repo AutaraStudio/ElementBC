@@ -39,7 +39,7 @@
   --_spacing---section-space--small-80px: clamp(3 * 1rem, ((3 - ((5 - 3) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((5 - 3) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 5 * 1rem);
   --_spacing---section-space--large-160px: clamp(5.5 * 1rem, ((5.5 - ((10 - 5.5) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((10 - 5.5) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 10 * 1rem);
   --_spacing---section-space--page-top-224px: clamp(10 * 1rem, ((10 - ((14 - 10) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((14 - 10) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 14 * 1rem);
-  --max-width--main: calc(var(--site--viewport-max) * 1rem);
+  --max-width--main: 90rem;
   --max-width--full: 100%;
   --_text-style---margin-top: var(--_spacing---space--4-24px);
   --_text-style---trim-top: var(--_typography---font--primary-trim-top);
