@@ -1702,7 +1702,10 @@
   object-fit: contain;
 }
 
-.home_about-wrap {
+.home_about-wrap,
+.home_stats-wrap,
+.projects_archive-wrap,
+.partner_carousel-wrap {
   position: relative;
   z-index: 2;
 }
