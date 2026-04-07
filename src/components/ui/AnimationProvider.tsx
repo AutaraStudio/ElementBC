@@ -310,6 +310,39 @@ function initCustomCursor() {
 }
 
 // ---------------------------------------------------------------------------
+// Hero Scroll Fade — sticky hero fades/blurs/scales on scroll
+// ---------------------------------------------------------------------------
+function initHeroScrollFade() {
+  const wrap = document.querySelector('[data-hero-wrap]') as HTMLElement | null;
+  if (!wrap) return;
+
+  const content = wrap.querySelector('.home_hero_featured-contain') as HTMLElement | null;
+  const heading = wrap.querySelector('.home_hero_heading-wrap') as HTMLElement | null;
+  const row = wrap.querySelector('.home_hero_featured-row') as HTMLElement | null;
+
+  if (!content) return;
+
+  const targets = [content];
+
+  gsap.fromTo(targets, {
+    opacity: 1,
+    scale: 1,
+    filter: 'blur(0px)',
+  }, {
+    opacity: 0,
+    scale: 0.95,
+    filter: 'blur(12px)',
+    ease: 'none',
+    scrollTrigger: {
+      trigger: wrap,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+    },
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Hero Image Hover (View Project trigger)
 // ---------------------------------------------------------------------------
 function initHeroImageHover() {
@@ -402,6 +435,7 @@ function reinitPageAnimations() {
   initCarouselManager();
   initProjectSlider();
   initHeroImageHover();
+  initHeroScrollFade();
 
   // Play hero animations for the new page (preloader already done)
   if (typeof w._playHeroAnimations === 'function') w._playHeroAnimations();
@@ -437,6 +471,7 @@ export default function AnimationProvider() {
     initCustomCursor();
     initProjectSlider();
     initHeroImageHover();
+    initHeroScrollFade();
 
     return () => {
       ScrollTrigger.getAll().forEach((st) => st.kill());

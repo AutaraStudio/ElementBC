@@ -1649,6 +1649,9 @@
 }
 
 .home_hero_featured-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   overflow: clip;
 }
 
@@ -1697,6 +1700,11 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.home_about-wrap {
+  position: relative;
+  z-index: 2;
 }
 
 .home_about_eyebrow-svg {
