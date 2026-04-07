@@ -117,6 +117,7 @@ async function createHomePage() {
     heroHeading: 'element',
     heroViewProjectText: 'View Project',
     aboutHeading: 'We started Element to raise the standard.',
+    aboutParagraph: 'Element Building Consultancy provides technical leadership across the full property lifecycle. We believe that protecting and enhancing the value of a built asset requires more than just process management – it requires deep technical understanding of each property, viewed through the lens of our client\'s specific commercial and strategic goals.',
     statsHeading: 'Built on detail.',
     statsSubheading: 'From programme to budget, we manage every detail — and the results speak for themselves.',
     statsItems: [

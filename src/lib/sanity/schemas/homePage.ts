@@ -16,6 +16,12 @@ export const homePage = defineType({
     }),
     defineField({ name: "aboutHeading", title: "About Heading", type: "string" }),
     defineField({
+      name: "aboutParagraph",
+      title: "About Paragraph",
+      type: "text",
+      description: "The paragraph that appears below the about heading.",
+    }),
+    defineField({
       name: "aboutImage",
       title: "About Image",
       type: "image",

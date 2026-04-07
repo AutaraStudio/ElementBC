@@ -145,22 +145,12 @@ export default async function HomePage() {
                     <h2 data-split="word" className="home_about_heading-heading u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{homePage?.aboutHeading ?? 'We started Element to raise the standard.'}</h2>
                   </div>
                 </div>
+                <p data-split="line" className="home_about-p u-text-style-large u-text-decoration-justify">{homePage?.aboutParagraph ?? 'Element Building Consultancy provides technical leadership across the full property lifecycle. We believe that protecting and enhancing the value of a built asset requires more than just process management – it requires deep technical understanding of each property, viewed through the lens of our client\'s specific commercial and strategic goals.'}</p>
+              </div>
+              <div className="home_about_col-inner u-column-span-7 u-flex-vertical-nowrap u-justify-content-center u-align-items-center">
                 <div className="home_about_svg-wrap">
                   <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
                   <HomeAboutSvg className="global_svg" />
-                </div>
-              </div>
-              <div className="home_about_col-inner u-column-span-7 u-flex-vertical-nowrap u-justify-content-start u-gap-8">
-                <div data-overlay-dark="" className="home_about_col_img-wrap u-position-relative u-ratio-5-4">
-                  <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
-                  <Image
-                    src={urlFor(homePage?.aboutImage) || '/images/about-1.avif'}
-                    fill
-                    loading="lazy"
-                    sizes="(max-width: 1280px) 100vw, 1280px"
-                    alt=""
-                    className="home_about_col-img u-cover-absolute"
-                  />
                 </div>
               </div>
             </div>

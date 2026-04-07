@@ -91,6 +91,7 @@ export async function getHomePage() {
         "category": projectCategory->{ name }
       },
       aboutHeading,
+      aboutParagraph,
       aboutImage { ..., alt },
       statsHeading,
       statsSubheading,
@@ -274,6 +275,7 @@ export interface SanityHomePage {
     category?: { name: string } | null;
   } | null;
   aboutHeading?: string;
+  aboutParagraph?: string;
   aboutImage?: SanityImage | null;
   statsHeading?: string;
   statsSubheading?: string;
