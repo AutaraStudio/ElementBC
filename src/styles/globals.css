@@ -788,7 +788,7 @@ input:focus-visible {
   backdrop-filter: blur(2rem);
   display: flex;
   position: absolute;
-  overflow: hidden;
+  overflow: clip;
   transition: all 0.4s cubic-bezier(.75, 0, .25, 1);
   clip-path: inset(calc(50% - 0.25em));
   will-change: clip-path;
@@ -819,7 +819,7 @@ input:focus-visible {
   white-space: nowrap;
   padding: 1.2em 1em;
   flex-shrink: 0;
-  color: #fff;
+  color: var(--_theme---text);
 }
 
 /* =============================================================================

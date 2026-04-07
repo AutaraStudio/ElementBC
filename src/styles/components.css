@@ -47,7 +47,7 @@
 
 .form_error_wrap {
   border: var(--border-width--main) solid var(--_theme---border);
-  background-color: #0000;
+  background-color: transparent;
   align-self: flex-start;
   width: 100%;
   margin-top: 0;
@@ -57,13 +57,13 @@
 .form_field {
   border-top-style: solid;
   border-top-width: var(--border-width--main);
-  border-top-color: #000;
+  border-top-color: var(--_theme---border);
   border-right-style: solid;
   border-right-width: var(--border-width--main);
   border-bottom-style: solid;
-  border-right-color: #000;
+  border-right-color: var(--_theme---border);
   border-bottom-width: var(--border-width--main);
-  border-bottom-color: #000;
+  border-bottom-color: var(--_theme---border);
   border-left-style: solid;
   border-left-width: var(--border-width--main);
   border-top-left-radius: var(--radius--small);
@@ -91,9 +91,9 @@
   text-transform: var(--_text-style---text-transform, none);
   -webkit-appearance: none;
   appearance: none;
-  border-left-color: #000;
+  border-left-color: var(--_theme---border);
   border-color: color-mix(in srgb, var(--_theme---border) calc(100% * var(--_trigger---on)), var(--_theme---text) calc(100% * var(--_trigger---off)));
-  background-color: #0000;
+  background-color: transparent;
   width: 100%;
   height: 3rem;
   margin-bottom: 0;
@@ -238,7 +238,7 @@
   display: none;
   position: fixed;
   inset: 0% 0% auto;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .guide_layout {
@@ -251,8 +251,8 @@
 }
 
 .guide_column {
-  color: #8a8a8a80;
-  background-color: #9292920f;
+  color: color-mix(in hsl, var(--_theme---text) 50%, transparent);
+  background-color: color-mix(in hsl, var(--_theme---text) 6%, transparent);
   flex-flow: column;
   justify-content: flex-end;
   align-items: center;
@@ -417,7 +417,7 @@
 .slider_bullet_item {
   aspect-ratio: 1;
   border: .09rem solid var(--_theme---border);
-  background-color: #eee0;
+  background-color: transparent;
   border-radius: 100vw;
   width: 1rem;
   min-width: 0;
@@ -550,7 +550,7 @@
 }
 
 .accordion_wrap {
-  padding-top: 1px;
+  padding-top: 0.0625rem;
 }
 
 .accordion_toggle_icon {
@@ -661,14 +661,14 @@
 .nav_component {
   z-index: 1000;
   pointer-events: none;
-  background-color: #0000;
+  background-color: transparent;
   position: sticky;
   inset: 0% 0% auto;
   container-type: inline-size;
 }
 
 .nav_dropdown_main_wrap {
-  background-color: #0000;
+  background-color: transparent;
   min-width: 0;
   position: relative;
 }
@@ -688,7 +688,7 @@
 .nav_search_field {
   font-size: inherit;
   color: inherit;
-  background-color: #0000;
+  background-color: transparent;
   border-style: none;
   border-width: 0;
   border-radius: 0;
@@ -840,7 +840,7 @@
   padding: 0;
   position: absolute;
   inset: 0% 0% auto;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .nav_buttons_item {
@@ -879,7 +879,7 @@
 .nav_mobile_wrap {
   z-index: 1;
   margin-top: var(--nav--spacing-outer-vertical);
-  background-color: #0000;
+  background-color: transparent;
   position: relative;
 }
 
@@ -997,7 +997,7 @@
 
 .nav_dropdown_mega_wrap {
   z-index: 1;
-  background-color: #0000;
+  background-color: transparent;
   width: 100%;
   position: relative;
   inset: 0% auto auto 0%;
@@ -1034,7 +1034,7 @@
 .nav_desktop_wrap {
   z-index: 1;
   margin-top: var(--nav--spacing-outer-vertical);
-  background-color: #0000;
+  background-color: transparent;
   display: none;
   position: relative;
 }
@@ -1089,7 +1089,7 @@
 .modal_dialog {
   z-index: 1010;
   color: inherit;
-  background-color: #0000;
+  background-color: transparent;
   border-style: none;
   border-width: 0;
   width: 100%;
@@ -1416,7 +1416,7 @@
 
 .form_range_input {
   border-radius: inherit;
-  background-color: #0000;
+  background-color: transparent;
   width: 100%;
   height: .7rem;
   display: block;
@@ -1617,7 +1617,7 @@
 .preloader_text-span {
   vertical-align: top;
   display: inline-block;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .preloader_end-svg {
@@ -1649,7 +1649,7 @@
 }
 
 .home_hero_featured-wrap {
-  overflow: hidden;
+  overflow: clip;
 }
 
 .home_hero_featured-list {
@@ -1919,6 +1919,10 @@
 
 .preloader2-wrap {
   display: none;
+}
+
+.preloader2_text {
+  visibility: hidden;
 }
 
 .about_intro-contain {

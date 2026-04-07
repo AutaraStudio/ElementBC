@@ -742,7 +742,7 @@
   padding: 0;
   position: absolute;
   inset: 0% 0% auto;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .u-heading-accent strong {
@@ -917,7 +917,7 @@
 }
 
 .u-background-transparent {
-  background-color: #0000;
+  background-color: transparent;
 }
 
 .u-background-1 {
@@ -1297,7 +1297,7 @@
 }
 
 .u-overflow-hidden {
-  overflow: hidden;
+  overflow: clip;
 }
 
 .u-overflow-clip {
@@ -2285,7 +2285,7 @@
 
 .footer_main_bg-svg.u-position-absolute {
   inset: 20% -10% 0% auto;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .projects_archive-list.u-grid-custom {
@@ -2302,7 +2302,7 @@
 
 .about_bg-svg.u-position-absolute {
   inset: 0% -10% 0% auto;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .about_intro_col-inner.u-column-start-1.u-column-span-7.u-padding-top-4 {
@@ -2313,8 +2313,6 @@
   width: 50%;
 }
 
-@media screen and (max-width: 479px) {
-  .u-max-width-full {
-    max-width: 100%;
-  }
+.u-max-width-full {
+  max-width: calc(var(--_responsive---xsmall) * 100% + (1 - var(--_responsive---xsmall)) * var(--max-width--main));
 }

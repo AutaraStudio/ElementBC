@@ -8,7 +8,7 @@ const projectListFields = `
   projectName,
   "slug": slug.current,
   "category": projectCategory-> { name, "slug": slug.current },
-  featuredImage1
+  featuredImage1 { ..., alt }
 `;
 
 // ---------------------------------------------------------------------------
@@ -91,7 +91,7 @@ export async function getHomePage() {
         "category": projectCategory->{ name }
       },
       aboutHeading,
-      aboutImage,
+      aboutImage { ..., alt },
       statsHeading,
       statsSubheading,
       statsItems[] { statLabel, statValue },
@@ -100,8 +100,8 @@ export async function getHomePage() {
         projectName,
         "slug": slug.current,
         "category": projectCategory-> { name, "slug": slug.current },
-        featuredImage1,
-        featuredImage2
+        featuredImage1 { ..., alt },
+        featuredImage2 { ..., alt }
       }
     }
   `);

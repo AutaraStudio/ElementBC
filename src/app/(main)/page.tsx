@@ -1,10 +1,21 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import TransitionLink from '@/components/ui/TransitionLink';
-import { getHomePage, getProjectsPage } from '@/lib/sanity/queries';
+import { getHomePage, getProjectsPage, getSiteSettings } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 import HomeAboutSvg from '@/components/ui/svgs/HomeAboutSvg';
 
 export const revalidate = 3600;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const [homePage, settings] = await Promise.all([getHomePage(), getSiteSettings()]);
+  return {
+    title: homePage?.heroHeading
+      ? `${settings?.siteTitle ?? 'Element BC'} | ${homePage.heroHeading}`
+      : settings?.siteTitle ?? 'Element BC',
+    description: settings?.seoDescription,
+  };
+}
 
 const heroCSS = `
 /* GSAP handles all transitions */

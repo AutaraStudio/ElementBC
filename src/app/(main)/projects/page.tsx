@@ -33,7 +33,7 @@ const heroCSS = `
 }
 /* Dark gradient over each image */
 .projects_hero-asset::before {
-  background: linear-gradient(180deg, transparent 0%, #000);
+  background: linear-gradient(180deg, transparent 0%, var(--_theme---image-overlay));
   content: "";
   inset: 0;
   opacity: .5;

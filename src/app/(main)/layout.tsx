@@ -35,7 +35,7 @@ export default async function MainLayout({
       <div aria-hidden="true" data-bg="next" className="bg-next"></div>
       <div aria-hidden="true" data-bg="current" className="bg-current"></div>
       <div className="page_wrap">
-        <div className="u-position-fixed u-fixed-overlay">
+        <div className="page_overlay u-position-fixed u-fixed-overlay">
           {/* Nav */}
           <Navbar navLinks={nav?.navLinks} />
           {/* Preloader */}
@@ -103,8 +103,8 @@ export default async function MainLayout({
           </div>
           {/* Preloader 2 */}
           <div data-preloader2-wrap=" " className="preloader2-wrap u-position-fixed u-theme-charcoal">
-            <div className="u-container u-height-full u-flex-vertical-nowrap u-alignment-center">
-              <div style={{ visibility: 'hidden' }} data-preloader2-text=" " className="u-text-style-h2 u-text-transform-uppercase">Loading</div>
+            <div className="preloader2_contain u-container u-height-full u-flex-vertical-nowrap u-alignment-center">
+              <div data-preloader2-text=" " className="preloader2_text u-text-style-h2 u-text-transform-uppercase">Loading</div>
             </div>
           </div>
           {/* Cursor Marquee */}

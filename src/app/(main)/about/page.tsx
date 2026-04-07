@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import TransitionLink from '@/components/ui/TransitionLink';
 import { getAboutPage } from '@/lib/sanity/queries';
@@ -5,6 +6,14 @@ import { urlFor } from '@/lib/sanity/imageUrl';
 import AboutHeroBackgroundSvg from '@/components/ui/svgs/AboutHeroBackgroundSvg';
 
 export const revalidate = 3600;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const aboutPage = await getAboutPage();
+  return {
+    title: aboutPage?.seoTitle ?? 'About | Element BC',
+    description: aboutPage?.seoDescription,
+  };
+}
 
 const EyebrowSvg = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 61 42" fill="none" data-stagger-item="" className={className}>
@@ -47,14 +56,16 @@ export default async function AboutPage() {
 
             {/* Hero image */}
             <div data-overlay-medium="" className="about_hero_featured_wrap u-position-relative u-ratio-2-1 u-width-full">
-              <Image
-                fill
-                src={urlFor(aboutPage?.heroImage) || '/images/filters_formatavifwebp_quality80-1.webp'}
-                loading="lazy"
-                alt=""
-                sizes="(max-width: 1440px) 100vw, 1440px"
-                className="about_hero_featired-img u-cover-absolute"
-              />
+              {aboutPage?.heroImage && (
+                <Image
+                  fill
+                  src={urlFor(aboutPage.heroImage)!}
+                  loading="lazy"
+                  alt={aboutPage.heroImage.alt ?? ''}
+                  sizes="(max-width: 1440px) 100vw, 1440px"
+                  className="about_hero_featired-img u-cover-absolute"
+                />
+              )}
               <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
             </div>
 
@@ -116,14 +127,16 @@ export default async function AboutPage() {
               <div className="about_intro_col-inner u-flex-vertical-nowrap u-column-start-7 u-column-span-6">
                 <div className="about_intro_image-wrap u-position-relative u-ratio-2-3">
                   <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
-                  <Image
-                    fill
-                    src={urlFor(aboutPage?.introImage) || '/images/filters_formatavifwebp_quality80-2.webp'}
-                    loading="lazy"
-                    alt=""
-                    sizes="(max-width: 1440px) 100vw, 1440px"
-                    className="about_intro-image u-cover-absolute"
-                  />
+                  {aboutPage?.introImage && (
+                    <Image
+                      fill
+                      src={urlFor(aboutPage.introImage)!}
+                      loading="lazy"
+                      alt={aboutPage.introImage.alt ?? ''}
+                      sizes="(max-width: 1440px) 100vw, 1440px"
+                      className="about_intro-image u-cover-absolute"
+                    />
+                  )}
                 </div>
               </div>
             </div>
