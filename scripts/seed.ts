@@ -116,8 +116,13 @@ async function createHomePage() {
     _id: 'homePage',
     heroHeading: 'element',
     heroViewProjectText: 'View Project',
-    aboutHeading: 'We started Element to raise the standard.',
-    aboutParagraph: 'Element Building Consultancy provides technical leadership across the full property lifecycle. We believe that protecting and enhancing the value of a built asset requires more than just process management – it requires deep technical understanding of each property, viewed through the lens of our client\'s specific commercial and strategic goals.',
+    aboutHeading: 'Difference in the Detail.',
+    aboutParagraph: 'Element is not your ordinary building consultancy. For us, precision is everything. We spot opportunities to save time and money, embrace the latest technologies, and oversee every project with absolute efficiency. We minimise risk, maximise profitability and build trust. We ensure every detail is managed.',
+    aboutValueProps: [
+      { _key: randomUUID(), title: '', description: 'We\'re here to take action, a doing brand that uses active language to motivate and inspire.' },
+      { _key: randomUUID(), title: '', description: 'We are confident. That\'s what, when you understand every detail. But we are never cocky or patronising.' },
+      { _key: randomUUID(), title: '', description: 'We get to the point quickly. We don\'t waffle or use over complicated language.' },
+    ],
     statsHeading: 'Built on detail.',
     statsSubheading: 'From programme to budget, we manage every detail — and the results speak for themselves.',
     statsItems: [

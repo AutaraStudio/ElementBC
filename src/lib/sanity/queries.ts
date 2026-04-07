@@ -92,6 +92,7 @@ export async function getHomePage() {
       },
       aboutHeading,
       aboutParagraph,
+      aboutValueProps[] { _key, title, description },
       aboutImage { ..., alt },
       statsHeading,
       statsSubheading,
@@ -276,6 +277,7 @@ export interface SanityHomePage {
   } | null;
   aboutHeading?: string;
   aboutParagraph?: string;
+  aboutValueProps?: Array<{ _key: string; title?: string; description?: string }>;
   aboutImage?: SanityImage | null;
   statsHeading?: string;
   statsSubheading?: string;

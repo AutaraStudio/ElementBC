@@ -22,6 +22,20 @@ export const homePage = defineType({
       description: "The paragraph that appears below the about heading.",
     }),
     defineField({
+      name: "aboutValueProps",
+      title: "About Value Props",
+      description: "Three short value proposition blocks shown below the about paragraph.",
+      type: "array",
+      of: [{
+        type: "object",
+        fields: [
+          defineField({ name: "title", title: "Title", type: "string" }),
+          defineField({ name: "description", title: "Description", type: "text" }),
+        ],
+        preview: { select: { title: "title" } },
+      }],
+    }),
+    defineField({
       name: "aboutImage",
       title: "About Image",
       type: "image",
