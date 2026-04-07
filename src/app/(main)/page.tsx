@@ -103,19 +103,13 @@ export default async function HomePage() {
               <div className="home_hero_featured-layout u-height-full u-flex-vertical-nowrap">
                 <div data-anim-hero="" data-stagger="" className="home_hero_featured-row u-flex-horizontal-nowrap u-justify-content-between">
                   <div data-stagger-item="" className="home_hero_featured-col">
-                    <div className="home_hero_featured_cat-wrap">
-                      <div role="list" className="home_hero_featured_cat-list">
-                        <div role="listitem" className="home_hero_featured_cat-item">
-                          <div className="home_hero-featured-text u-text-style-main u-text-transform-uppercase"></div>
-                        </div>
-                      </div>
-                    </div>
+                    <div className="home_hero-featured-text u-text-style-main u-text-transform-uppercase">Featured Project</div>
                   </div>
                   <div data-stagger-item="" className="home_hero_featured-col">
-                    <div className="home_hero-featured-text u-text-style-main u-text-transform-uppercase"></div>
+                    <div className="home_hero-featured-text u-text-style-main u-text-transform-uppercase">{homePage?.heroProject?.projectName ?? ''}</div>
                   </div>
                   <div data-stagger-item="" className="home_hero_featured-col">
-                    <div className="home_hero-featured-text u-text-style-main u-text-transform-uppercase"></div>
+                    <div className="home_hero-featured-text u-text-style-main u-text-transform-uppercase">{homePage?.heroProject?.category?.name ?? ''}</div>
                   </div>
                   <div data-stagger-item="" className="home_hero_featured-col">
                     <TransitionLink
