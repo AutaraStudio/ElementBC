@@ -2082,7 +2082,7 @@
    RESPONSIVE — TABLET (container < 50em / ~800px)
    ============================================================================= */
 
-@container (width < 50em) {
+@container (max-width: 50em) {
 
   /* --- Global grid collapse: columns collapse to full-width --- */
   .u-grid-custom > .u-column-start-4,
@@ -2256,7 +2256,7 @@
    RESPONSIVE — MOBILE (container < 35em / ~560px)
    ============================================================================= */
 
-@container (width < 35em) {
+@container (max-width: 35em) {
 
   /* --- Global grid: single column --- */
   .u-grid-custom {

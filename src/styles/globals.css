@@ -263,7 +263,7 @@
    ============================================================================= */
 
 /* Tablet — container width < 50em (~800px) */
-@container (width < 50em) {
+@container (max-width: 50em) {
   * {
     --_responsive---large: 0;
     --_responsive---medium: 1;
@@ -288,7 +288,7 @@
 }
 
 /* Mobile — container width < 35em (~560px) */
-@container (width < 35em) {
+@container (max-width: 35em) {
   * {
     --_responsive---medium: 0;
     --_responsive---small: 1;
@@ -311,7 +311,7 @@
 }
 
 /* XSmall — container width < 20em (~320px) */
-@container (width < 20em) {
+@container (max-width: 20em) {
   * {
     --_responsive---small: 0;
     --_responsive---xsmall: 1;
