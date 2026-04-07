@@ -282,7 +282,7 @@ export default async function HomePage() {
       {/* ============================================================
           PARTNER CAROUSEL SECTION
       ============================================================ */}
-      <section data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" className="partner_carousel-wrap u-position-relative">
+      <section data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" className="partner_carousel-wrap u-position-relative u-theme-charcoal">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="partner_carousel-contain">
           <div className="partner_carousel_heading-contain u-container u-margin-bottom-8">
