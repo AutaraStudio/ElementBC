@@ -3,7 +3,7 @@ import Image from 'next/image';
 import TransitionLink from '@/components/ui/TransitionLink';
 import { getHomePage, getProjectsPage, getSiteSettings } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
-import HomeAboutSvg from '@/components/ui/svgs/HomeAboutSvg';
+import HomeAboutWaveSvg from '@/components/ui/svgs/HomeAboutWaveSvg';
 
 export const revalidate = 3600;
 
@@ -150,7 +150,7 @@ export default async function HomePage() {
               <div className="home_about_col-inner u-column-span-7 u-flex-vertical-nowrap u-justify-content-center u-align-items-center">
                 <div className="home_about_svg-wrap">
                   <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
-                  <HomeAboutSvg className="global_svg" />
+                  <HomeAboutWaveSvg className="global_svg" />
                 </div>
               </div>
             </div>
