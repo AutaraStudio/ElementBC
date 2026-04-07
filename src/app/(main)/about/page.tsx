@@ -29,7 +29,7 @@ export default async function AboutPage() {
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
-      <section data-hero-wrap="" className="about_hero-wrap u-min-height-screen u-position-relative u-theme-charcoal">
+      <section data-hero-wrap="" className="about_hero-wrap u-min-height-screen u-position-relative u-theme-dark">
         <div data-wf--spacer--variant="page-top" className="u-section-spacer is-page-top u-ignore-trim"></div>
 
         {/* Background SVG */}
@@ -76,7 +76,7 @@ export default async function AboutPage() {
       {/* ============================================================
           INTRO SECTION
       ============================================================ */}
-      <section className="about_intro-wrap u-padding-top-4 u-theme-charcoal">
+      <section className="about_intro-wrap u-padding-top-4 u-theme-dark">
         <div className="about_intro-contain u-container">
           <div className="about_intro-layout u-grid-custom u-padding-top-5 u-gap-row-8">
 
@@ -150,7 +150,7 @@ export default async function AboutPage() {
           TEAM MEMBERS SECTION
       ============================================================ */}
       {aboutPage?.teamMembers && aboutPage.teamMembers.length > 0 && (
-        <section className="about_team-wrap u-theme-buff">
+        <section className="about_team-wrap u-theme-dark">
           <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
           <div className="about_team-contain u-container">
             <div className="about_team-layout u-grid-custom u-gap-row-6">
@@ -232,14 +232,14 @@ export default async function AboutPage() {
             </div>
             <div className="about_values-col u-column-start-5 u-column-span-8 u-grid-subgrid">
               <div className="about_founders-outer u-column-span-4 u-flex-vertical-nowrap u-gap-4">
-                <div className="about_founders-inner u-ratio-4-5 u-theme-charcoal"></div>
+                <div className="about_founders-inner u-ratio-4-5 u-theme-dark"></div>
                 <div className="about_founders-info u-flex-vertical-nowrap u-gap-2">
                   <div className="about_founders-name u-text-style-large u-weight-bold">George Harris</div>
                   <div className="about_founders-name u-text-style-small u-text-transform-uppercase u-weight-bold u-color-faded">Director</div>
                 </div>
               </div>
               <div className="about_founders-outer u-column-span-4 u-flex-vertical-nowrap u-gap-4">
-                <div className="about_founders-inner u-ratio-4-5 u-theme-charcoal"></div>
+                <div className="about_founders-inner u-ratio-4-5 u-theme-dark"></div>
                 <div className="about_founders-info u-flex-vertical-nowrap u-gap-2">
                   <div className="about_founders-name u-text-style-large u-weight-bold">Harry Powell</div>
                   <div className="about_founders-name u-text-style-small u-text-transform-uppercase u-weight-bold u-color-faded">Director</div>

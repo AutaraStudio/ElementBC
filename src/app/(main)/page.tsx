@@ -144,7 +144,7 @@ export default async function HomePage() {
       {/* ============================================================
           ABOUT SECTION
       ============================================================ */}
-      <section className="home_about-wrap u-theme-buff">
+      <section className="home_about-wrap u-theme-dark">
         <div data-wf--spacer--variant="large" className="u-section-spacer is-large u-ignore-trim"></div>
         <div className="home_about-contain u-container">
           <div className="home_about-layout u-grid-custom u-gap-row-8">
@@ -180,7 +180,7 @@ export default async function HomePage() {
       {/* ============================================================
           STATS SECTION
       ============================================================ */}
-      <section data-hover-axis="y" data-hover="" className="home_stats-wrap u-theme-charcoal">
+      <section data-hover-axis="y" data-hover="" className="home_stats-wrap u-theme-dark">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="home_stats-contain u-container">
           <div data-split-wrapper="" className="home_stats_heading-wrap u-flex-horizontal-nowrap u-justify-content-between u-align-items-end">
@@ -213,7 +213,7 @@ export default async function HomePage() {
       {/* ============================================================
           PROJECTS ARCHIVE SECTION
       ============================================================ */}
-      <section className="projects_archive-wrap u-theme-charcoal">
+      <section className="projects_archive-wrap u-theme-dark">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="u-embed-css w-embed">
           <style dangerouslySetInnerHTML={{ __html: projectsArchiveCSS }} />

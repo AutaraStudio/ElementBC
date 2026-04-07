@@ -39,7 +39,7 @@ export default async function MainLayout({
           {/* Nav */}
           <Navbar navLinks={nav?.navLinks} />
           {/* Preloader */}
-          <div data-preloader-wrap="" className="preloader_wrap u-position-fixed u-theme-charcoal">
+          <div data-preloader-wrap="" className="preloader_wrap u-position-fixed u-theme-dark">
             <div className="preloader_contain u-container u-height-full">
               <div className="preloader_layout u-flex-vertical-nowrap u-height-full u-alignment-center">
                 <svg className="preloader_svg-wrap u-position-absolute preloader_svg-wrap" data-preloader-svg="" width="100%" viewBox="0 0 301 319" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +102,7 @@ export default async function MainLayout({
             </div>
           </div>
           {/* Preloader 2 */}
-          <div data-preloader2-wrap=" " className="preloader2-wrap u-position-fixed u-theme-charcoal">
+          <div data-preloader2-wrap=" " className="preloader2-wrap u-position-fixed u-theme-dark">
             <div className="preloader2_contain u-container u-height-full u-flex-vertical-nowrap u-alignment-center">
               <div data-preloader2-text=" " className="preloader2_text u-text-style-h2 u-text-transform-uppercase">Loading</div>
             </div>
