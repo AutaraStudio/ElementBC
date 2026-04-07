@@ -57,7 +57,7 @@ export default async function ContactPage() {
 
             {/* Heading */}
             <div className="contact_hero_heading-wrap">
-              <h1 data-split="word" data-anim-hero="" className="contact_hero-heading u-text-style-h1">{heroHeading}</h1>
+              <h1 data-split="word" data-anim-hero="" className="contact_hero-heading u-text-style-h1 u-text-decoration-justify-last u-text-transform-uppercase">{heroHeading}</h1>
             </div>
 
           </div>
