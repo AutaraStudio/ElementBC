@@ -5,6 +5,7 @@ import { aboutPage } from "./aboutPage";
 import { projectsPage } from "./projectsPage";
 import { navigation } from "./navigation";
 import { footer } from "./footer";
+import { contactPage } from "./contactPage";
 import { siteSettings } from "./siteSettings";
 
 export const schemas = [
@@ -13,6 +14,7 @@ export const schemas = [
   homePage,
   aboutPage,
   projectsPage,
+  contactPage,
   navigation,
   footer,
   siteSettings,

@@ -134,6 +134,29 @@ export async function getAboutPage() {
   `);
 }
 
+export async function getContactPage() {
+  return sanityClient.fetch<SanityContactPage | null>(`
+    *[_type == "contactPage"][0] {
+      heroEyebrow,
+      heroHeading,
+      getInTouchEyebrow,
+      phoneLabel,
+      phoneNumber,
+      emailLabel,
+      emailAddress,
+      addressEyebrow,
+      addressLine1,
+      addressLine2,
+      addressLine3,
+      googleMapsUrl,
+      visitLabel,
+      bookVisitUrl,
+      seoTitle,
+      seoDescription
+    }
+  `);
+}
+
 export async function getProjectsPage() {
   return sanityClient.fetch<SanityProjectsPage | null>(`
     *[_type == "projectsPage"][0] {
@@ -277,6 +300,25 @@ export interface SanityAboutPage {
     bio?: string;
     photo?: { asset?: { _id: string; url: string }; alt?: string };
   }>;
+  seoTitle?: string;
+  seoDescription?: string;
+}
+
+export interface SanityContactPage {
+  heroEyebrow?: string;
+  heroHeading?: string;
+  getInTouchEyebrow?: string;
+  phoneLabel?: string;
+  phoneNumber?: string;
+  emailLabel?: string;
+  emailAddress?: string;
+  addressEyebrow?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  addressLine3?: string;
+  googleMapsUrl?: string;
+  visitLabel?: string;
+  bookVisitUrl?: string;
   seoTitle?: string;
   seoDescription?: string;
 }

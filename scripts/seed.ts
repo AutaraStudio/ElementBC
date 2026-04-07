@@ -21,6 +21,7 @@ const DOC_TYPES = [
   'homePage',
   'aboutPage',
   'projectsPage',
+  'contactPage',
   'navigation',
   'footer',
   'siteSettings',
@@ -74,10 +75,10 @@ async function createNavigation() {
       { _key: randomUUID(), label: 'Projects', url: '/projects' },
       { _key: randomUUID(), label: 'About & Team', url: '/about' },
       { _key: randomUUID(), label: 'Services', url: '#' },
-      { _key: randomUUID(), label: 'Contact', url: '#' },
+      { _key: randomUUID(), label: 'Contact', url: '/contact' },
     ],
     ctaLabel: 'Get In Touch',
-    ctaUrl: '#',
+    ctaUrl: '/contact',
   })
   console.log('  ✓ navigation')
 }
@@ -94,7 +95,7 @@ async function createFooter() {
       { _key: randomUUID(), label: 'Projects', url: '/projects' },
       { _key: randomUUID(), label: 'About & Team', url: '/about' },
       { _key: randomUUID(), label: 'Services', url: '#' },
-      { _key: randomUUID(), label: 'Contact', url: '#' },
+      { _key: randomUUID(), label: 'Contact', url: '/contact' },
     ],
     legalLinks: [
       { _key: randomUUID(), label: 'Privacy Policy', url: '#' },
@@ -159,6 +160,33 @@ async function createAboutPage() {
     seoDescription: 'Learn about Element BC and our approach to building consultancy.',
   })
   console.log('  ✓ aboutPage')
+}
+
+// ─── Step 6b: contactPage ──────────────────────────────────────────────────
+
+async function createContactPage() {
+  console.log('\nStep 6b — Creating contactPage...')
+  await client.createOrReplace({
+    _type: 'contactPage',
+    _id: 'contactPage',
+    heroEyebrow: 'Contact',
+    heroHeading: 'Bringing building consultancy ideas to life.',
+    getInTouchEyebrow: 'Get In Touch',
+    phoneLabel: 'Talk to us',
+    phoneNumber: '020 7946 0958',
+    emailLabel: 'Write us',
+    emailAddress: 'info@elementbc.co.uk',
+    addressEyebrow: 'Address',
+    addressLine1: '71-75 Shelton Street',
+    addressLine2: 'Covent Garden, London',
+    addressLine3: 'WC2H 9JQ, UK',
+    googleMapsUrl: 'https://maps.google.com',
+    visitLabel: 'Visit us',
+    bookVisitUrl: '#',
+    seoTitle: 'Contact | Element BC',
+    seoDescription: 'Get in touch with Element BC. Building consultancy services across London and the South East.',
+  })
+  console.log('  ✓ contactPage')
 }
 
 // ─── Step 7: projectsPage ───────────────────────────────────────────────────
@@ -352,6 +380,7 @@ async function main() {
   await createFooter()
   await createHomePage()
   await createAboutPage()
+  await createContactPage()
   await createProjectsPage()
   const categoryMap = await createCategories()
   const { featuredIds, allIds } = await createProjects(categoryMap)
