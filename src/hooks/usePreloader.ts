@@ -37,16 +37,28 @@ export function usePreloader(pathname: string) {
       const endSvg = document.querySelector('[data-preloader-end-svg]');
       const endIcon = document.querySelector('[data-preloader-end-icon]');
       const endPaths = gsap.utils.toArray('[data-preloader-end-path]') as Element[];
+      const roguePaths = gsap.utils.toArray('[data-preloader-rogue]') as Element[];
 
       if (!paths.length) return;
 
       const blur = 'blur(4px)';
       const clear = 'blur(0px)';
+      const eggBlue = getComputedStyle(document.documentElement)
+        .getPropertyValue('--_brand-egg-blue---swatch--brand-eggblue-500')
+        .trim();
+      const defaultPathColor = gsap.getProperty(paths[0], 'color') as string;
 
       gsap.set(paths, { opacity: 0, filter: blur });
       gsap.set(words, { opacity: 0, filter: blur });
       gsap.set(endIcon, { opacity: 0, filter: blur });
       gsap.set(endPaths, { opacity: 0, filter: blur });
+
+      // Rogue paths: subtle disorder — small offset, muted accent tint, extra blur
+      gsap.set(roguePaths, {
+        y: () => gsap.utils.random(1.5, 3) * (Math.random() > 0.5 ? 1 : -1),
+        color: `color-mix(in srgb, ${eggBlue} 35%, ${defaultPathColor})`,
+        filter: 'blur(6px)',
+      });
 
       if (window.locomotiveScroll) {
         window.locomotiveScroll.stop();
@@ -61,6 +73,19 @@ export function usePreloader(pathname: string) {
         .addLabel('textIn', '+=0.45')
         .set(textEl, { autoAlpha: 1 }, 'textIn')
         .to(words, { opacity: 1, filter: clear, duration: 0.85, stagger: 0.08, ease: 'cin' }, 'textIn')
+        // Rogue paths: disorder → order correction (lands as tagline resolves)
+        .to(
+          roguePaths,
+          {
+            y: 0,
+            color: defaultPathColor,
+            filter: clear,
+            duration: 0.7,
+            ease: 'power3.out',
+            stagger: 0.04,
+          },
+          'textIn+=0.35'
+        )
         .addLabel('hold', '+=0.7')
         .to(words, { opacity: 0, filter: blur, duration: 0.55, stagger: { each: 0.03, from: 'end' }, ease: 'cinOut' }, 'hold')
         .to(paths, { opacity: 0, filter: blur, duration: 0.55, stagger: { each: 0.015, from: 'end' }, ease: 'cinOut' }, 'hold+=0.15')

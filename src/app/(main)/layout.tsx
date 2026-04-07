@@ -48,7 +48,7 @@ export default async function MainLayout({
                   <path data-preloader-path="" d="M300.967 17.2656H0V17.8885H46.3058C65.9955 17.8885 74.8137 24.8115 85.9666 24.8115H300.967V17.2656Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 25.8955H0V26.722H52.4839C72.1736 26.722 80.9918 33.4414 92.1447 33.4414H300.967V25.8955Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 34.5312H0V35.5613H58.662C78.3517 35.5613 87.1699 42.0771 98.3228 42.0771H300.967V34.5312Z" fill="currentColor" className="preloader_svg-path"></path>
-                  <path data-preloader-path="" d="M300.967 43.1611H0V44.3948H64.8401C84.5298 44.3948 93.348 50.707 104.501 50.707H300.967V43.1611Z" fill="currentColor" className="preloader_svg-path"></path>
+                  <path data-preloader-path="" data-preloader-rogue="" d="M300.967 43.1611H0V44.3948H64.8401C84.5298 44.3948 93.348 50.707 104.501 50.707H300.967V43.1611Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 51.791H0V53.2283H71.0182C90.7079 53.2283 99.5261 59.3369 110.679 59.3369H300.967V51.791Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 60.4268H0V62.0677H77.1963C96.886 62.0677 105.704 67.9726 116.857 67.9726H300.967V60.4268Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 69.0566H0V70.9012H83.3744C103.064 70.9012 111.882 76.6025 123.035 76.6025H300.967V69.0566Z" fill="currentColor" className="preloader_svg-path"></path>
@@ -56,7 +56,7 @@ export default async function MainLayout({
                   <path data-preloader-path="" d="M300.967 86.3223H0V88.574H95.7306C115.42 88.574 124.238 93.8681 135.391 93.8681H300.967V86.3223Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 94.9521H0V97.4076H101.909C121.598 97.4076 130.417 102.498 141.569 102.498H300.967V94.9521Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 103.588H0V106.247H108.087C127.777 106.247 136.595 111.134 147.748 111.134H300.967V103.588Z" fill="currentColor" className="preloader_svg-path"></path>
-                  <path data-preloader-path="" d="M300.967 112.218H0V115.08H114.265C133.955 115.08 142.773 119.764 153.926 119.764H300.967V112.218Z" fill="currentColor" className="preloader_svg-path"></path>
+                  <path data-preloader-path="" data-preloader-rogue="" d="M300.967 112.218H0V115.08H114.265C133.955 115.08 142.773 119.764 153.926 119.764H300.967V112.218Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 120.848H0V123.914H120.443C140.133 123.914 148.951 128.394 160.104 128.394H300.967V120.848Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 129.483H0V132.753H126.621C146.311 132.753 155.129 137.029 166.282 137.029H300.967V129.483Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 138.113H0V141.587H132.799C152.489 141.587 161.307 145.659 172.46 145.659H300.967V138.113Z" fill="currentColor" className="preloader_svg-path"></path>
@@ -65,7 +65,7 @@ export default async function MainLayout({
                   <path data-preloader-path="" d="M300.967 164.009H0V168.093H151.333C171.023 168.093 179.841 171.555 190.994 171.555H300.961V164.009H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 172.645H0V176.932H157.512C177.201 176.932 186.019 180.19 197.172 180.19H300.961V172.645H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 181.274H0V185.766H163.69C183.379 185.766 192.198 188.82 203.35 188.82H300.961V181.274H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
-                  <path data-preloader-path="" d="M300.967 189.904H0V194.599H169.868C189.557 194.599 198.376 197.45 209.529 197.45H300.961V189.904H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
+                  <path data-preloader-path="" data-preloader-rogue="" d="M300.967 189.904H0V194.599H169.868C189.557 194.599 198.376 197.45 209.529 197.45H300.961V189.904H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 198.54H0V203.439H176.046C195.736 203.439 204.554 206.086 215.707 206.086H300.961V198.54H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 207.17H0V212.272H182.224C201.914 212.272 210.732 214.716 221.885 214.716H300.961V207.17H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 215.8H0V221.106H188.402C208.092 221.106 216.91 223.346 228.063 223.346H300.961V215.8H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
@@ -73,7 +73,7 @@ export default async function MainLayout({
                   <path data-preloader-path="" d="M300.967 233.065H0V238.779H200.758C220.448 238.779 229.266 240.611 240.419 240.611H300.961V233.065H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 241.701H0V247.618H206.936C226.626 247.618 235.444 249.247 246.597 249.247H300.961V241.701H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 250.331H0V256.452H213.115C232.804 256.452 241.622 257.877 252.775 257.877H300.961V250.331H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
-                  <path data-preloader-path="" d="M300.967 258.961H0V265.285H219.293C238.982 265.285 247.8 266.507 258.953 266.507H300.961V258.961H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
+                  <path data-preloader-path="" data-preloader-rogue="" d="M300.967 258.961H0V265.285H219.293C238.982 265.285 247.8 266.507 258.953 266.507H300.961V258.961H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 267.597H0V274.124H225.471C245.16 274.124 253.979 275.143 265.131 275.143H300.961V267.597H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 276.227H0V282.958H231.649C251.338 282.958 260.157 283.772 271.31 283.772H300.961V276.227H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 284.862H0V291.797H237.827C257.517 291.797 266.335 292.408 277.488 292.408H300.961V284.862H300.967Z" fill="currentColor" className="preloader_svg-path"></path>
