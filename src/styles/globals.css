@@ -259,69 +259,6 @@
 
 
 /* =============================================================================
-   RESPONSIVE BREAKPOINTS (Lumos Framework)
-   Using @media for universal browser support
-   ============================================================================= */
-
-/* Tablet — viewport <= 50em (~800px) */
-@media screen and (max-width: 50em) {
-  :root {
-    --_responsive---large: 0;
-    --_responsive---medium: 1;
-    --flex-medium: flex;
-    --none-medium: none;
-    --column-medium: column;
-    --row-medium: row;
-    --start-medium: start;
-    --center-medium: center;
-    --end-medium: end;
-    --first-medium: -1;
-    --last-medium: 1;
-    --unset-medium: unset;
-    --relative-medium: relative;
-  }
-}
-
-/* Mobile — viewport <= 35em (~560px) */
-@media screen and (max-width: 35em) {
-  :root {
-    --_responsive---medium: 0;
-    --_responsive---small: 1;
-    --flex-small: flex;
-    --none-small: none;
-    --column-small: column;
-    --row-small: row;
-    --start-small: start;
-    --center-small: center;
-    --end-small: end;
-    --first-small: -1;
-    --last-small: 1;
-    --unset-small: unset;
-    --relative-small: relative;
-  }
-}
-
-/* XSmall — viewport <= 20em (~320px) */
-@media screen and (max-width: 20em) {
-  :root {
-    --_responsive---small: 0;
-    --_responsive---xsmall: 1;
-    --flex-xsmall: flex;
-    --none-xsmall: none;
-    --column-xsmall: column;
-    --row-xsmall: row;
-    --start-xsmall: start;
-    --center-xsmall: center;
-    --end-xsmall: end;
-    --first-xsmall: -1;
-    --last-xsmall: 1;
-    --unset-xsmall: unset;
-    --relative-xsmall: relative;
-  }
-}
-
-
-/* =============================================================================
    THEME VARIANTS
    ============================================================================= */
 
