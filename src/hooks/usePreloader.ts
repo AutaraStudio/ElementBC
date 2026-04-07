@@ -62,25 +62,53 @@ export function usePreloader(pathname: string) {
         .timeline({ delay: 0.8 })
         .set(svgEl, { autoAlpha: 1 })
         .to(paths, { opacity: 1, filter: clear, duration: 0.8, stagger: 0.025, ease: 'cin' })
-        // Glitch pulse — brief interference before text appears
-        .addLabel('glitch', '+=0.2')
+        // Glitch sequence — interference builds, stutters, then resolves before text
+        .addLabel('glitch', '+=0.25')
+        // Wave 1 — subtle first hit
         .to(glitchPaths, {
-          x: () => gsap.utils.random(-8, 8),
+          x: () => gsap.utils.random(-5, 5),
           color: brandOrange,
-          filter: 'blur(3px)',
-          duration: 0.12,
+          filter: 'blur(2px)',
+          duration: 0.1,
           stagger: { each: 0.02, from: 'random' },
-          ease: 'power4.in',
+          ease: 'power3.in',
         }, 'glitch')
         .to(glitchPaths, {
           x: 0,
           color: 'currentColor',
           filter: clear,
-          duration: 0.18,
+          duration: 0.14,
           stagger: { each: 0.015, from: 'random' },
           ease: 'power2.out',
-        }, 'glitch+=0.14')
-        .addLabel('textIn', '+=0.15')
+        }, 'glitch+=0.1')
+        // Wave 2 — stronger, wider jitter
+        .to(glitchPaths, {
+          x: () => gsap.utils.random(-10, 10),
+          color: brandOrange,
+          filter: 'blur(4px)',
+          duration: 0.08,
+          stagger: { each: 0.015, from: 'random' },
+          ease: 'power4.in',
+        }, 'glitch+=0.35')
+        .to(glitchPaths, {
+          x: () => gsap.utils.random(-3, 3),
+          color: brandOrange,
+          filter: 'blur(2px)',
+          duration: 0.06,
+          stagger: { each: 0.01, from: 'random' },
+          ease: 'none',
+        }, 'glitch+=0.45')
+        // Wave 3 — final snap to order
+        .to(glitchPaths, {
+          x: 0,
+          color: 'currentColor',
+          filter: clear,
+          duration: 0.2,
+          stagger: { each: 0.01, from: 'random' },
+          ease: 'power2.out',
+        }, 'glitch+=0.55')
+        // Settle — brief pause before text
+        .addLabel('textIn', '+=0.3')
         .set(textEl, { autoAlpha: 1 }, 'textIn')
         .to(words, { opacity: 1, filter: clear, duration: 0.85, stagger: 0.08, ease: 'cin' }, 'textIn')
         .addLabel('hold', '+=0.7')
