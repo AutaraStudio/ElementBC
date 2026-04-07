@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  reactCompiler: true,
+  // reactCompiler: true, // Disabled — may crash iOS Safari WebKit
   serverExternalPackages: ['sanity', '@sanity/client', 'next-sanity'],
   images: {
     remotePatterns: [
