@@ -13,7 +13,7 @@
   --_text-style---font-weight: var(--_typography---font--primary-medium);
   --_text-style---letter-spacing: var(--_typography---letter-spacing--normal);
   --_text-style---text-wrap: pretty;
-  --site--gutter: clamp(1 * 1rem, ((1 - ((1 - 1) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((1 - 1) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 1 * 1rem);
+  --site--gutter: clamp(1.25 * 1rem, ((1.25 - ((1.75 - 1.25) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((1.75 - 1.25) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 1.75 * 1rem);
   --_spacing---space--8-64px: clamp(4 * 1rem, ((4 - ((7 - 4) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((7 - 4) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 7 * 1rem);
   --radius--main: 1rem;
   --_theme---background-2: var(--swatch--light-100);
@@ -27,7 +27,7 @@
   --_spacing---section-space--main-112px: clamp(4 * 1rem, ((4 - ((7 - 4) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((7 - 4) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 7 * 1rem);
   --_spacing---space--5-32px: clamp(2 * 1rem, ((2 - ((2.5 - 2) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((2.5 - 2) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 2.5 * 1rem);
   --max-width--small: 50rem;
-  --site--margin: clamp(1 * 1rem, ((1 - ((2 - 1) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((2 - 1) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 2 * 1rem);
+  --site--margin: clamp(1.5 * 1rem, ((1.5 - ((3 - 1.5) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((3 - 1.5) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 3 * 1rem);
   --_gap---size: var(--site--gutter);
   --_column-count---value: 1;
   --_theme---background-skeleton: color-mix(in lab, currentcolor 10%, transparent);
