@@ -43,8 +43,8 @@ export function usePreloader(pathname: string) {
 
       const blur = 'blur(4px)';
       const clear = 'blur(0px)';
-      const eggBlue = getComputedStyle(document.documentElement)
-        .getPropertyValue('--_brand-egg-blue---swatch--brand-eggblue-500')
+      const brandOrange = getComputedStyle(document.documentElement)
+        .getPropertyValue('--_red---swatch--brand-500')
         .trim();
       const defaultPathColor = gsap.getProperty(paths[0], 'color') as string;
 
@@ -53,12 +53,8 @@ export function usePreloader(pathname: string) {
       gsap.set(endIcon, { opacity: 0, filter: blur });
       gsap.set(endPaths, { opacity: 0, filter: blur });
 
-      // Rogue paths: subtle disorder — small offset, muted accent tint, extra blur
-      gsap.set(roguePaths, {
-        y: () => gsap.utils.random(1.5, 3) * (Math.random() > 0.5 ? 1 : -1),
-        color: `color-mix(in srgb, ${eggBlue} 35%, ${defaultPathColor})`,
-        filter: 'blur(6px)',
-      });
+      // Rogue paths: stay hidden during grid fade-in, revealed individually with text
+      gsap.set(roguePaths, { opacity: 0, filter: 'blur(6px)' });
 
       if (window.locomotiveScroll) {
         window.locomotiveScroll.stop();
@@ -73,19 +69,43 @@ export function usePreloader(pathname: string) {
         .addLabel('textIn', '+=0.45')
         .set(textEl, { autoAlpha: 1 }, 'textIn')
         .to(words, { opacity: 1, filter: clear, duration: 0.85, stagger: 0.08, ease: 'cin' }, 'textIn')
-        // Rogue paths: disorder → order correction (lands as tagline resolves)
-        .to(
-          roguePaths,
-          {
-            y: 0,
-            color: defaultPathColor,
-            filter: clear,
-            duration: 0.7,
-            ease: 'power3.out',
-            stagger: 0.04,
-          },
-          'textIn+=0.35'
-        )
+        // Rogue paths: staggered reveal in orange, blur pulls focus, colour drains to default
+        // Each path is offset across the word-reveal window so they feel connected to the text rhythm
+        .call(() => {
+          // Hand-tuned offsets (seconds after textIn) — spread across the word reveal window
+          const offsets = [0.08, 0.22, 0.38, 0.56];
+
+          roguePaths.forEach((path, i) => {
+            const t = offsets[i] ?? offsets[offsets.length - 1];
+
+            // Set orange colour just before this path appears
+            gsap.set(path, { color: brandOrange });
+
+            // Fade in: opacity arrives first
+            gsap.to(path, {
+              opacity: 1,
+              duration: 0.45,
+              ease: 'sine.out',
+              delay: t,
+            });
+
+            // Blur clears slightly after opacity — focus pulls into place
+            gsap.to(path, {
+              filter: clear,
+              duration: 0.55,
+              ease: 'power2.out',
+              delay: t + 0.1,
+            });
+
+            // Colour drains from orange to default — slowest layer, soft ease
+            gsap.to(path, {
+              color: defaultPathColor,
+              duration: 0.8,
+              ease: 'sine.inOut',
+              delay: t + 0.25,
+            });
+          });
+        }, undefined, 'textIn')
         .addLabel('hold', '+=0.7')
         .to(words, { opacity: 0, filter: blur, duration: 0.55, stagger: { each: 0.03, from: 'end' }, ease: 'cinOut' }, 'hold')
         .to(paths, { opacity: 0, filter: blur, duration: 0.55, stagger: { each: 0.015, from: 'end' }, ease: 'cinOut' }, 'hold+=0.15')
