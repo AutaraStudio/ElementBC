@@ -53,8 +53,8 @@ export function usePreloader(pathname: string) {
       gsap.set(endIcon, { opacity: 0, filter: blur });
       gsap.set(endPaths, { opacity: 0, filter: blur });
 
-      // Rogue paths: stay hidden during grid fade-in, revealed individually with text
-      gsap.set(roguePaths, { opacity: 0, filter: 'blur(6px)' });
+      // Rogue paths: fade in with the grid but faint — they'll strengthen and warm later
+      gsap.set(roguePaths, { opacity: 0, filter: 'blur(5px)' });
 
       if (window.locomotiveScroll) {
         window.locomotiveScroll.stop();
@@ -66,43 +66,42 @@ export function usePreloader(pathname: string) {
         .timeline({ delay: 0.8 })
         .set(svgEl, { autoAlpha: 1 })
         .to(paths, { opacity: 1, filter: clear, duration: 0.8, stagger: 0.025, ease: 'cin' })
+        // Rogue paths: fade in with the grid but cap at faint — soft presence, not absence
+        .to(roguePaths, { opacity: 0.3, filter: 'blur(2px)', duration: 0.8, stagger: 0.025, ease: 'cin' }, '<')
         .addLabel('textIn', '+=0.45')
         .set(textEl, { autoAlpha: 1 }, 'textIn')
         .to(words, { opacity: 1, filter: clear, duration: 0.85, stagger: 0.08, ease: 'cin' }, 'textIn')
-        // Rogue paths: staggered reveal in orange, blur pulls focus, colour drains to default
-        // Each path is offset across the word-reveal window so they feel connected to the text rhythm
+        // Rogue paths: warm to orange and strengthen as words arrive, then colour drains
         .call(() => {
-          // Hand-tuned offsets (seconds after textIn) — spread across the word reveal window
-          const offsets = [0.08, 0.22, 0.38, 0.56];
+          const offsets = [0.06, 0.18, 0.34, 0.52];
 
           roguePaths.forEach((path, i) => {
             const t = offsets[i] ?? offsets[offsets.length - 1];
 
-            // Set orange colour just before this path appears
-            gsap.set(path, { color: brandOrange });
-
-            // Fade in: opacity arrives first
+            // Warm into orange — colour and opacity rise together
             gsap.to(path, {
+              color: brandOrange,
               opacity: 1,
-              duration: 0.45,
+              filter: 'blur(1px)',
+              duration: 0.5,
               ease: 'sine.out',
               delay: t,
             });
 
-            // Blur clears slightly after opacity — focus pulls into place
+            // Sharpen fully — blur clears after warmth arrives
             gsap.to(path, {
               filter: clear,
-              duration: 0.55,
+              duration: 0.4,
               ease: 'power2.out',
-              delay: t + 0.1,
+              delay: t + 0.35,
             });
 
-            // Colour drains from orange to default — slowest layer, soft ease
+            // Colour cools back to default — slowest, softest layer
             gsap.to(path, {
               color: defaultPathColor,
-              duration: 0.8,
+              duration: 0.9,
               ease: 'sine.inOut',
-              delay: t + 0.25,
+              delay: t + 0.3,
             });
           });
         }, undefined, 'textIn')
