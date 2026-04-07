@@ -37,7 +37,7 @@ export function usePreloader(pathname: string) {
       const endSvg = document.querySelector('[data-preloader-end-svg]');
       const endIcon = document.querySelector('[data-preloader-end-icon]');
       const endPaths = gsap.utils.toArray('[data-preloader-end-path]') as Element[];
-      const roguePaths = gsap.utils.toArray('[data-preloader-rogue]') as Element[];
+      const glitchPaths = gsap.utils.toArray('[data-preloader-rogue]') as Element[];
 
       if (!paths.length) return;
 
@@ -46,15 +46,11 @@ export function usePreloader(pathname: string) {
       const brandOrange = getComputedStyle(document.documentElement)
         .getPropertyValue('--_red---swatch--brand-500')
         .trim();
-      const defaultPathColor = gsap.getProperty(paths[0], 'color') as string;
 
       gsap.set(paths, { opacity: 0, filter: blur });
       gsap.set(words, { opacity: 0, filter: blur });
       gsap.set(endIcon, { opacity: 0, filter: blur });
       gsap.set(endPaths, { opacity: 0, filter: blur });
-
-      // Rogue paths: fade in with the grid but faint — they'll strengthen and warm later
-      gsap.set(roguePaths, { opacity: 0, filter: 'blur(5px)' });
 
       if (window.locomotiveScroll) {
         window.locomotiveScroll.stop();
@@ -66,45 +62,27 @@ export function usePreloader(pathname: string) {
         .timeline({ delay: 0.8 })
         .set(svgEl, { autoAlpha: 1 })
         .to(paths, { opacity: 1, filter: clear, duration: 0.8, stagger: 0.025, ease: 'cin' })
-        // Rogue paths: fade in with the grid but cap at faint — soft presence, not absence
-        .to(roguePaths, { opacity: 0.3, filter: 'blur(2px)', duration: 0.8, stagger: 0.025, ease: 'cin' }, '<')
-        .addLabel('textIn', '+=0.45')
+        // Glitch pulse — brief interference before text appears
+        .addLabel('glitch', '+=0.2')
+        .to(glitchPaths, {
+          x: () => gsap.utils.random(-8, 8),
+          color: brandOrange,
+          filter: 'blur(3px)',
+          duration: 0.12,
+          stagger: { each: 0.02, from: 'random' },
+          ease: 'power4.in',
+        }, 'glitch')
+        .to(glitchPaths, {
+          x: 0,
+          color: 'currentColor',
+          filter: clear,
+          duration: 0.18,
+          stagger: { each: 0.015, from: 'random' },
+          ease: 'power2.out',
+        }, 'glitch+=0.14')
+        .addLabel('textIn', '+=0.15')
         .set(textEl, { autoAlpha: 1 }, 'textIn')
         .to(words, { opacity: 1, filter: clear, duration: 0.85, stagger: 0.08, ease: 'cin' }, 'textIn')
-        // Rogue paths: warm to orange and strengthen as words arrive, then colour drains
-        .call(() => {
-          const offsets = [0.06, 0.18, 0.34, 0.52];
-
-          roguePaths.forEach((path, i) => {
-            const t = offsets[i] ?? offsets[offsets.length - 1];
-
-            // Warm into orange — colour and opacity rise together
-            gsap.to(path, {
-              color: brandOrange,
-              opacity: 1,
-              filter: 'blur(1px)',
-              duration: 0.5,
-              ease: 'sine.out',
-              delay: t,
-            });
-
-            // Sharpen fully — blur clears after warmth arrives
-            gsap.to(path, {
-              filter: clear,
-              duration: 0.4,
-              ease: 'power2.out',
-              delay: t + 0.35,
-            });
-
-            // Colour cools back to default — slowest, softest layer
-            gsap.to(path, {
-              color: defaultPathColor,
-              duration: 0.9,
-              ease: 'sine.inOut',
-              delay: t + 0.3,
-            });
-          });
-        }, undefined, 'textIn')
         .addLabel('hold', '+=0.7')
         .to(words, { opacity: 0, filter: blur, duration: 0.55, stagger: { each: 0.03, from: 'end' }, ease: 'cinOut' }, 'hold')
         .to(paths, { opacity: 0, filter: blur, duration: 0.55, stagger: { each: 0.015, from: 'end' }, ease: 'cinOut' }, 'hold+=0.15')
