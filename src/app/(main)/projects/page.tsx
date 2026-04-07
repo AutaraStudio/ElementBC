@@ -200,7 +200,7 @@ export default async function ProjectsPage() {
         data-animate-theme-to="dark"
         data-slider=""
         data-cursor-marquee-text="View Project"
-        className="projects_hero-wrap u-position-relative u-overflow-clip u-pointer-off u-theme-dark"
+        className="projects_hero-wrap u-position-relative u-overflow-clip u-pointer-off u-theme-charcoal"
       >
         <div className="u-embed-css w-embed">
           <style dangerouslySetInnerHTML={{ __html: heroCSS }} />

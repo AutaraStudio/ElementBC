@@ -25,7 +25,7 @@ export default function Navbar({ navLinks: sanityNavLinks }: NavbarProps) {
   return (
     <div className="nav_main-wrap u-position-fixed u-width-full u-pointer-off">
       <div className="nav_main-contain u-container">
-        <div className="nav_main-layout u-grid-custom u-theme-dark">
+        <div className="nav_main-layout u-grid-custom u-theme-charcoal">
 
           <div className="nav_main-col u-column-start-1 u-column-span-2 u-flex-horizontal-nowrap u-gap-3">
             <Link
@@ -56,7 +56,7 @@ export default function Navbar({ navLinks: sanityNavLinks }: NavbarProps) {
         </div>
       </div>
 
-      <div data-mega-theme="dark" data-nav-menu="" className="nav_mega-wrap u-position-fixed u-padding-top-large u-padding-bottom-small u-theme-dark">
+      <div data-mega-theme="dark" data-nav-menu="" className="nav_mega-wrap u-position-fixed u-padding-top-large u-padding-bottom-small u-theme-charcoal">
 
         <div className="nav_mega_bg-wrap u-position-absolute">
           <NavBackgroundSvg className="nav_mega_bg-svg" />

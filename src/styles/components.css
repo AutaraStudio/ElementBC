@@ -1792,6 +1792,12 @@
   object-fit: contain;
   max-width: 60%;
   max-height: 40%;
+  transition: color 0.3s ease, filter 0.3s ease;
+}
+
+.partner_carousel-card:hover .partner_carousel-logo {
+  color: var(--_red---swatch--brand-500);
+  filter: brightness(1);
 }
 
 .partner_carousel-name {

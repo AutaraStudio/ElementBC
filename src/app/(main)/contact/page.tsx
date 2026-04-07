@@ -43,7 +43,7 @@ export default async function ContactPage() {
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
-      <section data-hero-wrap="" className="contact_hero-wrap u-theme-dark">
+      <section data-hero-wrap="" className="contact_hero-wrap u-theme-charcoal">
         <div data-wf--spacer--variant="page-top" className="u-section-spacer is-page-top u-ignore-trim"></div>
 
         <div className="contact_hero-contain u-container">
@@ -69,7 +69,7 @@ export default async function ContactPage() {
       {/* ============================================================
           GET IN TOUCH SECTION
       ============================================================ */}
-      <section className="contact_info-wrap u-theme-dark">
+      <section className="contact_info-wrap u-theme-charcoal">
         <div className="contact_info-contain u-container">
 
           {/* Top border */}
@@ -109,7 +109,7 @@ export default async function ContactPage() {
       {/* ============================================================
           ADDRESS SECTION
       ============================================================ */}
-      <section className="contact_address-wrap u-theme-dark">
+      <section className="contact_address-wrap u-theme-charcoal">
         <div className="contact_address-contain u-container">
 
           {/* Top border */}
