@@ -11,7 +11,7 @@ const fallbackNavLinks: SanityNavLink[] = [
   { label: 'Projects', url: '/projects' },
   { label: 'About & Team', url: '/about' },
   { label: 'Services', url: '#' },
-  { label: 'Contact', url: '#' },
+  { label: 'Contact', url: '/contact' },
 ];
 
 interface NavbarProps {
