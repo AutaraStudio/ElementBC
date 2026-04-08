@@ -4,8 +4,12 @@ import gsap from '@/lib/gsap';
 import { ScrollTrigger } from '@/lib/gsap';
 import LocomotiveScroll from 'locomotive-scroll';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const DISABLE_LENIS = true; // TEMP: set to false to re-enable Lenis smooth scroll
+
 export function useSmoothScroll() {
   useEffect(() => {
+    if (DISABLE_LENIS) return;
     const track = document.querySelector('[data-scroll-track]') as HTMLElement | null;
     const thumb = document.querySelector('[data-scroll-thumb]') as HTMLElement | null;
     if (!track || !thumb) return;

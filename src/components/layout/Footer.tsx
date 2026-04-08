@@ -5,6 +5,8 @@ import TransitionLink from '@/components/ui/TransitionLink';
 import { usePathname } from 'next/navigation';
 import type { SanityNavLink } from '@/lib/sanity/queries';
 import FooterBackgroundSvg from '@/components/ui/svgs/FooterBackgroundSvg';
+import CharStagger from '@/components/ui/CharStagger';
+import StaggerLink from '@/components/ui/StaggerLink';
 
 const fallbackNavLinks: SanityNavLink[] = [
   { label: 'Home', url: '/' },
@@ -49,7 +51,7 @@ export default function Footer({ navLinks: sanityNavLinks, legalLinks, builtByTe
                         className={`footer_main_nav-link w-inline-block${isActive ? ' w--current' : ''}`}
                       >
                         <div className="footer_main_nav-text u-text-style-h2 u-text-transform-uppercase">
-                          {label === 'About & Team' ? <>About &amp; Team</> : label}
+                          <CharStagger>{label}</CharStagger>
                         </div>
                       </TransitionLink>
                     </li>
@@ -60,15 +62,15 @@ export default function Footer({ navLinks: sanityNavLinks, legalLinks, builtByTe
               <div className="footer_main_legal-wrap">
                 <div data-stagger-start="top 95%" data-stagger="" className="footer_main_legal-inner u-flex-horizontal-nowrap u-alignment-start u-gap-3">
                   {legalLinks ? legalLinks.map(({ label, url }) => (
-                    <a key={url + label} href={url} className="footer_main_legal-link u-text-style-x-small u-text-transform-uppercase">{label}</a>
+                    <StaggerLink key={url + label} href={url} className="footer_main_legal-link u-text-style-x-small u-text-transform-uppercase">{label}</StaggerLink>
                   )) : (
                     <>
-                      <a href="#" className="footer_main_legal-link u-text-style-x-small u-text-transform-uppercase">Privacy Policy</a>
-                      <a href="#" className="footer_main_legal-link u-text-style-x-small u-text-transform-uppercase">Terms &amp; Conditions</a>
+                      <StaggerLink href="#" className="footer_main_legal-link u-text-style-x-small u-text-transform-uppercase">Privacy Policy</StaggerLink>
+                      <StaggerLink href="#" className="footer_main_legal-link u-text-style-x-small u-text-transform-uppercase">Terms & Conditions</StaggerLink>
                     </>
                   )}
                   {(builtByText || builtByUrl) && (
-                    <a href={builtByUrl ?? '#'} className="footer_main_legal-link u-text-style-x-small u-text-transform-uppercase">{builtByText ?? 'Built by'}</a>
+                    <StaggerLink href={builtByUrl ?? '#'} className="footer_main_legal-link u-text-style-x-small u-text-transform-uppercase">{builtByText ?? 'Built by'}</StaggerLink>
                   )}
                 </div>
               </div>

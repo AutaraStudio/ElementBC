@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import TransitionLink from '@/components/ui/TransitionLink';
 import HomeAboutWaveSvg from '@/components/ui/svgs/HomeAboutWaveSvg';
+import CharStagger from '@/components/ui/CharStagger';
 import { getHomePage, getProjectsPage, getSiteSettings } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 export const revalidate = 3600;
@@ -126,9 +127,9 @@ export default async function HomePage() {
                     <TransitionLink
                       href={homePage?.heroProject?.slug ? `/projects/${homePage.heroProject.slug}` : '/projects'}
                       data-hero-trigger=""
-                      className="link_underline-wrap u-padding-bottom-1"
+                      className="link_underline-wrap link-stagger u-padding-bottom-1"
                     >
-                      <div data-featured-text="" className="link_underline-text u-text-style-main u-text-transform-uppercase">{homePage?.heroViewProjectText ?? 'View Project'}</div>
+                      <div data-featured-text="" className="link_underline-text u-text-style-main u-text-transform-uppercase"><CharStagger>{homePage?.heroViewProjectText ?? 'View Project'}</CharStagger></div>
                       <div className="link_underline-line"></div>
                     </TransitionLink>
                   </div>
@@ -167,17 +168,17 @@ export default async function HomePage() {
             {/* Row 3 — Value props */}
             <div className="home_about-col u-column-start-1 u-column-span-4 u-flex-horizontal-nowrap u-justify-content- ">
               <div className="home_about_value-wrap">
-                <p className="home_about_value-desc u-text-style-small u-text-decoration-justify-last u-max-width-30ch">{(homePage?.aboutValueProps ?? defaultValueProps)[0]?.description}</p>
+                <p data-split="line" className="home_about_value-desc u-text-style-small u-text-decoration-justify-last u-max-width-30ch">{(homePage?.aboutValueProps ?? defaultValueProps)[0]?.description}</p>
               </div>
             </div>
             <div className="home_about-col u-column-start-5 u-column-span-4">
               <div className="home_about_value-wrap">
-                <p className="home_about_value-desc u-text-style-small u-text-decoration-justify-last u-max-width-30ch">{(homePage?.aboutValueProps ?? defaultValueProps)[1]?.description}</p>
+                <p data-split="line" className="home_about_value-desc u-text-style-small u-text-decoration-justify-last u-max-width-30ch">{(homePage?.aboutValueProps ?? defaultValueProps)[1]?.description}</p>
               </div>
             </div>
             <div className="home_about-col u-column-start-9 u-column-span-4">
               <div className="home_about_value-wrap">
-                <p className="home_about_value-desc u-text-style-small u-text-decoration-justify-last u-max-width-30ch">{(homePage?.aboutValueProps ?? defaultValueProps)[2]?.description}</p>
+                <p data-split="line" className="home_about_value-desc u-text-style-small u-text-decoration-justify-last u-max-width-30ch">{(homePage?.aboutValueProps ?? defaultValueProps)[2]?.description}</p>
               </div>
             </div>
 
@@ -275,7 +276,7 @@ export default async function HomePage() {
                     <TransitionLink aria-label="View All Projects" href="/projects" className="clickable_link w-inline-block"></TransitionLink>
                   </div>
                   <div className="button_main_element w-variant-e85564cd-af30-a478-692b-71732aefb3ab">
-                    <div aria-hidden="true" className="button_main_text u-text-style-main u-text-transform-uppercase u-weight-bold">View All Projects</div>
+                    <div aria-hidden="true" className="button_main_text u-text-style-main u-text-transform-uppercase u-weight-bold"><CharStagger>View All Projects</CharStagger></div>
                     <div className="button_main_icon u-hide-if-empty"></div>
                   </div>
                 </div>

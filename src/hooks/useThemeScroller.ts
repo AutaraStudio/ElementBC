@@ -33,6 +33,7 @@ const THEME_VARS = [
   '--_theme---accent-2',
   '--_theme---selection--background',
   '--_theme---selection--text',
+  '--_theme---nav-link--hover',
 ];
 
 /**
@@ -111,8 +112,8 @@ export function useThemeScroller() {
 
       tweenRef.current = gsap.to(proxy, {
         progress: 1,
-        duration: 0.8,
-        ease: 'power2.inOut',
+        duration: 0.3,
+        ease: 'power1.inOut',
         onUpdate() {
           const t = proxy.progress;
           for (const v of THEME_VARS) {
@@ -131,8 +132,8 @@ export function useThemeScroller() {
 
       const st = ScrollTrigger.create({
         trigger: section,
-        start: 'top 60%',
-        end: 'bottom 40%',
+        start: 'top 75%',
+        end: 'bottom 25%',
         onEnter: () => applyTheme(theme),
         onEnterBack: () => applyTheme(theme),
       });

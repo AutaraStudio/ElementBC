@@ -3,6 +3,19 @@ import { useEffect } from 'react';
 import gsap from '@/lib/gsap';
 import { CustomEase } from '@/lib/gsap';
 
+function setCharStaggerText(container: HTMLElement, text: string) {
+  const wrap = container.querySelector('.char-stagger-wrap');
+  if (!wrap) { container.textContent = text; return; }
+  wrap.innerHTML = '';
+  [...text].forEach((ch, i) => {
+    const span = document.createElement('span');
+    span.style.cssText = `display:inline-block;position:relative;transition-delay:${i * 0.015}s;`;
+    if (ch === ' ') span.style.whiteSpace = 'pre';
+    span.textContent = ch;
+    wrap.appendChild(span);
+  });
+}
+
 export function useNavAnimation() {
   useEffect(() => {
     let openTl: gsap.core.Timeline | null = null;
@@ -42,7 +55,7 @@ export function useNavAnimation() {
         if (isOpen) return;
         isOpen = true;
         if (closeTl) closeTl.kill();
-        if (linkText) linkText.textContent = 'CLOSE';
+        if (linkText) setCharStaggerText(linkText, 'CLOSE');
         openTl = gsap.timeline({
           paused: true,
           onStart: () => {
@@ -66,7 +79,7 @@ export function useNavAnimation() {
         if (!isOpen) return;
         isOpen = false;
         if (openTl) openTl.kill();
-        if (linkText) linkText.textContent = 'MENU';
+        if (linkText) setCharStaggerText(linkText, 'MENU');
         closeTl = gsap.timeline({
           paused: true,
           onComplete: () => {

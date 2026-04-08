@@ -218,10 +218,13 @@ export function useScrollReveal() {
               if (ch === ' ') {
                 wrapper.appendChild(document.createTextNode(' '));
               } else {
-                const span = document.createElement('span');
-                span.style.cssText = 'display:inline-block;';
-                span.textContent = ch;
-                wrapper.appendChild(span);
+                const outer = document.createElement('span');
+                outer.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;';
+                const inner = document.createElement('span');
+                inner.style.cssText = 'display:inline-block;';
+                inner.textContent = ch;
+                outer.appendChild(inner);
+                wrapper.appendChild(outer);
               }
             });
             const sr = document.createElement('span');
@@ -229,13 +232,15 @@ export function useScrollReveal() {
             sr.textContent = text;
             el.appendChild(sr);
             el.appendChild(wrapper);
-            targets = Array.from(wrapper.querySelectorAll('span[style]'));
+            targets = Array.from(wrapper.querySelectorAll('span > span'));
             break;
           }
           case 'line': {
             const text = el.textContent || '';
             const wordList = text.split(/\s+/).filter(Boolean);
             el.innerHTML = '';
+            // Temporarily show element so offsetTop measurements are accurate
+            (el as HTMLElement).style.visibility = 'visible';
             const wordSpans = wordList.map((w) => {
               const sp = document.createElement('span');
               sp.style.cssText = 'display:inline;white-space:pre;';
@@ -254,6 +259,8 @@ export function useScrollReveal() {
             });
             if (currentLine.length) lines.push(currentLine);
             el.innerHTML = '';
+            // Re-hide until animation plays
+            (el as HTMLElement).style.visibility = 'hidden';
             const wrapper2 = document.createElement('span');
             wrapper2.style.cssText = 'display:inline;overflow:visible;';
             wrapper2.setAttribute('aria-hidden', 'true');
@@ -286,10 +293,13 @@ export function useScrollReveal() {
               if (/^\s+$/.test(part)) {
                 wrapper3.appendChild(document.createTextNode(part));
               } else if (part) {
-                const span = document.createElement('span');
-                span.style.cssText = 'display:inline-block;';
-                span.textContent = part;
-                wrapper3.appendChild(span);
+                const outer = document.createElement('span');
+                outer.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;';
+                const inner = document.createElement('span');
+                inner.style.cssText = 'display:inline-block;';
+                inner.textContent = part;
+                outer.appendChild(inner);
+                wrapper3.appendChild(outer);
               }
             });
             const sr3 = document.createElement('span');
@@ -297,19 +307,19 @@ export function useScrollReveal() {
             sr3.textContent = text;
             el.appendChild(sr3);
             el.appendChild(wrapper3);
-            targets = Array.from(wrapper3.querySelectorAll('span[style]'));
+            targets = Array.from(wrapper3.querySelectorAll('span > span'));
             break;
           }
         }
 
         if (!targets.length) return null;
-        gsap.set(targets, { opacity: 0, y: yVal, filter: blurPx(blurVal), rotation });
+        gsap.set(targets, { yPercent: 10, opacity: 0, filter: blurPx(blurVal), rotation });
         (el as HTMLElement).style.visibility = 'visible';
 
         return {
           targets,
           animProps: {
-            opacity: 1, y: 0, filter: blurVal ? 'blur(0px)' : 'none', rotation: 0,
+            yPercent: 0, opacity: 1, filter: blurVal ? 'blur(0px)' : 'none', rotation: 0,
             duration, ease, delay, stagger: { each: stagger, from: 'start' },
           },
         };

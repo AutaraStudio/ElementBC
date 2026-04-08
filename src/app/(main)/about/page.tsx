@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import TransitionLink from '@/components/ui/TransitionLink';
+import CharStagger from '@/components/ui/CharStagger';
 import { getAboutPage } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 import AboutHeroBackgroundSvg from '@/components/ui/svgs/AboutHeroBackgroundSvg';
@@ -106,7 +107,7 @@ export default async function AboutPage() {
                         <TransitionLink href={aboutPage?.ctaUrl ?? '/projects'} aria-label={aboutPage?.ctaLabel ?? 'View Our Work'} className="clickable_link w-inline-block"></TransitionLink>
                       </div>
                       <div className="button_main_element">
-                        <div aria-hidden="true" className="button_main_text u-text-style-main u-text-transform-uppercase u-weight-bold">{aboutPage?.ctaLabel ?? 'View Our Work'}</div>
+                        <div aria-hidden="true" className="button_main_text u-text-style-main u-text-transform-uppercase u-weight-bold"><CharStagger>{aboutPage?.ctaLabel ?? 'View Our Work'}</CharStagger></div>
                         <div className="button_main_icon u-hide-if-empty"></div>
                       </div>
                     </div>
@@ -174,7 +175,7 @@ export default async function AboutPage() {
                       <div className="about_team-role u-text-style-small u-text-transform-uppercase">{member.role}</div>
                     )}
                     {member.bio && (
-                      <p className="about_team-bio u-text-style-main">{member.bio}</p>
+                      <p data-split="line" className="about_team-bio u-text-style-main">{member.bio}</p>
                     )}
                   </div>
                 </div>

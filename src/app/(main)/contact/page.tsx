@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getContactPage } from '@/lib/sanity/queries';
+import StaggerLink from '@/components/ui/StaggerLink';
 
 export const revalidate = 3600;
 
@@ -89,7 +90,7 @@ export default async function ContactPage() {
             <div className="contact_info-col u-column-start-7 u-column-span-3">
               <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
                 <div className="contact_detail-label u-text-style-main">{phoneLabel}</div>
-                <a href={phoneHref} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{phoneNumber}</a>
+                <StaggerLink href={phoneHref} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{phoneNumber}</StaggerLink>
               </div>
             </div>
 
@@ -97,7 +98,7 @@ export default async function ContactPage() {
             <div className="contact_info-col u-column-start-10 u-column-span-3">
               <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
                 <div className="contact_detail-label u-text-style-main">{emailLabel}</div>
-                <a href={emailHref} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{emailAddress}</a>
+                <StaggerLink href={emailHref} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{emailAddress}</StaggerLink>
               </div>
             </div>
 
@@ -133,7 +134,7 @@ export default async function ContactPage() {
                   <div>{addressLine2}</div>
                   <div>{addressLine3}</div>
                 </div>
-                <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">Google Maps</a>
+                <StaggerLink href={googleMapsUrl} external className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">Google Maps</StaggerLink>
               </div>
             </div>
 
@@ -141,7 +142,7 @@ export default async function ContactPage() {
             <div className="contact_address-col u-column-start-10 u-column-span-3">
               <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
                 <div className="contact_detail-label u-text-style-main">{visitLabel}</div>
-                <a href={bookVisitUrl} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">Book a Visit</a>
+                <StaggerLink href={bookVisitUrl} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">Book a Visit</StaggerLink>
               </div>
             </div>
 

@@ -324,7 +324,7 @@
   --_theme---button-secondary--border-hover: var(--_theme---button-secondary--background-hover);
   --_theme---text-link--border: var(--_theme---text);
   --_theme---text-link--text: var(--_theme---text);
-  --_theme---text-link--text-hover: var(--_theme---text-link--text);
+  --_theme---text-link--text-hover: var(--_red---swatch--brand-500);
   --_theme---nav--background: var(--_theme---background-2);
   --_theme---text-link--border-hover: var(--_theme---text);
   --_theme---image-reveal: var(--_brand-buff---swatch--brand-buff-svg);
@@ -333,6 +333,7 @@
   --_theme---accent-2: white;
   --_theme---selection--background: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---selection--text: var(--swatch--dark-800);
+  --_theme---nav-link--hover: var(--swatch--dark-900);
 }
 
 .u-theme-dark {
@@ -358,7 +359,7 @@
   --_theme---button-secondary--border-hover: var(--_theme---button-secondary--background-hover);
   --_theme---text-link--border: var(--_theme---text);
   --_theme---text-link--text: var(--_theme---text);
-  --_theme---text-link--text-hover: var(--_theme---text-link--text);
+  --_theme---text-link--text-hover: var(--_red---swatch--brand-500);
   --_theme---nav--background: var(--_theme---background-2);
   --_theme---text-link--border-hover: var(--swatch--light-100);
   --_theme---image-reveal: var(--_brand-charcoal---swatch--brand-charcoal-svg);
@@ -367,6 +368,7 @@
   --_theme---accent-2: var(--_brand-egg-blue---swatch--brand-eggblue-500);
   --_theme---selection--background: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---selection--text: var(--swatch--dark-800);
+  --_theme---nav-link--hover: var(--_red---swatch--brand-500);
 }
 
 .u-theme-brand {
@@ -392,7 +394,7 @@
   --_theme---button-secondary--border-hover: var(--_theme---button-secondary--background-hover);
   --_theme---text-link--border: var(--_theme---text);
   --_theme---text-link--text: var(--_theme---text);
-  --_theme---text-link--text-hover: var(--_theme---text-link--text);
+  --_theme---text-link--text-hover: var(--swatch--dark-900);
   --_theme---nav--background: var(--_theme---background);
   --_theme---text-link--border-hover: var(--_theme---text);
   --_theme---image-reveal: var(--_brand-buff---swatch--brand-buff-svg);
@@ -401,6 +403,7 @@
   --_theme---accent-2: white;
   --_theme---selection--background: var(--swatch--dark-800);
   --_theme---selection--text: var(--swatch--swatch-buff);
+  --_theme---nav-link--hover: var(--swatch--dark-900);
 }
 
 .u-text-style-display {
@@ -2819,7 +2822,7 @@
   --_theme---button-secondary--border-hover: var(--_theme---button-secondary--background-hover);
   --_theme---text-link--border: var(--_theme---text);
   --_theme---text-link--text: var(--_theme---text);
-  --_theme---text-link--text-hover: var(--_theme---text-link--text);
+  --_theme---text-link--text-hover: var(--swatch--dark-900);
   --_theme---nav--background: var(--_theme---background);
   --_theme---text-link--border-hover: var(--_theme---text);
   --_theme---image-reveal: var(--_brand-egg-blue---swatch--brand-eggblue-svg);
@@ -2828,6 +2831,7 @@
   --_theme---accent-2: white;
   --_theme---selection--background: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---selection--text: var(--swatch--dark-800);
+  --_theme---nav-link--hover: var(--swatch--dark-900);
 }
 
 .u-theme-buff {
@@ -2853,7 +2857,7 @@
   --_theme---button-secondary--border-hover: var(--_theme---button-secondary--background-hover);
   --_theme---text-link--border: var(--_theme---text);
   --_theme---text-link--text: var(--_theme---text);
-  --_theme---text-link--text-hover: var(--_theme---text-link--text);
+  --_theme---text-link--text-hover: var(--_red---swatch--brand-500);
   --_theme---nav--background: var(--_theme---background);
   --_theme---text-link--border-hover: var(--_theme---text);
   --_theme---image-reveal: var(--_brand-buff---swatch--brand-buff-svg);
@@ -2862,6 +2866,7 @@
   --_theme---accent-2: white;
   --_theme---selection--background: var(--_brand-egg-blue---swatch--brand-eggblue-500);
   --_theme---selection--text: var(--swatch--dark-800);
+  --_theme---nav-link--hover: var(--swatch--dark-900);
 }
 
 .u-theme-stone {
@@ -2887,7 +2892,7 @@
   --_theme---button-secondary--border-hover: var(--_theme---button-secondary--background-hover);
   --_theme---text-link--border: var(--_theme---text);
   --_theme---text-link--text: var(--_theme---text);
-  --_theme---text-link--text-hover: var(--_theme---text-link--text);
+  --_theme---text-link--text-hover: var(--_red---swatch--brand-500);
   --_theme---nav--background: var(--_theme---background);
   --_theme---text-link--border-hover: var(--_theme---text);
   --_theme---image-reveal: var(--_brand-stone---swatch--brand-stone-svg);
@@ -2896,6 +2901,7 @@
   --_theme---accent-2: white;
   --_theme---selection--background: var(--_brand-egg-blue---swatch--brand-eggblue-500);
   --_theme---selection--text: var(--swatch--dark-800);
+  --_theme---nav-link--hover: var(--swatch--dark-900);
 }
 
 .u-theme-charcoal {
@@ -2921,7 +2927,7 @@
   --_theme---button-secondary--border-hover: var(--_theme---text);
   --_theme---text-link--border: var(--_theme---text);
   --_theme---text-link--text: var(--_theme---text);
-  --_theme---text-link--text-hover: var(--_theme---text-link--text);
+  --_theme---text-link--text-hover: var(--_red---swatch--brand-500);
   --_theme---nav--background: var(--_theme---background);
   --_theme---text-link--border-hover: var(--_theme---text);
   --_theme---image-reveal: var(--_brand-charcoal---swatch--brand-charcoal-svg);
@@ -2930,6 +2936,7 @@
   --_theme---accent-2: white;
   --_theme---selection--background: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---selection--text: var(--swatch--dark-800);
+  --_theme---nav-link--hover: var(--_red---swatch--brand-500);
 }
 
 .u-theme-dark-blue {
@@ -2955,7 +2962,7 @@
   --_theme---button-secondary--border-hover: var(--_theme---button-secondary--background-hover);
   --_theme---text-link--border: var(--_theme---text);
   --_theme---text-link--text: var(--_theme---text);
-  --_theme---text-link--text-hover: var(--_theme---text-link--text);
+  --_theme---text-link--text-hover: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---nav--background: var(--_theme---background);
   --_theme---text-link--border-hover: var(--_theme---text);
   --_theme---image-reveal: var(--_brand-dark-blue---swatch--brand-darkblue-svg);
@@ -2964,6 +2971,7 @@
   --_theme---accent-2: white;
   --_theme---selection--background: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---selection--text: var(--swatch--dark-800);
+  --_theme---nav-link--hover: var(--_brand-buff---swatch--brand-buff-500);
 }
 
 /* =========================================================================

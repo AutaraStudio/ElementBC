@@ -8,6 +8,7 @@
   --_theme---background: var(--swatch--swatch-buff);
   --_text-style---font-family: var(--_typography---font--primary-family);
   --_theme---text: var(--swatch--dark-900);
+  --_theme---nav-link--hover: currentColor;
   --_text-style---font-size: var(--_typography---font-size--text-main);
   --_text-style---line-height: var(--_typography---line-height--huge);
   --_text-style---font-weight: var(--_typography---font--primary-medium);
@@ -79,7 +80,7 @@
   --_theme---button-secondary--border-hover: var(--_theme---button-secondary--background-hover);
   --_theme---text-link--border: var(--_theme---text);
   --_theme---text-link--text: var(--_theme---text);
-  --_theme---text-link--text-hover: var(--_theme---text-link--text);
+  --_theme---text-link--text-hover: currentColor;
   --button-size--medium: 3rem;
   --button-size--large: 5rem;
   --focus--offset-inner: calc(var(--focus--width) * -1);
@@ -223,34 +224,34 @@
   --_brand-charcoal---swatch--brand-charcoal-svg: #3d3d3b;
 
   /* Animation durations (unitless seconds — parsed by JS) */
-  --anim-duration-xs: 0.3;
-  --anim-duration-sm: 0.5;
-  --anim-duration-md: 0.7;
-  --anim-duration-lg: 0.9;
-  --anim-duration-xl: 1.1;
+  --anim-duration-xs: 0.25;
+  --anim-duration-sm: 0.4;
+  --anim-duration-md: 0.5;
+  --anim-duration-lg: 0.6;
+  --anim-duration-xl: 0.8;
   /* Easing curves (GSAP strings — read as-is by JS) */
   --anim-ease-out: power3.out;
-  --anim-ease-in: power3.in;
-  --anim-ease-in-out: power3.inOut;
+  --anim-ease-in: power2.in;
+  --anim-ease-in-out: power2.inOut;
   --anim-ease-sine: sine.inOut;
   --anim-ease-reveal: M0,0 C0.16,1 0.3,1 1,1;
   --anim-ease-menu-in: M0,0 C0.22,0.61 0.36,1 1,1;
   --anim-ease-menu-out: M0,0 C0.64,0 0.78,0.39 1,1;
   --anim-ease-wipe: M0,0 C0.62,0.05 0.01,0.99 1,1;
   /* Blur (unitless px — parsed by JS) */
-  --anim-blur-sm: 4;
-  --anim-blur-md: 8;
-  --anim-blur-lg: 12;
+  --anim-blur-sm: 3;
+  --anim-blur-md: 4;
+  --anim-blur-lg: 6;
   /* Y offsets (unitless px — parsed by JS) */
-  --anim-y-sm: 20;
-  --anim-y-md: 30;
-  --anim-y-lg: 40;
+  --anim-y-sm: 0;
+  --anim-y-md: 0;
+  --anim-y-lg: 0;
   /* Stagger timings (unitless seconds — parsed by JS) */
-  --anim-stagger-char: 0.03;
-  --anim-stagger-word: 0.05;
-  --anim-stagger-line: 0.12;
-  --anim-stagger-item: 0.12;
-  --anim-stagger-path: 0.008;
+  --anim-stagger-char: 0.02;
+  --anim-stagger-word: 0.04;
+  --anim-stagger-line: 0.06;
+  --anim-stagger-item: 0.08;
+  --anim-stagger-path: 0.006;
   /* Scroll trigger positions */
   --scroll-start: top 85%;
   --scroll-start-early: top 80%;
@@ -285,7 +286,7 @@
   --_theme---button-secondary--border-hover: var(--_theme---button-secondary--background-hover);
   --_theme---text-link--border: var(--_theme---text);
   --_theme---text-link--text: var(--_theme---text);
-  --_theme---text-link--text-hover: var(--_theme---text-link--text);
+  --_theme---text-link--text-hover: var(--_red---swatch--brand-500);
   --_theme---nav--background: var(--_theme---background-2);
   --_theme---text-link--border-hover: var(--_theme---text);
   --_theme---image-reveal: var(--_brand-buff---swatch--brand-buff-svg);
@@ -294,6 +295,7 @@
   --_theme---accent-2: white;
   --_theme---selection--background: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---selection--text: var(--swatch--dark-800);
+  --_theme---nav-link--hover: var(--swatch--dark-900);
 }
 
 .u-theme-dark {
@@ -319,7 +321,7 @@
   --_theme---button-secondary--border-hover: var(--_theme---button-secondary--background-hover);
   --_theme---text-link--border: var(--_theme---text);
   --_theme---text-link--text: var(--_theme---text);
-  --_theme---text-link--text-hover: var(--_theme---text-link--text);
+  --_theme---text-link--text-hover: var(--_red---swatch--brand-500);
   --_theme---nav--background: var(--_theme---background-2);
   --_theme---text-link--border-hover: var(--swatch--light-100);
   --_theme---image-reveal: var(--_brand-charcoal---swatch--brand-charcoal-svg);
@@ -328,6 +330,7 @@
   --_theme---accent-2: var(--_brand-egg-blue---swatch--brand-eggblue-500);
   --_theme---selection--background: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---selection--text: var(--swatch--dark-800);
+  --_theme---nav-link--hover: var(--_red---swatch--brand-500);
 }
 
 .u-theme-buff {
@@ -353,7 +356,7 @@
   --_theme---button-secondary--border-hover: var(--_theme---button-secondary--background-hover);
   --_theme---text-link--border: var(--_theme---text);
   --_theme---text-link--text: var(--_theme---text);
-  --_theme---text-link--text-hover: var(--_theme---text-link--text);
+  --_theme---text-link--text-hover: var(--_red---swatch--brand-500);
   --_theme---nav--background: var(--_theme---background);
   --_theme---text-link--border-hover: var(--_theme---text);
   --_theme---image-reveal: var(--_brand-buff---swatch--brand-buff-svg);
@@ -362,6 +365,7 @@
   --_theme---accent-2: white;
   --_theme---selection--background: var(--_brand-egg-blue---swatch--brand-eggblue-500);
   --_theme---selection--text: var(--swatch--dark-800);
+  --_theme---nav-link--hover: var(--swatch--dark-900);
 }
 
 .u-theme-charcoal {
@@ -387,7 +391,7 @@
   --_theme---button-secondary--border-hover: var(--_theme---text);
   --_theme---text-link--border: var(--_theme---text);
   --_theme---text-link--text: var(--_theme---text);
-  --_theme---text-link--text-hover: var(--_theme---text-link--text);
+  --_theme---text-link--text-hover: var(--_red---swatch--brand-500);
   --_theme---nav--background: var(--_theme---background);
   --_theme---text-link--border-hover: var(--_theme---text);
   --_theme---image-reveal: var(--_brand-charcoal---swatch--brand-charcoal-svg);
@@ -396,6 +400,7 @@
   --_theme---accent-2: white;
   --_theme---selection--background: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---selection--text: var(--swatch--dark-800);
+  --_theme---nav-link--hover: var(--_red---swatch--brand-500);
 }
 
 

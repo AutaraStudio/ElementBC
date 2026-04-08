@@ -5,6 +5,7 @@ import TransitionLink from '@/components/ui/TransitionLink';
 import { usePathname } from 'next/navigation';
 import type { SanityNavLink } from '@/lib/sanity/queries';
 import NavBackgroundSvg from '@/components/ui/svgs/NavBackgroundSvg';
+import CharStagger from '@/components/ui/CharStagger';
 
 const fallbackNavLinks: SanityNavLink[] = [
   { label: 'Home', url: '/' },
@@ -48,8 +49,8 @@ export default function Navbar({ navLinks: sanityNavLinks }: NavbarProps) {
           </div>
 
           <div className="nav_main-col u-column-start-11 u-column-span-2 u-flex-vertical-nowrap u-align-items-end u-gap-3">
-            <a data-nav-toggle="" href="#" className="nav_main-link u-pointer-on w-inline-block">
-              <div className="nav_main_link-text u-text-style-main">MENU</div>
+            <a data-nav-toggle="" href="#" className="nav_main-link link-stagger u-pointer-on w-inline-block">
+              <div className="nav_main_link-text u-text-style-main"><CharStagger>MENU</CharStagger></div>
             </a>
           </div>
 
@@ -77,7 +78,7 @@ export default function Navbar({ navLinks: sanityNavLinks }: NavbarProps) {
                         className={`nav_mega-link w-inline-block${isActive ? ' w--current' : ''}`}
                       >
                         <div data-nav-link-text="" className="nav_mega_link-text u-text-style-h2 u-text-transform-uppercase">
-                          {label === 'About & Team' ? <>About &amp; Team</> : label}
+                          <CharStagger>{label}</CharStagger>
                         </div>
                       </TransitionLink>
                     </li>
