@@ -32,7 +32,7 @@ export const structure: StructureResolver = (S) =>
             .documentId('aboutPage')
         ),
       S.listItem()
-        .title('Projects Page')
+        .title('Case Studies Page')
         .child(
           S.document()
             .schemaType('projectsPage')

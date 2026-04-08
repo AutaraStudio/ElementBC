@@ -99,7 +99,7 @@ export default async function AboutPage() {
                   <div className="u-display-contents">
                     <div data-wf--button-main--variant="primary" className="button_main_wrap" data-button=" " data-trigger="hover focus">
                       <div data-wf--clickable--variant="focus-ring-outside" className="clickable_wrap u-cover-absolute">
-                        <TransitionLink href={aboutPage?.ctaUrl ?? '/projects'} aria-label={aboutPage?.ctaLabel ?? 'View Our Work'} className="clickable_link w-inline-block"></TransitionLink>
+                        <TransitionLink href={aboutPage?.ctaUrl ?? '/case-studies'} aria-label={aboutPage?.ctaLabel ?? 'View Our Work'} className="clickable_link w-inline-block"></TransitionLink>
                       </div>
                       <div className="button_main_element">
                         <div aria-hidden="true" className="button_main_text u-text-style-main u-text-transform-uppercase u-weight-bold"><CharStagger>{aboutPage?.ctaLabel ?? 'View Our Work'}</CharStagger></div>
@@ -197,7 +197,7 @@ export default async function AboutPage() {
               </div>
             </div>
             <div className="about_values-col u-column-start-6 u-column-span-7 u-grid-subgrid u-gap-row-4">
-              <div className="about_intro_col-inner u-column-start-1 u-column-span-7 u-margin-bottom-8">
+              <div className="about_intro_col-inner u-column-start-1 u-column-span-7">
                 <h2 data-split="line" className="about_values-heading u-text-style-h3">Our principles are deeply embedded in everything we do, guiding every project we deliver.<br /></h2>
               </div>
               <div className="about_intro_col-inner u-column-start-1 u-column-span-7 u-padding-top-4 u-flex-horizontal-nowrap u-justify-content-between u-align-items-start u-padding-bottom-6 u-padding-right-5">
@@ -254,7 +254,7 @@ export default async function AboutPage() {
       <section data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" className="partner_carousel-wrap">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="partner_carousel-contain">
-          <div className="partner_carousel_heading-contain u-container u-margin-bottom-8">
+          <div className="partner_carousel_heading-contain u-container">
             <div data-split-wrapper="" className="partner_carousel_heading-wrap u-flex-horizontal-nowrap u-justify-content-between u-align-items-end">
               <div className="partner_carousel_heading-inner">
                 <h2 data-split-text="word" className="partner_carousel-heading u-max-width-17ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">Trusted by those who value detail.</h2>

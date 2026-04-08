@@ -120,7 +120,7 @@ export default async function HomePage() {
                   </div>
                   <div data-stagger-item="" className="home_hero_featured-col">
                     <TransitionLink
-                      href={homePage?.heroProject?.slug ? `/projects/${homePage.heroProject.slug}` : '/projects'}
+                      href={homePage?.heroProject?.slug ? `/case-studies/${homePage.heroProject.slug}` : '/case-studies'}
                       data-hero-trigger=""
                       className="link_underline-wrap link-stagger u-padding-bottom-1"
                     >
@@ -228,7 +228,7 @@ export default async function HomePage() {
             <div className="projects_filter-col u-column-start-1 u-column-span-3">
               <div className="projects_filter_col-inner u-flex-horizontal-nowrap u-gap-2">
                 <EyebrowSvg className="global_eyebrow-svg" />
-                <div className="projects_filter-heading u-text-style-large u-text-transform-uppercase u-weight-bold">Projects</div>
+                <div className="projects_filter-heading u-text-style-large u-text-transform-uppercase u-weight-bold">Case Studies</div>
               </div>
             </div>
             <div className="projects_filter-col u-column-start-6 u-column-span-7">
@@ -238,13 +238,13 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
-        <div className="projects_archive-contain u-container u-margin-top-8">
+        <div className="projects_archive-contain u-container">
           <div className="projects_archive-collection">
             <div role="list" className="projects_archive-list u-grid-custom u-gap-row-6">
               {(homePage?.featuredProjects ?? []).map((project) => (
                 <div key={project._id} role="listitem" className="projects_archive-item u-position-relative u-flex-vertical-nowrap u-gap-3">
                   <div data-cursor-marquee-text="View Project" className="projects_archive_image-wrap u-position-relative u-overflow-hidden">
-                    <TransitionLink href={`/projects/${project.slug}`} className="projects_archive-link u-cover-absolute w-inline-block"></TransitionLink>
+                    <TransitionLink href={`/case-studies/${project.slug}`} className="projects_archive-link u-cover-absolute w-inline-block"></TransitionLink>
                     <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
                     {urlFor(project.featuredImage1) && (
                       <Image
@@ -268,10 +268,10 @@ export default async function HomePage() {
               <div className="u-display-contents">
                 <div data-wf--button-main--variant="secondary" className="button_main_wrap u-width-full" data-button=" " data-trigger="hover focus">
                   <div data-wf--clickable--variant="focus-ring-outside" className="clickable_wrap u-cover-absolute">
-                    <TransitionLink aria-label="View All Projects" href="/projects" className="clickable_link w-inline-block"></TransitionLink>
+                    <TransitionLink aria-label="View All Case Studies" href="/case-studies" className="clickable_link w-inline-block"></TransitionLink>
                   </div>
                   <div className="button_main_element w-variant-e85564cd-af30-a478-692b-71732aefb3ab">
-                    <div aria-hidden="true" className="button_main_text u-text-style-main u-text-transform-uppercase u-weight-bold"><CharStagger>View All Projects</CharStagger></div>
+                    <div aria-hidden="true" className="button_main_text u-text-style-main u-text-transform-uppercase u-weight-bold"><CharStagger>View All Case Studies</CharStagger></div>
                     <div className="button_main_icon u-hide-if-empty"></div>
                   </div>
                 </div>
@@ -288,7 +288,7 @@ export default async function HomePage() {
       <section data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-theme="charcoal" className="partner_carousel-wrap u-position-relative">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="partner_carousel-contain">
-          <div className="partner_carousel_heading-contain u-container u-margin-bottom-8">
+          <div className="partner_carousel_heading-contain u-container">
             <div data-split-wrapper="" className="partner_carousel_heading-wrap u-flex-horizontal-nowrap u-justify-content-between u-align-items-end">
               <div className="partner_carousel_heading-inner">
                 <h2 data-split-text="word" className="partner_carousel-heading u-max-width-17ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">Trusted by those who value detail.</h2>

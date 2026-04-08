@@ -9,7 +9,7 @@ import CharStagger from '@/components/ui/CharStagger';
 
 const fallbackNavLinks: SanityNavLink[] = [
   { label: 'Home', url: '/' },
-  { label: 'Projects', url: '/projects' },
+  { label: 'Case Studies', url: '/case-studies' },
   { label: 'About & Team', url: '/about' },
   { label: 'Services', url: '#' },
   { label: 'Contact', url: '/contact' },

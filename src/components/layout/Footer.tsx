@@ -4,13 +4,13 @@ import Link from 'next/link';
 import TransitionLink from '@/components/ui/TransitionLink';
 import { usePathname } from 'next/navigation';
 import type { SanityNavLink } from '@/lib/sanity/queries';
-import FooterBackgroundSvg from '@/components/ui/svgs/FooterBackgroundSvg';
+import FooterNavSvg from '@/components/ui/svgs/FooterNavSvg';
 import CharStagger from '@/components/ui/CharStagger';
 import StaggerLink from '@/components/ui/StaggerLink';
 
 const fallbackNavLinks: SanityNavLink[] = [
   { label: 'Home', url: '/' },
-  { label: 'Projects', url: '/projects' },
+  { label: 'Case Studies', url: '/case-studies' },
   { label: 'About & Team', url: '/about' },
   { label: 'Services', url: '#' },
   { label: 'Contact', url: '/contact' },
@@ -29,10 +29,8 @@ export default function Footer({ navLinks: sanityNavLinks, legalLinks, builtByTe
 
   return (
     <section data-theme="charcoal" className="footer_main-wrap">
-      <div className="footer_main_bg-wrap u-cover-absolute">
-        <div className="footer_main_bg-svg u-position-absolute">
-          <FooterBackgroundSvg className="global_svg" />
-        </div>
+      <div className="footer_bg-wrap u-position-absolute">
+        <FooterNavSvg className="footer_bg-svg" />
       </div>
 
       <div className="footer_main-contain u-container">

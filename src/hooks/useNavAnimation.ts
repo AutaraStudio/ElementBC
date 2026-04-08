@@ -30,6 +30,7 @@ export function useNavAnimation() {
     let _observer: MutationObserver | null = null;
     let _glowStyle: HTMLStyleElement | null = null;
     let _stopGlow: (() => void) | null = null;
+    let _showNav: (() => void) | null = null;
 
     function run() {
       if (!document.querySelector('[data-nav-toggle]')) return;
@@ -54,6 +55,7 @@ export function useNavAnimation() {
       function openMenu() {
         if (isOpen) return;
         isOpen = true;
+        _showNav?.();
         if (closeTl) closeTl.kill();
         if (linkText) setCharStaggerText(linkText, 'CLOSE');
         openTl = gsap.timeline({
@@ -229,7 +231,53 @@ export function useNavAnimation() {
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).siteNav = { isOpen: () => isOpen, open: openMenu, close: closeMenu, toggle: toggleMenu };
+
+      // ---- Scroll hide/show nav ----
+      // Animate only .nav_main-contain (not the wrapper) so we never put a
+      // transform on the fixed-positioned parent — that would break the mega
+      // menu's own position:fixed.
+      const navBar = document.querySelector<HTMLElement>('.nav_main-contain');
+      if (navBar) {
+        let lastScrollY = window.scrollY;
+        let navHidden = false;
+
+        _showNav = () => {
+          if (navHidden) {
+            gsap.to(navBar, { y: 0, duration: 0.3, ease: 'power2.out' });
+            navHidden = false;
+          }
+          lastScrollY = window.scrollY;
+        };
+
+        const onScroll = () => {
+          if (isOpen || window.scrollY < 100) {
+            if (navHidden) {
+              gsap.to(navBar, { y: 0, duration: 0.4, ease: 'power2.out' });
+              navHidden = false;
+            }
+            lastScrollY = window.scrollY;
+            return;
+          }
+
+          const delta = window.scrollY - lastScrollY;
+
+          if (delta > 5 && !navHidden) {
+            gsap.to(navBar, { y: '-100%', duration: 0.4, ease: 'power2.inOut' });
+            navHidden = true;
+          } else if (delta < -5 && navHidden) {
+            gsap.to(navBar, { y: 0, duration: 0.4, ease: 'power2.out' });
+            navHidden = false;
+          }
+
+          lastScrollY = window.scrollY;
+        };
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        _scrollHandler = onScroll;
+      }
     }
+
+    let _scrollHandler: ((e: Event) => void) | null = null;
 
     if (window.animUtils) {
       run();
@@ -244,6 +292,7 @@ export function useNavAnimation() {
       if (_keyHandler) document.removeEventListener('keydown', _keyHandler);
       if (_logoEl && _revealLetters) _logoEl.removeEventListener('mouseenter', _revealLetters);
       if (_logoEl && _hideLetters) _logoEl.removeEventListener('mouseleave', _hideLetters);
+      if (_scrollHandler) window.removeEventListener('scroll', _scrollHandler);
       _observer?.disconnect();
       _stopGlow?.();
       _glowStyle?.remove();
