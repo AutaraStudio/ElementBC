@@ -156,10 +156,10 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="home_about-col u-column-start-6 u-column-span-5">
+            <div className="home_about-col u-column-start-4 u-column-span-5">
               <div className="home_about_body-wrap u-flex-horizontal-nowrap u-gap-4 u-align-items-start">
                 <EyebrowSvg className="global_eyebrow-svg" />
-                <p data-split="line" className="home_about-p u-text-style-main">{homePage?.aboutParagraph}</p>
+                <p data-split="line" className="home_about-p u-text-style-large">{homePage?.aboutParagraph}</p>
               </div>
             </div>
 
