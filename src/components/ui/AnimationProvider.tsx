@@ -9,6 +9,7 @@ import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { usePreloader } from '@/hooks/usePreloader';
 import { useNavAnimation } from '@/hooks/useNavAnimation';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useThemeScroller, reinitThemeScroller } from '@/hooks/useThemeScroller';
 
 // ---------------------------------------------------------------------------
 // List Hover
@@ -430,6 +431,9 @@ function reinitPageAnimations() {
   if (typeof w.initSplitText === 'function') (w.initSplitText as () => void)();
   if (typeof w.initStaggerReveal === 'function') (w.initStaggerReveal as () => void)();
 
+  // Re-init theme scroller for new page
+  reinitThemeScroller();
+
   // Re-init component-level animations
   initListHover();
   initCarouselManager();
@@ -463,6 +467,7 @@ export default function AnimationProvider() {
   usePreloader(pathname);
   useNavAnimation();
   useScrollReveal();
+  useThemeScroller();
 
   // Initial mount — one-time inits
   useEffect(() => {

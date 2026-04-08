@@ -144,7 +144,7 @@ export default async function HomePage() {
       {/* ============================================================
           ABOUT SECTION
       ============================================================ */}
-      <section className="home_about-wrap u-theme-charcoal u-position-relative">
+      <section data-theme="buff" className="home_about-wrap u-position-relative">
         <div data-wf--spacer--variant="large" className="u-section-spacer is-large u-ignore-trim"></div>
         <div className="home_about-contain u-container">
           <div className="home_about-layout u-grid-custom u-gap-row-8">
@@ -152,25 +152,33 @@ export default async function HomePage() {
             {/* Row 1 — Heading (columns 1–7) + Eyebrow + paragraph (columns 5–10) */}
             <div className="home_about-col u-column-start-1 u-column-span-7">
               <div data-split-wrapper="" className="home_about_heading-wrap">
-                <h2 data-split="word" className="home_about_heading-heading u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{homePage?.aboutHeading ?? 'Difference in the Detail.'}</h2>
+                <h2 data-split="word" className="home_about_heading-heading u-max-width-14ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{homePage?.aboutHeading ?? 'Difference in the Detail.'}</h2>
               </div>
             </div>
-            <div className="home_about-col u-column-start-5 u-column-span-6">
+
+            <div className="home_about-col u-column-start-6 u-column-span-5">
               <div className="home_about_body-wrap u-flex-horizontal-nowrap u-gap-4 u-align-items-start">
-                <EyebrowSvg className="home_about_eyebrow-svg" />
-                <p data-split="line" className="home_about-p u-text-style-h4">{homePage?.aboutParagraph ?? 'Element is not your ordinary building consultancy. For us, precision is everything. We spot opportunities to save time and money, embrace the latest technologies, and oversee every project with absolute efficiency. We minimise risk, maximise profitability and build trust. We ensure every detail is managed.'}</p>
+                <EyebrowSvg className="global_eyebrow-svg" />
+                <p data-split="line" className="home_about-p u-text-style-main">{homePage?.aboutParagraph}</p>
               </div>
             </div>
 
             {/* Row 3 — Value props */}
-            {(homePage?.aboutValueProps ?? defaultValueProps).map((prop, i) => (
-              <div key={prop._key ?? i} className="home_about-col u-column-span-4">
-                <div className="home_about_value-wrap u-flex-vertical-nowrap u-gap-3">
-                  {prop.title && <div className="home_about_value-title u-text-style-small u-weight-bold">{prop.title}</div>}
-                  <p className="home_about_value-desc u-text-style-small">{prop.description}</p>
-                </div>
+            <div className="home_about-col u-column-start-1 u-column-span-4">
+              <div className="home_about_value-wrap">
+                <p className="home_about_value-desc u-text-style-small">{(homePage?.aboutValueProps ?? defaultValueProps)[0]?.description}</p>
               </div>
-            ))}
+            </div>
+            <div className="home_about-col u-column-start-5 u-column-span-4">
+              <div className="home_about_value-wrap">
+                <p className="home_about_value-desc u-text-style-small">{(homePage?.aboutValueProps ?? defaultValueProps)[1]?.description}</p>
+              </div>
+            </div>
+            <div className="home_about-col u-column-start-9 u-column-span-4">
+              <div className="home_about_value-wrap">
+                <p className="home_about_value-desc u-text-style-small">{(homePage?.aboutValueProps ?? defaultValueProps)[2]?.description}</p>
+              </div>
+            </div>
 
           </div>
         </div>
@@ -180,15 +188,15 @@ export default async function HomePage() {
       {/* ============================================================
           STATS SECTION
       ============================================================ */}
-      <section data-hover-axis="y" data-hover="" className="home_stats-wrap u-theme-charcoal u-position-relative">
+      <section data-theme="charcoal" data-hover-axis="y" data-hover="" className="home_stats-wrap u-position-relative">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="home_stats-contain u-container">
           <div data-split-wrapper="" className="home_stats_heading-wrap u-flex-horizontal-nowrap u-justify-content-between u-align-items-end">
             <div className="home_stats_heading-inner">
-              <h2 data-split="word" className="home_stats_heading-heading u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{homePage?.statsHeading ?? 'Built on detail. Proven in results.'}</h2>
+              <h2 data-split="word" className="home_stats_heading-heading u-max-width-17ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{homePage?.statsHeading ?? 'Built on detail. Proven in results.'}</h2>
             </div>
             <div className="home_stats_heading-inner">
-              <p data-split="line" className="home_stats_p u-text-style-main u-text-decoration-justify">{homePage?.statsSubheading ?? 'From programme to budget, we manage every detail — and the results speak for themselves.'}</p>
+              <p data-split="line" className="home_stats_p u-max-width-30ch u-text-style-main u-text-decoration-justify">{homePage?.statsSubheading ?? 'From programme to budget, we manage every detail — and the results speak for themselves.'}</p>
             </div>
           </div>
           <div data-stagger="" className="home_stats-list">
@@ -197,10 +205,10 @@ export default async function HomePage() {
                 <div data-hover-tile="" className="home_stats-tile u-cover-absolute"></div>
                 <div className="home_stats-border is-item u-position-absolute u-width-full"></div>
                 <div className="home_stats-award u-position-relative">
-                  <div data-stagger-heading="" className="home_stats-text u-text-style-h4 u-text-transform-uppercase">{stat.statValue}</div>
+                  <div data-stagger-heading="" className="home_stats-text u-max-width-20ch u-text-style-h4 u-text-transform-uppercase">{stat.statValue}</div>
                 </div>
-                <div className="home_stats-year u-flex-noshrink u-position-relative">
-                  <div data-stagger-body="" className="home_stats-text u-text-style-small u-text-decoration-justify">{stat.statLabel}</div>
+                <div className="home_stats-year u-max-width-20rem u-flex-noshrink u-position-relative">
+                  <div data-stagger-body="" className="home_stats-text u-max-width-20ch u-text-style-small u-text-decoration-justify">{stat.statLabel}</div>
                 </div>
               </a>
             ))}
@@ -213,7 +221,7 @@ export default async function HomePage() {
       {/* ============================================================
           PROJECTS ARCHIVE SECTION
       ============================================================ */}
-      <section className="projects_archive-wrap u-theme-charcoal u-position-relative">
+      <section data-theme="buff" className="projects_archive-wrap u-position-relative">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="u-embed-css w-embed">
           <style dangerouslySetInnerHTML={{ __html: projectsArchiveCSS }} />
@@ -222,9 +230,7 @@ export default async function HomePage() {
           <div className="projects_filter-layout u-grid-custom">
             <div className="projects_filter-col u-column-start-1 u-column-span-3">
               <div className="projects_filter_col-inner u-flex-horizontal-nowrap u-gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 61 42" fill="none" className="projects_filter_eyebrow-svg">
-                  <path d="M25.3848 0.64093V4.85967C25.3848 5.21835 25.0933 5.5087 24.7331 5.5087H0.652998C-0.0716348 5.5087 -0.256013 6.51215 0.421455 6.76408L12.4015 11.2774C12.4744 11.3073 12.5516 11.3201 12.633 11.3201H24.7374C25.0976 11.3201 25.3891 11.6105 25.3891 11.9692V17.1316H0.652998C-0.0716348 17.1316 -0.256013 18.1308 0.421455 18.387L12.4015 22.9003C12.4744 22.9302 12.5516 22.943 12.633 22.943H24.7374C25.0976 22.943 25.3891 23.2334 25.3891 23.5921V28.7545H0.652998C-0.0716348 28.7545 -0.256013 29.7579 0.421455 30.0141L31.7736 41.8206C31.8465 41.8505 31.9237 41.8633 32.0052 41.8633H59.5412C59.9014 41.8633 60.193 41.5729 60.193 41.2143V36.5045C60.193 36.2355 60.0214 35.9921 59.7685 35.8981L48.0972 31.5043C47.4197 31.2481 47.6041 30.2447 48.3287 30.2447H59.5369C59.8971 30.2447 60.1887 29.9543 60.1887 29.5957V24.8859C60.1887 24.6169 60.0172 24.3735 59.7642 24.2795L48.0929 19.8857C47.4154 19.6295 47.5998 18.6261 48.3244 18.6261H59.5326C59.8928 18.6261 60.1844 18.3357 60.1844 17.977V13.263C60.1844 12.994 60.0129 12.7506 59.7599 12.6566L26.2638 0.0431294C25.8394 -0.11913 25.3806 0.196854 25.3806 0.649472" fill="currentColor" />
-                </svg>
+                <EyebrowSvg className="global_eyebrow-svg" />
                 <div className="projects_filter-heading u-text-style-large u-text-transform-uppercase u-weight-bold">Projects</div>
               </div>
             </div>
@@ -282,7 +288,7 @@ export default async function HomePage() {
       {/* ============================================================
           PARTNER CAROUSEL SECTION
       ============================================================ */}
-      <section data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" className="partner_carousel-wrap u-position-relative u-theme-charcoal">
+      <section data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-theme="charcoal" className="partner_carousel-wrap u-position-relative">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="partner_carousel-contain">
           <div className="partner_carousel_heading-contain u-container u-margin-bottom-8">

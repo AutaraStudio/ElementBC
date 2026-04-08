@@ -32,7 +32,6 @@ export default async function MainLayout({
         strategy="beforeInteractive"
       />
       <AnimationProvider />
-      <div aria-hidden="true" data-bg="next" className="bg-next"></div>
       <div aria-hidden="true" data-bg="current" className="bg-current"></div>
       <div className="page_wrap">
         <div className="page_overlay u-position-fixed u-fixed-overlay">

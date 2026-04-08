@@ -29,7 +29,7 @@ export default async function AboutPage() {
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
-      <section data-hero-wrap="" className="about_hero-wrap u-min-height-screen u-position-relative u-theme-charcoal">
+      <section data-hero-wrap="" data-theme="charcoal" className="about_hero-wrap u-min-height-screen u-position-relative">
         <div data-wf--spacer--variant="page-top" className="u-section-spacer is-page-top u-ignore-trim"></div>
 
         {/* Background SVG */}
@@ -45,7 +45,7 @@ export default async function AboutPage() {
 
             {/* Eyebrow */}
             <div data-stagger="" className="project_hero-eyebrow u-flex-horizontal-nowrap u-gap-2">
-              <EyebrowSvg className="about_eyebrow-svg" />
+              <EyebrowSvg className="global_eyebrow-svg" />
               <div data-anim-hero="" data-split="word" className="about_hero_eyebrowe-heading u-text-style-large u-text-transform-uppercase u-weight-bold">{aboutPage?.heroEyebrow ?? 'About Element bc'}</div>
             </div>
 
@@ -76,14 +76,14 @@ export default async function AboutPage() {
       {/* ============================================================
           INTRO SECTION
       ============================================================ */}
-      <section className="about_intro-wrap u-padding-top-4 u-theme-charcoal">
+      <section data-theme="charcoal" className="about_intro-wrap u-padding-top-4">
         <div className="about_intro-contain u-container">
           <div className="about_intro-layout u-grid-custom u-padding-top-5 u-gap-row-8">
 
             {/* Manifesto eyebrow */}
             <div className="about_intro-col u-column-start-1 u-column-span-3">
               <div data-stagger="" className="about_intro_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2">
-                <EyebrowSvg className="about_intro_eyebrow-svg" />
+                <EyebrowSvg className="global_eyebrow-svg" />
                 <div data-anim-hero="" data-split="word" className="about_intro_eyebrowheading u-text-style-large u-text-transform-uppercase u-weight-bold">{aboutPage?.introEyebrow ?? 'Manifesto'}</div>
               </div>
             </div>
@@ -119,7 +119,7 @@ export default async function AboutPage() {
             <div className="about_intro-col u-column-start-1 u-column-span-12 u-grid-subgrid">
               <div className="about_intro_col-inner u-flex-vertical-nowrap u-column-start-2 u-column-span-4 u-gap-5">
                 <div data-stagger="" className="about_intro_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2 u-alignment-start">
-                  <EyebrowSvg className="about_intro_eyebrow-svg" />
+                  <EyebrowSvg className="global_eyebrow-svg" />
                   <div data-anim-hero="" className="about_intro_eyebrowheading u-text-style-large u-text-transform-uppercase u-weight-bold">About Element bc</div>
                 </div>
                 <p data-split="line" className="about_intro-p u-text-style-large u-text-decoration-justify">{aboutPage?.introSecondaryParagraph ?? 'Element transforms complex projects into confident outcomes. We specialise in building consultancy that uncovers risk, sharpens performance, and protects your investment. Every project is guided by precision, meticulous management, and an unwavering attention to detail.'}</p>
@@ -150,7 +150,7 @@ export default async function AboutPage() {
           TEAM MEMBERS SECTION
       ============================================================ */}
       {aboutPage?.teamMembers && aboutPage.teamMembers.length > 0 && (
-        <section className="about_team-wrap u-theme-charcoal">
+        <section data-theme="charcoal" className="about_team-wrap">
           <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
           <div className="about_team-contain u-container">
             <div className="about_team-layout u-grid-custom u-gap-row-6">
@@ -196,7 +196,7 @@ export default async function AboutPage() {
           <div className="about_values-layout u-grid-custom u-padding-top-5 u-gap-row-8 u-padding-bottom-8">
             <div className="about_values-col u-column-start-1 u-column-span-3">
               <div data-stagger="" className="about_intro_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2">
-                <EyebrowSvg className="about_intro_eyebrow-svg" />
+                <EyebrowSvg className="global_eyebrow-svg" />
                 <div data-split="word" className="about_intro_eyebrowheading u-text-style-large u-text-transform-uppercase u-weight-bold">Our Values</div>
               </div>
             </div>
@@ -225,21 +225,21 @@ export default async function AboutPage() {
           <div className="about_values-layout u-grid-custom u-padding-top-5 u-gap-row-8">
             <div className="about_values-col u-column-start-1 u-column-span-3 u-flex-vertical-nowrap u-justify-content-between u-padding-bottom-8">
               <div data-stagger="" className="about_intro_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2 u-alignment-start">
-                <EyebrowSvg className="about_intro_eyebrow-svg" />
+                <EyebrowSvg className="global_eyebrow-svg" />
                 <div data-split="word" className="about_intro_eyebrowheading u-text-style-large u-text-transform-uppercase u-weight-bold">Founders Journey</div>
               </div>
               <div data-split="word" className="about_values-p u-text-style-large">Element was founded by Harry Powell and George Curtis, two industry professionals who saw a gap in building consultancy and built a business around a simple belief — that attention to detail changes everything.</div>
             </div>
             <div className="about_values-col u-column-start-5 u-column-span-8 u-grid-subgrid">
               <div className="about_founders-outer u-column-span-4 u-flex-vertical-nowrap u-gap-4">
-                <div className="about_founders-inner u-ratio-4-5 u-theme-charcoal"></div>
+                <div data-theme="charcoal" className="about_founders-inner u-ratio-4-5"></div>
                 <div className="about_founders-info u-flex-vertical-nowrap u-gap-2">
                   <div className="about_founders-name u-text-style-large u-weight-bold">George Harris</div>
                   <div className="about_founders-name u-text-style-small u-text-transform-uppercase u-weight-bold u-color-faded">Director</div>
                 </div>
               </div>
               <div className="about_founders-outer u-column-span-4 u-flex-vertical-nowrap u-gap-4">
-                <div className="about_founders-inner u-ratio-4-5 u-theme-charcoal"></div>
+                <div data-theme="charcoal" className="about_founders-inner u-ratio-4-5"></div>
                 <div className="about_founders-info u-flex-vertical-nowrap u-gap-2">
                   <div className="about_founders-name u-text-style-large u-weight-bold">Harry Powell</div>
                   <div className="about_founders-name u-text-style-small u-text-transform-uppercase u-weight-bold u-color-faded">Director</div>

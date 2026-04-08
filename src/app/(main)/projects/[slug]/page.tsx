@@ -74,7 +74,7 @@ export default async function ProjectDetailPage({
           <div className="project_hero-layout u-flex-vertical-nowrap u-alignment-center u-gap-7">
 
             <div data-stagger="" className="project_hero-eyebrow u-flex-horizontal-nowrap u-gap-2">
-              <EyebrowSvg className="project_hero_eyebrow-svg" />
+              <EyebrowSvg className="global_eyebrow-svg" />
               <div data-anim-hero="" data-split="word" className="project_hero_eyebrow-heading u-text-style-large u-text-transform-uppercase u-weight-bold">
                 {project.category?.name}
               </div>
@@ -117,7 +117,7 @@ export default async function ProjectDetailPage({
               {project.sectionEyebrow1 && (
                 <div className="project_section-col u-column-start-1 u-column-span-3">
                   <div data-stagger="" className="project_section_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2">
-                    <EyebrowSvg className="project_section_eyebrow-svg" />
+                    <EyebrowSvg className="global_eyebrow-svg" />
                     <div data-split="word" className="project_section_eyebrow-heading u-text-style-large u-text-transform-uppercase u-weight-bold">
                       {project.sectionEyebrow1}
                     </div>
@@ -211,7 +211,7 @@ export default async function ProjectDetailPage({
               {project.sectionEyebrow2 && (
                 <div className="project_section-col u-column-start-1 u-column-span-3">
                   <div data-stagger="" className="project_section_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2">
-                    <EyebrowSvg className="project_section_eyebrow-svg" />
+                    <EyebrowSvg className="global_eyebrow-svg" />
                     <div data-split="word" className="project_section_eyebrow-heading u-text-style-large u-text-transform-uppercase u-weight-bold">
                       {project.sectionEyebrow2}
                     </div>
@@ -248,7 +248,7 @@ export default async function ProjectDetailPage({
               {project.sectionEyebrow3 && (
                 <div className="project_section-col u-column-start-1 u-column-span-3">
                   <div data-stagger="" className="project_section_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2">
-                    <EyebrowSvg className="project_section_eyebrow-svg" />
+                    <EyebrowSvg className="global_eyebrow-svg" />
                     <div data-split="word" className="project_section_eyebrow-heading u-text-style-large u-text-transform-uppercase u-weight-bold">
                       {project.sectionEyebrow3}
                     </div>
@@ -285,7 +285,7 @@ export default async function ProjectDetailPage({
               {project.sectionEyebrow4 && (
                 <div className="project_section-col u-column-start-1 u-column-span-3">
                   <div data-stagger="" className="project_section_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2">
-                    <EyebrowSvg className="project_section_eyebrow-svg" />
+                    <EyebrowSvg className="global_eyebrow-svg" />
                     <div data-split="word" className="project_section_eyebrow-heading u-text-style-large u-text-transform-uppercase u-weight-bold">
                       {project.sectionEyebrow4}
                     </div>

@@ -26,7 +26,7 @@ export default function Footer({ navLinks: sanityNavLinks, legalLinks, builtByTe
   const footerNavLinks = sanityNavLinks ?? fallbackNavLinks;
 
   return (
-    <section className="footer_main-wrap u-theme-charcoal">
+    <section data-theme="charcoal" className="footer_main-wrap">
       <div className="footer_main_bg-wrap u-cover-absolute">
         <div className="footer_main_bg-svg u-position-absolute">
           <FooterBackgroundSvg className="global_svg" />

@@ -43,7 +43,7 @@ export default async function ContactPage() {
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
-      <section data-hero-wrap="" className="contact_hero-wrap u-theme-charcoal">
+      <section data-hero-wrap="" data-theme="charcoal" className="contact_hero-wrap">
         <div data-wf--spacer--variant="page-top" className="u-section-spacer is-page-top u-ignore-trim"></div>
 
         <div className="contact_hero-contain u-container">
@@ -51,7 +51,7 @@ export default async function ContactPage() {
 
             {/* Eyebrow */}
             <div data-stagger="" className="contact_hero-eyebrow u-flex-horizontal-nowrap u-gap-2">
-              <EyebrowSvg className="contact_eyebrow-svg" />
+              <EyebrowSvg className="global_eyebrow-svg" />
               <div data-anim-hero="" data-split="word" className="contact_hero_eyebrow-heading u-text-style-large u-text-transform-uppercase u-weight-bold">{heroEyebrow}</div>
             </div>
 
@@ -69,7 +69,7 @@ export default async function ContactPage() {
       {/* ============================================================
           GET IN TOUCH SECTION
       ============================================================ */}
-      <section className="contact_info-wrap u-theme-charcoal">
+      <section data-theme="charcoal" className="contact_info-wrap">
         <div className="contact_info-contain u-container">
 
           {/* Top border */}
@@ -80,7 +80,7 @@ export default async function ContactPage() {
             {/* Eyebrow */}
             <div className="contact_info-col u-column-start-1 u-column-span-4">
               <div data-stagger="" className="contact_info_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2">
-                <EyebrowSvg className="contact_info_eyebrow-svg" />
+                <EyebrowSvg className="global_eyebrow-svg" />
                 <div data-stagger-item="" className="contact_info_eyebrow-heading u-text-style-main u-text-transform-uppercase u-weight-bold">{getInTouchEyebrow}</div>
               </div>
             </div>
@@ -109,7 +109,7 @@ export default async function ContactPage() {
       {/* ============================================================
           ADDRESS SECTION
       ============================================================ */}
-      <section className="contact_address-wrap u-theme-charcoal">
+      <section data-theme="charcoal" className="contact_address-wrap">
         <div className="contact_address-contain u-container">
 
           {/* Top border */}
@@ -120,7 +120,7 @@ export default async function ContactPage() {
             {/* Eyebrow */}
             <div className="contact_address-col u-column-start-1 u-column-span-4">
               <div data-stagger="" className="contact_address_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2">
-                <EyebrowSvg className="contact_address_eyebrow-svg" />
+                <EyebrowSvg className="global_eyebrow-svg" />
                 <div data-stagger-item="" className="contact_address_eyebrow-heading u-text-style-main u-text-transform-uppercase u-weight-bold">{addressEyebrow}</div>
               </div>
             </div>

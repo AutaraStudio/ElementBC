@@ -1,3 +1,11 @@
+.bg-current {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--_theme---background);
+}
+
 .tag_wrap {
   border-radius: var(--radius--small);
   background-color: var(--_theme---text);
@@ -1705,15 +1713,25 @@
 .home_about-wrap,
 .home_stats-wrap,
 .projects_archive-wrap,
-.partner_carousel-wrap {
+.partner_carousel-wrap,
+.about_hero-wrap,
+.about_intro-wrap,
+.about_team-wrap,
+.contact_hero-wrap,
+.contact_info-wrap,
+.contact_address-wrap,
+.projects_hero-wrap,
+.footer_main-wrap {
   position: relative;
   z-index: 2;
+  background-color: var(--_theme---background);
+  color: var(--_theme---text);
 }
 
-.home_about_eyebrow-svg {
-  width: 3.75rem;
+.global_eyebrow-svg {
+  width: 2.5rem;
   flex-shrink: 0;
-  color: var(--_theme---svg-accent);
+  color: var(--_theme---text);
 }
 
 .home_about_value-wrap {
@@ -1739,7 +1757,6 @@
 }
 
 .home_stats-year {
-  max-width: 20rem;
 }
 
 .home_stats-item {
@@ -1763,19 +1780,15 @@
 }
 
 .home_stats-text {
-  max-width: 20ch;
 }
 
 .home_stats_heading-heading {
-  max-width: 17ch;
 }
 
 .home_about_heading-heading {
-  max-width: 14ch;
 }
 
 .home_stats_p {
-  max-width: 30ch;
 }
 
 .icon_plus-wrap {
@@ -1822,7 +1835,6 @@
 }
 
 .footer_main-wrap {
-  position: relative;
 }
 
 .partner_carousel-heading {
@@ -1910,9 +1922,6 @@
   background-color: var(--_theme---background);
 }
 
-.projects_filter_eyebrow-svg {
-  width: 1.5rem;
-}
 
 .projects_related-item {
   transition: all .3s, opacity .3s;
@@ -1924,10 +1933,6 @@
 
 .projects_related-link {
   z-index: 10;
-}
-
-.project_hero_eyebrow-svg {
-  width: 1.5rem;
 }
 
 .project_hero-heading {
@@ -1942,9 +1947,6 @@
   border-top: var(--border-width--main) solid var(--_theme---border);
 }
 
-.about_eyebrow-svg {
-  width: 1.5rem;
-}
 
 .about_hero-heading {
   max-width: 30ch;
@@ -1967,9 +1969,6 @@
   border-top: var(--border-width--main) solid var(--_theme---border);
 }
 
-.about_intro_eyebrow-svg {
-  width: 1.5rem;
-}
 
 .about_intro-p {
   max-width: 45ch;
@@ -2091,13 +2090,6 @@
    CONTACT PAGE
    ============================================================================= */
 
-.contact_eyebrow-svg,
-.contact_info_eyebrow-svg,
-.contact_address_eyebrow-svg {
-  width: 3.75rem;
-  flex-shrink: 0;
-  color: var(--_theme---svg-accent);
-}
 
 .contact_hero-heading {
   max-width: 50rem;
