@@ -31,29 +31,19 @@ export async function getProjectBySlug(slug: string) {
       "slug": slug.current,
       "category": projectCategory-> { name, "slug": slug.current },
       location,
-      client,
-      completedDate,
       size,
+      client,
+      contractor,
+      mep,
+      ourRole,
       duration,
-      featuredTitle,
+      completedDate,
       featuredImage1 { ..., alt },
-      featuredImage2 { ..., alt },
       galleryImages[] {
         _key,
         asset->{ _id, url, metadata { dimensions } },
         alt
       },
-      sectionEyebrow1, sectionHeading1,
-      tableStats[] {
-        _key,
-        header,
-        statA,
-        statB,
-        statC
-      },
-      sectionEyebrow2, sectionHeading2, sectionParagraph2,
-      sectionEyebrow3, sectionHeading3, sectionParagraph3,
-      sectionEyebrow4, sectionHeading4, sectionParagraph4,
       seoTitle,
       seoDescription
     }
@@ -223,35 +213,18 @@ export interface SanityProject {
 
 export interface SanityProjectFull extends SanityProject {
   location?: string;
-  client?: string;
-  completedDate?: string;
   size?: string;
+  client?: string;
+  contractor?: string;
+  mep?: string;
+  ourRole?: string;
   duration?: string;
-  featuredTitle?: string;
-  featuredImage2?: SanityImage | null;
+  completedDate?: string;
   galleryImages?: Array<{
     _key: string;
     asset?: { _id: string; url: string; metadata?: { dimensions?: { width: number; height: number } } };
     alt?: string;
   }>;
-  sectionEyebrow1?: string;
-  sectionHeading1?: string;
-  tableStats?: Array<{
-    _key: string;
-    header?: string;
-    statA?: string;
-    statB?: string;
-    statC?: string;
-  }>;
-  sectionEyebrow2?: string;
-  sectionHeading2?: string;
-  sectionParagraph2?: string;
-  sectionEyebrow3?: string;
-  sectionHeading3?: string;
-  sectionParagraph3?: string;
-  sectionEyebrow4?: string;
-  sectionHeading4?: string;
-  sectionParagraph4?: string;
   seoTitle?: string;
   seoDescription?: string;
 }

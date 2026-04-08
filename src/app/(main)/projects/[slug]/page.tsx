@@ -1,15 +1,12 @@
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getAllProjects, getProjectBySlug } from '@/lib/sanity/queries';
+import { urlFor } from '@/lib/sanity/imageUrl';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
+import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 
 export const revalidate = 3600;
-
-const EyebrowSvg = ({ className }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 61 42" fill="none" data-stagger-item="" className={className}>
-    <path d="M25.3848 0.64093V4.85967C25.3848 5.21835 25.0933 5.5087 24.7331 5.5087H0.652998C-0.0716348 5.5087 -0.256013 6.51215 0.421455 6.76408L12.4015 11.2774C12.4744 11.3073 12.5516 11.3201 12.633 11.3201H24.7374C25.0976 11.3201 25.3891 11.6105 25.3891 11.9692V17.1316H0.652998C-0.0716348 17.1316 -0.256013 18.1308 0.421455 18.387L12.4015 22.9003C12.4744 22.9302 12.5516 22.943 12.633 22.943H24.7374C25.0976 22.943 25.3891 23.2334 25.3891 23.5921V28.7545H0.652998C-0.0716348 28.7545 -0.256013 29.7579 0.421455 30.0141L31.7736 41.8206C31.8465 41.8505 31.9237 41.8633 32.0052 41.8633H59.5412C59.9014 41.8633 60.193 41.5729 60.193 41.2143V36.5045C60.193 36.2355 60.0214 35.9921 59.7685 35.8981L48.0972 31.5043C47.4197 31.2481 47.6041 30.2447 48.3287 30.2447H59.5369C59.8971 30.2447 60.1887 29.9543 60.1887 29.5957V24.8859C60.1887 24.6169 60.0172 24.3735 59.7642 24.2795L48.0929 19.8857C47.4154 19.6295 47.5998 18.6261 48.3244 18.6261H59.5326C59.8928 18.6261 60.1844 18.3357 60.1844 17.977V13.263C60.1844 12.994 60.0129 12.7506 59.7599 12.6566L26.2638 0.0431294C25.8394 -0.11913 25.3806 0.196854 25.3806 0.649472" fill="currentColor" />
-  </svg>
-);
 
 export async function generateStaticParams() {
   const projects = await getAllProjects();
@@ -45,7 +42,7 @@ export default async function ProjectDetailPage({
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
-      <section data-hero-wrap="" className="project_hero-wrap u-min-height-screen">
+      <section data-hero-wrap="" data-theme="buff" className="project_hero-wrap u-min-height-screen">
         <div data-wf--spacer--variant="page-top" className="u-section-spacer is-page-top u-ignore-trim"></div>
         <div className="project_hero-contain u-container">
           <div className="project_hero-layout u-flex-vertical-nowrap u-alignment-center u-gap-7">
@@ -65,13 +62,117 @@ export default async function ProjectDetailPage({
 
           </div>
         </div>
+
+        {/* Image marquee */}
+        {project.galleryImages && project.galleryImages.length > 0 && (
+          <div data-marquee-duplicate="2" data-marquee="" data-marquee-direction="left" data-marquee-speed="60" data-marquee-scroll-speed="15" className="project_image-marquee">
+            <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+            <div data-marquee-mask="" className="project_image-marquee-mask u-width-full u-overflow-hidden">
+              <div data-marquee-track="" className="project_image-marquee-track">
+                <div data-marquee-collection="" className="project_image-marquee-collection">
+                  {project.galleryImages.map((image) => {
+                    const src = urlFor(image);
+                    if (!src) return null;
+                    const w = image.asset?.metadata?.dimensions?.width ?? 4;
+                    const h = image.asset?.metadata?.dimensions?.height ?? 3;
+                    const aspectRatio = w / h;
+                    return (
+                      <div key={image._key} data-marquee-item="" className="project_image-marquee-item u-position-relative u-overflow-hidden">
+                        <Image
+                          src={src}
+                          width={Math.round(320 * aspectRatio)}
+                          height={320}
+                          alt={image.alt ?? project.projectName}
+                          className="project_image-marquee-img"
+                          style={{ aspectRatio: `${w} / ${h}` }}
+                        />
+                        <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+      </section>
+
+      {/* ============================================================
+          DETAILS SECTION
+      ============================================================ */}
+      <section data-theme="buff" className="project_details-wrap">
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+        <div className="project_details-contain u-container">
+
+          {/* Eyebrow + Our Role heading */}
+          <div className="project_details-header u-grid-custom u-gap-row-6 u-margin-bottom-8">
+            <div className="project_details-col u-column-start-1 u-column-span-3">
+              <div data-stagger="" className="u-flex-horizontal-nowrap u-gap-2">
+                <EyebrowSvg className="global_eyebrow-svg" />
+                <div data-stagger-item="" className="u-text-style-main u-text-transform-uppercase u-weight-bold">Details</div>
+              </div>
+            </div>
+            {project.ourRole && (
+              <div className="project_details-col u-column-start-5 u-column-span-8">
+                <h2 data-split="word" className="u-text-style-h3">{project.ourRole}</h2>
+              </div>
+            )}
+          </div>
+
+          {/* Stats table with hover tiles */}
+          <div data-hover-axis="y" data-hover="" className="u-position-relative">
+
+            {/* Column headers */}
+            <div className="project_details-row u-grid-custom u-padding-bottom-3">
+              <div className="u-column-start-5 u-column-span-4">
+                <div className="u-text-style-small u-text-transform-uppercase u-color-faded">Detail</div>
+              </div>
+              <div className="u-column-start-9 u-column-span-4">
+                <div className="u-text-style-small u-text-transform-uppercase u-color-faded">Value</div>
+              </div>
+            </div>
+
+            {/* Data rows */}
+            <div data-stagger="" className="project_details-list">
+              {([
+                { label: 'Client', value: project.client },
+                { label: 'Type', value: project.category?.name },
+                { label: 'Location', value: project.location },
+                { label: 'Size', value: project.size },
+                { label: 'Duration', value: project.duration },
+                { label: 'Completed', value: project.completedDate },
+                { label: 'Contractor', value: project.contractor },
+                { label: 'MEP', value: project.mep },
+              ] as const).filter(row => row.value).map((row) => (
+                <div key={row.label} data-stagger-item="" data-hover-item="" className="contact_info-item u-grid-custom u-align-items-center u-overflow-hidden u-position-relative">
+                  <div data-hover-tile="" className="contact_info-tile u-cover-absolute"></div>
+                  <div className="contact_info-border u-position-absolute u-width-full"></div>
+
+                  <div className="u-column-start-5 u-column-span-4 u-position-relative">
+                    <div className="u-text-style-main u-weight-bold u-text-transform-uppercase">{row.label}</div>
+                  </div>
+                  <div className="u-column-start-9 u-column-span-4 u-position-relative">
+                    <div className="u-text-style-main">{row.value}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="contact_info-border is-bottom u-position-absolute u-width-full"></div>
+          </div>
+
+        </div>
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
 
       {/* ============================================================
           PARTNER CAROUSEL
       ============================================================ */}
-      <PartnerCarousel />
+      <div data-theme="charcoal">
+        <PartnerCarousel />
+      </div>
 
     </main>
   );
