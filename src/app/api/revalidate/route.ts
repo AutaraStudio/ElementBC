@@ -21,34 +21,8 @@ export async function POST(req: NextRequest) {
 
   const type = body?._type;
 
-  switch (type) {
-    case 'project':
-      revalidatePath('/', 'page');
-      revalidatePath('/projects', 'page');
-      revalidatePath('/projects/[slug]', 'page');
-      break;
-    case 'projectCategory':
-      revalidatePath('/projects', 'page');
-      break;
-    case 'homePage':
-      revalidatePath('/', 'page');
-      break;
-    case 'aboutPage':
-      revalidatePath('/about', 'page');
-      break;
-    case 'projectsPage':
-      revalidatePath('/projects', 'page');
-      break;
-    case 'navigation':
-    case 'footer':
-    case 'siteSettings':
-      // These affect the shared layout — revalidate all pages
-      revalidatePath('/', 'layout');
-      break;
-    default:
-      // Unknown type or no body — revalidate everything to be safe
-      revalidatePath('/', 'layout');
-  }
+  // Always revalidate the full layout tree to ensure route groups like (main) are covered
+  revalidatePath('/', 'layout');
 
   return NextResponse.json({ revalidated: true, type: type ?? 'unknown', now: Date.now() });
 }
