@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import TransitionLink from '@/components/ui/TransitionLink';
+import HomeAboutWaveSvg from '@/components/ui/svgs/HomeAboutWaveSvg';
 import { getHomePage, getProjectsPage, getSiteSettings } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 export const revalidate = 3600;
@@ -152,31 +153,31 @@ export default async function HomePage() {
             {/* Row 1 — Heading (columns 1–7) + Eyebrow + paragraph (columns 5–10) */}
             <div className="home_about-col u-column-start-1 u-column-span-7">
               <div data-split-wrapper="" className="home_about_heading-wrap">
-                <h2 data-split="word" className="home_about_heading-heading u-max-width-14ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{homePage?.aboutHeading ?? 'Difference in the Detail.'}</h2>
+                <h2 data-split="word" className="home_about_heading-heading u-max-width-14ch u-text-style-h1 u-text-transform-uppercase u-text-decoration-justify-last">{homePage?.aboutHeading ?? 'Difference in the Detail.'}</h2>
               </div>
             </div>
 
-            <div className="home_about-col u-column-start-4 u-column-span-5">
-              <div className="home_about_body-wrap u-flex-horizontal-nowrap u-gap-4 u-align-items-start">
-                <EyebrowSvg className="global_eyebrow-svg" />
-                <p data-split="line" className="home_about-p u-text-style-large">{homePage?.aboutParagraph}</p>
-              </div>
+            <div className="home_about-col u-position-relative u-column-start-1 u-column-span-3 ">
+              <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
+              <HomeAboutWaveSvg className="home_about_wave-svg" />
             </div>
+
+            
 
             {/* Row 3 — Value props */}
-            <div className="home_about-col u-column-start-1 u-column-span-4">
+            <div className="home_about-col u-column-start-1 u-column-span-4 u-flex-horizontal-nowrap u-justify-content- ">
               <div className="home_about_value-wrap">
-                <p className="home_about_value-desc u-text-style-small">{(homePage?.aboutValueProps ?? defaultValueProps)[0]?.description}</p>
+                <p className="home_about_value-desc u-text-style-small u-text-decoration-justify-last u-max-width-30ch">{(homePage?.aboutValueProps ?? defaultValueProps)[0]?.description}</p>
               </div>
             </div>
             <div className="home_about-col u-column-start-5 u-column-span-4">
               <div className="home_about_value-wrap">
-                <p className="home_about_value-desc u-text-style-small">{(homePage?.aboutValueProps ?? defaultValueProps)[1]?.description}</p>
+                <p className="home_about_value-desc u-text-style-small u-text-decoration-justify-last u-max-width-30ch">{(homePage?.aboutValueProps ?? defaultValueProps)[1]?.description}</p>
               </div>
             </div>
             <div className="home_about-col u-column-start-9 u-column-span-4">
               <div className="home_about_value-wrap">
-                <p className="home_about_value-desc u-text-style-small">{(homePage?.aboutValueProps ?? defaultValueProps)[2]?.description}</p>
+                <p className="home_about_value-desc u-text-style-small u-text-decoration-justify-last u-max-width-30ch">{(homePage?.aboutValueProps ?? defaultValueProps)[2]?.description}</p>
               </div>
             </div>
 

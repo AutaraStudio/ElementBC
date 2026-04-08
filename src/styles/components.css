@@ -1734,11 +1734,7 @@
   color: var(--_theme---text);
 }
 
-.home_about_value-wrap {
-  border-top: var(--border-width--main) solid var(--_theme---border);
-  padding-top: var(--_spacing---space--4-24px);
-  margin-top: var(--_spacing---space--8-64px);
-}
+
 
 .color_reveal-overlay {
   z-index: 3;
