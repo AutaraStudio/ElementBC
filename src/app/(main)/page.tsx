@@ -238,7 +238,7 @@ export default async function HomePage() {
             </div>
             <div className="projects_filter-col u-column-start-6 u-column-span-7">
               <div className="projects_filter_col-inner u-flex-horizontal-nowrap u-gap-2 u-justify-content-end">
-                <h2 data-split="word" className="projects_heading-heading u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{projectsPage?.pageHeading ?? 'Detail in every project.'}</h2>
+                <h2 data-split="word" className="projects_heading-heading u-max-width-14ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{projectsPage?.pageHeading ?? 'Detail in every project.'}</h2>
               </div>
             </div>
           </div>
@@ -296,7 +296,7 @@ export default async function HomePage() {
           <div className="partner_carousel_heading-contain u-container u-margin-bottom-8">
             <div data-split-wrapper="" className="partner_carousel_heading-wrap u-flex-horizontal-nowrap u-justify-content-between u-align-items-end">
               <div className="partner_carousel_heading-inner">
-                <h2 data-split-text="word" className="partner_carousel-heading u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">Trusted by those who value detail.</h2>
+                <h2 data-split-text="word" className="partner_carousel-heading u-max-width-17ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">Trusted by those who value detail.</h2>
               </div>
             </div>
           </div>

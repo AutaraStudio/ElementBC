@@ -242,7 +242,7 @@ export default async function ProjectsPage() {
         <div className="projects_hero-ui u-cover-absolute u-pointer-off">
           <div className="projects_hero_ui-contain u-container u-height-full">
             <div aria-hidden="true" data-slider-slide-template="" className="projects_hero-slide u-position-absolute u-flex-vertical-nowrap">
-              <div data-slider-slide-heading="" className="projects_hero-heading u-text-style-h2 u-text-transform-uppercase"></div>
+              <div data-slider-slide-heading="" className="projects_hero-heading u-max-width-18ch u-text-style-h2 u-text-transform-uppercase"></div>
             </div>
             <div data-slider-slides="" className="projects_hero-slides u-cover-absolute u-pointer-off"></div>
             <div data-slider-progress-track="" className="projects_hero-bar u-position-absolute u-flex-horizontal-nowrap">
@@ -379,7 +379,7 @@ export default async function ProjectsPage() {
           <div className="partner_carousel_heading-contain u-container u-margin-bottom-8">
             <div data-split-wrapper="" className="partner_carousel_heading-wrap u-flex-horizontal-nowrap u-justify-content-between u-align-items-end">
               <div className="partner_carousel_heading-inner">
-                <h2 data-split-text="word" className="partner_carousel-heading u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">Trusted by those who value detail.</h2>
+                <h2 data-split-text="word" className="partner_carousel-heading u-max-width-17ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">Trusted by those who value detail.</h2>
               </div>
             </div>
           </div>

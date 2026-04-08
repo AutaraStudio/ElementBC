@@ -234,7 +234,6 @@
   grid-column-gap: var(--_spacing---space--8-64px);
   grid-row-gap: var(--_spacing---space--8-64px);
   flex-flow: column;
-  max-width: 26rem;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -1116,7 +1115,6 @@
   background-color: var(--_theme---background-2);
   color: var(--_theme---text);
   width: 100%;
-  max-width: 38rem;
   max-height: 100%;
   position: relative;
 }
@@ -1598,7 +1596,6 @@
 }
 
 .nav_logo-svg {
-  max-width: 12rem;
 }
 
 .preloader_wrap {
@@ -1834,7 +1831,6 @@
 }
 
 .partner_carousel-heading {
-  max-width: 17ch;
 }
 
 .footer_main_bg-svg {
@@ -1897,7 +1893,6 @@
 }
 
 .projects_hero-heading {
-  max-width: 18ch;
 }
 
 .projects_archive-item {
@@ -1932,7 +1927,6 @@
 }
 
 .project_hero-heading {
-  max-width: 20ch;
 }
 
 .project_hero_featured-wrap {
@@ -1945,7 +1939,6 @@
 
 
 .about_hero-heading {
-  max-width: 30ch;
 }
 
 .about_bg-svg {
@@ -1967,11 +1960,9 @@
 
 
 .about_intro-p {
-  max-width: 45ch;
 }
 
 .about_intro-heading {
-  max-width: 30ch;
 }
 
 .about_values-contain {
@@ -1979,7 +1970,6 @@
 }
 
 .about_values-p {
-  max-width: 45ch;
 }
 
 .global_text-accent {
@@ -1987,7 +1977,6 @@
 }
 
 .projects_heading-heading {
-  max-width: 14ch;
 }
 
 /* =============================================================================
@@ -2088,7 +2077,6 @@
 
 
 .contact_hero-heading {
-  max-width: 50rem;
 }
 
 .contact_border {

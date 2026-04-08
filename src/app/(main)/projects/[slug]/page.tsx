@@ -81,7 +81,7 @@ export default async function ProjectDetailPage({
             </div>
 
             <div className="project_hero_heading-wrap">
-              <h3 data-split="word" data-anim-hero="" className="project_hero-heading u-text-style-h2 u-text-transform-uppercase">
+              <h3 data-split="word" data-anim-hero="" className="project_hero-heading u-max-width-20ch u-text-style-h2 u-text-transform-uppercase">
                 {project.projectName}
               </h3>
             </div>

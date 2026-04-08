@@ -52,7 +52,7 @@ export default async function AboutPage() {
 
             {/* Heading */}
             <div className="about_hero_heading-wrap">
-              <h3 data-split="word" data-anim-hero="" className="about_hero-heading u-text-style-h2 u-text-transform-uppercase">{aboutPage?.heroHeading ?? 'Meticulously managing every detail, every time.'}</h3>
+              <h3 data-split="word" data-anim-hero="" className="about_hero-heading u-max-width-30ch u-text-style-h2 u-text-transform-uppercase">{aboutPage?.heroHeading ?? 'Meticulously managing every detail, every time.'}</h3>
             </div>
 
             {/* Hero image */}
@@ -92,14 +92,14 @@ export default async function AboutPage() {
             {/* Manifesto paragraph */}
             <div className="about_intro-col u-column-start-8 u-column-span-5">
               <div className="about_intro_col-inner">
-                <p data-split="line" className="about_intro-p u-text-style-large u-text-decoration-justify">{aboutPage?.introParagraph ?? 'Element transforms project complexity into confident, profitable outcomes. We specialise in building consultancy that uncovers issues early, strengthens systems, and elevates performance. Every project is guided by precision, meticulous detail, and a commitment to delivering exceptional results.'}</p>
+                <p data-split="line" className="about_intro-p u-max-width-45ch u-text-style-large u-text-decoration-justify">{aboutPage?.introParagraph ?? 'Element transforms project complexity into confident, profitable outcomes. We specialise in building consultancy that uncovers issues early, strengthens systems, and elevates performance. Every project is guided by precision, meticulous detail, and a commitment to delivering exceptional results.'}</p>
               </div>
             </div>
 
             {/* Large heading + CTA */}
             <div className="about_intro-col u-column-start-1 u-column-span-10 u-margin-top-8">
               <div className="about_intro_col-inner u-flex-vertical-nowrap">
-                <h3 data-split="line" className="about_intro-heading u-text-style-h3">{aboutPage?.introLargeHeading ?? 'Each stage of our process carries the same intent; to analyse before we advise, to challenge before we commit, and to deliver with a precision that protects every outcome.'}</h3>
+                <h3 data-split="line" className="about_intro-heading u-max-width-30ch u-text-style-h3">{aboutPage?.introLargeHeading ?? 'Each stage of our process carries the same intent; to analyse before we advise, to challenge before we commit, and to deliver with a precision that protects every outcome.'}</h3>
                 <div className="u-button-wrapper u-alignment-start">
                   <div className="u-display-contents">
                     <div data-wf--button-main--variant="primary" className="button_main_wrap" data-button=" " data-trigger="hover focus">
@@ -123,7 +123,7 @@ export default async function AboutPage() {
                   <EyebrowSvg className="global_eyebrow-svg" />
                   <div data-anim-hero="" className="about_intro_eyebrowheading u-text-style-large u-text-transform-uppercase u-weight-bold">About Element bc</div>
                 </div>
-                <p data-split="line" className="about_intro-p u-text-style-large u-text-decoration-justify">{aboutPage?.introSecondaryParagraph ?? 'Element transforms complex projects into confident outcomes. We specialise in building consultancy that uncovers risk, sharpens performance, and protects your investment. Every project is guided by precision, meticulous management, and an unwavering attention to detail.'}</p>
+                <p data-split="line" className="about_intro-p u-max-width-45ch u-text-style-large u-text-decoration-justify">{aboutPage?.introSecondaryParagraph ?? 'Element transforms complex projects into confident outcomes. We specialise in building consultancy that uncovers risk, sharpens performance, and protects your investment. Every project is guided by precision, meticulous management, and an unwavering attention to detail.'}</p>
               </div>
               <div className="about_intro_col-inner u-flex-vertical-nowrap u-column-start-7 u-column-span-6">
                 <div className="about_intro_image-wrap u-position-relative u-ratio-2-3">
@@ -207,15 +207,15 @@ export default async function AboutPage() {
               </div>
               <div className="about_intro_col-inner u-column-start-1 u-column-span-7 u-padding-top-4 u-flex-horizontal-nowrap u-justify-content-between u-align-items-start u-padding-bottom-6 u-padding-right-5">
                 <div data-split="word" className="about_values-title u-text-style-large u-weight-bold u-text-transform-uppercase">Precision</div>
-                <div data-split="line" className="about_values-p u-text-style-large">Precision is more than accuracy in measurement — it&#x27;s accuracy in everything we do. We interrogate every detail and leave nothing to chance, creating certainty in every outcome.<br /></div>
+                <div data-split="line" className="about_values-p u-max-width-45ch u-text-style-large">Precision is more than accuracy in measurement — it&#x27;s accuracy in everything we do. We interrogate every detail and leave nothing to chance, creating certainty in every outcome.<br /></div>
               </div>
               <div className="about_intro_col-inner u-column-start-1 u-column-span-7 u-padding-top-4 u-flex-horizontal-nowrap u-justify-content-between u-align-items-start u-padding-bottom-6 u-padding-right-5">
                 <div data-split="word" className="about_values-title u-text-style-large u-weight-bold u-text-transform-uppercase">Integrity</div>
-                <div data-split="line" className="about_values-p u-text-style-large">Integrity defines the way we work as much as the results we deliver. Transparent, consistent and honest, we give clients clear advice they can always rely on.<br /></div>
+                <div data-split="line" className="about_values-p u-max-width-45ch u-text-style-large">Integrity defines the way we work as much as the results we deliver. Transparent, consistent and honest, we give clients clear advice they can always rely on.<br /></div>
               </div>
               <div className="about_intro_col-inner u-column-start-1 u-column-span-7 u-padding-top-4 u-flex-horizontal-nowrap u-justify-content-between u-align-items-start u-padding-bottom-6 u-padding-right-5">
                 <div data-split="word" className="about_values-title u-text-style-large u-weight-bold u-text-transform-uppercase">Impact</div>
-                <div data-split="line" className="about_values-p u-text-style-large">Impact is the measure of everything we do. We find smarter ways to reduce risk, protect investment and drive stronger results — ensuring every client sees real, measurable value.</div>
+                <div data-split="line" className="about_values-p u-max-width-45ch u-text-style-large">Impact is the measure of everything we do. We find smarter ways to reduce risk, protect investment and drive stronger results — ensuring every client sees real, measurable value.</div>
               </div>
             </div>
           </div>
@@ -229,7 +229,7 @@ export default async function AboutPage() {
                 <EyebrowSvg className="global_eyebrow-svg" />
                 <div data-split="word" className="about_intro_eyebrowheading u-text-style-large u-text-transform-uppercase u-weight-bold">Founders Journey</div>
               </div>
-              <div data-split="word" className="about_values-p u-text-style-large">Element was founded by Harry Powell and George Curtis, two industry professionals who saw a gap in building consultancy and built a business around a simple belief — that attention to detail changes everything.</div>
+              <div data-split="word" className="about_values-p u-max-width-45ch u-text-style-large">Element was founded by Harry Powell and George Curtis, two industry professionals who saw a gap in building consultancy and built a business around a simple belief — that attention to detail changes everything.</div>
             </div>
             <div className="about_values-col u-column-start-5 u-column-span-8 u-grid-subgrid">
               <div className="about_founders-outer u-column-span-4 u-flex-vertical-nowrap u-gap-4">
@@ -262,7 +262,7 @@ export default async function AboutPage() {
           <div className="partner_carousel_heading-contain u-container u-margin-bottom-8">
             <div data-split-wrapper="" className="partner_carousel_heading-wrap u-flex-horizontal-nowrap u-justify-content-between u-align-items-end">
               <div className="partner_carousel_heading-inner">
-                <h2 data-split-text="word" className="partner_carousel-heading u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">Trusted by those who value detail.</h2>
+                <h2 data-split-text="word" className="partner_carousel-heading u-max-width-17ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">Trusted by those who value detail.</h2>
               </div>
             </div>
           </div>

@@ -8,6 +8,25 @@ export const contactPage = defineType({
     defineField({ name: "heroEyebrow", title: "Hero Eyebrow", type: "string" }),
     defineField({ name: "heroHeading", title: "Hero Heading", type: "string" }),
     defineField({ name: "getInTouchEyebrow", title: "Get In Touch Eyebrow", type: "string" }),
+    defineField({
+      name: "teamContacts",
+      title: "Team Contacts",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({ name: "name", title: "Name", type: "string" }),
+            defineField({ name: "role", title: "Role", type: "string" }),
+            defineField({ name: "phone", title: "Phone Number", type: "string" }),
+            defineField({ name: "email", title: "Email Address", type: "string" }),
+          ],
+          preview: {
+            select: { title: "name", subtitle: "role" },
+          },
+        },
+      ],
+    }),
     defineField({ name: "phoneLabel", title: "Phone Label", type: "string" }),
     defineField({ name: "phoneNumber", title: "Phone Number", type: "string" }),
     defineField({ name: "emailLabel", title: "Email Label", type: "string" }),

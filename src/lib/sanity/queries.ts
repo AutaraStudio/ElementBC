@@ -142,6 +142,7 @@ export async function getContactPage() {
       heroEyebrow,
       heroHeading,
       getInTouchEyebrow,
+      teamContacts[] { _key, name, role, phone, email },
       phoneLabel,
       phoneNumber,
       emailLabel,
@@ -312,6 +313,13 @@ export interface SanityContactPage {
   heroEyebrow?: string;
   heroHeading?: string;
   getInTouchEyebrow?: string;
+  teamContacts?: Array<{
+    _key: string;
+    name?: string;
+    role?: string;
+    phone?: string;
+    email?: string;
+  }>;
   phoneLabel?: string;
   phoneNumber?: string;
   emailLabel?: string;

@@ -24,6 +24,7 @@ export default async function ContactPage() {
   const heroEyebrow = contactPage?.heroEyebrow ?? 'Contact';
   const heroHeading = contactPage?.heroHeading ?? 'Bringing architectural ideas to life in glass.';
   const getInTouchEyebrow = contactPage?.getInTouchEyebrow ?? 'Get In Touch';
+  const teamContacts = contactPage?.teamContacts ?? [];
   const phoneLabel = contactPage?.phoneLabel ?? 'Talk to us';
   const phoneNumber = contactPage?.phoneNumber ?? '020 8156 7290';
   const emailLabel = contactPage?.emailLabel ?? 'Write us';
@@ -44,11 +45,11 @@ export default async function ContactPage() {
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
-      <section data-hero-wrap="" data-theme="charcoal" className="contact_hero-wrap">
+      <section data-hero-wrap="" data-theme="buff" className="contact_hero-wrap">
         <div data-wf--spacer--variant="page-top" className="u-section-spacer is-page-top u-ignore-trim"></div>
 
         <div className="contact_hero-contain u-container">
-          <div className="contact_hero-layout u-flex-vertical-nowrap u-gap-7">
+          <div className="contact_hero-layout u-flex-vertical-nowrap u-gap-5 u-alignment-start">
 
             {/* Eyebrow */}
             <div data-stagger="" className="contact_hero-eyebrow u-flex-horizontal-nowrap u-gap-2">
@@ -58,7 +59,7 @@ export default async function ContactPage() {
 
             {/* Heading */}
             <div className="contact_hero_heading-wrap">
-              <h1 data-split="word" data-anim-hero="" className="contact_hero-heading u-text-style-h1 u-text-decoration-justify-last u-text-transform-uppercase">{heroHeading}</h1>
+              <h1 data-split="word" data-anim-hero="" className="contact_hero-heading u-max-width-70rem u-text-style-h1 u-text-decoration-justify-last u-text-transform-uppercase">{heroHeading}</h1>
             </div>
 
           </div>
@@ -76,13 +77,55 @@ export default async function ContactPage() {
           {/* Top border */}
           <div className="contact_border u-border-top"></div>
 
+          {/* Team contacts */}
+          {teamContacts.map((contact, index) => (
+            <div key={contact._key} className="contact_info-layout u-grid-custom u-padding-top-7 u-padding-bottom-7">
+
+              {/* Eyebrow — section label on first row, person name on subsequent */}
+              <div className="contact_info-col u-column-start-1 u-column-span-4">
+                <div data-stagger="" className="contact_info_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2">
+                  <EyebrowSvg className="global_eyebrow-svg" />
+                  <div data-stagger-item="" className="contact_info_eyebrow-heading u-text-style-main u-text-transform-uppercase u-weight-bold">
+                    {index === 0 ? getInTouchEyebrow : contact.name}
+                  </div>
+                </div>
+                {index === 0 && contact.name && (
+                  <div className="contact_detail-label u-text-style-main u-margin-top-3">{contact.name}</div>
+                )}
+              </div>
+
+              {/* Phone */}
+              <div className="contact_info-col u-column-start-7 u-column-span-3">
+                <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
+                  <div className="contact_detail-label u-text-style-main">Call</div>
+                  {contact.phone && (
+                    <StaggerLink href={`tel:${contact.phone.replace(/\s/g, '')}`} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{contact.phone}</StaggerLink>
+                  )}
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="contact_info-col u-column-start-10 u-column-span-3">
+                <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
+                  <div className="contact_detail-label u-text-style-main">Email</div>
+                  {contact.email && (
+                    <StaggerLink href={`mailto:${contact.email}`} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{contact.email}</StaggerLink>
+                  )}
+                </div>
+              </div>
+
+            </div>
+          ))}
+
+          {/* General enquiries fallback */}
+          <div className="contact_border u-border-top"></div>
           <div className="contact_info-layout u-grid-custom u-padding-top-7 u-padding-bottom-7">
 
             {/* Eyebrow */}
             <div className="contact_info-col u-column-start-1 u-column-span-4">
               <div data-stagger="" className="contact_info_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2">
                 <EyebrowSvg className="global_eyebrow-svg" />
-                <div data-stagger-item="" className="contact_info_eyebrow-heading u-text-style-main u-text-transform-uppercase u-weight-bold">{getInTouchEyebrow}</div>
+                <div data-stagger-item="" className="contact_info_eyebrow-heading u-text-style-main u-text-transform-uppercase u-weight-bold">General Enquiries</div>
               </div>
             </div>
 
@@ -130,9 +173,8 @@ export default async function ContactPage() {
             <div className="contact_address-col u-column-start-7 u-column-span-3">
               <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
                 <div className="contact_detail-address u-text-style-main">
-                  <div>{addressLine1}</div>
-                  <div>{addressLine2}</div>
-                  <div>{addressLine3}</div>
+                  <div>Address</div>
+                  
                 </div>
                 <StaggerLink href={googleMapsUrl} external className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">Google Maps</StaggerLink>
               </div>
