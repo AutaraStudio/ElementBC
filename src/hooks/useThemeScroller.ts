@@ -83,12 +83,14 @@ function getCurrentRootColors(): Record<string, string> {
 export function useThemeScroller() {
   const currentThemeRef = useRef<string | null>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
+  const navTweenRef = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
     const sections = document.querySelectorAll<HTMLElement>('[data-theme]');
     if (sections.length === 0) return;
 
     const root = document.documentElement;
+    const navBar = document.querySelector<HTMLElement>('[data-nav-bar]');
 
     function applyTheme(themeName: string) {
       if (themeName === currentThemeRef.current) return;
@@ -121,6 +123,17 @@ export function useThemeScroller() {
           }
         },
       });
+
+      // Sync nav color with the same theme transition
+      if (navBar) {
+        const targetNavColor = targetColors['--_theme---text'] || '';
+        if (navTweenRef.current) navTweenRef.current.kill();
+        navTweenRef.current = gsap.to(navBar, {
+          color: targetNavColor,
+          duration: 0.3,
+          ease: 'power1.inOut',
+        });
+      }
     }
 
     // Use ScrollTrigger for each section
@@ -130,15 +143,17 @@ export function useThemeScroller() {
       const theme = section.getAttribute('data-theme');
       if (!theme) return;
 
-      const st = ScrollTrigger.create({
-        trigger: section,
-        start: 'top 75%',
-        end: 'bottom 25%',
-        onEnter: () => applyTheme(theme),
-        onEnterBack: () => applyTheme(theme),
-      });
+      // Page-content triggers (existing behaviour)
+      triggers.push(
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top 75%',
+          end: 'bottom 25%',
+          onEnter: () => applyTheme(theme),
+          onEnterBack: () => applyTheme(theme),
+        }),
+      );
 
-      triggers.push(st);
     });
 
     // Set initial theme immediately (no animation) from first section
@@ -150,14 +165,21 @@ export function useThemeScroller() {
         root.style.setProperty(v, colors[v]);
       }
       currentThemeRef.current = firstTheme;
+
+      // Set initial nav color
+      if (navBar) {
+        navBar.style.color = colors['--_theme---text'] || '';
+      }
     }
 
     return () => {
       triggers.forEach((st) => st.kill());
       if (tweenRef.current) tweenRef.current.kill();
+      if (navTweenRef.current) navTweenRef.current.kill();
       for (const v of THEME_VARS) {
         root.style.removeProperty(v);
       }
+      if (navBar) navBar.style.removeProperty('color');
     };
   }, []);
 }

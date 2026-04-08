@@ -26,7 +26,7 @@ export default function Navbar({ navLinks: sanityNavLinks }: NavbarProps) {
   return (
     <div className="nav_main-wrap u-position-fixed u-width-full u-pointer-off">
       <div className="nav_main-contain u-container">
-        <div className="nav_main-layout u-grid-custom u-theme-charcoal">
+        <div data-nav-bar="" className="nav_main-layout u-grid-custom">
 
           <div className="nav_main-col u-column-start-1 u-column-span-2 u-flex-horizontal-nowrap u-gap-3">
             <Link
