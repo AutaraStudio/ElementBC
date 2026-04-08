@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getContactPage } from '@/lib/sanity/queries';
 import StaggerLink from '@/components/ui/StaggerLink';
+import AboutHeroBackgroundSvg from '@/components/ui/svgs/AboutHeroBackgroundSvg';
 
 export const revalidate = 3600;
 
@@ -23,7 +24,6 @@ export default async function ContactPage() {
 
   const heroEyebrow = contactPage?.heroEyebrow ?? 'Contact';
   const heroHeading = contactPage?.heroHeading ?? 'Bringing architectural ideas to life in glass.';
-  const getInTouchEyebrow = contactPage?.getInTouchEyebrow ?? 'Get In Touch';
   const teamContacts = contactPage?.teamContacts ?? [];
   const phoneLabel = contactPage?.phoneLabel ?? 'Talk to us';
   const phoneNumber = contactPage?.phoneNumber ?? '020 8156 7290';
@@ -48,6 +48,13 @@ export default async function ContactPage() {
       <section data-hero-wrap="" data-theme="buff" className="contact_hero-wrap">
         <div data-wf--spacer--variant="page-top" className="u-section-spacer is-page-top u-ignore-trim"></div>
 
+        {/* Background SVG */}
+        <div className="about_bg-wrap u-cover-absolute">
+          <div className="about_bg-svg u-position-absolute">
+            <AboutHeroBackgroundSvg className="global_svg" />
+          </div>
+        </div>
+
         <div className="contact_hero-contain u-container">
           <div className="contact_hero-layout u-flex-vertical-nowrap u-gap-5 u-alignment-start">
 
@@ -71,123 +78,122 @@ export default async function ContactPage() {
       {/* ============================================================
           GET IN TOUCH SECTION
       ============================================================ */}
-      <section data-theme="charcoal" className="contact_info-wrap">
+      <section data-theme="charcoal" data-hover-axis="y" data-hover="" className="contact_info-wrap u-position-relative">
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="contact_info-contain u-container">
 
-          {/* Top border */}
-          <div className="contact_border u-border-top"></div>
+          {/* Section heading */}
+          <div data-split-wrapper="" className="contact_info_heading-wrap u-flex-horizontal-nowrap u-justify-content-between u-align-items-end">
+            <div className="contact_info_heading-inner">
+              <h2 data-split="word" className="u-max-width-17ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{contactPage?.getInTouchEyebrow ?? 'Get In Touch'}</h2>
+            </div>
+          </div>
 
-          {/* Team contacts */}
-          {teamContacts.map((contact, index) => (
-            <div key={contact._key} className="contact_info-layout u-grid-custom u-padding-top-7 u-padding-bottom-7">
+          {/* Contact rows */}
+          <div data-stagger="" className="contact_info-list">
 
-              {/* Eyebrow — section label on first row, person name on subsequent */}
-              <div className="contact_info-col u-column-start-1 u-column-span-4">
-                <div data-stagger="" className="contact_info_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2">
-                  <EyebrowSvg className="global_eyebrow-svg" />
-                  <div data-stagger-item="" className="contact_info_eyebrow-heading u-text-style-main u-text-transform-uppercase u-weight-bold">
-                    {index === 0 ? getInTouchEyebrow : contact.name}
+            {/* Team contacts */}
+            {teamContacts.map((contact) => (
+              <div key={contact._key} data-stagger-item="" data-hover-item="" className="contact_info-item u-grid-custom u-align-items-center u-overflow-hidden u-position-relative">
+                <div data-hover-tile="" className="contact_info-tile u-cover-absolute"></div>
+                <div className="contact_info-border u-position-absolute u-width-full"></div>
+
+                {/* Name */}
+                <div className="contact_info-col u-column-start-1 u-column-span-4 u-position-relative">
+                  <div className="u-text-style-h4 u-text-transform-uppercase">{contact.name}</div>
+                  {contact.role && (
+                    <div className="u-text-style-small u-text-transform-uppercase u-color-faded u-margin-top-1">{contact.role}</div>
+                  )}
+                </div>
+
+                {/* Phone */}
+                <div className="contact_info-col u-column-start-7 u-column-span-3 u-position-relative">
+                  <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
+                    <div className="contact_detail-label u-text-style-small u-text-transform-uppercase u-color-faded">Call</div>
+                    {contact.phone && (
+                      <StaggerLink href={`tel:${contact.phone.replace(/\s/g, '')}`} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{contact.phone}</StaggerLink>
+                    )}
                   </div>
                 </div>
-                {index === 0 && contact.name && (
-                  <div className="contact_detail-label u-text-style-main u-margin-top-3">{contact.name}</div>
-                )}
+
+                {/* Email */}
+                <div className="contact_info-col u-column-start-10 u-column-span-3 u-position-relative">
+                  <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
+                    <div className="contact_detail-label u-text-style-small u-text-transform-uppercase u-color-faded">Email</div>
+                    {contact.email && (
+                      <StaggerLink href={`mailto:${contact.email}`} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{contact.email}</StaggerLink>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* General enquiries */}
+            <div data-stagger-item="" data-hover-item="" className="contact_info-item u-grid-custom u-align-items-center u-overflow-hidden u-position-relative">
+              <div data-hover-tile="" className="contact_info-tile u-cover-absolute"></div>
+              <div className="contact_info-border u-position-absolute u-width-full"></div>
+
+              {/* Label */}
+              <div className="contact_info-col u-column-start-1 u-column-span-4 u-position-relative">
+                <div className="u-text-style-h4 u-text-transform-uppercase">General Enquiries</div>
               </div>
 
               {/* Phone */}
-              <div className="contact_info-col u-column-start-7 u-column-span-3">
+              <div className="contact_info-col u-column-start-7 u-column-span-3 u-position-relative">
                 <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
-                  <div className="contact_detail-label u-text-style-main">Call</div>
-                  {contact.phone && (
-                    <StaggerLink href={`tel:${contact.phone.replace(/\s/g, '')}`} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{contact.phone}</StaggerLink>
-                  )}
+                  <div className="contact_detail-label u-text-style-small u-text-transform-uppercase u-color-faded">{phoneLabel}</div>
+                  <StaggerLink href={phoneHref} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{phoneNumber}</StaggerLink>
                 </div>
               </div>
 
               {/* Email */}
-              <div className="contact_info-col u-column-start-10 u-column-span-3">
+              <div className="contact_info-col u-column-start-10 u-column-span-3 u-position-relative">
                 <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
-                  <div className="contact_detail-label u-text-style-main">Email</div>
-                  {contact.email && (
-                    <StaggerLink href={`mailto:${contact.email}`} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{contact.email}</StaggerLink>
-                  )}
+                  <div className="contact_detail-label u-text-style-small u-text-transform-uppercase u-color-faded">{emailLabel}</div>
+                  <StaggerLink href={emailHref} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{emailAddress}</StaggerLink>
                 </div>
-              </div>
-
-            </div>
-          ))}
-
-          {/* General enquiries fallback */}
-          <div className="contact_border u-border-top"></div>
-          <div className="contact_info-layout u-grid-custom u-padding-top-7 u-padding-bottom-7">
-
-            {/* Eyebrow */}
-            <div className="contact_info-col u-column-start-1 u-column-span-4">
-              <div data-stagger="" className="contact_info_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2">
-                <EyebrowSvg className="global_eyebrow-svg" />
-                <div data-stagger-item="" className="contact_info_eyebrow-heading u-text-style-main u-text-transform-uppercase u-weight-bold">General Enquiries</div>
-              </div>
-            </div>
-
-            {/* Phone */}
-            <div className="contact_info-col u-column-start-7 u-column-span-3">
-              <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
-                <div className="contact_detail-label u-text-style-main">{phoneLabel}</div>
-                <StaggerLink href={phoneHref} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{phoneNumber}</StaggerLink>
-              </div>
-            </div>
-
-            {/* Email */}
-            <div className="contact_info-col u-column-start-10 u-column-span-3">
-              <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
-                <div className="contact_detail-label u-text-style-main">{emailLabel}</div>
-                <StaggerLink href={emailHref} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{emailAddress}</StaggerLink>
               </div>
             </div>
 
           </div>
 
+          <div className="contact_info-border is-bottom u-position-absolute u-width-full"></div>
         </div>
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
 
       {/* ============================================================
           ADDRESS SECTION
       ============================================================ */}
-      <section data-theme="charcoal" className="contact_address-wrap">
+      <section data-theme="charcoal" data-hover-axis="y" data-hover="" className="contact_address-wrap u-position-relative">
         <div className="contact_address-contain u-container">
 
-          {/* Top border */}
-          <div className="contact_border u-border-top"></div>
+          <div data-stagger="" className="contact_address-list">
+            <div data-stagger-item="" data-hover-item="" className="contact_info-item u-grid-custom u-align-items-center u-overflow-hidden u-position-relative">
+              <div data-hover-tile="" className="contact_info-tile u-cover-absolute"></div>
+              <div className="contact_info-border u-position-absolute u-width-full"></div>
 
-          <div className="contact_address-layout u-grid-custom u-padding-top-7 u-padding-bottom-7">
-
-            {/* Eyebrow */}
-            <div className="contact_address-col u-column-start-1 u-column-span-4">
-              <div data-stagger="" className="contact_address_eyebrow-wrap u-flex-horizontal-nowrap u-gap-2">
-                <EyebrowSvg className="global_eyebrow-svg" />
-                <div data-stagger-item="" className="contact_address_eyebrow-heading u-text-style-main u-text-transform-uppercase u-weight-bold">{addressEyebrow}</div>
+              {/* Label */}
+              <div className="contact_address-col u-column-start-1 u-column-span-4 u-position-relative">
+                <div className="u-text-style-h4 u-text-transform-uppercase">{addressEyebrow}</div>
               </div>
-            </div>
 
-            {/* Address */}
-            <div className="contact_address-col u-column-start-7 u-column-span-3">
-              <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
-                <div className="contact_detail-address u-text-style-main">
-                  <div>Address</div>
-                  
+              {/* Address */}
+              <div className="contact_address-col u-column-start-7 u-column-span-3 u-position-relative">
+                <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
+                  <div className="contact_detail-label u-text-style-small u-text-transform-uppercase u-color-faded">Address</div>
+                  <StaggerLink href={googleMapsUrl} external className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">Google Maps</StaggerLink>
                 </div>
-                <StaggerLink href={googleMapsUrl} external className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">Google Maps</StaggerLink>
+              </div>
+
+              {/* Visit */}
+              <div className="contact_address-col u-column-start-10 u-column-span-3 u-position-relative">
+                <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
+                  <div className="contact_detail-label u-text-style-small u-text-transform-uppercase u-color-faded">{visitLabel}</div>
+                  <StaggerLink href={bookVisitUrl} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">Book a Visit</StaggerLink>
+                </div>
               </div>
             </div>
-
-            {/* Visit */}
-            <div className="contact_address-col u-column-start-10 u-column-span-3">
-              <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
-                <div className="contact_detail-label u-text-style-main">{visitLabel}</div>
-                <StaggerLink href={bookVisitUrl} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">Book a Visit</StaggerLink>
-              </div>
-            </div>
-
           </div>
 
         </div>
