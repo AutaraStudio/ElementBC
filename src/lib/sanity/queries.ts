@@ -30,6 +30,7 @@ export async function getProjectBySlug(slug: string) {
       projectName,
       "slug": slug.current,
       "category": projectCategory-> { name, "slug": slug.current },
+      location,
       client,
       completedDate,
       size,
@@ -221,6 +222,7 @@ export interface SanityProject {
 }
 
 export interface SanityProjectFull extends SanityProject {
+  location?: string;
   client?: string;
   completedDate?: string;
   size?: string;

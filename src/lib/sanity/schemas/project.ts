@@ -8,6 +8,7 @@ export const project = defineType({
     defineField({ name: "projectName", title: "Project Name", type: "string", validation: (r) => r.required() }),
     defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "projectName" }, validation: (r) => r.required() }),
     defineField({ name: "projectCategory", title: "Project Category", type: "reference", to: [{ type: "projectCategory" }] }),
+    defineField({ name: "location", title: "Location", type: "string" }),
     defineField({ name: "client", title: "Client", type: "string" }),
     defineField({ name: "completedDate", title: "Completed Date", type: "string" }),
     defineField({ name: "size", title: "Size", type: "string" }),

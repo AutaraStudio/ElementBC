@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { getContactPage } from '@/lib/sanity/queries';
 import StaggerLink from '@/components/ui/StaggerLink';
 import AboutHeroBackgroundSvg from '@/components/ui/svgs/AboutHeroBackgroundSvg';
+import HeroBarsSvg from '@/components/ui/svgs/HeroBarsSvg';
+import PartnerCarousel from '@/components/sections/PartnerCarousel';
 
 export const revalidate = 3600;
 
@@ -133,7 +135,7 @@ export default async function ContactPage() {
       ============================================================ */}
       <section data-theme="charcoal" className="contact_divider-wrap">
         <div className="u-container">
-          <div className="contact_border"></div>
+          <HeroBarsSvg className="global_svg" />
         </div>
       </section>
 
@@ -200,6 +202,11 @@ export default async function ContactPage() {
         </div>
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
+
+      {/* ============================================================
+          PARTNER CAROUSEL
+      ============================================================ */}
+      <PartnerCarousel />
     </>
   );
 }
