@@ -1716,6 +1716,7 @@
 .about_team-wrap,
 .contact_hero-wrap,
 .contact_info-wrap,
+.contact_divider-wrap,
 .contact_address-wrap,
 .projects_hero-wrap,
 .footer_main-wrap {
@@ -2079,8 +2080,12 @@
 .contact_hero-heading {
 }
 
-.contact_info_heading-wrap {
-  padding-bottom: var(--_spacing---space--7-48px);
+.contact_divider-wrap {
+  background-color: var(--_theme---background);
+}
+
+.contact_border {
+  border-top: var(--border-width--main) solid var(--_theme---border);
 }
 
 .contact_info-item {

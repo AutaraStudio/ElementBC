@@ -76,23 +76,13 @@ export default async function ContactPage() {
       </section>
 
       {/* ============================================================
-          GET IN TOUCH SECTION
+          TEAM CONTACTS
       ============================================================ */}
       <section data-theme="charcoal" data-hover-axis="y" data-hover="" className="contact_info-wrap u-position-relative">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="contact_info-contain u-container">
 
-          {/* Section heading */}
-          <div data-split-wrapper="" className="contact_info_heading-wrap u-flex-horizontal-nowrap u-justify-content-between u-align-items-end">
-            <div className="contact_info_heading-inner">
-              <h2 data-split="word" className="u-max-width-17ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{contactPage?.getInTouchEyebrow ?? 'Get In Touch'}</h2>
-            </div>
-          </div>
-
-          {/* Contact rows */}
           <div data-stagger="" className="contact_info-list">
-
-            {/* Team contacts */}
             {teamContacts.map((contact) => (
               <div key={contact._key} data-stagger-item="" data-hover-item="" className="contact_info-item u-grid-custom u-align-items-center u-overflow-hidden u-position-relative">
                 <div data-hover-tile="" className="contact_info-tile u-cover-absolute"></div>
@@ -100,7 +90,11 @@ export default async function ContactPage() {
 
                 {/* Name */}
                 <div className="contact_info-col u-column-start-1 u-column-span-4 u-position-relative">
-                  <div className="u-text-style-h4 u-text-transform-uppercase">{contact.name}</div>
+                  <div className="u-text-style-h4 u-text-transform-uppercase">
+                    {contact.name?.includes('MRICS')
+                      ? <>{contact.name.replace('MRICS', '').trim()} <span className="u-color-faded">MRICS</span></>
+                      : contact.name}
+                  </div>
                   {contact.role && (
                     <div className="u-text-style-small u-text-transform-uppercase u-color-faded u-margin-top-1">{contact.role}</div>
                   )}
@@ -127,34 +121,6 @@ export default async function ContactPage() {
                 </div>
               </div>
             ))}
-
-            {/* General enquiries */}
-            <div data-stagger-item="" data-hover-item="" className="contact_info-item u-grid-custom u-align-items-center u-overflow-hidden u-position-relative">
-              <div data-hover-tile="" className="contact_info-tile u-cover-absolute"></div>
-              <div className="contact_info-border u-position-absolute u-width-full"></div>
-
-              {/* Label */}
-              <div className="contact_info-col u-column-start-1 u-column-span-4 u-position-relative">
-                <div className="u-text-style-h4 u-text-transform-uppercase">General Enquiries</div>
-              </div>
-
-              {/* Phone */}
-              <div className="contact_info-col u-column-start-7 u-column-span-3 u-position-relative">
-                <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
-                  <div className="contact_detail-label u-text-style-small u-text-transform-uppercase u-color-faded">{phoneLabel}</div>
-                  <StaggerLink href={phoneHref} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{phoneNumber}</StaggerLink>
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="contact_info-col u-column-start-10 u-column-span-3 u-position-relative">
-                <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
-                  <div className="contact_detail-label u-text-style-small u-text-transform-uppercase u-color-faded">{emailLabel}</div>
-                  <StaggerLink href={emailHref} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{emailAddress}</StaggerLink>
-                </div>
-              </div>
-            </div>
-
           </div>
 
           <div className="contact_info-border is-bottom u-position-absolute u-width-full"></div>
@@ -163,22 +129,56 @@ export default async function ContactPage() {
       </section>
 
       {/* ============================================================
-          ADDRESS SECTION
+          DIVIDER
+      ============================================================ */}
+      <section data-theme="charcoal" className="contact_divider-wrap">
+        <div className="u-container">
+          <div className="contact_border"></div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          GENERAL ENQUIRIES & ADDRESS
       ============================================================ */}
       <section data-theme="charcoal" data-hover-axis="y" data-hover="" className="contact_address-wrap u-position-relative">
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="contact_address-contain u-container">
 
-          <div data-stagger="" className="contact_address-list">
+          <div data-stagger="" className="contact_info-list">
+
+            {/* General enquiries */}
             <div data-stagger-item="" data-hover-item="" className="contact_info-item u-grid-custom u-align-items-center u-overflow-hidden u-position-relative">
               <div data-hover-tile="" className="contact_info-tile u-cover-absolute"></div>
               <div className="contact_info-border u-position-absolute u-width-full"></div>
 
-              {/* Label */}
+              <div className="contact_info-col u-column-start-1 u-column-span-4 u-position-relative">
+                <div className="u-text-style-h4 u-text-transform-uppercase">General Enquiries</div>
+              </div>
+
+              <div className="contact_info-col u-column-start-7 u-column-span-3 u-position-relative">
+                <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
+                  <div className="contact_detail-label u-text-style-small u-text-transform-uppercase u-color-faded">{phoneLabel}</div>
+                  <StaggerLink href={phoneHref} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{phoneNumber}</StaggerLink>
+                </div>
+              </div>
+
+              <div className="contact_info-col u-column-start-10 u-column-span-3 u-position-relative">
+                <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
+                  <div className="contact_detail-label u-text-style-small u-text-transform-uppercase u-color-faded">{emailLabel}</div>
+                  <StaggerLink href={emailHref} className="contact_detail-value u-text-style-main u-weight-bold u-text-transform-uppercase u-text-decoration-underline">{emailAddress}</StaggerLink>
+                </div>
+              </div>
+            </div>
+
+            {/* Address */}
+            <div data-stagger-item="" data-hover-item="" className="contact_info-item u-grid-custom u-align-items-center u-overflow-hidden u-position-relative">
+              <div data-hover-tile="" className="contact_info-tile u-cover-absolute"></div>
+              <div className="contact_info-border u-position-absolute u-width-full"></div>
+
               <div className="contact_address-col u-column-start-1 u-column-span-4 u-position-relative">
                 <div className="u-text-style-h4 u-text-transform-uppercase">{addressEyebrow}</div>
               </div>
 
-              {/* Address */}
               <div className="contact_address-col u-column-start-7 u-column-span-3 u-position-relative">
                 <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
                   <div className="contact_detail-label u-text-style-small u-text-transform-uppercase u-color-faded">Address</div>
@@ -186,7 +186,6 @@ export default async function ContactPage() {
                 </div>
               </div>
 
-              {/* Visit */}
               <div className="contact_address-col u-column-start-10 u-column-span-3 u-position-relative">
                 <div className="contact_detail-block u-flex-vertical-nowrap u-gap-2">
                   <div className="contact_detail-label u-text-style-small u-text-transform-uppercase u-color-faded">{visitLabel}</div>
@@ -194,10 +193,11 @@ export default async function ContactPage() {
                 </div>
               </div>
             </div>
+
           </div>
 
+          <div className="contact_info-border is-bottom u-position-absolute u-width-full"></div>
         </div>
-
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
     </>
