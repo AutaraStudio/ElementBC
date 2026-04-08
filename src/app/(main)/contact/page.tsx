@@ -92,12 +92,12 @@ export default async function ContactPage() {
                 <div className="contact_info-col u-column-start-1 u-column-span-4 u-position-relative">
                   <div className="u-text-style-h4 u-text-transform-uppercase">
                     {contact.name?.includes('MRICS')
-                      ? <>{contact.name.replace('MRICS', '').trim()} <span className="u-color-faded">MRICS</span></>
+                      ? contact.name.replace('MRICS', '').trim()
                       : contact.name}
                   </div>
-                  {contact.role && (
-                    <div className="u-text-style-small u-text-transform-uppercase u-color-faded u-margin-top-1">{contact.role}</div>
-                  )}
+                  <div className="u-text-style-small u-text-transform-uppercase u-color-faded u-margin-top-1">
+                    {[contact.name?.includes('MRICS') ? 'MRICS' : null, contact.role].filter(Boolean).join(' / ')}
+                  </div>
                 </div>
 
                 {/* Phone */}
