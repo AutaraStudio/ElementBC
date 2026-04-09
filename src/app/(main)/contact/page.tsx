@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getContactPage } from '@/lib/sanity/queries';
+import { getContactPage, getPartnerCarousel } from '@/lib/sanity/queries';
 import StaggerLink from '@/components/ui/StaggerLink';
 import AboutHeroBackgroundSvg from '@/components/ui/svgs/AboutHeroBackgroundSvg';
 import SectionDivider from '@/components/ui/SectionDivider';
@@ -17,7 +17,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ContactPage() {
-  const contactPage = await getContactPage();
+  const [contactPage, partnerCarousel] = await Promise.all([
+    getContactPage(),
+    getPartnerCarousel(),
+  ]);
 
   const heroEyebrow = contactPage?.heroEyebrow ?? 'Contact';
   const heroHeading = contactPage?.heroHeading ?? 'Bringing architectural ideas to life in glass.';
@@ -197,7 +200,7 @@ export default async function ContactPage() {
       {/* ============================================================
           PARTNER CAROUSEL
       ============================================================ */}
-      <PartnerCarousel />
+      <PartnerCarousel heading={partnerCarousel?.heading} />
     </>
   );
 }

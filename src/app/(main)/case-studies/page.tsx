@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import TransitionLink from '@/components/ui/TransitionLink';
-import { getAllProjects, getProjectsPage } from '@/lib/sanity/queries';
+import { getAllProjects, getProjectsPage, getPartnerCarousel } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import SectionDivider from '@/components/ui/SectionDivider';
@@ -139,9 +139,10 @@ const heroCSS = `
 
 
 export default async function ProjectsPage() {
-  const [projects, projectsPage] = await Promise.all([
+  const [projects, projectsPage, partnerCarousel] = await Promise.all([
     getAllProjects(),
     getProjectsPage(),
+    getPartnerCarousel(),
   ]);
   return (
     <>
@@ -271,7 +272,7 @@ export default async function ProjectsPage() {
       {/* ============================================================
           PARTNER CAROUSEL
       ============================================================ */}
-      <PartnerCarousel />
+      <PartnerCarousel heading={partnerCarousel?.heading} />
 
     </>
   );

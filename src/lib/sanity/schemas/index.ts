@@ -8,6 +8,8 @@ import { footer } from "./footer";
 import { contactPage } from "./contactPage";
 import { siteSettings } from "./siteSettings";
 import { orbitStatItem } from "./orbitStatItem";
+import { serviceGroup } from "./serviceGroup";
+import { partnerCarousel } from "./partnerCarousel";
 
 export const schemas = [
   project,
@@ -20,4 +22,6 @@ export const schemas = [
   footer,
   siteSettings,
   orbitStatItem,
+  serviceGroup,
+  partnerCarousel,
 ];

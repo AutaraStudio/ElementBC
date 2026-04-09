@@ -85,6 +85,10 @@ export async function getHomePage() {
       aboutParagraph,
       aboutValueProps[] { _key, title, description },
       aboutImage { ..., alt },
+      servicesHeading,
+      servicesSubtitle,
+      servicesTagline,
+      serviceGroups[] { _key, groupTitle, items },
       statsHeading,
       statsSubheading,
       statsItems[] { statLabel, statValue, barWidth },
@@ -105,15 +109,6 @@ export async function getAboutPage() {
     *[_type == "aboutPage"][0] {
       heroEyebrow,
       heroHeading,
-      heroImage { ..., alt },
-      introEyebrow,
-      introHeading,
-      introParagraph,
-      introImage { ..., alt },
-      introLargeHeading,
-      introSecondaryParagraph,
-      ctaLabel,
-      ctaUrl,
       teamMembers[] {
         _key,
         name,
@@ -147,6 +142,14 @@ export async function getContactPage() {
       bookVisitUrl,
       seoTitle,
       seoDescription
+    }
+  `);
+}
+
+export async function getPartnerCarousel() {
+  return sanityClient.fetch<SanityPartnerCarousel | null>(`
+    *[_type == "partnerCarousel"][0] {
+      heading
     }
   `);
 }
@@ -247,6 +250,12 @@ export interface OrbitStatItem {
   barWidth?: number;
 }
 
+export interface SanityServiceGroup {
+  _key: string;
+  groupTitle?: string;
+  items?: string[];
+}
+
 export interface SanityHomePage {
   heroHeading?: string;
   heroViewProjectText?: string;
@@ -262,6 +271,10 @@ export interface SanityHomePage {
   aboutParagraph?: string;
   aboutValueProps?: Array<{ _key: string; title?: string; description?: string }>;
   aboutImage?: SanityImage | null;
+  servicesHeading?: string;
+  servicesSubtitle?: string;
+  servicesTagline?: string;
+  serviceGroups?: SanityServiceGroup[];
   statsHeading?: string;
   statsSubheading?: string;
   statsItems?: SanityStatItem[];
@@ -271,15 +284,6 @@ export interface SanityHomePage {
 export interface SanityAboutPage {
   heroEyebrow?: string;
   heroHeading?: string;
-  heroImage?: SanityImage | null;
-  introEyebrow?: string;
-  introHeading?: string;
-  introParagraph?: string;
-  introImage?: SanityImage | null;
-  introLargeHeading?: string;
-  introSecondaryParagraph?: string;
-  ctaLabel?: string;
-  ctaUrl?: string;
   teamMembers?: Array<{
     _key: string;
     name?: string;
@@ -289,6 +293,10 @@ export interface SanityAboutPage {
   }>;
   seoTitle?: string;
   seoDescription?: string;
+}
+
+export interface SanityPartnerCarousel {
+  heading?: string;
 }
 
 export interface SanityContactPage {

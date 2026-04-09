@@ -1,4 +1,8 @@
-export default function PartnerCarousel() {
+interface PartnerCarouselProps {
+  heading?: string
+}
+
+export default function PartnerCarousel({ heading }: PartnerCarouselProps) {
   return (
       <section data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" className="partner_carousel-wrap">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
@@ -6,7 +10,7 @@ export default function PartnerCarousel() {
           <div className="partner_carousel_heading-contain u-container u-margin-bottom-8">
             <div data-split-wrapper="" className="partner_carousel_heading-wrap u-flex-horizontal-nowrap u-justify-content-between u-align-items-end">
               <div className="partner_carousel_heading-inner">
-                <h2 data-split-text="word" className="partner_carousel-heading u-max-width-17ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">Trusted by those who value detail.</h2>
+                <h2 data-split-text="word" className="partner_carousel-heading u-max-width-17ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{heading ?? 'Trusted by those who rely on detail & value clarity.'}</h2>
               </div>
             </div>
           </div>

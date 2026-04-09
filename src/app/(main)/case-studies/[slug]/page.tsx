@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { getAllProjects, getProjectBySlug } from '@/lib/sanity/queries';
+import { getAllProjects, getProjectBySlug, getPartnerCarousel } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 import TransitionLink from '@/components/ui/TransitionLink';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
@@ -34,9 +34,10 @@ export default async function ProjectDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [project, allProjects] = await Promise.all([
+  const [project, allProjects, partnerCarousel] = await Promise.all([
     getProjectBySlug(slug),
     getAllProjects(),
+    getPartnerCarousel(),
   ]);
 
   if (!project) notFound();
@@ -222,7 +223,7 @@ export default async function ProjectDetailPage({
           PARTNER CAROUSEL
       ============================================================ */}
       <div data-theme="charcoal" className="u-theme-charcoal">
-        <PartnerCarousel />
+        <PartnerCarousel heading={partnerCarousel?.heading} />
       </div>
 
     </main>

@@ -41,6 +41,10 @@ export const homePage = defineType({
       type: "image",
       fields: [defineField({ name: "alt", title: "Alt Text", type: "string" })],
     }),
+    defineField({ name: "servicesHeading", title: "Services Heading", type: "string", description: 'e.g. "What We Do"' }),
+    defineField({ name: "servicesSubtitle", title: "Services Subtitle", type: "string", description: 'e.g. "Core Services"' }),
+    defineField({ name: "servicesTagline", title: "Services Tagline", type: "text", description: 'The quote/tagline shown alongside the services list.' }),
+    defineField({ name: "serviceGroups", title: "Service Groups", type: "array", of: [{ type: "serviceGroup" }] }),
     defineField({ name: "statsHeading", title: "Stats Heading", type: "string" }),
     defineField({
       name: 'statsSubheading',
