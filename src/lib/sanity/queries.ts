@@ -87,7 +87,7 @@ export async function getHomePage() {
       aboutImage { ..., alt },
       statsHeading,
       statsSubheading,
-      statsItems[] { statLabel, statValue },
+      statsItems[] { statLabel, statValue, barWidth },
       featuredProjects[]-> {
         _id,
         projectName,
@@ -238,11 +238,13 @@ export interface SanityProjectCategory {
 export interface SanityStatItem {
   statLabel?: string;
   statValue?: string;
+  barWidth?: number;
 }
 
 export interface OrbitStatItem {
   statValue?: string;
   statLabel?: string;
+  barWidth?: number;
 }
 
 export interface SanityHomePage {

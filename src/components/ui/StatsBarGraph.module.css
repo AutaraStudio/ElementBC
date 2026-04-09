@@ -1,0 +1,122 @@
+/* ============================================================
+   StatsBarGraph — horizontal bar chart stats
+   ============================================================ */
+
+.stats-bar_wrap {
+  background-color: var(--_theme---background);
+  color: var(--_theme---text);
+  position: relative;
+  z-index: 2;
+}
+
+.stats-bar_contain {
+}
+
+/* ── Header ── */
+
+.stats-bar_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.stats-bar_heading {
+  margin: 0;
+  max-width: 20ch;
+}
+
+.stats-bar_subheading {
+  margin: 0;
+  max-width: 32ch;
+}
+
+/* ── Bar list ── */
+
+.stats-bar_list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* ── Row ── */
+
+.stats-bar_row {
+  position: relative;
+  height: 5.5rem;
+  overflow: hidden;
+}
+
+/* ── Fill bar (contains content, overflow visible so text doesn't clip) ── */
+
+.stats-bar_fill {
+  height: 100%;
+  background-color: var(--_theme---text);
+  transform-origin: left center;
+  overflow: visible;
+}
+
+/* ── Content (inside fill, white text) ── */
+
+.stats-bar_content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 1.75rem;
+  white-space: nowrap;
+}
+
+.stats-bar_value {
+  margin: 0;
+  color: var(--_theme---background);
+  flex-shrink: 0;
+}
+
+.stats-bar_label {
+  margin: 0;
+  color: color-mix(in srgb, var(--_theme---background) 65%, transparent);
+  max-width: 22rem;
+  text-align: right;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 991px) {
+  .stats-bar_header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .stats-bar_subheading {
+    max-width: 100%;
+  }
+
+  .stats-bar_label {
+    min-width: 8rem;
+    max-width: 16rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .stats-bar_row {
+    height: auto;
+    min-height: 4rem;
+  }
+
+  .stats-bar_content {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0 1.25rem;
+  }
+
+  .stats-bar_label {
+    text-align: left;
+    max-width: unset;
+    white-space: normal;
+  }
+}

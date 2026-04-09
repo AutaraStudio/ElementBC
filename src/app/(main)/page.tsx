@@ -8,6 +8,7 @@ import { urlFor } from '@/lib/sanity/imageUrl';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import ScrollOrbit from '@/components/ui/ScrollOrbit';
 import StatsTreemap from '@/components/ui/StatsTreemap';
+import StatsBarGraph from '@/components/ui/StatsBarGraph';
 export const revalidate = 3600;
 
 const defaultValueProps = [
@@ -189,6 +190,13 @@ export default async function HomePage() {
       />
 
       <StatsTreemap
+        stats={homePage?.statsItems ?? []}
+        heading={homePage?.statsHeading ?? 'Built on detail. Proven in results.'}
+        subheading={homePage?.statsSubheading ?? 'From programme to budget, we manage every detail — and the results speak for themselves.'}
+        theme="buff"
+      />
+
+      <StatsBarGraph
         stats={homePage?.statsItems ?? []}
         heading={homePage?.statsHeading ?? 'Built on detail. Proven in results.'}
         subheading={homePage?.statsSubheading ?? 'From programme to budget, we manage every detail — and the results speak for themselves.'}
