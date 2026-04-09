@@ -241,8 +241,8 @@ export interface SanityStatItem {
 }
 
 export interface OrbitStatItem {
-  statValue: string;
-  statLabel: string;
+  statValue?: string;
+  statLabel?: string;
 }
 
 export interface SanityHomePage {
