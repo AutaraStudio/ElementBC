@@ -1,9 +1,12 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import gsap from '@/lib/gsap';
+
 /* ------------------------------------------------------------------ */
-/*  BreathingBarsSvg — pure CSS animation, zero JS per-frame cost      */
-/*                                                                      */
-/*  Each bar gets a deterministic animation type (breathe / piston /    */
-/*  static) and unique timing via inline style. All motion is driven    */
-/*  by CSS @keyframes — no GSAP, no useEffect, no requestAnimationFrame.*/
+/*  Bar data extracted from group.svg                                  */
+/*  Each bar is a vertical rectangle: [x1, x2, yTop, yBottom]         */
+/*  Organised into 7 rows of the original 1400×1584 viewBox.          */
 /* ------------------------------------------------------------------ */
 
 interface Bar {
@@ -11,10 +14,11 @@ interface Bar {
   x2: number;
   yTop: number;
   yBot: number;
+  row: number;
 }
 
 const RAW: [number, number, number, number][] = [
-  // Row 0
+  // Row 0  (y 0 → 226)
   [0,15.4769,0,226.187],[52.5112,77.2945,0,226.187],[109.782,134.356,0,226.187],
   [172.902,185.57,0,226.187],[217.675,255.13,0,226.187],[287.975,299.163,0,226.187],
   [335.501,365.971,0,226.187],[398.611,417.193,0,226.187],[451.255,478.881,0,226.187],
@@ -24,7 +28,7 @@ const RAW: [number, number, number, number][] = [
   [1030.49,1042.97,0,226.187],[1089.87,1097.92,0,226.187],[1149.81,1152.33,0,226.191],
   [1207.41,1209.03,0,226.191],[1263.1,1267.68,0,226.187],[1319.66,1325.46,0,226.187],
   [1379.24,1380.21,0,226.191],
-  // Row 1
+  // Row 1  (y 226 → 452)
   [5.38916,10.0824,226.187,452.374],[50.2637,79.5416,226.187,452.374],
   [109.823,134.317,226.187,452.374],[174.822,183.651,226.187,452.374],
   [216.274,256.534,226.187,452.374],[279.798,307.337,226.187,452.374],
@@ -38,7 +42,7 @@ const RAW: [number, number, number, number][] = [
   [1138.52,1163.61,226.187,452.374],[1198.44,1218.03,226.187,452.374],
   [1258.91,1271.86,226.187,452.374],[1320.57,1324.54,226.187,452.374],
   [1378.1,1381.35,226.187,452.374],
-  // Row 2
+  // Row 2  (y 452 → 678)
   [6.21289,9.26158,452.374,678.557],[52.9399,76.8696,452.373,678.56],
   [116.798,127.338,452.373,678.56],[174.145,184.326,452.373,678.56],
   [222.838,249.97,452.373,678.56],[273.683,313.455,452.373,678.56],
@@ -52,7 +56,7 @@ const RAW: [number, number, number, number][] = [
   [1135.47,1166.66,452.373,678.56],[1200.05,1216.43,452.373,678.56],
   [1251.98,1278.79,452.373,678.56],[1320.87,1324.28,452.374,678.557],
   [1369.74,1389.72,452.373,678.56],
-  // Row 3
+  // Row 3  (y 678 → 904)
   [5.60254,9.87071,678.557,904.74],[57.522,72.2881,678.557,904.74],
   [111.627,132.512,678.557,904.74],[166.748,191.723,678.557,904.74],
   [221.377,251.425,678.557,904.74],[285.708,301.432,678.557,904.74],
@@ -66,7 +70,7 @@ const RAW: [number, number, number, number][] = [
   [1148.74,1153.4,678.557,904.74],[1201.52,1214.95,678.557,904.74],
   [1262.14,1268.67,678.557,904.74],[1306.05,1339.1,678.557,904.74],
   [1363.52,1395.93,678.557,904.74],
-  // Row 4
+  // Row 4  (y 904 → 1130)
   [0.916504,14.5607,904.74,1130.93],[61.0991,68.7052,904.74,1130.93],
   [117.677,126.461,904.74,1130.93],[177.769,180.706,904.74,1130.93],
   [227.51,245.297,904.74,1130.93],[285.986,301.153,904.74,1130.93],
@@ -80,7 +84,7 @@ const RAW: [number, number, number, number][] = [
   [1145.24,1156.89,904.74,1130.93],[1195.42,1221.04,904.74,1130.93],
   [1263.77,1267.03,904.74,1130.93],[1315.05,1330.06,904.74,1130.93],
   [1370.29,1389.2,904.74,1130.93],
-  // Row 5
+  // Row 5  (y 1130 → 1357)
   [4.20166,11.2746,1130.92,1357.11],[59.0161,70.7893,1130.92,1357.11],
   [120.158,123.987,1130.92,1357.11],[172.097,186.375,1130.92,1357.11],
   [233.563,239.242,1130.92,1357.11],[288.063,299.077,1130.92,1357.11],
@@ -94,7 +98,7 @@ const RAW: [number, number, number, number][] = [
   [1139.78,1162.35,1130.92,1357.11],[1201.57,1214.9,1130.92,1357.11],
   [1249.57,1281.2,1130.92,1357.11],[1318.63,1326.51,1130.92,1357.11],
   [1366.65,1392.8,1130.92,1357.11],
-  // Row 6
+  // Row 6  (y 1357 → 1583)
   [4.83643,10.6376,1357.11,1583.3],[61.4419,68.3685,1357.11,1583.3],
   [118.143,125.996,1357.11,1583.3],[176.623,181.853,1357.11,1583.3],
   [235.314,237.489,1357.11,1583.3],[286.167,300.968,1357.11,1583.3],
@@ -112,62 +116,131 @@ const RAW: [number, number, number, number][] = [
 
 const SVG_W = 1400;
 const SVG_H = 1584;
+const ROWS = 7;
+const ROW_H = SVG_H / ROWS; // ~226 SVG units per row
 
-const BARS: Bar[] = RAW.map(([x1, x2, yTop, yBot]) => ({ x1, x2, yTop, yBot }));
+/* Pre-process bars with metadata */
+const BARS: Bar[] = RAW.map(([x1, x2, yTop, yBot]) => {
+  const row = Math.round(yTop / ROW_H);
+  return { x1, x2, yTop, yBot, row };
+});
 
+/* Deterministic pseudo-random from seed — keeps animation stable across renders */
 function seeded(seed: number): number {
   const x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
   return x - Math.floor(x);
 }
 
+/* Column index for a bar — buckets bars by horizontal position */
 function colIndex(bar: Bar): number {
-  return Math.round(((bar.x1 + bar.x2) / 2) / 56);
+  const cx = (bar.x1 + bar.x2) / 2;
+  return Math.round(cx / 56); // ~25 columns across 1400px
 }
-
-/* Pre-compute piston-eligible columns (deterministic) */
-const pistonCols = new Set<number>();
-for (let c = 0; c < 25; c++) {
-  if (seeded(c * 7 + 53) < 0.3) pistonCols.add(c);
-}
-
-/* Pre-compute animation assignments for each bar */
-const barMeta = BARS.map((bar, i) => {
-  const width = bar.x2 - bar.x1;
-  const rand = seeded(i);
-  const isWide = width > 15;
-  const col = colIndex(bar);
-  const accentRand = seeded(i + 500);
-  const isAccent = accentRand < 0.2;
-
-  let animType: 'breathe' | 'piston' | 'static';
-  if (rand < 0.45) {
-    animType = 'breathe';
-  } else if (rand < 0.75 && pistonCols.has(col)) {
-    animType = 'piston';
-  } else {
-    animType = 'static';
-  }
-
-  // Breathing: target scaleX
-  const targetScale = isWide ? 0.2 + rand * 0.3 : 1.5 + rand * 0.8;
-
-  // Piston: travel distance
-  const colRand = seeded(col * 7 + 53);
-  const direction = colRand > 0.5 ? -1 : 1;
-  const travel = 40 + colRand * 80;
-
-  // Timing
-  const duration = animType === 'breathe'
-    ? 0.8 + rand * 1.2
-    : 1.0 + colRand * 1.5;
-  const delay = animType === 'breathe' ? rand * 0.5 : colRand * 0.5;
-
-  return { animType, targetScale, direction, travel, duration, delay, isAccent };
-});
 
 export default function BreathingBarsSvg({ className }: { className?: string }) {
+  const svgRef = useRef<SVGSVGElement>(null);
+
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg) return;
+
+    const rects = Array.from(svg.querySelectorAll<SVGRectElement>('.bar'));
+    if (!rects.length) return;
+
+    const tweens: gsap.core.Tween[] = [];
+
+    // --- Piston columns: pick ~30% of columns, create ONE shared proxy each ---
+    const pistonCols = new Set<number>();
+    const colProxies = new Map<number, { t: number }>();
+    const colRects = new Map<number, SVGRectElement[]>();
+
+    for (let c = 0; c < 25; c++) {
+      if (seeded(c * 7 + 53) < 0.3) {
+        pistonCols.add(c);
+        colProxies.set(c, { t: 0 });
+        colRects.set(c, []);
+      }
+    }
+
+    // First pass: classify bars and collect piston column rects
+    rects.forEach((rect, i) => {
+      const bar = BARS[i];
+      if (!bar) return;
+
+      const rand = seeded(i);
+      const col = colIndex(bar);
+
+      if (rand >= 0.45 && rand < 0.75 && pistonCols.has(col)) {
+        colRects.get(col)!.push(rect);
+      }
+    });
+
+    // Create ONE tween per piston column — all bars in that column share it
+    pistonCols.forEach((col) => {
+      const rectsInCol = colRects.get(col);
+      if (!rectsInCol || rectsInCol.length === 0) return;
+
+      const colRand = seeded(col * 7 + 53);
+      const direction = colRand > 0.5 ? -1 : 1;
+      const travel = 40 + colRand * 80;
+      const proxy = colProxies.get(col)!;
+
+      tweens.push(
+        gsap.to(proxy, {
+          t: direction * travel,
+          duration: 1.0 + colRand * 1.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: colRand * 0.5,
+          onUpdate() {
+            rectsInCol.forEach((r) => gsap.set(r, { y: proxy.t }));
+          },
+        })
+      );
+    });
+
+    // Second pass: breathing animations for non-piston bars
+    rects.forEach((rect, i) => {
+      const bar = BARS[i];
+      if (!bar) return;
+
+      const width = bar.x2 - bar.x1;
+      const rand = seeded(i);
+      const isWide = width > 15;
+      const col = colIndex(bar);
+
+      // Skip bars already assigned to a piston column
+      if (rand >= 0.45 && rand < 0.75 && pistonCols.has(col)) return;
+
+      // 45% breathe, rest static
+      if (rand >= 0.45) return;
+
+      const targetScale = isWide ? 0.2 + rand * 0.3 : 1.5 + rand * 0.8;
+      const proxy = { s: 1 };
+      tweens.push(
+        gsap.to(proxy, {
+          s: targetScale,
+          duration: 0.8 + rand * 1.2,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: rand * 0.5,
+          onUpdate() {
+            gsap.set(rect, { scaleX: proxy.s, transformOrigin: '50% 50%' });
+          },
+        })
+      );
+    });
+
+    return () => {
+      tweens.forEach((tw) => tw.kill());
+    };
+  }, []);
+
   return (
     <svg
+      ref={svgRef}
       className={className}
       width="100%"
       viewBox={`0 0 ${SVG_W} ${SVG_H}`}
@@ -178,50 +251,22 @@ export default function BreathingBarsSvg({ className }: { className?: string }) 
       {BARS.map((bar, i) => {
         const width = bar.x2 - bar.x1;
         const height = bar.yBot - bar.yTop;
-        const meta = barMeta[i];
-
-        let animStyle: React.CSSProperties | undefined;
-
-        if (meta.animType === 'breathe') {
-          animStyle = {
-            animation: `breathe-bar ${meta.duration}s ease-in-out ${meta.delay}s infinite alternate`,
-            transformOrigin: '50% 50%',
-            // Custom property tells the keyframe what to scale to
-            '--target-scale': `${meta.targetScale}`,
-          } as React.CSSProperties;
-        } else if (meta.animType === 'piston') {
-          const ty = meta.direction * meta.travel;
-          animStyle = {
-            animation: `piston-bar ${meta.duration}s ease-in-out ${meta.delay}s infinite alternate`,
-            '--piston-y': `${ty}`,
-          } as React.CSSProperties;
-        }
+        // Separate seed for accent so it's independent from animation type
+        const accentRand = seeded(i + 500);
+        const isAccent = accentRand < 0.2;
 
         return (
           <rect
             key={i}
-            className={meta.isAccent ? 'bar--accent' : undefined}
+            className={`bar${isAccent ? ' bar--accent' : ''}`}
             x={bar.x1}
             y={bar.yTop}
             width={width}
             height={height}
             fill="currentColor"
-            style={animStyle}
           />
         );
       })}
-
-      {/* CSS keyframes embedded in SVG via <style> — runs on compositor thread */}
-      <style>{`
-        @keyframes breathe-bar {
-          from { transform: scaleX(1); }
-          to   { transform: scaleX(var(--target-scale)); }
-        }
-        @keyframes piston-bar {
-          from { transform: translateY(0); }
-          to   { transform: translateY(calc(var(--piston-y) * 1px)); }
-        }
-      `}</style>
     </svg>
   );
 }

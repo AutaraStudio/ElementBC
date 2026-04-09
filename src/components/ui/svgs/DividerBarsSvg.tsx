@@ -1,0 +1,172 @@
+export default function DividerBarsSvg({ className }: { className?: string }) {
+  return (
+    <svg
+      width="100%"
+      viewBox="0 0 988 93"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-svg-stagger=""
+      data-svg-blur="0"
+      data-svg-from="start"
+      data-svg-stagger-each="0.003"
+      data-svg-path-duration="0.6"
+      className={className}
+    >
+      <path data-svg-path="" d="M936.752 46.2813H933.485V0H936.752V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M949.136 46.2813H946.328V0H949.136V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M961.456 46.2813H959.235V0H961.456V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M973.728 46.2813H972.179V0H973.728V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M985.127 46.2813H986.015V0H985.127V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M899.032 46.2813H895.528V0H899.032V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M911.72 46.2813H908.077V0H911.72V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M924.288 46.2813H920.725V0H924.288V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M695.348 46.2813H695.619V0H695.348V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M708.031 46.2813H708.163V0H708.031V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M720.683 46.2813H720.733V0H720.683V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M733.316 46.2813H733.328V0H733.316V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M771.153 46.2813H771.159V0H771.153V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M783.752 46.2813H783.787V0H783.752V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M796.327 46.2813H796.437V0H796.327V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M808.861 46.2813H809.129V0H808.861V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M821.337 46.2813H821.877V0H821.337V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M833.744 46.2813H834.696V0H833.744V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M847.565 46.2813H846.092V0H847.565V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M860.48 46.2813H858.415V0H860.48V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M873.385 46.2813H870.735V0H873.385V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M886.243 46.2813H883.093V0H886.243V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M657.155 46.2813H658.136V0H657.155V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M669.904 46.2813H670.613V0H669.904V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M682.639 46.2813H683.104V0H682.639V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M531.429 46.2813H531.615V0H531.429V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M543.908 46.2813H544.363V0H543.908V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M556.349 46.2813H557.147V0H556.349V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M568.777 46.2813H569.941V0H568.777V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M582.708 46.2813H581.236V0H582.708V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M595.403 46.2813H593.765V0H595.403V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M608.037 46.2813H606.356V0H608.037V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M620.62 46.2813H618.997V0H620.62V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M633.157 46.2813H631.685V0H633.157V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M644.409 46.2813H645.657V0H644.409V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M407.749 46.2813H403.047V0H407.749V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M419.757 46.2813H416.264V0H419.757V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M431.847 46.2813H429.4V0H431.847V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M444.048 46.2813H442.423V0H444.048V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M455.345 46.2813H456.351V0H455.345V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M468.191 46.2813H468.729V0H468.191V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M480.957 46.2813H481.188V0H480.957V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M493.651 46.2813H493.716V0H493.651V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M506.297 46.2813H506.299V0H506.297V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M518.892 46.2813H518.927V0H518.892V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M195.412 46.2813H186.563V0H195.412V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M207.803 46.2813H199.396V0H207.803V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M219.784 46.2813H212.641V0H219.784V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M231.492 46.2813H226.156V0H231.492V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M243.101 46.2813H239.772V0H243.101V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M254.828 46.2813H253.269V0H254.828V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M266.485 46.2813H266.839V0H266.485V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M279.269 46.2813H279.28V0H279.269V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M291.571 46.2813H292.203V0H291.571V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M305.539 46.2813H303.46V0H305.539V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M319.108 46.2813H315.115V0H319.108V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M332.671 46.2813H326.775V0H332.671V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M345.989 46.2813H338.683V0H345.989V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M358.941 46.2813H350.955V0H358.941V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M371.523 46.2813H363.599V0H371.523V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M383.745 46.2813H376.603V0H383.745V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M395.764 46.2813H389.809V0H395.764V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M182.557 46.2813H174.192V0H182.557V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M846.753 92.5627H846.904V46.2813H846.753V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M859.272 92.5627H859.62V46.2813H859.272V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M871.725 92.5627H872.392V46.2813H871.725V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M884.116 92.5627H885.229V46.2813H884.116V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M898.119 92.5627H896.453V46.2813H898.119V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M911.029 92.5627H908.767V46.2813H911.029V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M923.921 92.5627H921.091V46.2813H923.921V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M936.764 92.5627H933.475V46.2813H936.764V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M949.519 92.5627H945.945V46.2813H949.519V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M962.164 92.5627H958.527V46.2813H962.164V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M974.699 92.5627H971.217V46.2813H974.699V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M987.135 92.5627H984.008V46.2813H987.135V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M2.53866 46.2813H1.06265V0H2.53866V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M13.94 46.2813H14.888V0H13.94V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M26.7373 46.2813H27.3133V0H26.7373V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M39.464 46.2813H39.812V0H39.464V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M52.1387 46.2813H52.3613V0H52.1387V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M64.7627 46.2813H64.9613V0H64.7627V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M77.336 46.2813H77.616V0H77.336V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M89.8293 46.2813H90.3453V0H89.8293V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M102.18 46.2813H103.22V0H102.18V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M116.253 46.2813H114.372V0H116.253V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M129.432 46.2813H126.419V0H129.432V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M142.727 46.2813H138.348V0H142.727V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M156.072 46.2813H150.227V0H156.072V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M169.381 46.2813H162.145V0H169.381V46.2813Z" fill="currentColor" />
+      <path data-svg-path="" d="M821.6 92.5627H821.617V46.2813H821.6V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M834.199 92.5627H834.244V46.2813H834.199V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M606.736 92.5627H607.656V46.2813H606.736V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M619.171 92.5627H620.448V46.2813H619.171V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M633.195 92.5627H631.649V46.2813H633.195V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M645.865 92.5627H644.203V46.2813H645.865V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M658.483 92.5627H656.809V46.2813H658.483V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M671.049 92.5627H669.467V46.2813H671.049V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M683.573 92.5627H682.169V46.2813H683.573V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M694.903 92.5627H696.063V46.2813H694.903V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M707.651 92.5627H708.54V46.2813H707.651V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M720.396 92.5627H721.02V46.2813H720.396V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M733.124 92.5627H733.519V46.2813H733.124V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M745.825 92.5627H746.045V46.2813H745.825V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M758.499 92.5627H758.597V46.2813H758.499V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M771.144 92.5627H771.179V46.2813H771.144V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M783.771 92.5627H783.777V46.2813H783.771V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M796.379 92.5627H796.384V46.2813H796.379V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M569.323 92.5627H569.395V46.2813H569.323V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M581.84 92.5627H582.105V46.2813H581.84V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M594.303 92.5627H594.865V46.2813H594.303V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M457.992 92.5627H453.701V46.2813H457.992V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M470.02 92.5627H466.9V46.2813H470.02V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M482.147 92.5627H480V46.2813H482.147V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M494.385 92.5627H492.983V46.2813H494.385V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M505.88 92.5627H506.713V46.2813H505.88V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M518.701 92.5627H519.119V46.2813H518.701V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M531.441 92.5627H531.603V46.2813H531.441V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M544.119 92.5627H544.152V46.2813H544.119V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M556.747 92.5627H556.748V46.2813H556.747V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M329.668 92.5627H329.781V46.2813H329.668V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M341.817 92.5627H342.855V46.2813H341.817V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M356.292 92.5627H353.605V46.2813H356.292V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M369.888 92.5627H365.233V46.2813H369.888V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M383.393 92.5627H376.952V46.2813H383.393V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M396.592 92.5627H388.98V46.2813H396.592V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M409.423 92.5627H401.372V46.2813H409.423V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M421.879 92.5627H414.143V46.2813H421.879V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M434.005 92.5627H427.241V46.2813H434.005V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M446.005 92.5627H440.467V46.2813H446.005V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M115.205 92.5627H115.42V46.2813H115.205V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M127.757 92.5627H128.093V46.2813H127.757V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M140.211 92.5627H140.864V46.2813H140.211V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M152.505 92.5627H153.793V46.2813H152.505V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M166.876 92.5627H164.648V46.2813H166.876V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M180.099 92.5627H176.651V46.2813H180.099V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M193.419 92.5627H188.555V46.2813H193.419V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M206.763 92.5627H200.436V46.2813H206.763V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M220.037 92.5627H212.387V46.2813H220.037V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M233.136 92.5627H224.513V46.2813H233.136V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M245.84 92.5627H237.035V46.2813H245.84V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M258.083 92.5627H250.016V46.2813H258.083V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M269.955 92.5627H263.369V46.2813H269.955V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M281.607 92.5627H276.94V46.2813H281.607V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M293.233 92.5627H290.54V46.2813H293.233V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M303.96 92.5627H305.037V46.2813H303.96V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M317.044 92.5627H317.179V46.2813H317.044V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M77.232 92.5627H77.7187V46.2813H77.232V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M89.9387 92.5627H90.236V46.2813H89.9387V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M102.599 92.5627H102.801V46.2813H102.599V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M3.6 92.5627H0V46.2813H3.6V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M15.9667 92.5627H12.8587V46.2813H15.9667V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M28.2813 92.5627H25.772V46.2813H28.2813V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M40.5773 92.5627H38.6987V46.2813H40.5773V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M51.608 92.5627H52.896V46.2813H51.608V92.5627Z" fill="currentColor" />
+      <path data-svg-path="" d="M64.46 92.5627H65.2653V46.2813H64.46V92.5627Z" fill="currentColor" />
+    </svg>
+  );
+}

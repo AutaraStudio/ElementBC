@@ -52,7 +52,7 @@
 
 .stats-bar_fill {
   height: 100%;
-  background-color: var(--_theme---text);
+  background-color: var(--_theme---image-reveal);
   transform-origin: left center;
   overflow: visible;
 }
@@ -70,13 +70,13 @@
 
 .stats-bar_value {
   margin: 0;
-  color: var(--_theme---background);
+  color: var(--_theme---text);
   flex-shrink: 0;
 }
 
 .stats-bar_label {
   margin: 0;
-  color: color-mix(in srgb, var(--_theme---background) 65%, transparent);
+  color: color-mix(in srgb, var(--_theme---text) 55%, transparent);
   max-width: 22rem;
   text-align: right;
 }

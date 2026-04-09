@@ -6,8 +6,8 @@ import CharStagger from '@/components/ui/CharStagger';
 import { getHomePage, getProjectsPage, getSiteSettings } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
+import DividerBarsSvg from '@/components/ui/svgs/DividerBarsSvg';
 import ScrollOrbit from '@/components/ui/ScrollOrbit';
-import StatsTreemap from '@/components/ui/StatsTreemap';
 import StatsBarGraph from '@/components/ui/StatsBarGraph';
 export const revalidate = 3600;
 
@@ -189,12 +189,13 @@ export default async function HomePage() {
         theme="charcoal"
       />
 
-      <StatsTreemap
-        stats={homePage?.statsItems ?? []}
-        heading={homePage?.statsHeading ?? 'Built on detail. Proven in results.'}
-        subheading={homePage?.statsSubheading ?? 'From programme to budget, we manage every detail — and the results speak for themselves.'}
-        theme="buff"
-      />
+      <section data-theme="buff" className="project_details-wrap u-theme-buff">
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+        <div className="u-container">
+          <DividerBarsSvg className="global_svg" />
+        </div>
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+      </section>
 
       <StatsBarGraph
         stats={homePage?.statsItems ?? []}
@@ -202,6 +203,14 @@ export default async function HomePage() {
         subheading={homePage?.statsSubheading ?? 'From programme to budget, we manage every detail — and the results speak for themselves.'}
         theme="buff"
       />
+
+      <section data-theme="buff" className="project_details-wrap u-theme-buff">
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+        <div className="u-container">
+          <DividerBarsSvg className="global_svg" />
+        </div>
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+      </section>
 
       {/* ============================================================
           PROJECTS ARCHIVE SECTION
