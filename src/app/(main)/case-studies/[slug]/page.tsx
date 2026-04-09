@@ -98,7 +98,7 @@ export default async function ProjectDetailPage({
                             className="project_image-marquee-img"
                             style={{ aspectRatio: `${w} / ${h}` }}
                           />
-                          <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
+                          <div data-overlay="" data-overlay-trigger=".project_image-marquee" data-overlay-start="top 80%" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
                           <div className="project_image-marquee-overlay u-cover-absolute u-pointer-off"></div>
                         </div>
                       </div>

@@ -35,10 +35,13 @@ export function useScrollReveal() {
           const ease = el.getAttribute('data-overlay-ease') || t.ease.sine;
           const scrub = 'true' === el.getAttribute('data-overlay-scrub');
           const delay = parseFloat(el.getAttribute('data-overlay-delay') || '') || 0;
+          // Allow a parent selector as the scroll trigger (for marquee images etc.)
+          const triggerSel = el.getAttribute('data-overlay-trigger');
+          const triggerEl = (triggerSel && el.closest(triggerSel)) || el;
           if (scrub) {
-            gsap.to(el, { opacity: 0, ease: 'none', scrollTrigger: { trigger: el, start, end, scrub: 0.6 } });
+            gsap.to(el, { opacity: 0, ease: 'none', scrollTrigger: { trigger: triggerEl, start, end, scrub: 0.6 } });
           } else {
-            gsap.to(el, { opacity: 0, duration: dur, delay, ease, scrollTrigger: { trigger: el, start, end, toggleActions: 'play none none none' } });
+            gsap.to(el, { opacity: 0, duration: dur, delay, ease, scrollTrigger: { trigger: triggerEl, start, end, toggleActions: 'play none none none' } });
           }
         });
       }

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import TransitionLink from '@/components/ui/TransitionLink';
-import BreathingBarsSvg from '@/components/ui/svgs/BreathingBarsSvg';
+import HomeAboutWaveSvg from '@/components/ui/svgs/HomeAboutWaveSvg';
 import CharStagger from '@/components/ui/CharStagger';
 import { getHomePage, getProjectsPage, getSiteSettings } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
@@ -151,7 +151,7 @@ export default async function HomePage() {
             <div className="home_about-col u-position-relative u-column-start-1 u-column-span-3 ">
               <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
               <div className="breathing-bars_wrap">
-                <BreathingBarsSvg className="home_about_wave-svg" />
+                <HomeAboutWaveSvg className="home_about_wave-svg" />
               </div>
             </div>
 
