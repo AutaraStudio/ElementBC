@@ -47,17 +47,13 @@
 }
 
 .scroll-orbit_heading {
-  font-size: clamp(3rem, 7vw, 6.5rem);
-  font-weight: var(--_typography---font--primary-medium, 430);
-  line-height: 1;
+  margin: 0;
   max-width: 17ch;
-  text-transform: uppercase;
 }
 
 .scroll-orbit_subheading {
-  font-size: 0.9rem;
+  margin: 0;
   color: color-mix(in srgb, var(--_theme---text) 50%, transparent);
-  line-height: 1.5;
   max-width: 30ch;
 }
 
@@ -202,16 +198,13 @@
 }
 
 .scroll-orbit_mobile-value {
-  font-size: clamp(2rem, 8vw, 3.5rem);
-  font-weight: var(--_typography---font--primary-medium, 430);
-  line-height: 1.1;
+  margin: 0;
   color: var(--_theme---text);
 }
 
 .scroll-orbit_mobile-label {
-  font-size: 0.85rem;
+  margin: 0;
   color: color-mix(in srgb, var(--_theme---text) 55%, transparent);
-  line-height: 1.5;
 }
 
 /* =============================================================================
@@ -259,7 +252,6 @@
     gap: 1.5rem;
   }
   .scroll-orbit_heading {
-    font-size: clamp(1.6rem, 6vw, 2.4rem);
   }
   .scroll-orbit_subheading {
     max-width: 100%;
