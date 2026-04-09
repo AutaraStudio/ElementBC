@@ -52,19 +52,11 @@ const projectsArchiveCSS = `
 .projects_archive_image-wrap:hover .projects_archive-image {
   transform: scale(1.05);
 }
-/* Looping column pattern */
-.projects_archive-item:nth-child(5n + 1) { grid-column: 11 / 18; }
-.projects_archive-item:nth-child(5n + 2) { grid-column: 18 / 25; }
-.projects_archive-item:nth-child(5n + 3) { grid-column: 4 / 11; }
-.projects_archive-item:nth-child(5n + 4) { grid-column: 11 / 18; }
-.projects_archive-item:nth-child(5n + 5) { grid-column: 11 / 25; }
+/* 4-column grid — each item spans 6 of the 24-column grid */
+.projects_archive-item { grid-column: span 6; }
 /* Portrait ratio for all items */
 .projects_archive_image-wrap {
   aspect-ratio: 3 / 4;
-}
-/* Landscape ratio for the wide item */
-.projects_archive-item:nth-child(5n + 5) .projects_archive_image-wrap {
-  aspect-ratio: 16 / 9;
 }
 `;
 
@@ -76,7 +68,7 @@ export default async function HomePage() {
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
-      <div data-hero-wrap="" className="home_hero_featured-wrap">
+      <div data-hero-wrap="" data-theme="img-bg" className="home_hero_featured-wrap">
         <div data-hero-featured="list" role="list" className="home_hero_featured-list u-min-height-screen">
           <div data-hero-item="" role="listitem" className="home_hero_featured-item u-cover-absolute u-theme-charcoal">
             <div className="u-embed-css w-embed">
@@ -243,7 +235,7 @@ export default async function HomePage() {
             <div role="list" className="projects_archive-list u-grid-custom u-gap-row-6">
               {(homePage?.featuredProjects ?? []).map((project) => (
                 <div key={project._id} role="listitem" className="projects_archive-item u-position-relative u-flex-vertical-nowrap u-gap-3">
-                  <div data-cursor-marquee-text="View Project" className="projects_archive_image-wrap u-position-relative u-overflow-hidden">
+                  <div data-cursor-marquee-text="View Case Study" className="projects_archive_image-wrap u-position-relative u-overflow-hidden">
                     <TransitionLink href={`/case-studies/${project.slug}`} className="projects_archive-link u-cover-absolute w-inline-block"></TransitionLink>
                     <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
                     {urlFor(project.featuredImage1) && (

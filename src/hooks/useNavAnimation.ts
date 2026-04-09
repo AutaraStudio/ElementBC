@@ -43,12 +43,22 @@ export function useNavAnimation() {
 
       const toggleBtn = document.querySelector('[data-nav-toggle]');
       const menu = document.querySelector('[data-nav-menu]');
+      const navBarEl = document.querySelector<HTMLElement>('[data-nav-bar]');
       const navItems = gsap.utils.toArray('[data-nav-item]') as Element[];
       const navPaths = gsap.utils.toArray('[data-nav-path]') as Element[];
       const linkText = toggleBtn?.querySelector('.nav_main_link-text') as HTMLElement | null;
       const logoEl = document.querySelector('[data-nav-logo]');
       const logoLetters = gsap.utils.toArray('[data-nav-letter]') as Element[];
 
+      // Resolve the charcoal theme's light text color for the mega menu
+      const menuProbe = document.createElement('div');
+      menuProbe.className = 'u-theme-charcoal';
+      menuProbe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none';
+      document.body.appendChild(menuProbe);
+      const menuLightColor = getComputedStyle(menuProbe).getPropertyValue('--_theme---text').trim();
+      document.body.removeChild(menuProbe);
+
+      let navColorTween: gsap.core.Tween | null = null;
       let isOpen = false;
       const shuffledPaths = shuffleArray(navPaths);
 
@@ -58,6 +68,13 @@ export function useNavAnimation() {
         _showNav?.();
         if (closeTl) closeTl.kill();
         if (linkText) setCharStaggerText(linkText, 'CLOSE');
+
+        // Force nav to light color for dark mega menu
+        if (navBarEl) {
+          if (navColorTween) navColorTween.kill();
+          navColorTween = gsap.to(navBarEl, { color: menuLightColor, duration: 0.3, ease: 'power1.inOut' });
+        }
+
         openTl = gsap.timeline({
           paused: true,
           onStart: () => {
@@ -87,6 +104,13 @@ export function useNavAnimation() {
           onComplete: () => {
             menu?.classList.remove('is-open');
             window.locomotiveScroll?.start();
+
+            // Restore nav color to current section's theme
+            if (navBarEl) {
+              const currentThemeText = getComputedStyle(document.documentElement).getPropertyValue('--_theme---text').trim();
+              if (navColorTween) navColorTween.kill();
+              navColorTween = gsap.to(navBarEl, { color: currentThemeText, duration: 0.3, ease: 'power1.inOut' });
+            }
           },
         });
         closeTl.to(shuffledPaths, {

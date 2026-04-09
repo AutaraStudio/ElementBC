@@ -181,13 +181,24 @@ function initProjectSlider() {
   updateUI();
   startProgress();
 
-  // Parallax on scroll
-  const itemsEl = sliderEl.querySelector('[data-slider-items]');
-  if (itemsEl) {
-    gsap.fromTo(itemsEl, { yPercent: 0 }, {
-      yPercent: 50,
+  // Scroll fade — fade/blur/scale out UI overlay (matches home hero behaviour)
+  const uiOverlay = sliderEl.querySelector('.projects_hero-ui') as HTMLElement | null;
+  if (uiOverlay) {
+    gsap.fromTo(uiOverlay, {
+      opacity: 1,
+      scale: 1,
+      filter: 'blur(0px)',
+    }, {
+      opacity: 0,
+      scale: 0.95,
+      filter: 'blur(12px)',
       ease: 'none',
-      scrollTrigger: { trigger: sliderEl, scrub: true, start: 'top top', end: 'bottom top' },
+      scrollTrigger: {
+        trigger: sliderEl,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      },
     });
   }
 }

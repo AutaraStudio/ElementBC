@@ -1718,7 +1718,6 @@
 .contact_info-wrap,
 .contact_divider-wrap,
 .contact_address-wrap,
-.projects_hero-wrap,
 .project_details-wrap,
 .footer_main-wrap {
   position: relative;
@@ -1945,11 +1944,16 @@
 }
 
 .projects_hero-wrap {
-  background-color: var(--swatch--transparent);
+  background-color: transparent;
+  color: var(--swatch--swatch-buff);
   touch-action: pan-y;
   height: 100svh;
   max-height: 90rem;
   container-type: inline-size;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  overflow: clip;
 }
 
 .projects_hero-items {

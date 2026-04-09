@@ -174,11 +174,15 @@ export function useScrollReveal() {
         if (!rafId) rafId = requestAnimationFrame(glowTick);
       }
 
+      let glowScrollHandler: (() => void) | null = null;
+
       function waitForLenis() {
         if (window.locomotiveScroll?.lenisInstance) {
           window.locomotiveScroll.lenisInstance.on('scroll', updateGlowPositions);
         } else {
-          setTimeout(waitForLenis, 100);
+          // Fallback: use native scroll to keep glow positions fresh
+          glowScrollHandler = updateGlowPositions;
+          window.addEventListener('scroll', glowScrollHandler, { passive: true });
         }
       }
 
@@ -537,6 +541,7 @@ export function useScrollReveal() {
       if (rafId) cancelAnimationFrame(rafId);
       if (glowMouseHandler) document.removeEventListener('mousemove', glowMouseHandler);
       if (glowResizeHandler) window.removeEventListener('resize', glowResizeHandler);
+      if (glowScrollHandler) window.removeEventListener('scroll', glowScrollHandler);
       if (resizeHandler) window.removeEventListener('resize', resizeHandler);
       if (styleEl) styleEl.remove();
       ScrollTrigger.getAll().forEach(t => t.kill());

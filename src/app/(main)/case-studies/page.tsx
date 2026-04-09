@@ -18,13 +18,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const heroCSS = `
-/* Section */
-.projects_hero-wrap {
-  height: 100svh;
-  max-height: 90rem;
-  touch-action: pan-y;
-  container-type: inline-size;
-}
 /* CMS list/items fill the section */
 .projects_hero-list,
 .projects_hero-items {
@@ -159,8 +152,8 @@ export default async function ProjectsPage() {
       <section
         data-animate-theme-to="dark"
         data-slider=""
-        data-cursor-marquee-text="View Project"
-        data-theme="charcoal" className="projects_hero-wrap u-position-relative u-overflow-clip u-pointer-off"
+        data-cursor-marquee-text="View Case Study"
+        data-theme="img-bg" className="projects_hero-wrap u-pointer-off"
       >
         <div className="u-embed-css w-embed">
           <style dangerouslySetInnerHTML={{ __html: heroCSS }} />
@@ -193,7 +186,7 @@ export default async function ProjectsPage() {
         </div>
 
         {/* UI overlay */}
-        <div className="projects_hero-ui u-cover-absolute u-pointer-off">
+        <div className="projects_hero-ui u-cover-absolute u-pointer-off" style={{ zIndex: 5 }}>
           <div className="projects_hero_ui-contain u-container u-height-full">
             <div aria-hidden="true" data-slider-slide-template="" className="projects_hero-slide u-position-absolute u-flex-vertical-nowrap">
               <div data-slider-slide-heading="" className="projects_hero-heading u-max-width-18ch u-text-style-h2 u-text-transform-uppercase"></div>
@@ -244,7 +237,7 @@ export default async function ProjectsPage() {
           <div data-stagger="" className="u-grid-custom u-gap-row-6">
             {projects.map((project) => (
               <div key={project.slug} data-stagger-item="" className="u-column-span-3 u-position-relative u-flex-vertical-nowrap u-gap-3">
-                <div className="project_related-image u-position-relative u-overflow-hidden u-ratio-4-5">
+                <div data-cursor-marquee-text="View Case Study" className="project_related-image u-position-relative u-overflow-hidden u-ratio-4-5">
                   <TransitionLink href={`/case-studies/${project.slug}`} className="u-cover-absolute u-zindex-3"></TransitionLink>
                   {urlFor(project.featuredImage1) && (
                     <Image

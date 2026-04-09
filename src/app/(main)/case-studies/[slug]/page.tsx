@@ -196,7 +196,7 @@ export default async function ProjectDetailPage({
             <div data-stagger="" className="u-grid-custom u-gap-row-6">
               {related.map((p) => (
                 <div key={p.slug} data-stagger-item="" className="u-column-span-3 u-position-relative u-flex-vertical-nowrap u-gap-3">
-                  <div className="project_related-image u-position-relative u-overflow-hidden u-ratio-4-5">
+                  <div data-cursor-marquee-text="View Case Study" className="project_related-image u-position-relative u-overflow-hidden u-ratio-4-5">
                     <TransitionLink href={`/case-studies/${p.slug}`} className="u-cover-absolute u-zindex-3"></TransitionLink>
                     {urlFor(p.featuredImage1) && (
                       <Image

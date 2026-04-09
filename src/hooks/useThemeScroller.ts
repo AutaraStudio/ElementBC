@@ -147,8 +147,8 @@ export function useThemeScroller() {
       triggers.push(
         ScrollTrigger.create({
           trigger: section,
-          start: 'top 75%',
-          end: 'bottom 25%',
+          start: 'top 95%',
+          end: 'bottom 5%',
           onEnter: () => applyTheme(theme),
           onEnterBack: () => applyTheme(theme),
         }),
