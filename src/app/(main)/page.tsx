@@ -220,7 +220,7 @@ export default async function HomePage() {
         <div className="u-embed-css w-embed">
           <style dangerouslySetInnerHTML={{ __html: projectsArchiveCSS }} />
         </div>
-        <div data-cursor-marquee-hide="" className="projects_filter-contain u-container u-padding-block-4">
+        <div data-cursor-marquee-hide="" className="projects_filter-contain u-container u-padding-block-6">
           <div className="projects_filter-layout u-grid-custom">
             <div className="projects_filter-col u-column-start-1 u-column-span-3">
               <div className="projects_filter_col-inner u-flex-horizontal-nowrap u-gap-2">

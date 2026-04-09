@@ -7,6 +7,7 @@ import TransitionLink from '@/components/ui/TransitionLink';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import HeroBarsSvg from '@/components/ui/svgs/HeroBarsSvg';
+import DividerBarsSvg from '@/components/ui/svgs/DividerBarsSvg';
 
 export const revalidate = 3600;
 
@@ -110,6 +111,13 @@ export default async function ProjectDetailPage({
           </div>
         )}
 
+      </section>
+
+      <section data-theme="buff" className="project_details-wrap u-theme-buff">
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+        <div className="u-container">
+          <DividerBarsSvg className="global_svg" />
+        </div>
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
 

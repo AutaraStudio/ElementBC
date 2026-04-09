@@ -497,6 +497,13 @@ export default function AnimationProvider() {
       return;
     }
 
+    // Scroll to top on route change — works with Lenis smooth scroll
+    if (window.locomotiveScroll) {
+      window.locomotiveScroll.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+
     const timer = setTimeout(() => {
       reinitPageAnimations();
     }, 150);

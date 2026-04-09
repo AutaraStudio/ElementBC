@@ -57,7 +57,7 @@ export default function StatsBarGraph({ stats, heading, subheading, theme }: Sta
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: 'top 75%',
+        start: 'top 60%',
         once: true,
       },
     })
@@ -104,10 +104,10 @@ export default function StatsBarGraph({ stats, heading, subheading, theme }: Sta
       <div className={`${styles['stats-bar_contain']} u-container`}>
 
         <div data-stagger="" className={styles['stats-bar_header']}>
-          <h2 data-stagger-item="" className={`${styles['stats-bar_heading']} u-text-style-h2 u-text-transform-uppercase`}>
+          <h2 data-stagger-item="" data-split="word" className={`${styles['stats-bar_heading']} u-text-style-h2 u-text-transform-uppercase`}>
             {heading}
           </h2>
-          <p data-stagger-item="" className={`${styles['stats-bar_subheading']} u-text-style-main u-text-decoration-justify-last`}>
+          <p data-stagger-item="" data-split="line" className={`${styles['stats-bar_subheading']} u-text-style-main u-text-decoration-justify-last`}>
             {subheading}
           </p>
         </div>
