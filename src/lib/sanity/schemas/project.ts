@@ -17,6 +17,7 @@ export const project = defineType({
     defineField({ name: "duration", title: "Duration", type: "string" }),
     defineField({ name: "completedDate", title: "Completed Date", type: "string" }),
     defineField({ name: "featuredImage1", title: "Featured Image", type: "image", fields: [defineField({ name: "alt", title: "Alt Text", type: "string" })] }),
+    defineField({ name: "featuredImage2", title: "Featured Image 2 (Hover)", type: "image", description: "Secondary image revealed on hover in the home hero", fields: [defineField({ name: "alt", title: "Alt Text", type: "string" })] }),
     defineField({
       name: "galleryImages",
       title: "Gallery Images",
