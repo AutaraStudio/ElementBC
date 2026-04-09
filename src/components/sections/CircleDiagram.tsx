@@ -158,7 +158,7 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
               <h3 className={`${styles['diagram_service-title']} u-text-style-h5`}>
                 {item.title}
               </h3>
-              <p className={`${styles['diagram_service-text']} u-text-style-small`}>
+              <p className={`${styles['diagram_service-text']} u-text-style-main`}>
                 {item.description}
               </p>
             </div>
