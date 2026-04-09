@@ -118,16 +118,20 @@ export function useScrollReveal() {
       const LERP_NEAR = 0.14;
       const LERP_FAR = 0.055;
       let glowPaths: Element[] = [];
-      let glowData: Array<{ el: Element; cx: number; cy: number; brightness: number; peak: number }> = [];
+      let glowData: Array<{ el: Element; cx: number; absY: number; brightness: number; peak: number }> = [];
       let mouse = { x: -9999, y: -9999 };
       let glowActive = false;
 
+      /* Cached scroll position for delta-based glow offset */
+      let cachedScrollY = window.scrollY;
+
       function updateGlowPositions() {
+        cachedScrollY = window.scrollY;
         glowData = glowPaths.map((el) => {
           const rect = el.getBoundingClientRect();
           const lum = (() => {
-            let fill = getComputedStyle(el as SVGElement).fill || '';
-            if (!fill || fill === 'none') fill = el.getAttribute('fill') || '';
+            let fill = el.getAttribute('fill') || '';
+            if (!fill || fill === 'none' || fill === 'currentColor') return 0.5;
             const nums = fill.match(/\d+/g);
             if (!nums || nums.length < 3) return 0.5;
             const [r, g, b] = nums.map((v) => {
@@ -137,16 +141,20 @@ export function useScrollReveal() {
             return 0.2126 * r + 0.7152 * g + 0.0722 * b;
           })();
           const peak = lum > 0.18 ? DIM_PEAK : BRIGHT_PEAK;
-          return { el, cx: rect.left + rect.width / 2, cy: rect.top + rect.height / 2, brightness: 1, peak };
+          // Store absolute Y (viewport Y + scrollY) so we can offset by scroll delta later
+          return { el, cx: rect.left + rect.width / 2, absY: rect.top + rect.height / 2 + cachedScrollY, brightness: 1, peak };
         });
       }
 
       function glowTick() {
         const r2 = GLOW_RADIUS * GLOW_RADIUS;
+        const scrollY = window.scrollY;
         let needsFrame = false;
         for (const d of glowData) {
           const dx = mouse.x - d.cx;
-          const dy = mouse.y - d.cy;
+          // Convert absolute Y to viewport Y using current scroll
+          const viewportY = d.absY - scrollY;
+          const dy = mouse.y - viewportY;
           const dist2 = dx * dx + dy * dy;
           let influence = 0;
           if (dist2 < r2) {
@@ -175,15 +183,9 @@ export function useScrollReveal() {
         if (!rafId) rafId = requestAnimationFrame(glowTick);
       }
 
-      function waitForLenis() {
-        if (window.locomotiveScroll?.lenisInstance) {
-          window.locomotiveScroll.lenisInstance.on('scroll', updateGlowPositions);
-        } else {
-          // Fallback: use native scroll to keep glow positions fresh
-          glowScrollHandler = updateGlowPositions;
-          window.addEventListener('scroll', glowScrollHandler, { passive: true });
-        }
-      }
+      // Glow positions are now cached with absolute Y coordinates.
+      // They only need re-measuring on resize, not on scroll.
+      // The glowTick function uses scroll-delta offset for viewport Y.
 
       // --- Text split helpers ---
       const textConfigs: Record<string, { stagger: number; duration: number; y: number; blur: number }> = {
@@ -493,7 +495,6 @@ export function useScrollReveal() {
         glowMouseHandler = onMouseMove;
         glowResizeHandler = updateGlowPositions;
         document.addEventListener('mousemove', glowMouseHandler);
-        waitForLenis();
         window.addEventListener('resize', glowResizeHandler);
         if (!rafId) rafId = requestAnimationFrame(glowTick);
       }

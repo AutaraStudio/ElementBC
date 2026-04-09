@@ -42,7 +42,7 @@ export default async function ContactPage() {
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
-      <section data-hero-wrap="" data-theme="buff" className="contact_hero-wrap">
+      <section data-hero-wrap="" data-theme="buff" className="contact_hero-wrap u-theme-buff">
         <div data-wf--spacer--variant="page-top" className="u-section-spacer is-page-top u-ignore-trim"></div>
 
         {/* Background SVG */}
@@ -75,7 +75,7 @@ export default async function ContactPage() {
       {/* ============================================================
           TEAM CONTACTS
       ============================================================ */}
-      <section data-theme="charcoal" data-hover-axis="y" data-hover="" className="contact_info-wrap u-position-relative">
+      <section data-theme="charcoal" data-hover-axis="y" data-hover="" className="contact_info-wrap u-position-relative u-theme-charcoal">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="contact_info-contain u-container">
 
@@ -128,7 +128,7 @@ export default async function ContactPage() {
       {/* ============================================================
           DIVIDER
       ============================================================ */}
-      <section data-theme="charcoal" className="contact_divider-wrap">
+      <section data-theme="charcoal" className="contact_divider-wrap u-theme-charcoal">
         <div className="u-container">
           <HeroBarsSvg className="global_svg" />
         </div>
@@ -137,7 +137,7 @@ export default async function ContactPage() {
       {/* ============================================================
           GENERAL ENQUIRIES & ADDRESS
       ============================================================ */}
-      <section data-theme="charcoal" data-hover-axis="y" data-hover="" className="contact_address-wrap u-position-relative">
+      <section data-theme="charcoal" data-hover-axis="y" data-hover="" className="contact_address-wrap u-position-relative u-theme-charcoal">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="contact_address-contain u-container">
 

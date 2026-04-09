@@ -187,11 +187,9 @@ function initProjectSlider() {
     gsap.fromTo(uiOverlay, {
       opacity: 1,
       scale: 1,
-      filter: 'blur(0px)',
     }, {
       opacity: 0,
       scale: 0.95,
-      filter: 'blur(12px)',
       ease: 'none',
       scrollTrigger: {
         trigger: sliderEl,
@@ -339,11 +337,9 @@ function initHeroScrollFade() {
   gsap.fromTo(targets, {
     opacity: 1,
     scale: 1,
-    filter: 'blur(0px)',
   }, {
     opacity: 0,
     scale: 0.95,
-    filter: 'blur(12px)',
     ease: 'none',
     scrollTrigger: {
       trigger: wrap,

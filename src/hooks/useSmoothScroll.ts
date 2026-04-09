@@ -41,14 +41,15 @@ export function useSmoothScroll() {
       lenisOptions: {
         wrapper: window,
         content: document.documentElement,
-        lerp: 0,
+        lerp: 0.08,               // Smooth interpolation — settles in ~12 frames instead of trailing forever
         orientation: 'vertical',
         gestureOrientation: 'vertical',
         smoothWheel: true,
-        syncTouch: false,
-        wheelMultiplier: 0.45,
-        touchMultiplier: 2,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        syncTouch: true,           // Smooth touch scrolling on tablets
+        syncTouchLerp: 0.06,       // Slightly slower lerp for touch (feels natural on mobile)
+        wheelMultiplier: 0.8,      // Natural wheel feel — less sluggish than 0.45
+        touchMultiplier: 1.8,
+        autoResize: true,
       },
       triggerRootMargin: '-1px -1px -1px -1px',
       rafRootMargin: '100% 100% 100% 100%',
@@ -74,7 +75,34 @@ export function useSmoothScroll() {
     (function applyProxy() {
       const lenis = window.locomotiveScroll?.lenisInstance;
       if (!lenis) { requestAnimationFrame(applyProxy); return; }
-      gsap.ticker.add(() => ScrollTrigger.update());
+
+      // Only call ScrollTrigger.update() when Lenis is actually scrolling,
+      // not on every single GSAP ticker frame (saves ~60 update() calls/s when idle).
+      let scrolling = false;
+      let idleTimer: ReturnType<typeof setTimeout> | null = null;
+
+      const onScrollUpdate = () => {
+        ScrollTrigger.update();
+
+        // Mark as scrolling, clear idle timer
+        scrolling = true;
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+          scrolling = false;
+          // Final update to ensure ScrollTrigger catches the resting position
+          ScrollTrigger.update();
+        }, 150);
+      };
+
+      // Use GSAP ticker but only update ScrollTrigger when scroll is active
+      const tickerCallback = () => {
+        if (scrolling) ScrollTrigger.update();
+      };
+      gsap.ticker.add(tickerCallback);
+
+      // Lenis scroll event triggers the scrolling flag
+      lenis.on('scroll', onScrollUpdate);
+
       ScrollTrigger.scrollerProxy(document.documentElement, {
         scrollTop(value?: number) {
           if (arguments.length && value !== undefined) lenis.scrollTo(value, { immediate: true });

@@ -1593,6 +1593,7 @@
 .nav_main-layout {
   height: var(--site--nav-height);
   background-color: var(--swatch--transparent);
+  transition: color 0.3s ease;
 }
 
 .nav_logo-svg {
@@ -1725,6 +1726,7 @@
   background-color: var(--_theme---background);
   color: var(--_theme---text);
 }
+
 
 .global_eyebrow-svg {
   width: 1.8rem;

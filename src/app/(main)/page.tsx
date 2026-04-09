@@ -69,7 +69,7 @@ export default async function HomePage() {
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
-      <div data-hero-wrap="" data-theme="img-bg" className="home_hero_featured-wrap">
+      <div data-hero-wrap="" data-theme="img-bg" className="home_hero_featured-wrap u-theme-img-bg">
         <div data-hero-featured="list" role="list" className="home_hero_featured-list u-min-height-screen">
           <div data-hero-item="" role="listitem" className="home_hero_featured-item u-cover-absolute u-theme-charcoal">
             <div className="u-embed-css w-embed">
@@ -134,7 +134,7 @@ export default async function HomePage() {
       {/* ============================================================
           ABOUT SECTION
       ============================================================ */}
-      <section data-theme="buff" className="home_about-wrap u-position-relative">
+      <section data-theme="buff" className="home_about-wrap u-position-relative u-theme-buff">
         <div data-wf--spacer--variant="large" className="u-section-spacer is-large u-ignore-trim"></div>
         <div className="home_about-contain u-container">
           <div className="home_about-layout u-grid-custom u-gap-row-8">
@@ -190,7 +190,7 @@ export default async function HomePage() {
       {/* ============================================================
           PROJECTS ARCHIVE SECTION
       ============================================================ */}
-      <section data-theme="buff" className="projects_archive-wrap u-position-relative">
+      <section data-theme="buff" className="projects_archive-wrap u-position-relative u-theme-buff">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="u-embed-css w-embed">
           <style dangerouslySetInnerHTML={{ __html: projectsArchiveCSS }} />
@@ -257,7 +257,7 @@ export default async function HomePage() {
       {/* ============================================================
           PARTNER CAROUSEL SECTION
       ============================================================ */}
-      <section data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-theme="charcoal" className="partner_carousel-wrap u-position-relative">
+      <section data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-theme="charcoal" className="partner_carousel-wrap u-position-relative u-theme-charcoal">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="partner_carousel-contain">
           <div className="partner_carousel_heading-contain u-container u-margin-bottom-8">

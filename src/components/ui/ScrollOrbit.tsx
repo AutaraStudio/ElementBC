@@ -128,9 +128,10 @@ export default function ScrollOrbit({
           return { opacity, dotSize };
         });
         gsap.set(armContents, { opacity: (i: number) => u[i].opacity });
+        // Use scale instead of width/height — scale is GPU-compositable,
+        // width/height triggers layout recalculation on every frame.
         gsap.set(armDots, {
-          width: (i: number) => u[i].dotSize,
-          height: (i: number) => u[i].dotSize,
+          scale: (i: number) => u[i].dotSize / 8,
         });
       }
 
@@ -231,7 +232,7 @@ export default function ScrollOrbit({
     <section
       ref={sectionRef}
       data-theme={theme}
-      className={styles['scroll-orbit_wrap']}
+      className={`${styles['scroll-orbit_wrap']} u-theme-${theme}`}
       style={{ height: `${budgetMultiplier * 100}vh` }}
     >
       {/* Heading — in normal flow, scrolls away naturally */}

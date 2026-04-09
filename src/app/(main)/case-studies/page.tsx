@@ -153,7 +153,7 @@ export default async function ProjectsPage() {
         data-animate-theme-to="dark"
         data-slider=""
         data-cursor-marquee-text="View Case Study"
-        data-theme="img-bg" className="projects_hero-wrap u-pointer-off"
+        data-theme="img-bg" className="projects_hero-wrap u-pointer-off u-theme-img-bg"
       >
         <div className="u-embed-css w-embed">
           <style dangerouslySetInnerHTML={{ __html: heroCSS }} />
@@ -218,7 +218,7 @@ export default async function ProjectsPage() {
       {/* ============================================================
           ARCHIVE SECTION — GRID
       ============================================================ */}
-      <section data-theme="buff" className="projects_archive-wrap u-position-relative">
+      <section data-theme="buff" className="projects_archive-wrap u-position-relative u-theme-buff">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
 
         <div className="u-container">
@@ -266,7 +266,7 @@ export default async function ProjectsPage() {
       {/* ============================================================
           DIVIDER
       ============================================================ */}
-      <section data-theme="buff" className="project_details-wrap">
+      <section data-theme="buff" className="project_details-wrap u-theme-buff">
         <div className="u-container">
           <HeroBarsSvg className="global_svg" />
         </div>

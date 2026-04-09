@@ -53,7 +53,7 @@ export default async function ProjectDetailPage({
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
-      <section data-hero-wrap="" data-theme="buff" className="project_hero-wrap u-min-height-screen">
+      <section data-hero-wrap="" data-theme="buff" className="project_hero-wrap u-min-height-screen u-theme-buff">
         <div data-wf--spacer--variant="page-top" className="u-section-spacer is-page-top u-ignore-trim"></div>
         <div className="project_hero-contain u-container">
           <div className="project_hero-layout u-flex-vertical-nowrap u-alignment-center u-gap-7">
@@ -116,7 +116,7 @@ export default async function ProjectDetailPage({
       {/* ============================================================
           DETAILS SECTION
       ============================================================ */}
-      <section data-theme="buff" className="project_details-wrap">
+      <section data-theme="buff" className="project_details-wrap u-theme-buff">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="project_details-contain u-container">
 
@@ -175,7 +175,7 @@ export default async function ProjectDetailPage({
       {/* ============================================================
           DIVIDER
       ============================================================ */}
-      <section data-theme="buff" className="project_details-wrap">
+      <section data-theme="buff" className="project_details-wrap u-theme-buff">
         <div className="u-container">
           <HeroBarsSvg className="global_svg" />
         </div>
@@ -185,7 +185,7 @@ export default async function ProjectDetailPage({
           RELATED CASE STUDIES
       ============================================================ */}
       {related.length > 0 && (
-        <section data-theme="buff" className="project_details-wrap">
+        <section data-theme="buff" className="project_details-wrap u-theme-buff">
           <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
           <div className="u-container">
 
@@ -225,7 +225,7 @@ export default async function ProjectDetailPage({
       {/* ============================================================
           PARTNER CAROUSEL
       ============================================================ */}
-      <div data-theme="charcoal">
+      <div data-theme="charcoal" className="u-theme-charcoal">
         <PartnerCarousel />
       </div>
 

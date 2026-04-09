@@ -1,215 +1,88 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import gsap from '@/lib/gsap';
 import { ScrollTrigger } from '@/lib/gsap';
 
-// CSS custom properties to transition between themes
-const THEME_VARS = [
-  '--_theme---background',
-  '--_theme---text',
-  '--_theme---background-2',
-  '--_theme---svg-accent',
-  '--_theme---border',
-  '--_theme---button-primary--text',
-  '--_theme---button-primary--text-hover',
-  '--_theme---button-primary--background',
-  '--_theme---button-primary--background-hover',
-  '--_theme---button-primary--border-hover',
-  '--_theme---button-secondary--background',
-  '--_theme---button-secondary--background-hover',
-  '--_theme---text-link--border',
-  '--_theme---text-link--text-hover',
-  '--_theme---nav--background',
-  '--_theme---image-reveal',
-  '--_theme---accent-1',
-  '--_theme---selection--background',
-  '--_theme---selection--text',
-  '--_theme---nav-link--hover',
-  '--_theme---orbit-accent',
-];
+/* ══════════════════════════════════════════════════════════════════════
+   Theme Scroller — nav-only sync
 
-/**
- * Resolves the computed color values for a given theme by temporarily
- * applying the u-theme-X class to a hidden element.
- */
-function resolveThemeColors(themeName: string): Record<string, string> {
-  const probe = document.createElement('div');
-  probe.className = `u-theme-${themeName}`;
-  probe.style.position = 'absolute';
-  probe.style.visibility = 'hidden';
-  probe.style.pointerEvents = 'none';
-  document.body.appendChild(probe);
+   Each section owns its theme via a u-theme-* class. This hook only
+   syncs the nav bar colour to match whichever section is currently
+   behind the nav (i.e. at the top of the viewport).
 
-  const computed = getComputedStyle(probe);
-  const colors: Record<string, string> = {};
-  for (const v of THEME_VARS) {
-    colors[v] = computed.getPropertyValue(v).trim();
-  }
+   Trigger geometry:
+     start: 'top top'    → section top reaches viewport top
+     end:   'bottom top'  → section bottom leaves viewport top
+   This means exactly ONE section "owns" the nav at any scroll position.
+   ══════════════════════════════════════════════════════════════════════ */
 
-  document.body.removeChild(probe);
-  return colors;
-}
+const NAV_COLORS: Record<string, string> = {
+  buff:       '#272726',  // dark text on light background
+  light:      '#272726',
+  charcoal:   '#d6d4c5',  // light text on dark background
+  dark:       '#d6d4c5',
+  'img-bg':   '#d6d4c5',  // light text over hero image
+  'dark-blue': '#d6d4c5',
+};
 
-// Cache resolved theme colors
-const themeCache: Record<string, Record<string, string>> = {};
-
-function getThemeColors(themeName: string): Record<string, string> {
-  if (!themeCache[themeName]) {
-    themeCache[themeName] = resolveThemeColors(themeName);
-  }
-  return themeCache[themeName];
-}
-
-/**
- * Reads current computed values of theme vars from the root element.
- */
-function getCurrentRootColors(): Record<string, string> {
-  const computed = getComputedStyle(document.documentElement);
-  const vals: Record<string, string> = {};
-  for (const v of THEME_VARS) {
-    vals[v] = computed.getPropertyValue(v).trim();
-  }
-  return vals;
-}
+const DEFAULT_COLOR = '#272726';
 
 export function useThemeScroller() {
   const currentThemeRef = useRef<string | null>(null);
-  const tweenRef = useRef<gsap.core.Tween | null>(null);
-  const navTweenRef = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
     const sections = document.querySelectorAll<HTMLElement>('[data-theme]');
     if (sections.length === 0) return;
 
-    const root = document.documentElement;
     const navBar = document.querySelector<HTMLElement>('[data-nav-bar]');
+    if (!navBar) return;
 
-    function applyTheme(themeName: string) {
+    // Ensure smooth nav colour transition
+    navBar.style.transition = 'color 0.3s ease';
+
+    function setNavColor(themeName: string) {
       if (themeName === currentThemeRef.current) return;
       currentThemeRef.current = themeName;
-
-      const targetColors = getThemeColors(themeName);
-      const startColors = getCurrentRootColors();
-
-      // Kill any in-progress tween
-      if (tweenRef.current) tweenRef.current.kill();
-
-      // Build per-variable GSAP color interpolators
-      const interpolators: Record<string, (t: number) => string> = {};
-      for (const v of THEME_VARS) {
-        const from = startColors[v] || 'transparent';
-        const to = targetColors[v] || 'transparent';
-        interpolators[v] = gsap.utils.interpolate(from, to) as (t: number) => string;
-      }
-
-      const proxy = { progress: 0 };
-
-      tweenRef.current = gsap.to(proxy, {
-        progress: 1,
-        duration: 0.3,
-        ease: 'power1.inOut',
-        onUpdate() {
-          const t = proxy.progress;
-          for (const v of THEME_VARS) {
-            root.style.setProperty(v, interpolators[v](t));
-          }
-        },
-      });
-
-      // Sync nav color with the same theme transition
-      if (navBar) {
-        const targetNavColor = targetColors['--_theme---text'] || '';
-        if (navTweenRef.current) navTweenRef.current.kill();
-        navTweenRef.current = gsap.to(navBar, {
-          color: targetNavColor,
-          duration: 0.3,
-          ease: 'power1.inOut',
-        });
-      }
+      navBar!.style.color = NAV_COLORS[themeName] || DEFAULT_COLOR;
     }
 
-    // Use ScrollTrigger for each section
     const triggers: ScrollTrigger[] = [];
 
     sections.forEach((section) => {
       const theme = section.getAttribute('data-theme');
       if (!theme) return;
 
-      // Page-content triggers (existing behaviour)
       triggers.push(
         ScrollTrigger.create({
           trigger: section,
-          start: 'top 95%',
-          end: 'bottom 5%',
-          onEnter: () => applyTheme(theme),
-          onEnterBack: () => applyTheme(theme),
+          start: 'top top',       // section top hits viewport top
+          end: 'bottom top',      // section bottom leaves viewport top
+          onEnter: () => setNavColor(theme),
+          onEnterBack: () => setNavColor(theme),
         }),
       );
-
     });
 
-    // Set initial theme immediately (no animation) from first section
-    const firstSection = sections[0];
-    const firstTheme = firstSection?.getAttribute('data-theme');
-    if (firstTheme) {
-      const colors = getThemeColors(firstTheme);
-
-      // If the first theme has a transparent background (e.g. img-bg hero),
-      // use the next section's background so content sections below are
-      // never see-through. The transition will still animate smoothly.
-      if (colors['--_theme---background'] === 'transparent' || colors['--_theme---background'] === 'rgba(0, 0, 0, 0)') {
-        for (let s = 1; s < sections.length; s++) {
-          const nextTheme = sections[s].getAttribute('data-theme');
-          if (nextTheme && nextTheme !== 'img-bg') {
-            const nextColors = getThemeColors(nextTheme);
-            colors['--_theme---background'] = nextColors['--_theme---background'];
-            colors['--_theme---background-2'] = nextColors['--_theme---background-2'];
-            break;
-          }
-        }
-      }
-
-      for (const v of THEME_VARS) {
-        root.style.setProperty(v, colors[v]);
-      }
-      currentThemeRef.current = firstTheme;
-
-      // Set initial nav color
-      if (navBar) {
-        navBar.style.color = colors['--_theme---text'] || '';
-      }
-    }
+    /* ── Initial nav colour — match whichever section is at the top ── */
+    // On page load the viewport is at scroll 0, so the first section
+    // with data-theme determines the nav colour.
+    const firstTheme = sections[0]?.getAttribute('data-theme') || 'buff';
+    navBar.style.color = NAV_COLORS[firstTheme] || DEFAULT_COLOR;
+    currentThemeRef.current = firstTheme;
 
     return () => {
       triggers.forEach((st) => st.kill());
-      if (tweenRef.current) tweenRef.current.kill();
-      if (navTweenRef.current) navTweenRef.current.kill();
-      for (const v of THEME_VARS) {
-        root.style.removeProperty(v);
-      }
-      if (navBar) navBar.style.removeProperty('color');
+      navBar.style.removeProperty('color');
+      navBar.style.removeProperty('transition');
     };
   }, []);
 }
 
-/**
- * Re-initialize theme scroller after client-side navigation.
- */
-export function reinitThemeScroller() {
-  Object.keys(themeCache).forEach((k) => delete themeCache[k]);
-}
+export function reinitThemeScroller() {}
 
-/**
- * Immediately set all theme CSS variables on :root for a given theme.
- * Used by components (e.g. ScrollOrbit) that need to enforce a theme
- * for the duration of a pinned scroll animation, overriding whatever
- * the theme scroller might set from neighbouring sections.
- */
 export function forceTheme(themeName: string) {
-  const colors = getThemeColors(themeName);
-  const root = document.documentElement;
-  for (const v of THEME_VARS) {
-    root.style.setProperty(v, colors[v]);
+  const navBar = document.querySelector<HTMLElement>('[data-nav-bar]');
+  if (navBar) {
+    navBar.style.color = NAV_COLORS[themeName] || DEFAULT_COLOR;
   }
 }

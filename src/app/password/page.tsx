@@ -8,7 +8,7 @@ function PasswordForm() {
   const hasError = searchParams.get('error') === '1';
 
   return (
-    <div data-theme="buff" className="u-min-height-screen u-flex-vertical-nowrap u-alignment-center u-justify-content-center" style={{ backgroundColor: 'var(--_theme---background)', color: 'var(--_theme---text)' }}>
+    <div data-theme="buff" className="u-min-height-screen u-flex-vertical-nowrap u-alignment-center u-justify-content-center u-theme-buff" style={{ backgroundColor: 'var(--_theme---background)', color: 'var(--_theme---text)' }}>
       <div className="u-flex-vertical-nowrap u-alignment-center u-gap-5" style={{ maxWidth: '24rem', width: '100%', padding: '0 1.5rem' }}>
 
         {/* Logo */}
