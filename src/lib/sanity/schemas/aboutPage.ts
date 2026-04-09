@@ -7,6 +7,8 @@ export const aboutPage = defineType({
   fields: [
     defineField({ name: "heroEyebrow", title: "Hero Eyebrow", type: "string" }),
     defineField({ name: "heroHeading", title: "Hero Heading", type: "string" }),
+    defineField({ name: "teamEyebrow", title: "Team Eyebrow", type: "string", description: 'e.g. "Founders Journey"' }),
+    defineField({ name: "teamDescription", title: "Team Description", type: "text", description: 'The paragraph shown alongside the team eyebrow.' }),
     defineField({
       name: 'teamMembers',
       title: 'Team Members',

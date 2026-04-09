@@ -109,6 +109,8 @@ export async function getAboutPage() {
     *[_type == "aboutPage"][0] {
       heroEyebrow,
       heroHeading,
+      teamEyebrow,
+      teamDescription,
       teamMembers[] {
         _key,
         name,
@@ -284,6 +286,8 @@ export interface SanityHomePage {
 export interface SanityAboutPage {
   heroEyebrow?: string;
   heroHeading?: string;
+  teamEyebrow?: string;
+  teamDescription?: string;
   teamMembers?: Array<{
     _key: string;
     name?: string;

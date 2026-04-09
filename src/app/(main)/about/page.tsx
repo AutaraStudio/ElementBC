@@ -63,41 +63,55 @@ export default async function AboutPage() {
       {/* ============================================================
           TEAM MEMBERS SECTION
       ============================================================ */}
-      {aboutPage?.teamMembers && aboutPage.teamMembers.length > 0 && (
-        <section data-theme="charcoal" className="about_team-wrap u-theme-charcoal">
-          <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
-          <div className="about_team-contain u-container">
-            <div className="about_team-layout u-grid-custom u-gap-row-6">
-              {aboutPage.teamMembers.map((member) => (
-                <div key={member._key} data-stagger-item="" className="about_team-item u-column-span-3 u-flex-vertical-nowrap u-gap-4">
-                  {member.photo && member.photo.asset?.url && (
-                    <div className="about_team_image-wrap u-position-relative u-ratio-3-4">
+      <section data-theme="buff" className="about_team-wrap u-position-relative u-theme-buff" style={{ position: 'relative', zIndex: 2, backgroundColor: 'var(--_theme---background)', color: 'var(--_theme---text)' }}>
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+        <div className="about_team-contain u-container">
+          <div className="about_team-layout u-grid-custom u-gap-row-8">
+
+            {/* Eyebrow + description column */}
+            <div className="u-column-start-1 u-column-span-3 u-flex-vertical-nowrap u-justify-content-between u-padding-bottom-8">
+              <div data-stagger="" className="u-flex-horizontal-nowrap u-gap-2 u-alignment-start">
+                <EyebrowSvg className="global_eyebrow-svg" />
+                <div data-stagger-item="" data-split="word" className="u-text-style-large u-text-transform-uppercase u-weight-bold">{aboutPage?.teamEyebrow ?? 'Founders Journey'}</div>
+              </div>
+              <p data-split="line" className="u-max-width-45ch u-text-style-main">
+                {aboutPage?.teamDescription ?? 'Element was founded by Harry Powell and George Curtis, two industry professionals who saw a gap in building consultancy and built a business around a simple belief \u2014 that attention to detail changes everything.'}
+              </p>
+            </div>
+
+            {/* Team member cards */}
+            <div className="u-column-start-5 u-column-span-8 u-grid-subgrid">
+              {(aboutPage?.teamMembers ?? []).map((member) => (
+                <div key={member._key} data-stagger-item="" className="u-column-span-4 u-flex-vertical-nowrap u-gap-4">
+                  {member.photo && member.photo.asset?.url ? (
+                    <div className="about_team_image-wrap u-position-relative u-ratio-4-5">
                       <Image
                         fill
                         src={member.photo.asset.url}
                         alt={member.photo.alt ?? member.name ?? ''}
                         className="about_team-img u-cover-absolute"
+                        style={{ objectFit: 'cover' }}
                       />
                     </div>
+                  ) : (
+                    <div data-theme="charcoal" className="u-ratio-4-5 u-theme-charcoal" style={{ backgroundColor: 'var(--_theme---background)' }}></div>
                   )}
-                  <div className="about_team_info-wrap u-flex-vertical-nowrap u-gap-2">
+                  <div className="u-flex-vertical-nowrap u-gap-2">
                     {member.name && (
-                      <div className="about_team-name u-text-style-large u-weight-bold">{member.name}</div>
+                      <div className="u-text-style-large u-weight-bold">{member.name}</div>
                     )}
                     {member.role && (
-                      <div className="about_team-role u-text-style-small u-text-transform-uppercase">{member.role}</div>
-                    )}
-                    {member.bio && (
-                      <p data-split="line" className="about_team-bio u-text-style-main">{member.bio}</p>
+                      <div className="u-text-style-small u-text-transform-uppercase u-weight-bold u-color-faded">{member.role}</div>
                     )}
                   </div>
                 </div>
               ))}
             </div>
+
           </div>
-          <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
-        </section>
-      )}
+        </div>
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+      </section>
 
       {/* ============================================================
           PARTNER CAROUSEL SECTION
