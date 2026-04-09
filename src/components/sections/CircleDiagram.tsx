@@ -127,6 +127,8 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
         </div>
       </div>
 
+      <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+
       <div ref={diagramRef} className={`${styles['diagram_content']} u-container`}>
 
         {/* Rotating line */}
