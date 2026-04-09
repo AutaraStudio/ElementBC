@@ -6,6 +6,7 @@
   background-color: var(--_theme---background);
   color: var(--_theme---text);
   position: relative;
+  z-index: 2;
 }
 
 /* u-container handles max-width and centering */

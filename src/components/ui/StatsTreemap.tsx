@@ -25,7 +25,7 @@ export default function StatsTreemap({ stats, heading, subheading, theme }: Stat
   return (
     <section
       data-theme={theme ?? 'charcoal'}
-      className={styles['stats-treemap_wrap']}
+      className={`${styles['stats-treemap_wrap']} u-position-relative u-theme-${theme ?? 'charcoal'}`}
     >
       <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
 
