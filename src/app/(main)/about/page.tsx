@@ -7,6 +7,7 @@ import { urlFor } from '@/lib/sanity/imageUrl';
 import AboutHeroBackgroundSvg from '@/components/ui/svgs/AboutHeroBackgroundSvg';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
+import SectionDivider from '@/components/ui/SectionDivider';
 
 export const revalidate = 3600;
 
@@ -112,6 +113,8 @@ export default async function AboutPage() {
         </div>
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
+
+      <SectionDivider theme="buff" />
 
       {/* ============================================================
           PARTNER CAROUSEL SECTION
