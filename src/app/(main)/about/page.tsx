@@ -94,6 +94,7 @@ export default async function AboutPage() {
                         className="about_team-img u-cover-absolute"
                         style={{ objectFit: 'cover' }}
                       />
+                      <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
                     </div>
                   ) : (
                     <div data-theme="charcoal" className="u-ratio-4-5 u-theme-charcoal" style={{ backgroundColor: 'var(--_theme---background)' }}></div>
