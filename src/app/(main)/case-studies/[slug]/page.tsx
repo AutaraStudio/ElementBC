@@ -118,7 +118,6 @@ export default async function ProjectDetailPage({
           DETAILS SECTION
       ============================================================ */}
       <section data-theme="buff" className="project_details-wrap u-theme-buff">
-        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="project_details-contain u-container">
 
           {/* Eyebrow + Our Role heading */}

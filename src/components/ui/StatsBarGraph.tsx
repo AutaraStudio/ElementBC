@@ -27,69 +27,77 @@ export default function StatsBarGraph({ stats, heading, subheading, theme }: Sta
     const list = listRef.current
     if (!section || !list) return
 
-    if (!easeReady.current) {
-      CustomEase.create(EASE_NAME, EASE_CURVE)
-      easeReady.current = true
+    let tl: gsap.core.Timeline | null = null
+
+    function init() {
+      if (!easeReady.current) {
+        CustomEase.create(EASE_NAME, EASE_CURVE)
+        easeReady.current = true
+      }
+
+      const rows = list!.querySelectorAll<HTMLElement>('[data-bar-row]')
+      if (!rows.length) return
+
+      const fills: HTMLElement[] = []
+      const values: HTMLElement[] = []
+      const labels: HTMLElement[] = []
+
+      rows.forEach((row) => {
+        const fill = row.querySelector<HTMLElement>('[data-bar-fill]')
+        const value = row.querySelector<HTMLElement>('[data-bar-value]')
+        const label = row.querySelector<HTMLElement>('[data-bar-label]')
+        if (fill) fills.push(fill)
+        if (value) values.push(value)
+        if (label) labels.push(label)
+      })
+
+      gsap.set(fills, { scaleX: 0, transformOrigin: 'left center' })
+      gsap.set(values, { opacity: 0, y: 8 })
+      gsap.set(labels, { opacity: 0, y: 6 })
+
+      tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 60%',
+          once: true,
+        },
+      })
+
+      tl.to(fills, {
+        scaleX: 1,
+        duration: 0.8,
+        ease: EASE_NAME,
+        stagger: 0.07,
+      })
+
+      tl.to(values, {
+        opacity: 1,
+        y: 0,
+        duration: 0.4,
+        ease: 'power2.out',
+        stagger: 0.05,
+      }, '-=0.5')
+
+      tl.to(labels, {
+        opacity: 1,
+        y: 0,
+        duration: 0.35,
+        ease: 'power2.out',
+        stagger: 0.04,
+      }, '-=0.4')
     }
 
-    const rows = list.querySelectorAll<HTMLElement>('[data-bar-row]')
-    if (!rows.length) return
-
-    // Gather elements per row
-    const fills: HTMLElement[] = []
-    const values: HTMLElement[] = []
-    const labels: HTMLElement[] = []
-
-    rows.forEach((row) => {
-      const fill = row.querySelector<HTMLElement>('[data-bar-fill]')
-      const value = row.querySelector<HTMLElement>('[data-bar-value]')
-      const label = row.querySelector<HTMLElement>('[data-bar-label]')
-      if (fill) fills.push(fill)
-      if (value) values.push(value)
-      if (label) labels.push(label)
-    })
-
-    // Set initial states
-    gsap.set(fills, { scaleX: 0, transformOrigin: 'left center' })
-    gsap.set(values, { opacity: 0, y: 8 })
-    gsap.set(labels, { opacity: 0, y: 6 })
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 60%',
-        once: true,
-      },
-    })
-
-    // 1. Bars grow left → right, staggered
-    tl.to(fills, {
-      scaleX: 1,
-      duration: 0.8,
-      ease: EASE_NAME,
-      stagger: 0.07,
-    })
-
-    // 2. Values fade in + slide up, overlapping with bar growth
-    tl.to(values, {
-      opacity: 1,
-      y: 0,
-      duration: 0.4,
-      ease: 'power2.out',
-      stagger: 0.05,
-    }, '-=0.5')
-
-    // 3. Labels follow
-    tl.to(labels, {
-      opacity: 1,
-      y: 0,
-      duration: 0.35,
-      ease: 'power2.out',
-      stagger: 0.04,
-    }, '-=0.4')
+    // Wait for preloader to finish so ScrollTrigger proxy (Lenis) is ready
+    if (ScrollTrigger.getAll().length > 0) {
+      // Proxy already set up — init immediately
+      init()
+    } else {
+      window.addEventListener('preloader:complete', init, { once: true })
+    }
 
     return () => {
-      tl.kill()
+      window.removeEventListener('preloader:complete', init)
+      if (tl) tl.kill()
     }
   }, [])
 
