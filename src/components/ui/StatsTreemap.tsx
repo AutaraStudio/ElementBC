@@ -3,7 +3,7 @@
 import styles from './StatsTreemap.module.css'
 
 interface StatsTreemapProps {
-  stats: Array<{ statValue: string; statLabel: string }>
+  stats: Array<{ statValue?: string; statLabel?: string }>
   heading: string
   subheading: string
   theme?: string
