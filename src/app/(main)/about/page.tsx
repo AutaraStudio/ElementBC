@@ -76,7 +76,7 @@ export default async function AboutPage() {
                 <EyebrowSvg className="global_eyebrow-svg" />
                 <div data-stagger-item="" data-split="word" className="u-text-style-large u-text-transform-uppercase u-weight-bold">{aboutPage?.teamEyebrow ?? 'Founders Journey'}</div>
               </div>
-              <p data-split="line" className="u-max-width-45ch u-text-style-main">
+              <p data-split="line" className="u-max-width-45ch u-text-style-main u-text-decoration-justify-last">
                 {aboutPage?.teamDescription ?? 'Element was founded by Harry Powell and George Curtis, two industry professionals who saw a gap in building consultancy and built a business around a simple belief \u2014 that attention to detail changes everything.'}
               </p>
             </div>
