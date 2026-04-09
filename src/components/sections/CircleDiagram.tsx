@@ -21,12 +21,10 @@ const START_ANGLE = 307
 export default function CircleDiagram({ heading, description, items, theme = 'buff' }: CircleDiagramProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const diagramRef = useRef<HTMLDivElement>(null)
-  const circleRef = useRef<SVGCircleElement>(null)
 
   useEffect(() => {
     const section = sectionRef.current
     const diagram = diagramRef.current
-    const svgCircle = circleRef.current
     if (!section || !diagram) return
 
     const mql = window.matchMedia('(min-width: 992px)')
@@ -35,9 +33,6 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
     const rotatingLine = diagram.querySelector<HTMLElement>(`.${styles['diagram_rotating-line']}`)
     const circleEl = diagram.querySelector<HTMLElement>(`.${styles['diagram_circle']}`)
     const services = diagram.querySelectorAll<HTMLElement>(`.${styles['diagram_service']}`)
-    const centralDot = diagram.querySelector<HTMLElement>(`.${styles['diagram_central-dot']}`)
-    const lineDot = diagram.querySelector<HTMLElement>(`.${styles['diagram_line-dot']}`)
-    const lineEl = diagram.querySelector<HTMLElement>(`.${styles['diagram_rotating-line-el']}`)
 
     if (!rotatingLine || !circleEl || !services.length) return
 
@@ -69,28 +64,16 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
       })
     }
 
-    /* ── Initial hidden state ── */
-    gsap.set(rotatingLine, { rotation: START_ANGLE, opacity: 0 })
-    gsap.set(circleEl, { rotation: START_ANGLE, opacity: 0 })
-    gsap.set(services, { opacity: 0 })
-    if (centralDot) gsap.set(centralDot, { scale: 0, opacity: 0 })
-    if (lineDot) gsap.set(lineDot, { scale: 0, opacity: 0 })
-    if (lineEl) gsap.set(lineEl, { scaleX: 0, transformOrigin: 'left center' })
+    /* Set initial state */
+    gsap.set(rotatingLine, { rotation: START_ANGLE })
+    gsap.set(circleEl, { rotation: START_ANGLE })
+    updateContent(START_ANGLE)
 
-    // SVG circle stroke draw
-    if (svgCircle) {
-      const circumference = 2 * Math.PI * 49.5
-      gsap.set(svgCircle, {
-        strokeDasharray: circumference,
-        strokeDashoffset: circumference,
-      })
-    }
-
-    /* ── Scroll rotation proxy ── */
+    /* Scroll-scrubbed rotation proxy */
     const proxy = { angle: START_ANGLE }
 
-    function initScrollAnimation() {
-      const scrollTl = gsap.timeline({
+    function init() {
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: 'top top',
@@ -100,7 +83,7 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
         },
       })
 
-      scrollTl.to(proxy, {
+      tl.to(proxy, {
         angle: START_ANGLE + 360,
         duration: 1,
         ease: 'none',
@@ -112,92 +95,21 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
         },
       })
 
-      return scrollTl
+      return tl
     }
 
-    /* ── Intro animation sequence ── */
-    function playIntro() {
-      const intro = gsap.timeline({
-        onComplete: () => {
-          updateContent(START_ANGLE)
-        },
-      })
-
-      // 1. Draw the SVG circle ring
-      if (svgCircle) {
-        intro.to(svgCircle, {
-          strokeDashoffset: 0,
-          duration: 0.8,
-          ease: 'power2.inOut',
-        }, 0)
-      }
-
-      // 2. Fade in the visual circle element
-      intro.to(circleEl, {
-        opacity: 1,
-        duration: 0.3,
-        ease: 'power2.out',
-      }, 0.4)
-
-      // 3. Central square appears
-      if (centralDot) {
-        intro.to(centralDot, {
-          scale: 1,
-          opacity: 1,
-          duration: 0.3,
-          ease: 'back.out(2)',
-        }, 0.7)
-      }
-
-      // 4. Line draws out
-      intro.to(rotatingLine, { opacity: 1, duration: 0.01 }, 0.9)
-      if (lineEl) {
-        intro.to(lineEl, {
-          scaleX: 1,
-          duration: 0.4,
-          ease: 'power2.out',
-        }, 0.9)
-      }
-
-      // 5. End square appears
-      if (lineDot) {
-        intro.to(lineDot, {
-          scale: 1,
-          opacity: 1,
-          duration: 0.25,
-          ease: 'back.out(2)',
-        }, 1.2)
-      }
-
-      // 6. Service items fade in one by one
-      intro.to(services, {
-        opacity: 0.2,
-        duration: 0.3,
-        ease: 'power2.out',
-        stagger: 0.04,
-      }, 1.0)
-
-      return intro
-    }
-
-    let scrollTl: gsap.core.Timeline | null = null
-    let introTl: gsap.core.Timeline | null = null
-
-    function run() {
-      introTl = playIntro()
-      scrollTl = initScrollAnimation()
-    }
-
+    /* Defer until Lenis ScrollTrigger proxy is ready */
+    let tl: gsap.core.Timeline | null = null
     if (ScrollTrigger.getAll().length > 0) {
-      run()
+      tl = init()
     } else {
-      window.addEventListener('preloader:complete', run, { once: true })
+      const handler = () => { tl = init() }
+      window.addEventListener('preloader:complete', handler, { once: true })
+      return () => { window.removeEventListener('preloader:complete', handler) }
     }
 
     return () => {
-      window.removeEventListener('preloader:complete', run)
-      if (scrollTl) scrollTl.kill()
-      if (introTl) introTl.kill()
+      if (tl) tl.kill()
     }
   }, [])
 
@@ -223,21 +135,6 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
       <div className={styles['diagram_sticky']}>
         <div ref={diagramRef} className={`${styles['diagram_content']} u-container`}>
 
-          {/* SVG circle for stroke-draw animation */}
-          <svg
-            className={styles['diagram_circle-svg']}
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle
-              ref={circleRef}
-              cx="50" cy="50" r="49.5"
-              fill="none"
-              stroke="var(--_theme---border)"
-              strokeWidth="0.35"
-            />
-          </svg>
-
           {/* Rotating line */}
           <div className={styles['diagram_rotating-line']}>
             <div className={styles['diagram_rotating-line-el']}></div>
@@ -245,7 +142,7 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
             <div className={styles['diagram_central-dot']}></div>
           </div>
 
-          {/* Central circle (visual fill — rotates with line) */}
+          {/* Central circle */}
           <div className={styles['diagram_circle']}>
             <div className={styles['diagram_circle-inner']}></div>
             <div className={styles['diagram_circle-marker']}>

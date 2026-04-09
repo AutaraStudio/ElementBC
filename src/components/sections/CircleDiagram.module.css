@@ -56,16 +56,6 @@
   overflow: visible;
 }
 
-/* ── SVG circle (stroke-draw animation) ── */
-
-.diagram_circle-svg {
-  position: absolute;
-  width: 18.25rem;
-  height: 18.25rem;
-  pointer-events: none;
-  z-index: 0;
-}
-
 /* ── Central circle ── */
 
 .diagram_circle {
