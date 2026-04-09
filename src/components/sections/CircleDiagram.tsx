@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { gsap } from '@/lib/gsap'
 import styles from './CircleDiagram.module.css'
 
 interface CircleDiagramProps {
@@ -80,10 +81,8 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
       const deg = Math.atan2(e.clientY - center.y, e.clientX - center.x) * (180 / Math.PI)
       const angle = deg < 0 ? deg + 360 : deg
 
-      if (typeof gsap !== 'undefined') {
-        gsap.set(rotatingLine, { rotation: angle })
-        gsap.set(circle, { rotation: angle })
-      }
+      gsap.set(rotatingLine, { rotation: angle })
+      gsap.set(circle, { rotation: angle })
 
       updateContent(angle)
     }
@@ -94,7 +93,7 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
     document.addEventListener('mousemove', handleMouseMove)
 
     /* Pulsing central dot */
-    if (centralDot && typeof gsap !== 'undefined') {
+    if (centralDot) {
       gsap.to(centralDot, {
         scale: 1.2,
         duration: 2,
