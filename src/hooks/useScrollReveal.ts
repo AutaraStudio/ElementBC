@@ -9,6 +9,7 @@ export function useScrollReveal() {
     let rafId: number | null = null;
     let glowMouseHandler: ((evt: MouseEvent) => void) | null = null;
     let glowResizeHandler: (() => void) | null = null;
+    let glowScrollHandler: (() => void) | null = null;
     let resizeHandler: (() => void) | null = null;
     let styleEl: HTMLStyleElement | null = null;
 
@@ -173,8 +174,6 @@ export function useScrollReveal() {
         mouse.y = evt.clientY;
         if (!rafId) rafId = requestAnimationFrame(glowTick);
       }
-
-      let glowScrollHandler: (() => void) | null = null;
 
       function waitForLenis() {
         if (window.locomotiveScroll?.lenisInstance) {
