@@ -6,6 +6,7 @@ import CharStagger from '@/components/ui/CharStagger';
 import { getHomePage, getProjectsPage, getSiteSettings } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
+import ScrollOrbit from '@/components/ui/ScrollOrbit';
 export const revalidate = 3600;
 
 const defaultValueProps = [
@@ -179,35 +180,12 @@ export default async function HomePage() {
       {/* ============================================================
           STATS SECTION
       ============================================================ */}
-      <section data-theme="charcoal" data-hover-axis="y" data-hover="" className="home_stats-wrap u-position-relative">
-        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
-        <div className="home_stats-contain u-container">
-          <div data-split-wrapper="" className="home_stats_heading-wrap u-flex-horizontal-nowrap u-justify-content-between u-align-items-end">
-            <div className="home_stats_heading-inner">
-              <h2 data-split="word" className="home_stats_heading-heading u-max-width-17ch u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{homePage?.statsHeading ?? 'Built on detail. Proven in results.'}</h2>
-            </div>
-            <div className="home_stats_heading-inner">
-              <p data-split="line" className="home_stats_p u-max-width-30ch u-text-style-main u-text-decoration-justify">{homePage?.statsSubheading ?? 'From programme to budget, we manage every detail — and the results speak for themselves.'}</p>
-            </div>
-          </div>
-          <div data-stagger="" className="home_stats-list">
-            {(homePage?.statsItems ?? []).map((stat, i) => (
-              <a key={i} data-stagger-item="" data-hover-item="" href="#" className="home_stats-item u-flex-horizontal-nowrap u-justify-content-between u-align-items-center u-gap-4 u-overflow-hidden u-position-relative w-inline-block">
-                <div data-hover-tile="" className="home_stats-tile u-cover-absolute"></div>
-                <div className="home_stats-border is-item u-position-absolute u-width-full"></div>
-                <div className="home_stats-award u-position-relative">
-                  <div data-stagger-heading="" className="home_stats-text u-max-width-20ch u-text-style-h4 u-text-transform-uppercase">{stat.statValue}</div>
-                </div>
-                <div className="home_stats-year u-max-width-20rem u-flex-noshrink u-position-relative">
-                  <div data-stagger-body="" className="home_stats-text u-max-width-20ch u-text-style-small u-text-decoration-justify">{stat.statLabel}</div>
-                </div>
-              </a>
-            ))}
-          </div>
-          <div className="home_stats-border u-position-absolute u-width-full"></div>
-        </div>
-        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
-      </section>
+      <ScrollOrbit
+        stats={homePage?.statsItems ?? []}
+        heading={homePage?.statsHeading ?? 'Built on detail. Proven in results.'}
+        subheading={homePage?.statsSubheading ?? 'From programme to budget, we manage every detail — and the results speak for themselves.'}
+        theme="charcoal"
+      />
 
       {/* ============================================================
           PROJECTS ARCHIVE SECTION

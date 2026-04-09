@@ -52,15 +52,7 @@ export const homePage = defineType({
       name: "statsItems",
       title: "Stats Items",
       type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            defineField({ name: "statLabel", title: "Stat Label", type: "string" }),
-            defineField({ name: "statValue", title: "Stat Value", type: "string" }),
-          ],
-        },
-      ],
+      of: [{ type: "orbitStatItem" }],
     }),
     defineField({
       name: "featuredProjects",

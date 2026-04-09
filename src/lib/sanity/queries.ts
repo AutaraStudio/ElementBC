@@ -240,6 +240,11 @@ export interface SanityStatItem {
   statValue?: string;
 }
 
+export interface OrbitStatItem {
+  statValue: string;
+  statLabel: string;
+}
+
 export interface SanityHomePage {
   heroHeading?: string;
   heroViewProjectText?: string;

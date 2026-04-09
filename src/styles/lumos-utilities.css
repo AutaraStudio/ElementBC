@@ -334,6 +334,7 @@
   --_theme---selection--background: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---selection--text: var(--swatch--dark-800);
   --_theme---nav-link--hover: var(--swatch--dark-900);
+  --_theme---orbit-accent: var(--_brand-egg-blue---swatch--brand-eggblue-500);
 }
 
 .u-theme-dark {
@@ -369,6 +370,7 @@
   --_theme---selection--background: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---selection--text: var(--swatch--dark-800);
   --_theme---nav-link--hover: var(--_red---swatch--brand-500);
+  --_theme---orbit-accent: var(--_red---swatch--brand-500);
 }
 
 .u-theme-brand {
@@ -404,6 +406,7 @@
   --_theme---selection--background: var(--swatch--dark-800);
   --_theme---selection--text: var(--swatch--swatch-buff);
   --_theme---nav-link--hover: var(--swatch--dark-900);
+  --_theme---orbit-accent: var(--_brand-egg-blue---swatch--brand-eggblue-500);
 }
 
 .u-text-style-display {
@@ -2832,6 +2835,7 @@
   --_theme---selection--background: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---selection--text: var(--swatch--dark-800);
   --_theme---nav-link--hover: var(--swatch--dark-900);
+  --_theme---orbit-accent: var(--_brand-egg-blue---swatch--brand-eggblue-500);
 }
 
 .u-theme-buff {
@@ -2867,6 +2871,7 @@
   --_theme---selection--background: var(--_brand-egg-blue---swatch--brand-eggblue-500);
   --_theme---selection--text: var(--swatch--dark-800);
   --_theme---nav-link--hover: var(--swatch--dark-900);
+  --_theme---orbit-accent: var(--_brand-egg-blue---swatch--brand-eggblue-500);
 }
 
 .u-theme-stone {
@@ -2902,6 +2907,7 @@
   --_theme---selection--background: var(--_brand-egg-blue---swatch--brand-eggblue-500);
   --_theme---selection--text: var(--swatch--dark-800);
   --_theme---nav-link--hover: var(--swatch--dark-900);
+  --_theme---orbit-accent: var(--_brand-egg-blue---swatch--brand-eggblue-500);
 }
 
 .u-theme-charcoal {
@@ -2937,6 +2943,7 @@
   --_theme---selection--background: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---selection--text: var(--swatch--dark-800);
   --_theme---nav-link--hover: var(--_red---swatch--brand-500);
+  --_theme---orbit-accent: var(--_red---swatch--brand-500);
 }
 
 .u-theme-dark-blue {
@@ -2972,6 +2979,7 @@
   --_theme---selection--background: var(--_brand-buff---swatch--brand-buff-500);
   --_theme---selection--text: var(--swatch--dark-800);
   --_theme---nav-link--hover: var(--_brand-buff---swatch--brand-buff-500);
+  --_theme---orbit-accent: var(--_brand-egg-blue---swatch--brand-eggblue-500);
 }
 
 /* =========================================================================

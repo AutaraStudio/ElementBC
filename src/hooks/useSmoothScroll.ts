@@ -4,8 +4,7 @@ import gsap from '@/lib/gsap';
 import { ScrollTrigger } from '@/lib/gsap';
 import LocomotiveScroll from 'locomotive-scroll';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const DISABLE_LENIS = true; // TEMP: set to false to re-enable Lenis smooth scroll
+const DISABLE_LENIS = false;
 
 export function useSmoothScroll() {
   useEffect(() => {

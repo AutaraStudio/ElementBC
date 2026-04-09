@@ -15,25 +15,18 @@ const THEME_VARS = [
   '--_theme---button-primary--text-hover',
   '--_theme---button-primary--background',
   '--_theme---button-primary--background-hover',
-  '--_theme---button-primary--border',
   '--_theme---button-primary--border-hover',
-  '--_theme---button-secondary--text',
-  '--_theme---button-secondary--text-hover',
   '--_theme---button-secondary--background',
   '--_theme---button-secondary--background-hover',
-  '--_theme---button-secondary--border',
-  '--_theme---button-secondary--border-hover',
   '--_theme---text-link--border',
-  '--_theme---text-link--text',
   '--_theme---text-link--text-hover',
   '--_theme---nav--background',
-  '--_theme---text-link--border-hover',
   '--_theme---image-reveal',
   '--_theme---accent-1',
-  '--_theme---accent-2',
   '--_theme---selection--background',
   '--_theme---selection--text',
   '--_theme---nav-link--hover',
+  '--_theme---orbit-accent',
 ];
 
 /**
@@ -205,4 +198,18 @@ export function useThemeScroller() {
  */
 export function reinitThemeScroller() {
   Object.keys(themeCache).forEach((k) => delete themeCache[k]);
+}
+
+/**
+ * Immediately set all theme CSS variables on :root for a given theme.
+ * Used by components (e.g. ScrollOrbit) that need to enforce a theme
+ * for the duration of a pinned scroll animation, overriding whatever
+ * the theme scroller might set from neighbouring sections.
+ */
+export function forceTheme(themeName: string) {
+  const colors = getThemeColors(themeName);
+  const root = document.documentElement;
+  for (const v of THEME_VARS) {
+    root.style.setProperty(v, colors[v]);
+  }
 }

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services Circle</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+
+:root {
+  --bg:    #f0e7e9;
+  --dark:  #2a2a2a;
+  --red:   #e85b54;
+  --muted: #ae9ea1;
+  --sec:   #6f6769;
+  --line:  rgba(174,158,161,0.55);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow-x: hidden; }
+body {
+  background: var(--bg);
+  color: var(--dark);
+  font-family: 'DM Sans', Verdana, sans-serif;
+}
+
+/* ─── fake hero ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 4rem;
+  position: relative;
+  border-bottom: 1px solid var(--line);
+}
+.hero__eye  { font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--sec); margin-bottom:1.5rem; }
+.hero__h    { font-size:clamp(3rem,7vw,6.5rem); font-weight:500; line-height:1.0; max-width:12ch; margin-bottom:3rem; }
+.hero__sub  { font-size:1rem; color:var(--sec); max-width:40ch; line-height:1.6; margin-bottom:4rem; }
+.scroll-ind {
+  display:flex; align-items:center; gap:1rem;
+  font-size:.65rem; letter-spacing:.18em; text-transform:uppercase; color:var(--sec);
+}
+.scroll-bar { width:3.5rem; height:1px; background:var(--line); position:relative; overflow:hidden; }
+.scroll-bar::after {
+  content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+  background:var(--red); animation:slide 1.8s ease-in-out infinite;
+}
+@keyframes slide { 0%{left:-100%} 100%{left:100%} }
+
+/* ─── FIXED ROTATOR (circle always in background) ─── */
+.rotator_section {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/*
+  Circle: 100vw × 100vw, left:-80vw
+  → left edge at –80vw, right edge at 20vw
+  → center X at –80 + 50 = –30vw (off-screen left — correct)
+  → arm content at +70vw from center = 40vw from viewport left (visible)
+  → arm numbers at +50vw from center = 20vw from viewport left (visible)
+*/
+.circle-wrap {
+  position: absolute;
+  width: 100vw;
+  height: 100vw;
+  left: -80vw;
+  top: calc(50vh - 50vw);
+  transform-origin: 50% 50%;  /* rotate around circle's own centre */
+}
+
+/* SVG ring — drawn via stroke-dashoffset animation */
+.circle-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.circle-ring {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 0.25;           /* relative to viewBox="0 0 100 100" */
+  stroke-dasharray: 311;        /* 2π × 49.5 */
+  stroke-dashoffset: 311;       /* fully hidden at start */
+  transform-origin: 50% 50%;
+  transform: rotate(-90deg);    /* draw from 12 o'clock */
+}
+
+/* centre glow */
+.center-dot {
+  position: absolute;
+  top: 50%; left: 50%;
+  translate: -50% -50%;
+  width: 1.375rem; height: 1.375rem;
+  background: var(--red);
+  border-radius: 50%;
+  filter: blur(3px);
+  opacity: 0;
+  z-index: 10;
+}
+
+/* ─── ARMS CONTAINER — anchored exactly at circle centre ─── */
+.arms-container {
+  position: absolute;
+  top: 50%;    /* = circle centre Y */
+  left: 50%;   /* = circle centre X */
+  width: 0;
+  height: 0;
+  z-index: 5;
+}
+
+/*
+  Each arm:
+  • left: 0  → arm's left edge starts at circle centre X
+  • top: -13.125rem  → arm top is 13.125rem ABOVE circle centre
+                        (13.125rem = half of 26.25rem arm height)
+  • transform-origin: 0px 13.125rem  → CRITICAL: rotation point is
+    at (0, 13.125rem from arm top) = circle centre. Without this the
+    arm spins around its own midpoint instead of the circle centre.
+*/
+.arm {
+  position: absolute;
+  left: 0;
+  top: -13.125rem;
+  width: 220vw;
+  height: 26.25rem;
+  overflow: visible;
+  transform-origin: 0px 13.125rem;
+}
+
+/* individual arm angles */
+.arm:nth-child(1)  { transform: rotate(0deg);    }
+.arm:nth-child(2)  { transform: rotate(22.5deg);  }
+.arm:nth-child(3)  { transform: rotate(45deg);    }
+.arm:nth-child(4)  { transform: rotate(67.5deg);  }
+.arm:nth-child(5)  { transform: rotate(90deg);    }
+.arm:nth-child(6)  { transform: rotate(112.5deg); }
+.arm:nth-child(7)  { transform: rotate(135deg);   }
+.arm:nth-child(8)  { transform: rotate(157.5deg); }
+/* mirror arms */
+.arm:nth-child(9)  { transform: rotate(180deg);   }
+.arm:nth-child(10) { transform: rotate(202.5deg); }
+.arm:nth-child(11) { transform: rotate(225deg);   }
+.arm:nth-child(12) { transform: rotate(247.5deg); }
+.arm:nth-child(13) { transform: rotate(270deg);   }
+.arm:nth-child(14) { transform: rotate(292.5deg); }
+.arm:nth-child(15) { transform: rotate(315deg);   }
+.arm:nth-child(16) { transform: rotate(337.5deg); }
+
+/*
+  The line sits at exactly top: 13.125rem within the arm
+  = at the arm's vertical centre = circle centre Y.
+  GSAP animates scaleX 0→1 to "draw" it from the circle centre outward.
+*/
+.arm-line {
+  position: absolute;
+  left: 0;
+  top: 13.125rem;
+  width: 100%;
+  height: 1px;
+  background: var(--line);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+/*
+  Dot sits exactly at the crosshair: circumference radius (49.5vw)
+  from circle centre, centred on the arm-line (13.125rem from arm top).
+*/
+.arm-dot {
+  position: absolute;
+  left: 49.5vw;
+  top: 13.125rem;
+  transform: translate(-50%, -50%);
+  width: .5rem; height: .5rem;
+  background: var(--red);
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/*
+  Content block — at 70vw from circle centre.
+  Number lives INSIDE here as the first child, so it always
+  aligns with the heading to its right.
+*/
+.arm-content {
+  position: absolute;
+  left: 70vw;
+  top: 13.125rem;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  max-width: 26rem;
+  opacity: 0;
+}
+/* Number now lives as the first child of arm-content,
+   so it's always inline with (directly above) the heading */
+.arm-number {
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  color: var(--dark);
+  opacity: .45;
+  margin-bottom: .1rem;
+}
+.arm-title {
+  font-size: clamp(1.5rem, 2.4vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1.15;
+}
+.arm-desc {
+  font-size: .9rem;
+  color: var(--sec);
+  line-height: 1.5;
+  max-width: 13rem;
+}
+
+/* ─── SERVICES SECTION (the scroll pin target) ─── */
+.services-section {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+.services-label {
+  position: absolute;
+  top: 2.5rem;
+  left: 4rem;
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--sec);
+  opacity: 0;
+}
+
+/* ─── after section ─── */
+.after-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 6rem 4rem;
+  border-top: 1px solid var(--line);
+  position: relative;
+  z-index: 2;
+  background: var(--bg);
+}
+.after-section p {
+  font-size: clamp(1.5rem,3vw,2.5rem);
+  font-weight: 500;
+  max-width: 18ch;
+  line-height: 1.2;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <p class="hero__eye">Full-Service Marketing</p>
+  <h1 class="hero__h">Strategy that moves the needle.</h1>
+  <p class="hero__sub">We embed senior marketing leadership inside growing businesses — driving brand, demand, and revenue from day one.</p>
+  <div class="scroll-ind">
+    <div class="scroll-bar"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ═══ FIXED ROTATOR (circle background) ═══ -->
+<section class="rotator_section">
+  <div class="circle-wrap" id="circleWrap">
+
+    <!-- SVG ring -->
+    <svg class="circle-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle class="circle-ring" id="circleRing" cx="50" cy="50" r="49.5"/>
+    </svg>
+
+    <!-- Glow at circle centre -->
+    <div class="center-dot" id="centerDot"></div>
+
+    <!-- Arms anchored at circle centre -->
+    <div class="arms-container" id="armsContainer">
+
+      <!-- Service arms 1–8 (with content) -->
+
+      <div class="arm">
+        <div class="arm-line"></div>
+        <div class="arm-dot"></div>
+        <div class="arm-content">
+          <span class="arm-number">01</span>
+          <h2 class="arm-title">Fractional CMO &amp; Marketing Leadership</h2>
+          <p class="arm-desc">Marketing leadership driving strategy, alignment, and growth — without the overhead.</p>
+        </div>
+      </div>
+
+      <div class="arm">
+        <div class="arm-line"></div>
+        <div class="arm-dot"></div>
+        <div class="arm-content">
+          <span class="arm-number">02</span>
+          <h2 class="arm-title">Brand &amp; Messaging Development</h2>
+          <p class="arm-desc">Build a distinctive brand strategy that sharpens positioning and drives revenue.</p>
+        </div>
+      </div>
+
+      <div class="arm">
+        <div class="arm-line"></div>
+        <div class="arm-dot"></div>
+        <div class="arm-content">
+          <span class="arm-number">03</span>
+          <h2 class="arm-title">Content &amp; Campaign Strategy</h2>
+          <p class="arm-desc">Turn insight and creativity into on-brand campaigns that drive revenue.</p>
+        </div>
+      </div>
+
+      <div class="arm">
+        <div class="arm-line"></div>
+        <div class="arm-dot"></div>
+        <div class="arm-content">
+          <span class="arm-number">04</span>
+          <h2 class="arm-title">Paid Media &amp; Growth Strategy</h2>
+          <p class="arm-desc">Turn media spend into growth through aligned targeting, creative, and data.</p>
+        </div>
+      </div>
+
+      <div class="arm">
+        <div class="arm-line"></div>
+        <div class="arm-dot"></div>
+        <div class="arm-content">
+          <span class="arm-number">05</span>
+          <h2 class="arm-title">Revenue Ops &amp; Marketing Systems</h2>
+          <p class="arm-desc">Align platforms, processes, and data to build a scalable revenue engine.</p>
+        </div>
+      </div>
+
+      <div class="arm">
+        <div class="arm-line"></div>
+        <div class="arm-dot"></div>
+        <div class="arm-content">
+          <span class="arm-number">06</span>
+          <h2 class="arm-title">Design &amp; Creative Execution</h2>
+          <p class="arm-desc">Design high-impact creative &amp; translate strategy into compelling brand experiences.</p>
+        </div>
+      </div>
+
+      <div class="arm">
+        <div class="arm-line"></div>
+        <div class="arm-dot"></div>
+        <div class="arm-content">
+          <span class="arm-number">07</span>
+          <h2 class="arm-title">Product Marketing &amp; GTM Strategy</h2>
+          <p class="arm-desc">Connect product, messaging, and activation to drive adoption and enable sales.</p>
+        </div>
+      </div>
+
+      <div class="arm">
+        <div class="arm-line"></div>
+        <div class="arm-dot"></div>
+        <div class="arm-content">
+          <span class="arm-number">08</span>
+          <h2 class="arm-title">Strategic Partner Network</h2>
+          <p class="arm-desc">Deploy specialised expertise on demand, aligned to strategy and outcomes.</p>
+        </div>
+      </div>
+
+      <!-- Mirror arms 9–16 (lines only) -->
+      <div class="arm"><div class="arm-line"></div></div>
+      <div class="arm"><div class="arm-line"></div></div>
+      <div class="arm"><div class="arm-line"></div></div>
+      <div class="arm"><div class="arm-line"></div></div>
+      <div class="arm"><div class="arm-line"></div></div>
+      <div class="arm"><div class="arm-line"></div></div>
+      <div class="arm"><div class="arm-line"></div></div>
+      <div class="arm"><div class="arm-line"></div></div>
+
+    </div><!-- /arms-container -->
+  </div><!-- /circle-wrap -->
+</section>
+
+<!-- ═══ SERVICES SECTION — scroll pin target ═══ -->
+<section class="services-section" id="servicesSection">
+  <p class="services-label" id="servicesLabel">Services</p>
+</section>
+
+<!-- ═══ AFTER ═══ -->
+<section class="after-section">
+  <p>Ready to work with a team that treats your growth like their own?</p>
+</section>
+
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── refs ── */
+const circleWrap    = document.getElementById('circleWrap');
+const circleRing    = document.getElementById('circleRing');
+const centerDot     = document.getElementById('centerDot');
+const servicesLabel = document.getElementById('servicesLabel');
+
+const armLines    = gsap.utils.toArray('.arm-line');
+const armDots     = gsap.utils.toArray('.arm-dot');            // 8 dots, one per service arm
+const armContents = gsap.utils.toArray('.arm-content');        // 8 content blocks (includes number)
+
+/* ── initial hidden state ── */
+const ringLen = circleRing.getTotalLength ? circleRing.getTotalLength() : 311;
+gsap.set(circleRing,    { strokeDasharray: ringLen, strokeDashoffset: ringLen });
+gsap.set(armLines,      { scaleX: 0, transformOrigin: 'left center' });
+gsap.set(armDots,       { opacity: 0 });
+gsap.set(armContents,   { opacity: 0 });
+gsap.set(centerDot,     { opacity: 0, scale: 0 });
+gsap.set(servicesLabel, { opacity: 0 });
+gsap.set(circleWrap,    { rotation: 0, transformOrigin: '50% 50%', force3D: true });
+
+/*
+  Scroll phases (all within a single pin):
+  ┌─────────────────────────────────────────────────────┐
+  │  0%  – 22%   draw in  (ring, dots, lines, labels)   │
+  │ 22%  – 82%   rotate   (circle spins, items highlight)│
+  │ 82%  – 100%  draw out (labels, lines, ring reverse)  │
+  └─────────────────────────────────────────────────────┘
+*/
+const DRAW_END = 0.20;
+const ROT_END  = 0.78;
+
+/*
+  Line draw order — top of screen to bottom.
+  Arms are indexed 0–15 in DOM order (0°, 22.5°, …, 337.5°).
+  Visually, 270° is at the top, sweeping clockwise to 247.5° at the bottom:
+  270°(12), 292.5°(13), 315°(14), 337.5°(15),
+  0°(0), 22.5°(1), 45°(2), 67.5°(3),
+  90°(4), 112.5°(5), 135°(6), 157.5°(7),
+  180°(8), 202.5°(9), 225°(10), 247.5°(11)
+*/
+const lineDrawOrder = [12,13,14,15, 0,1,2,3, 4,5,6,7, 8,9,10,11];
+const orderedLines  = lineDrawOrder.map(i => armLines[i]);
+
+/* item highlight — called with rotation-phase progress 0→1 */
+function updateItems(rp) {
+  const N = armContents.length;
+  const u = armContents.map((_, i) => {
+    const ep = (rp * N) - i;
+    let opacity, dotSize, dotBlur;
+    if      (ep <= 0)  { opacity = .2;  dotSize = 8;  dotBlur = 2; }
+    else if (ep <= .3) { const f=ep/.3; opacity=.2+f*.8; dotSize=8+f*14; dotBlur=2+f*2; }
+    else if (ep <= .9) { opacity = 1;   dotSize = 22; dotBlur = 4; }
+    else if (ep <= 1)  { const f=(ep-.9)/.1; opacity=1-f*.8; dotSize=22-f*14; dotBlur=4-f*2; }
+    else               { opacity = .2;  dotSize = 8;  dotBlur = 2; }
+    return { opacity, dotSize, dotBlur };
+  });
+  gsap.set(armContents, { opacity: i => u[i].opacity });
+  gsap.set(armDots, {
+    width:  i => u[i].dotSize,
+    height: i => u[i].dotSize,
+    filter: i => `blur(${u[i].dotBlur}px)`
+  });
+}
+
+/* ── Single pinned timeline that owns all three phases ── */
+gsap.timeline({
+  scrollTrigger: {
+    trigger: '#servicesSection',
+    start: 'top top',          /* fires only once section covers the viewport */
+    end:   '+=900%',           /* total scroll budget for all three phases    */
+    scrub: 1.2,
+    pin:   true,
+    anticipatePin: 1,
+    invalidateOnRefresh: true,
+    onUpdate(self) {
+      const p = self.progress;
+      /* only run highlight logic during the rotation phase */
+      if (p >= DRAW_END && p < ROT_END) {
+        updateItems((p - DRAW_END) / (ROT_END - DRAW_END));
+      }
+      /* draw-in and draw-out: content opacity handled by tweens only */
+    }
+  }
+})
+  /* ── DRAW IN: ring, dot, lines — no text yet ─── */
+  .to(servicesLabel, { opacity: 1, duration: .04 })
+  .to(circleRing, { strokeDashoffset: 0, duration: .08, ease: 'none' }, '<.01')
+  .to(centerDot,  { opacity: 1, scale: 1, duration: .04, ease: 'none' }, '<.04')
+
+  /* lines start drawing at the same time as the ring — no waiting */
+  .to(orderedLines, {
+    scaleX: 1, duration: .08, ease: 'none',
+    stagger: { each: .016, from: 'start' }
+  }, '<-=.04')
+
+  /* ── TEXT REVEAL: starts while last few lines are still drawing ── */
+  .to(armDots, {
+    opacity: 1, duration: .025, ease: 'none',
+    stagger: .002
+  }, '>-=.10')
+  .to(armContents[0],       { opacity: 1,  duration: .02 }, '<.01')
+  .to(armContents.slice(1), { opacity: .2, duration: .02, stagger: .001 }, '<')
+
+  /* ── ROTATE ───────────────────────────────────── */
+  .to(circleWrap, {
+    rotation: -170,
+    ease: 'linear',
+    duration: .65,
+    immediateRender: false
+  })
+
+  /* ── DRAW OUT ─────────────────────────────────── */
+  .to([armContents, armDots, servicesLabel], {
+    opacity: 0, duration: .04, stagger: .001
+  })
+
+  /* lines retract in reverse order (bottom to top) */
+  .to([...orderedLines].reverse(), {
+    scaleX: 0, duration: .05, ease: 'none',
+    stagger: { each: .008, from: 'start' }
+  }, '<.02')
+
+  /* centre dot disappears */
+  .to(centerDot, { opacity: 0, scale: 0, duration: .03 }, '<.02')
+
+  /* ring reverses — draw back out */
+  .to(circleRing, {
+    strokeDashoffset: ringLen,
+    duration: .08, ease: 'none'
+  }, '<.02');
+
+ScrollTrigger.refresh();
+
+/* ── Glitch — ring only, not the lines ── */
+function makeNoise(d = .2) {
+  const c = document.createElement('canvas');
+  c.width = c.height = 400;
+  const ctx = c.getContext('2d');
+  for (let y = 0; y < 400; y += 100)
+    for (let x = 0; x < 400; x += 100)
+      if (Math.random() > d) { ctx.fillStyle = 'white'; ctx.fillRect(x, y, 100, 100); }
+  return c.toDataURL();
+}
+
+const ringTl = gsap.timeline({ repeat: -1 });
+const ringNoise = () => {
+  const u = makeNoise(gsap.utils.random(.1, .35));
+  circleRing.style.maskImage = circleRing.style.webkitMaskImage = `url(${u})`;
+};
+const ringClear = () => {
+  circleRing.style.maskImage = circleRing.style.webkitMaskImage = 'none';
+};
+ringTl
+  .to({}, { delay: gsap.utils.random(3, 9), duration: gsap.utils.random(.15, .4) })
+  .call(ringNoise)
+  .to({}, { duration: gsap.utils.random(.04, .15) })
+  .call(ringNoise)
+  .to({}, { duration: gsap.utils.random(.06, .12) })
+  .call(ringClear);
+</script>
+</body>
+</html>

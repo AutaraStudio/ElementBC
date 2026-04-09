@@ -7,6 +7,7 @@ import { navigation } from "./navigation";
 import { footer } from "./footer";
 import { contactPage } from "./contactPage";
 import { siteSettings } from "./siteSettings";
+import { orbitStatItem } from "./orbitStatItem";
 
 export const schemas = [
   project,
@@ -18,4 +19,5 @@ export const schemas = [
   navigation,
   footer,
   siteSettings,
+  orbitStatItem,
 ];
