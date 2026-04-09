@@ -29,6 +29,21 @@ export const aboutPage = defineType({
         preview: { select: { title: 'name', subtitle: 'role' } },
       }],
     }),
+    defineField({ name: "approachHeading", title: "Approach Heading", type: "string" }),
+    defineField({ name: "approachDescription", title: "Approach Description", type: "text", rows: 3 }),
+    defineField({
+      name: "approachItems",
+      title: "Approach Items",
+      type: "array",
+      of: [{
+        type: "object",
+        fields: [
+          defineField({ name: "title", title: "Title", type: "string" }),
+          defineField({ name: "description", title: "Description", type: "text", rows: 3 }),
+        ],
+        preview: { select: { title: "title" } },
+      }],
+    }),
     defineField({ name: "seoTitle", title: "SEO Title", type: "string" }),
     defineField({ name: "seoDescription", title: "SEO Description", type: "text" }),
   ],

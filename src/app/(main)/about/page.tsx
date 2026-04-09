@@ -8,6 +8,7 @@ import AboutHeroBackgroundSvg from '@/components/ui/svgs/AboutHeroBackgroundSvg'
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
 import SectionDivider from '@/components/ui/SectionDivider';
+import CircleDiagram from '@/components/sections/CircleDiagram';
 
 export const revalidate = 3600;
 
@@ -113,6 +114,16 @@ export default async function AboutPage() {
         </div>
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
+
+      {/* ============================================================
+          OUR APPROACH — CIRCLE DIAGRAM
+      ============================================================ */}
+      <CircleDiagram
+        heading={aboutPage?.approachHeading ?? 'Our Approach.'}
+        description={aboutPage?.approachDescription ?? 'From acquisition to disposal, we manage every detail — fully integrated across the entire property lifecycle.'}
+        items={aboutPage?.approachItems ?? []}
+        theme="buff"
+      />
 
       <SectionDivider theme="buff" />
 

@@ -118,11 +118,19 @@ export async function getAboutPage() {
         bio,
         photo { asset->{ _id, url }, alt }
       },
+      approachHeading,
+      approachDescription,
+      approachItems[] {
+        _key,
+        title,
+        description
+      },
       seoTitle,
       seoDescription
     }
   `);
 }
+
 
 export async function getContactPage() {
   return sanityClient.fetch<SanityContactPage | null>(`
@@ -283,11 +291,20 @@ export interface SanityHomePage {
   featuredProjects?: (SanityProject & { featuredImage2?: SanityImage | null })[];
 }
 
+export interface SanityApproachItem {
+  _key: string;
+  title?: string;
+  description?: string;
+}
+
 export interface SanityAboutPage {
   heroEyebrow?: string;
   heroHeading?: string;
   teamEyebrow?: string;
   teamDescription?: string;
+  approachHeading?: string;
+  approachDescription?: string;
+  approachItems?: SanityApproachItem[];
   teamMembers?: Array<{
     _key: string;
     name?: string;

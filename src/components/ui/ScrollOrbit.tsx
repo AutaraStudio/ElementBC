@@ -52,7 +52,7 @@ export default function ScrollOrbit({
   const mirrorCount = totalArms - contentCount;
 
   /* Scroll budget as a multiplier — section height = budget × 100vh */
-  const budgetMultiplier = Math.max(contentCount, 6);
+  const budgetMultiplier = Math.max(contentCount, 6) * 0.65;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -145,7 +145,7 @@ export default function ScrollOrbit({
           trigger: section,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 1.2,
+          scrub: 0.6,
           invalidateOnRefresh: true,
         },
       });

@@ -1,0 +1,254 @@
+/* ============================================================
+   CircleDiagram — rotating services approach diagram
+   ============================================================ */
+
+.diagram_wrap {
+  background-color: var(--_theme---background);
+  color: var(--_theme---text);
+  position: relative;
+  z-index: 2;
+  overflow-x: clip;
+}
+
+.diagram_contain {
+}
+
+/* ── Header ── */
+
+.diagram_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  border-bottom: var(--border-width--main) solid var(--_theme---border);
+  padding-bottom: 2rem;
+}
+
+.diagram_heading {
+  margin: 0;
+  max-width: 20ch;
+}
+
+.diagram_description {
+  margin: 0;
+  max-width: 14rem;
+}
+
+/* ── Diagram content area ── */
+
+.diagram_content {
+  flex: 1 1 0%;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  position: relative;
+  overflow: visible;
+}
+
+/* ── Central circle ── */
+
+.diagram_circle {
+  background-color: var(--_theme---border);
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 18.25rem;
+  height: 18.25rem;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.diagram_circle-inner {
+  background-color: var(--_theme---background);
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 18.125rem;
+  height: 18.125rem;
+  display: flex;
+}
+
+.diagram_circle-marker {
+  transform-origin: 0% center;
+  justify-content: flex-end;
+  width: 9.125rem;
+  height: 8rem;
+  position: absolute;
+  right: 0;
+  overflow: hidden;
+}
+
+.diagram_circle-marker-inner {
+  background-color: var(--_theme---background);
+  mix-blend-mode: darken;
+  border: var(--border-width--main) solid var(--_theme---border);
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 18.25rem;
+  height: 18.25rem;
+  display: flex;
+  position: absolute;
+  top: -5.125rem;
+  left: -9.125rem;
+  right: 0%;
+}
+
+/* ── Rotating line ── */
+
+.diagram_rotating-line {
+  z-index: 1;
+  transform-origin: 0% 50%;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50vw;
+  height: 0.0625rem;
+  display: flex;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: 0;
+}
+
+.diagram_rotating-line-el {
+  z-index: 0;
+  background-color: var(--_theme---border);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.diagram_line-dot {
+  z-index: 5;
+  background-color: var(--_red---swatch--brand-500);
+  filter: blur(0.125rem);
+  border-radius: 6.25rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  position: relative;
+  left: 8.85rem;
+  flex-shrink: 0;
+}
+
+.diagram_central-dot {
+  z-index: 2;
+  background-color: var(--_red---swatch--brand-500);
+  filter: blur(0.3125rem);
+  border-radius: 6.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  position: absolute;
+  left: -0.625rem;
+}
+
+/* ── Service items ── */
+
+.diagram_service-list {
+  z-index: 5;
+  flex: 1 1 0%;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  position: absolute;
+}
+
+.diagram_service {
+  gap: 1rem;
+  flex-flow: column;
+  max-width: 22rem;
+  transition: opacity 0.4s ease;
+  display: flex;
+  position: absolute;
+  opacity: 0.2;
+  border-left: var(--border-width--main) solid var(--_theme---border);
+  padding-left: 1rem;
+}
+
+.diagram_service--active {
+  opacity: 1;
+}
+
+.diagram_service--neighbor {
+  opacity: 0.55;
+}
+
+.diagram_service-title {
+  margin: 0;
+  color: var(--_theme---text);
+}
+
+.diagram_service-text {
+  margin: 0;
+  color: color-mix(in srgb, var(--_theme---text) 55%, transparent);
+}
+
+.diagram_service-dot {
+  display: none;
+}
+
+/* ── 8 positions around the circle ── */
+
+.diagram_service--1 { top: -1rem;    left: 20.5%; }
+.diagram_service--2 { top: -1rem;    right: 20.5%; }
+.diagram_service--3 { top: 24.5%;    right: 0; }
+.diagram_service--4 { bottom: 24.5%; right: 0; }
+.diagram_service--5 { bottom: -1rem; right: 20.5%; }
+.diagram_service--6 { bottom: -1rem; left: 20.5%; }
+.diagram_service--7 { bottom: 24.5%; left: 0; }
+.diagram_service--8 { top: 24.5%;    left: 0; }
+
+/* ── Mobile — stacked list ── */
+
+@container (max-width: 62rem) {
+  .diagram_content {
+    min-height: auto;
+  }
+
+  .diagram_circle,
+  .diagram_rotating-line {
+    display: none;
+  }
+
+  .diagram_service-list {
+    gap: 1.5rem;
+    border-left: var(--border-width--main) solid var(--_theme---border);
+    flex-flow: column;
+    padding-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    display: flex;
+    position: relative;
+  }
+
+  .diagram_service {
+    max-width: none;
+    position: static;
+    opacity: 1;
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .diagram_service-dot {
+    background-color: var(--_red---swatch--brand-500);
+    filter: blur(0.125rem);
+    border-radius: 100%;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-top: 0.5rem;
+    position: absolute;
+    left: -0.3rem;
+    display: block;
+  }
+
+  .diagram_header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .diagram_description {
+    max-width: 100%;
+  }
+}
