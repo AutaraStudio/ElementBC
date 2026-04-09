@@ -1,0 +1,172 @@
+/* ============================================================
+   StatsTreemap — flat treemap-style stats grid
+   ============================================================ */
+
+.stats-treemap_wrap {
+  background-color: var(--_theme---background);
+  color: var(--_theme---text);
+  position: relative;
+}
+
+/* u-container handles max-width and centering */
+.stats-treemap_contain {
+}
+
+/* ── Header ── */
+
+.stats-treemap_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.stats-treemap_heading {
+  margin: 0;
+  max-width: 20ch;
+}
+
+.stats-treemap_subheading {
+  margin: 0;
+  max-width: 32ch;
+  color: color-mix(in srgb, var(--_theme---text) 55%, transparent);
+}
+
+/* ── Desktop Grid ── */
+
+.stats-treemap_grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 140px 140px 110px;
+  gap: 2px;
+}
+
+.stats-treemap_tile {
+  background-color: var(--_theme---background);
+  border: 1px solid var(--_theme---border);
+  border-radius: 0;
+  padding: 1.25rem 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  position: relative;
+  cursor: default;
+  transition: background-color 0.2s ease;
+}
+
+.stats-treemap_tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--_theme---text) 6%, transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.stats-treemap_tile:hover::after {
+  opacity: 1;
+}
+
+.stats-treemap_tile:hover .stats-treemap_value {
+  color: var(--_theme---accent-1);
+}
+
+/* ── Tile content ── */
+
+.stats-treemap_value {
+  margin: 0;
+  color: var(--_theme---text);
+  transition: color 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.stats-treemap_label {
+  margin: 0;
+  color: color-mix(in srgb, var(--_theme---text) 55%, transparent);
+  position: relative;
+  z-index: 1;
+  margin-top: 0.35rem;
+}
+
+/* ── Mobile list (hidden on desktop) ── */
+
+.stats-treemap_mobile-list {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stats-treemap_mobile-item {
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--_theme---border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.stats-treemap_mobile-item:last-child {
+  border-bottom: 1px solid var(--_theme---border);
+}
+
+.stats-treemap_mobile-value {
+  margin: 0;
+  color: var(--_theme---text);
+}
+
+.stats-treemap_mobile-label {
+  margin: 0;
+  color: color-mix(in srgb, var(--_theme---text) 55%, transparent);
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 991px) {
+  .stats-treemap_grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+  }
+
+  .stats-treemap_tile {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    min-height: 120px;
+    justify-content: flex-end;
+  }
+
+  .stats-treemap_header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .stats-treemap_subheading {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .stats-treemap_grid {
+    display: none;
+  }
+
+  .stats-treemap_mobile-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .stats-treemap_header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .stats-treemap_subheading {
+    max-width: 100%;
+  }
+}
