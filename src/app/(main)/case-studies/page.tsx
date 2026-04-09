@@ -4,7 +4,7 @@ import TransitionLink from '@/components/ui/TransitionLink';
 import { getAllProjects, getProjectsPage } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
-import HeroBarsSvg from '@/components/ui/svgs/HeroBarsSvg';
+import SectionDivider from '@/components/ui/SectionDivider';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
 
 export const revalidate = 3600;
@@ -266,11 +266,7 @@ export default async function ProjectsPage() {
       {/* ============================================================
           DIVIDER
       ============================================================ */}
-      <section data-theme="buff" className="project_details-wrap u-theme-buff">
-        <div className="u-container">
-          <HeroBarsSvg className="global_svg" />
-        </div>
-      </section>
+      <SectionDivider theme="buff" />
 
       {/* ============================================================
           PARTNER CAROUSEL

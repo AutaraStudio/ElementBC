@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getContactPage } from '@/lib/sanity/queries';
 import StaggerLink from '@/components/ui/StaggerLink';
 import AboutHeroBackgroundSvg from '@/components/ui/svgs/AboutHeroBackgroundSvg';
-import HeroBarsSvg from '@/components/ui/svgs/HeroBarsSvg';
+import SectionDivider from '@/components/ui/SectionDivider';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 
@@ -128,11 +128,7 @@ export default async function ContactPage() {
       {/* ============================================================
           DIVIDER
       ============================================================ */}
-      <section data-theme="charcoal" className="contact_divider-wrap u-theme-charcoal">
-        <div className="u-container">
-          <HeroBarsSvg className="global_svg" />
-        </div>
-      </section>
+      <SectionDivider theme="charcoal" />
 
       {/* ============================================================
           GENERAL ENQUIRIES & ADDRESS

@@ -6,8 +6,7 @@ import { urlFor } from '@/lib/sanity/imageUrl';
 import TransitionLink from '@/components/ui/TransitionLink';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
-import HeroBarsSvg from '@/components/ui/svgs/HeroBarsSvg';
-import DividerBarsSvg from '@/components/ui/svgs/DividerBarsSvg';
+import SectionDivider from '@/components/ui/SectionDivider';
 
 export const revalidate = 3600;
 
@@ -113,13 +112,7 @@ export default async function ProjectDetailPage({
 
       </section>
 
-      <section data-theme="buff" className="project_details-wrap u-theme-buff">
-        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
-        <div className="u-container">
-          <DividerBarsSvg className="global_svg" />
-        </div>
-        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
-      </section>
+      <SectionDivider theme="buff" />
 
       {/* ============================================================
           DETAILS SECTION
@@ -183,11 +176,7 @@ export default async function ProjectDetailPage({
       {/* ============================================================
           DIVIDER
       ============================================================ */}
-      <section data-theme="buff" className="project_details-wrap u-theme-buff">
-        <div className="u-container">
-          <HeroBarsSvg className="global_svg" />
-        </div>
-      </section>
+      <SectionDivider theme="buff" />
 
       {/* ============================================================
           RELATED CASE STUDIES
