@@ -31,7 +31,6 @@
 .stats-treemap_subheading {
   margin: 0;
   max-width: 32ch;
-  color: color-mix(in srgb, var(--_theme---text) 55%, transparent);
 }
 
 /* ── Desktop Grid ── */
@@ -40,12 +39,14 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: minmax(180px, auto) minmax(180px, auto) minmax(140px, auto);
-  gap: 2px;
+  gap: 0;
+  border: 1px solid var(--_theme---border);
 }
 
 .stats-treemap_tile {
   background-color: var(--_theme---background);
-  border: 1px solid var(--_theme---border);
+  border-right: 1px solid var(--_theme---border);
+  border-bottom: 1px solid var(--_theme---border);
   border-radius: 0;
   padding: 1rem 1rem 0.85rem;
   display: flex;
@@ -56,6 +57,40 @@
   cursor: default;
   transition: background-color 0.2s ease;
 }
+
+/* Remove border-right on rightmost tiles (end at col 13) */
+.stats-treemap_tile--2,
+.stats-treemap_tile--3,
+.stats-treemap_tile--4,
+.stats-treemap_tile--8 {
+  border-right: none;
+}
+
+/* Remove border-bottom on bottom row tiles */
+.stats-treemap_tile--5,
+.stats-treemap_tile--6,
+.stats-treemap_tile--7,
+.stats-treemap_tile--8 {
+  border-bottom: none;
+}
+
+/* ── Tile index number ── */
+
+.stats-treemap_tile::before {
+  content: attr(data-index);
+  position: absolute;
+  top: 0.75rem;
+  left: 1rem;
+  font-size: 0.7rem;
+  font-family: var(--_typography---font--primary-family);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+  color: color-mix(in srgb, var(--_theme---text) 15%, transparent);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── Hover wash via ::after ── */
 
 .stats-treemap_tile::after {
   content: '';
@@ -73,6 +108,37 @@
 
 .stats-treemap_tile:hover .stats-treemap_value {
   color: var(--_theme---accent-1);
+}
+
+/* ── Hero tile (index 1) — inverted accent ── */
+
+.stats-treemap_tile--1 {
+  background-color: var(--_theme---text);
+  color: var(--_theme---background);
+}
+
+.stats-treemap_tile--1::before {
+  color: color-mix(in srgb, var(--_theme---background) 20%, transparent);
+}
+
+.stats-treemap_tile--1::after {
+  background: color-mix(in srgb, var(--_theme---background) 8%, transparent);
+}
+
+.stats-treemap_tile--1 .stats-treemap_value {
+  color: var(--_theme---background);
+}
+
+.stats-treemap_tile--1 .stats-treemap_label {
+  color: color-mix(in srgb, var(--_theme---background) 55%, transparent);
+}
+
+.stats-treemap_tile--1:hover .stats-treemap_value {
+  color: var(--_theme---background);
+}
+
+.stats-treemap_tile--1:hover .stats-treemap_label {
+  color: color-mix(in srgb, var(--_theme---background) 80%, transparent);
 }
 
 /* ── Tile content ── */
@@ -94,6 +160,13 @@
   overflow-wrap: break-word;
   word-break: break-word;
   hyphens: auto;
+  transform: translateY(4px);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.stats-treemap_tile:hover .stats-treemap_label {
+  transform: translateY(0);
+  color: color-mix(in srgb, var(--_theme---text) 80%, transparent);
 }
 
 /* ── Mobile list (hidden on desktop) ── */
@@ -140,6 +213,18 @@
     grid-row: auto !important;
     min-height: 120px;
     justify-content: flex-end;
+    border-right: 1px solid var(--_theme---border);
+    border-bottom: 1px solid var(--_theme---border);
+  }
+
+  /* 3-col: remove border-right on every 3rd tile */
+  .stats-treemap_tile:nth-child(3n) {
+    border-right: none;
+  }
+
+  /* 3-col with 9 tiles: last 3 have no border-bottom */
+  .stats-treemap_tile:nth-child(n + 7) {
+    border-bottom: none;
   }
 
   .stats-treemap_header {

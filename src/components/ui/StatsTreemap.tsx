@@ -32,21 +32,23 @@ export default function StatsTreemap({ stats, heading, subheading, theme }: Stat
       <div className={`${styles['stats-treemap_contain']} u-container`}>
 
         {/* Heading row */}
-        <div className={styles['stats-treemap_header']}>
-          <h2 className={`${styles['stats-treemap_heading']} u-text-style-h2 u-text-transform-uppercase`}>
+        <div data-stagger="" className={styles['stats-treemap_header']}>
+          <h2 data-stagger-item="" className={`${styles['stats-treemap_heading']} u-text-style-h2 u-text-transform-uppercase`}>
             {heading}
           </h2>
-          <p className={`${styles['stats-treemap_subheading']} u-text-style-large`}>
+          <p data-stagger-item="" className={`${styles['stats-treemap_subheading']} u-text-style-main u-text-decoration-justify-last`}>
             {subheading}
           </p>
         </div>
 
         {/* Desktop treemap grid — hidden on mobile via CSS */}
-        <div className={styles['stats-treemap_grid']}>
+        <div data-stagger="" className={styles['stats-treemap_grid']}>
           {stats.slice(0, 9).map((stat, i) => (
             <div
               key={i}
-              className={`${styles['stats-treemap_tile']} ${styles[`stats-treemap_tile--${i}`]}`}
+              data-stagger-item=""
+              data-index={String(i + 1).padStart(2, '0')}
+              className={`${styles['stats-treemap_tile']} ${styles[`stats-treemap_tile--${i}`] ?? ''}`}
               style={{
                 gridColumn: GRID_ASSIGNMENTS[i]?.col,
                 gridRow:    GRID_ASSIGNMENTS[i]?.row,
@@ -55,7 +57,7 @@ export default function StatsTreemap({ stats, heading, subheading, theme }: Stat
               <p className={`${styles['stats-treemap_value']} ${i === 1 ? 'u-text-style-h3' : 'u-text-style-h4'} u-text-transform-uppercase`}>
                 {stat.statLabel}
               </p>
-              <p className={`${styles['stats-treemap_label']} u-text-style-large`}>
+              <p className={`${styles['stats-treemap_label']} u-text-style-main`}>
                 {stat.statValue}
               </p>
             </div>
@@ -63,13 +65,13 @@ export default function StatsTreemap({ stats, heading, subheading, theme }: Stat
         </div>
 
         {/* Mobile list — hidden on desktop via CSS */}
-        <ul className={styles['stats-treemap_mobile-list']} role="list">
+        <ul data-stagger="" className={styles['stats-treemap_mobile-list']} role="list">
           {stats.map((stat, i) => (
-            <li key={i} className={styles['stats-treemap_mobile-item']}>
+            <li key={i} data-stagger-item="" className={styles['stats-treemap_mobile-item']}>
               <p className={`${styles['stats-treemap_mobile-value']} u-text-style-h4 u-text-transform-uppercase`}>
                 {stat.statLabel}
               </p>
-              <p className={`${styles['stats-treemap_mobile-label']} u-text-style-large`}>
+              <p className={`${styles['stats-treemap_mobile-label']} u-text-style-main`}>
                 {stat.statValue}
               </p>
             </li>
