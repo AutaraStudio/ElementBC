@@ -11,38 +11,35 @@ interface CircleDiagramProps {
   theme?: string
 }
 
-/* 8 items × 45° each = 360° — angle ranges for each service */
 const ANGLE_RANGES = [
-  [217, 262],
-  [262, 307],
-  [307, 352],
-  [352, 37],
-  [37, 82],
-  [82, 127],
-  [127, 172],
-  [172, 217],
+  [217, 262], [262, 307], [307, 352], [352, 37],
+  [37, 82], [82, 127], [127, 172], [172, 217],
 ]
 
-const START_ANGLE = 307  // Start at item 3 (Planning & Feasibility)
+const START_ANGLE = 307
 
 export default function CircleDiagram({ heading, description, items, theme = 'buff' }: CircleDiagramProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const diagramRef = useRef<HTMLDivElement>(null)
+  const circleRef = useRef<SVGCircleElement>(null)
 
   useEffect(() => {
     const section = sectionRef.current
     const diagram = diagramRef.current
+    const svgCircle = circleRef.current
     if (!section || !diagram) return
 
     const mql = window.matchMedia('(min-width: 992px)')
     if (!mql.matches) return
 
     const rotatingLine = diagram.querySelector<HTMLElement>(`.${styles['diagram_rotating-line']}`)
-    const circle = diagram.querySelector<HTMLElement>(`.${styles['diagram_circle']}`)
+    const circleEl = diagram.querySelector<HTMLElement>(`.${styles['diagram_circle']}`)
     const services = diagram.querySelectorAll<HTMLElement>(`.${styles['diagram_service']}`)
     const centralDot = diagram.querySelector<HTMLElement>(`.${styles['diagram_central-dot']}`)
+    const lineDot = diagram.querySelector<HTMLElement>(`.${styles['diagram_line-dot']}`)
+    const lineEl = diagram.querySelector<HTMLElement>(`.${styles['diagram_rotating-line-el']}`)
 
-    if (!rotatingLine || !circle || !services.length) return
+    if (!rotatingLine || !circleEl || !services.length) return
 
     function updateContent(angle: number) {
       const normAngle = ((angle % 360) + 360) % 360
@@ -72,16 +69,28 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
       })
     }
 
-    /* Set initial state */
-    gsap.set(rotatingLine, { rotation: START_ANGLE })
-    gsap.set(circle, { rotation: START_ANGLE })
-    updateContent(START_ANGLE)
+    /* ── Initial hidden state ── */
+    gsap.set(rotatingLine, { rotation: START_ANGLE, opacity: 0 })
+    gsap.set(circleEl, { rotation: START_ANGLE, opacity: 0 })
+    gsap.set(services, { opacity: 0 })
+    if (centralDot) gsap.set(centralDot, { scale: 0, opacity: 0 })
+    if (lineDot) gsap.set(lineDot, { scale: 0, opacity: 0 })
+    if (lineEl) gsap.set(lineEl, { scaleX: 0, transformOrigin: 'left center' })
 
-    /* Scroll-scrubbed rotation proxy */
+    // SVG circle stroke draw
+    if (svgCircle) {
+      const circumference = 2 * Math.PI * 49.5
+      gsap.set(svgCircle, {
+        strokeDasharray: circumference,
+        strokeDashoffset: circumference,
+      })
+    }
+
+    /* ── Scroll rotation proxy ── */
     const proxy = { angle: START_ANGLE }
 
-    function init() {
-      const tl = gsap.timeline({
+    function initScrollAnimation() {
+      const scrollTl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: 'top top',
@@ -91,49 +100,104 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
         },
       })
 
-      tl.to(proxy, {
+      scrollTl.to(proxy, {
         angle: START_ANGLE + 360,
         duration: 1,
         ease: 'none',
         onUpdate: () => {
           const a = proxy.angle
           gsap.set(rotatingLine, { rotation: a })
-          gsap.set(circle, { rotation: a })
+          gsap.set(circleEl, { rotation: a })
           updateContent(a)
         },
       })
 
-      return tl
+      return scrollTl
     }
 
-    /* Pulsing central dot */
-    let dotTween: gsap.core.Tween | null = null
-    if (centralDot) {
-      dotTween = gsap.to(centralDot, {
-        scale: 1.2,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
+    /* ── Intro animation sequence ── */
+    function playIntro() {
+      const intro = gsap.timeline({
+        onComplete: () => {
+          updateContent(START_ANGLE)
+        },
       })
+
+      // 1. Draw the SVG circle ring
+      if (svgCircle) {
+        intro.to(svgCircle, {
+          strokeDashoffset: 0,
+          duration: 0.8,
+          ease: 'power2.inOut',
+        }, 0)
+      }
+
+      // 2. Fade in the visual circle element
+      intro.to(circleEl, {
+        opacity: 1,
+        duration: 0.3,
+        ease: 'power2.out',
+      }, 0.4)
+
+      // 3. Central square appears
+      if (centralDot) {
+        intro.to(centralDot, {
+          scale: 1,
+          opacity: 1,
+          duration: 0.3,
+          ease: 'back.out(2)',
+        }, 0.7)
+      }
+
+      // 4. Line draws out
+      intro.to(rotatingLine, { opacity: 1, duration: 0.01 }, 0.9)
+      if (lineEl) {
+        intro.to(lineEl, {
+          scaleX: 1,
+          duration: 0.4,
+          ease: 'power2.out',
+        }, 0.9)
+      }
+
+      // 5. End square appears
+      if (lineDot) {
+        intro.to(lineDot, {
+          scale: 1,
+          opacity: 1,
+          duration: 0.25,
+          ease: 'back.out(2)',
+        }, 1.2)
+      }
+
+      // 6. Service items fade in one by one
+      intro.to(services, {
+        opacity: 0.2,
+        duration: 0.3,
+        ease: 'power2.out',
+        stagger: 0.04,
+      }, 1.0)
+
+      return intro
     }
 
-    /* Defer until Lenis ScrollTrigger proxy is ready */
-    let tl: gsap.core.Timeline | null = null
+    let scrollTl: gsap.core.Timeline | null = null
+    let introTl: gsap.core.Timeline | null = null
+
+    function run() {
+      introTl = playIntro()
+      scrollTl = initScrollAnimation()
+    }
+
     if (ScrollTrigger.getAll().length > 0) {
-      tl = init()
+      run()
     } else {
-      const handler = () => { tl = init() }
-      window.addEventListener('preloader:complete', handler, { once: true })
-      return () => {
-        window.removeEventListener('preloader:complete', handler)
-        if (dotTween) dotTween.kill()
-      }
+      window.addEventListener('preloader:complete', run, { once: true })
     }
 
     return () => {
-      if (tl) tl.kill()
-      if (dotTween) dotTween.kill()
+      window.removeEventListener('preloader:complete', run)
+      if (scrollTl) scrollTl.kill()
+      if (introTl) introTl.kill()
     }
   }, [])
 
@@ -143,7 +207,6 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
       data-theme={theme}
       className={`${styles['diagram_wrap']} u-position-relative u-theme-${theme}`}
     >
-      {/* Heading — scrolls away naturally */}
       <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
 
       <div className={`${styles['diagram_contain']} u-container`}>
@@ -157,9 +220,23 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
         </div>
       </div>
 
-      {/* Sticky viewport — diagram stays in view while section scrolls */}
       <div className={styles['diagram_sticky']}>
         <div ref={diagramRef} className={`${styles['diagram_content']} u-container`}>
+
+          {/* SVG circle for stroke-draw animation */}
+          <svg
+            className={styles['diagram_circle-svg']}
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              ref={circleRef}
+              cx="50" cy="50" r="49.5"
+              fill="none"
+              stroke="var(--_theme---border)"
+              strokeWidth="0.35"
+            />
+          </svg>
 
           {/* Rotating line */}
           <div className={styles['diagram_rotating-line']}>
@@ -168,7 +245,7 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
             <div className={styles['diagram_central-dot']}></div>
           </div>
 
-          {/* Central circle */}
+          {/* Central circle (visual fill — rotates with line) */}
           <div className={styles['diagram_circle']}>
             <div className={styles['diagram_circle-inner']}></div>
             <div className={styles['diagram_circle-marker']}>

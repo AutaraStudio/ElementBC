@@ -56,6 +56,16 @@
   overflow: visible;
 }
 
+/* ── SVG circle (stroke-draw animation) ── */
+
+.diagram_circle-svg {
+  position: absolute;
+  width: 18.25rem;
+  height: 18.25rem;
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* ── Central circle ── */
 
 .diagram_circle {
@@ -133,8 +143,6 @@
 .diagram_line-dot {
   z-index: 5;
   background-color: var(--_red---swatch--brand-500);
-  filter: blur(0.125rem);
-  border-radius: 6.25rem;
   width: 0.5rem;
   height: 0.5rem;
   position: relative;
@@ -145,8 +153,6 @@
 .diagram_central-dot {
   z-index: 2;
   background-color: var(--_red---swatch--brand-500);
-  filter: blur(0.3125rem);
-  border-radius: 6.25rem;
   width: 1.25rem;
   height: 1.25rem;
   position: absolute;
