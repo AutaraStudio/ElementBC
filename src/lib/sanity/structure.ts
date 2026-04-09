@@ -60,6 +60,13 @@ export const structure: StructureResolver = (S) =>
             .schemaType('footer')
             .documentId('footer')
         ),
+      S.listItem()
+        .title('Partner Carousel')
+        .child(
+          S.document()
+            .schemaType('partnerCarousel')
+            .documentId('partnerCarousel')
+        ),
       S.divider(),
       S.listItem()
         .title('Site Settings')
