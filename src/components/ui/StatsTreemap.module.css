@@ -39,7 +39,7 @@
 .stats-treemap_grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 140px 140px 110px;
+  grid-template-rows: minmax(180px, auto) minmax(180px, auto) minmax(140px, auto);
   gap: 2px;
 }
 
@@ -47,7 +47,7 @@
   background-color: var(--_theme---background);
   border: 1px solid var(--_theme---border);
   border-radius: 0;
-  padding: 1.25rem 1.25rem 1rem;
+  padding: 1rem 1rem 0.85rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -91,6 +91,9 @@
   position: relative;
   z-index: 1;
   margin-top: 0.35rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 /* ── Mobile list (hidden on desktop) ── */

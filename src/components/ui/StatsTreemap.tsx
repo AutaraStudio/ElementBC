@@ -52,7 +52,7 @@ export default function StatsTreemap({ stats, heading, subheading, theme }: Stat
                 gridRow:    GRID_ASSIGNMENTS[i]?.row,
               }}
             >
-              <p className={`${styles['stats-treemap_value']} u-text-style-h3 u-text-transform-uppercase`}>
+              <p className={`${styles['stats-treemap_value']} ${i === 1 ? 'u-text-style-h3' : 'u-text-style-h4'} u-text-transform-uppercase`}>
                 {stat.statLabel}
               </p>
               <p className={`${styles['stats-treemap_label']} u-text-style-large`}>
