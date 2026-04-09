@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { gsap } from '@/lib/gsap'
+import { gsap, ScrollTrigger } from '@/lib/gsap'
 import styles from './CircleDiagram.module.css'
 
 interface CircleDiagramProps {
@@ -23,6 +23,8 @@ const ANGLE_RANGES = [
   [172, 217],
 ]
 
+const START_ANGLE = 307  // Start at item 3 (Planning & Feasibility)
+
 export default function CircleDiagram({ heading, description, items, theme = 'buff' }: CircleDiagramProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const diagramRef = useRef<HTMLDivElement>(null)
@@ -31,9 +33,7 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
     const section = sectionRef.current
     const diagram = diagramRef.current
     if (!section || !diagram) return
-    if (typeof window === 'undefined') return
 
-    /* Only run diagram on desktop */
     const mql = window.matchMedia('(min-width: 992px)')
     if (!mql.matches) return
 
@@ -44,12 +44,8 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
 
     if (!rotatingLine || !circle || !services.length) return
 
-    function getCenter() {
-      const r = diagram!.getBoundingClientRect()
-      return { x: r.left + r.width / 2, y: r.top + r.height / 2 }
-    }
-
     function updateContent(angle: number) {
+      const normAngle = ((angle % 360) + 360) % 360
       let activeIndex = -1
 
       services.forEach((s, i) => {
@@ -57,8 +53,8 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
         if (!rangeStr) return
         const [start, end] = rangeStr.split(',').map(Number)
         const inRange = start > end
-          ? angle >= start || angle <= end
-          : angle >= start && angle <= end
+          ? normAngle >= start || normAngle <= end
+          : normAngle >= start && normAngle <= end
 
         s.classList.toggle(styles['diagram_service--active'], inRange)
         if (inRange) activeIndex = i
@@ -76,25 +72,44 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
       })
     }
 
-    function handleMouseMove(e: MouseEvent) {
-      const center = getCenter()
-      const deg = Math.atan2(e.clientY - center.y, e.clientX - center.x) * (180 / Math.PI)
-      const angle = deg < 0 ? deg + 360 : deg
+    /* Set initial state */
+    gsap.set(rotatingLine, { rotation: START_ANGLE })
+    gsap.set(circle, { rotation: START_ANGLE })
+    updateContent(START_ANGLE)
 
-      gsap.set(rotatingLine, { rotation: angle })
-      gsap.set(circle, { rotation: angle })
+    /* Scroll-scrubbed rotation proxy */
+    const proxy = { angle: START_ANGLE }
 
-      updateContent(angle)
+    function init() {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.8,
+          invalidateOnRefresh: true,
+        },
+      })
+
+      tl.to(proxy, {
+        angle: START_ANGLE + 360,
+        duration: 1,
+        ease: 'none',
+        onUpdate: () => {
+          const a = proxy.angle
+          gsap.set(rotatingLine, { rotation: a })
+          gsap.set(circle, { rotation: a })
+          updateContent(a)
+        },
+      })
+
+      return tl
     }
 
-    /* Initial state */
-    updateContent(0)
-
-    document.addEventListener('mousemove', handleMouseMove)
-
     /* Pulsing central dot */
+    let dotTween: gsap.core.Tween | null = null
     if (centralDot) {
-      gsap.to(centralDot, {
+      dotTween = gsap.to(centralDot, {
         scale: 1.2,
         duration: 2,
         repeat: -1,
@@ -103,8 +118,22 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
       })
     }
 
+    /* Defer until Lenis ScrollTrigger proxy is ready */
+    let tl: gsap.core.Timeline | null = null
+    if (ScrollTrigger.getAll().length > 0) {
+      tl = init()
+    } else {
+      const handler = () => { tl = init() }
+      window.addEventListener('preloader:complete', handler, { once: true })
+      return () => {
+        window.removeEventListener('preloader:complete', handler)
+        if (dotTween) dotTween.kill()
+      }
+    }
+
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
+      if (tl) tl.kill()
+      if (dotTween) dotTween.kill()
     }
   }, [])
 
@@ -114,6 +143,7 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
       data-theme={theme}
       className={`${styles['diagram_wrap']} u-position-relative u-theme-${theme}`}
     >
+      {/* Heading — scrolls away naturally */}
       <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
 
       <div className={`${styles['diagram_contain']} u-container`}>
@@ -127,46 +157,45 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
         </div>
       </div>
 
-      <div data-wf--spacer--variant="large" className="u-section-spacer is-large u-ignore-trim"></div>
+      {/* Sticky viewport — diagram stays in view while section scrolls */}
+      <div className={styles['diagram_sticky']}>
+        <div ref={diagramRef} className={`${styles['diagram_content']} u-container`}>
 
-      <div ref={diagramRef} className={`${styles['diagram_content']} u-container`}>
+          {/* Rotating line */}
+          <div className={styles['diagram_rotating-line']}>
+            <div className={styles['diagram_rotating-line-el']}></div>
+            <div className={styles['diagram_line-dot']}></div>
+            <div className={styles['diagram_central-dot']}></div>
+          </div>
 
-        {/* Rotating line */}
-        <div className={styles['diagram_rotating-line']}>
-          <div className={styles['diagram_rotating-line-el']}></div>
-          <div className={styles['diagram_line-dot']}></div>
-          <div className={styles['diagram_central-dot']}></div>
-        </div>
+          {/* Central circle */}
+          <div className={styles['diagram_circle']}>
+            <div className={styles['diagram_circle-inner']}></div>
+            <div className={styles['diagram_circle-marker']}>
+              <div className={styles['diagram_circle-marker-inner']}></div>
+            </div>
+          </div>
 
-        {/* Central circle */}
-        <div className={styles['diagram_circle']}>
-          <div className={styles['diagram_circle-inner']}></div>
-          <div className={styles['diagram_circle-marker']}>
-            <div className={styles['diagram_circle-marker-inner']}></div>
+          {/* Service items */}
+          <div className={styles['diagram_service-list']}>
+            {items.slice(0, 8).map((item, i) => (
+              <div
+                key={item._key}
+                data-angles={`${ANGLE_RANGES[i]?.[0]},${ANGLE_RANGES[i]?.[1]}`}
+                className={`${styles['diagram_service']} ${styles[`diagram_service--${i + 1}`]}`}
+              >
+                <div className={styles['diagram_service-dot']}></div>
+                <h3 className={`${styles['diagram_service-title']} u-text-style-h5`}>
+                  {item.title}
+                </h3>
+                <p className={`${styles['diagram_service-text']} u-text-style-main`}>
+                  {item.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
-
-        {/* Service items */}
-        <div className={styles['diagram_service-list']}>
-          {items.slice(0, 8).map((item, i) => (
-            <div
-              key={item._key}
-              data-angles={`${ANGLE_RANGES[i]?.[0]},${ANGLE_RANGES[i]?.[1]}`}
-              className={`${styles['diagram_service']} ${styles[`diagram_service--${i + 1}`]}`}
-            >
-              <div className={styles['diagram_service-dot']}></div>
-              <h3 className={`${styles['diagram_service-title']} u-text-style-h5`}>
-                {item.title}
-              </h3>
-              <p className={`${styles['diagram_service-text']} u-text-style-main`}>
-                {item.description}
-              </p>
-            </div>
-          ))}
-        </div>
       </div>
-
-      <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
     </section>
   )
 }
