@@ -118,7 +118,7 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
 
       <div className={`${styles['diagram_contain']} u-container`}>
         <div className={styles['diagram_header']}>
-          <h2 data-split="word" className={`${styles['diagram_heading']} u-text-style-h2`}>
+          <h2 data-split="word" className={`${styles['diagram_heading']} u-text-style-h2 u-text-transform-uppercase`}>
             {heading}
           </h2>
           <p data-split="line" className={`${styles['diagram_description']} u-text-style-main u-text-decoration-justify-last`}>
@@ -153,10 +153,10 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
               className={`${styles['diagram_service']} ${styles[`diagram_service--${i + 1}`]}`}
             >
               <div className={styles['diagram_service-dot']}></div>
-              <h3 className={`${styles['diagram_service-title']} u-text-style-h3`}>
+              <h3 className={`${styles['diagram_service-title']} u-text-style-h5`}>
                 {item.title}
               </h3>
-              <p className={`${styles['diagram_service-text']} u-text-style-main`}>
+              <p className={`${styles['diagram_service-text']} u-text-style-small`}>
                 {item.description}
               </p>
             </div>
