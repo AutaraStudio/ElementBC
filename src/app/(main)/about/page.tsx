@@ -80,7 +80,7 @@ export default async function AboutPage() {
             </div>
 
             {/* Team member cards */}
-            <div className="u-column-start-5 u-column-span-8 u-grid-subgrid">
+            <div data-stagger="" className="u-column-start-5 u-column-span-8 u-grid-subgrid">
               {(aboutPage?.teamMembers ?? []).map((member) => (
                 <div key={member._key} data-stagger-item="" className="u-column-span-4 u-flex-vertical-nowrap u-gap-4">
                   {member.photo && member.photo.asset?.url ? (
