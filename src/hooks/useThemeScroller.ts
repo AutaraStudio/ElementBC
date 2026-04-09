@@ -161,6 +161,22 @@ export function useThemeScroller() {
     const firstTheme = firstSection?.getAttribute('data-theme');
     if (firstTheme) {
       const colors = getThemeColors(firstTheme);
+
+      // If the first theme has a transparent background (e.g. img-bg hero),
+      // use the next section's background so content sections below are
+      // never see-through. The transition will still animate smoothly.
+      if (colors['--_theme---background'] === 'transparent' || colors['--_theme---background'] === 'rgba(0, 0, 0, 0)') {
+        for (let s = 1; s < sections.length; s++) {
+          const nextTheme = sections[s].getAttribute('data-theme');
+          if (nextTheme && nextTheme !== 'img-bg') {
+            const nextColors = getThemeColors(nextTheme);
+            colors['--_theme---background'] = nextColors['--_theme---background'];
+            colors['--_theme---background-2'] = nextColors['--_theme---background-2'];
+            break;
+          }
+        }
+      }
+
       for (const v of THEME_VARS) {
         root.style.setProperty(v, colors[v]);
       }

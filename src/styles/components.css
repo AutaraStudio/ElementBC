@@ -2243,3 +2243,21 @@
 .button_main_wrap:hover .char-stagger-wrap span {
   transform: translateY(-1.3em) rotate(0.001deg);
 }
+
+/* BreathingBarsSvg — animated bar grid */
+.breathing-bars_wrap {
+  color: var(--_theme---svg-accent);
+}
+
+.breathing-bars_wrap .bar--accent {
+  fill: var(--_theme---accent-1);
+}
+
+/* On buff/light themes, accent-1 is white — use brand orange instead */
+[data-theme="buff"] .breathing-bars_wrap .bar--accent {
+  fill: var(--_red---swatch--brand-500);
+}
+
+[data-theme="stone"] .breathing-bars_wrap .bar--accent {
+  fill: var(--_red---swatch--brand-500);
+}
