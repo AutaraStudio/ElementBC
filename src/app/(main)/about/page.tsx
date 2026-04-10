@@ -31,7 +31,7 @@ export default async function AboutPage() {
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
-      <section data-hero-wrap="" data-theme="charcoal" className="about_hero-wrap u-min-height-screen u-position-relative u-theme-charcoal">
+      <section data-hero-wrap="" data-theme="buff" className="about_hero-wrap u-min-height-screen u-position-relative u-theme-buff">
         <div data-wf--spacer--variant="page-top" className="u-section-spacer is-page-top u-ignore-trim"></div>
 
         {/* Background SVG */}
@@ -115,7 +115,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <SectionDivider theme="buff" />
+      <SectionDivider theme="charcoal" />
 
       {/* ============================================================
           OUR APPROACH — CIRCLE DIAGRAM
@@ -124,15 +124,15 @@ export default async function AboutPage() {
         heading={aboutPage?.approachHeading ?? 'Our Approach.'}
         description={aboutPage?.approachDescription ?? 'From acquisition to disposal, we manage every detail — fully integrated across the entire property lifecycle.'}
         items={aboutPage?.approachItems ?? []}
-        theme="buff"
+        theme="charcoal"
       />
 
-      <SectionDivider theme="buff" />
+      <SectionDivider theme="charcoal" />
 
       {/* ============================================================
           PARTNER CAROUSEL SECTION
       ============================================================ */}
-      <PartnerCarousel heading={partnerCarousel?.heading} />
+      <PartnerCarousel heading={partnerCarousel?.heading} theme="charcoal" />
 
     </>
   );

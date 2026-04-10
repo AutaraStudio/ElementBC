@@ -1,10 +1,11 @@
 interface PartnerCarouselProps {
   heading?: string
+  theme?: string
 }
 
-export default function PartnerCarousel({ heading }: PartnerCarouselProps) {
+export default function PartnerCarousel({ heading, theme }: PartnerCarouselProps) {
   return (
-      <section data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" className="partner_carousel-wrap">
+      <section data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-theme={theme ?? 'buff'} className={`partner_carousel-wrap u-theme-${theme ?? 'buff'}`}>
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="partner_carousel-contain">
           <div className="partner_carousel_heading-contain u-container u-margin-bottom-8">
