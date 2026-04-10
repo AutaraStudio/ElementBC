@@ -81,7 +81,7 @@ export default async function MainLayout({
                   <path data-preloader-path="" d="M256.361 310.758H0V318.304H300.967V310.758H256.367H256.361Z" fill="currentColor" className="preloader_svg-path"></path>
                 </svg>
                 <div className="preloader_text-wrap">
-                  <h2 data-preloader-text="" className="preloader_text u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last"><span data-preloader-word="" className="preloader_text-span">The</span> <span data-preloader-word="" className="preloader_text-span">Smallest</span><br /><span data-preloader-word="" className="preloader_text-span">Details</span> <span data-preloader-word="" className="preloader_text-span">Shape</span><br /><span data-preloader-word="" className="preloader_text-span">The</span> <span data-preloader-word="" className="preloader_text-span">Strongest</span><br /><span data-preloader-word="" className="preloader_text-span">Results</span></h2>
+                  <h2 data-preloader-text="" className="preloader_text u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last"><span data-preloader-word="" className="preloader_text-span">Every</span> <span data-preloader-word="" className="preloader_text-span">Detail</span><br /><span data-preloader-word="" className="preloader_text-span">Managed.</span></h2>
                 </div>
                 <div className="preloader_end-wrap u-position-absolute">
                   <svg width="100%" viewBox="0 0 178 33" fill="none" xmlns="http://www.w3.org/2000/svg" data-preloader-end-svg="" className="preloader_end-svg">

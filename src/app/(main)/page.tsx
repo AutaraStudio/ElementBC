@@ -9,7 +9,6 @@ import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import SectionDivider from '@/components/ui/SectionDivider';
 import ScrollOrbit from '@/components/ui/ScrollOrbit';
 import StatsBarGraph from '@/components/ui/StatsBarGraph';
-import WhatWeDo from '@/components/sections/WhatWeDo';
 export const revalidate = 3600;
 
 const defaultValueProps = [
@@ -179,17 +178,6 @@ export default async function HomePage() {
         </div>
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
-
-      {/* ============================================================
-          WHAT WE DO SECTION
-      ============================================================ */}
-      <WhatWeDo
-        heading={homePage?.servicesHeading ?? 'What We Do'}
-        subtitle={homePage?.servicesSubtitle ?? 'Core Services'}
-        tagline={homePage?.servicesTagline ?? "We tailor our approach to meet each client's specific needs, with expert, director-level involvement throughout."}
-        serviceGroups={homePage?.serviceGroups ?? []}
-        theme="buff"
-      />
 
       {/* ============================================================
           STATS SECTION

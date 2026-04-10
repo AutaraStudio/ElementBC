@@ -44,6 +44,22 @@ export function useScrollReveal() {
             gsap.to(el, { opacity: 0, duration: dur, delay, ease, scrollTrigger: { trigger: triggerEl, start, end, toggleActions: 'play none none none' } });
           }
         });
+
+        // Group reveal — fade all matching children when parent enters view
+        (container || document).querySelectorAll('[data-reveal-children]').forEach((el) => {
+          if ((el as HTMLElement).dataset._revealChildrenInit) return;
+          (el as HTMLElement).dataset._revealChildrenInit = 'true';
+          const sel = el.getAttribute('data-reveal-children')!;
+          const start = el.getAttribute('data-reveal-start') || t.scroll.startEarly;
+          const dur = parseFloat(el.getAttribute('data-reveal-duration') || '') || t.duration.lg;
+          const ease = el.getAttribute('data-reveal-ease') || t.ease.sine;
+          const children = el.querySelectorAll(sel);
+          if (!children.length) return;
+          gsap.to(children, {
+            opacity: 0, duration: dur, ease,
+            scrollTrigger: { trigger: el, start, toggleActions: 'play none none none' },
+          });
+        });
       }
 
       // --- SVG reveal (background fade + path stagger) ---

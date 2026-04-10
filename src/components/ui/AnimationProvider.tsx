@@ -418,6 +418,14 @@ function cleanupPageAnimations() {
   // Kill all GSAP tweens targeting elements inside page_main
   gsap.killTweensOf(pageMain.querySelectorAll('*'));
 
+  // Clear init flags so scroll-reveal functions re-process new page elements
+  pageMain.querySelectorAll('[data-_overlay-init]').forEach((el) => delete (el as HTMLElement).dataset._overlayInit);
+  pageMain.querySelectorAll('[data-_stagger-init]').forEach((el) => delete (el as HTMLElement).dataset._staggerInit);
+  pageMain.querySelectorAll('[data-_instant-svg-init]').forEach((el) => delete (el as HTMLElement).dataset._instantSvgInit);
+  pageMain.querySelectorAll('[data-_svg-reveal-init]').forEach((el) => delete (el as HTMLElement).dataset._svgRevealInit);
+  pageMain.querySelectorAll('[data-_split-init]').forEach((el) => delete (el as HTMLElement).dataset._splitInit);
+  pageMain.querySelectorAll('[data-_reveal-children-init]').forEach((el) => delete (el as HTMLElement).dataset._revealChildrenInit);
+
   // Kill stale slider tweens
   if (_sliderProgressTween) { _sliderProgressTween.kill(); _sliderProgressTween = null; }
   if (_sliderTransitionCtx) { _sliderTransitionCtx.kill(); _sliderTransitionCtx = null; }

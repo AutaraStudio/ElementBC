@@ -37,15 +37,13 @@ export function usePreloader(pathname: string) {
       const endSvg = document.querySelector('[data-preloader-end-svg]');
       const endIcon = document.querySelector('[data-preloader-end-icon]');
       const endPaths = gsap.utils.toArray('[data-preloader-end-path]') as Element[];
-      const glitchPaths = gsap.utils.toArray('[data-preloader-rogue]') as Element[];
+      // glitch removed
 
       if (!paths.length) return;
 
       const blur = 'blur(4px)';
       const clear = 'blur(0px)';
-      const brandOrange = getComputedStyle(document.documentElement)
-        .getPropertyValue('--_red---swatch--brand-500')
-        .trim();
+      // brand orange removed with glitch
 
       gsap.set(paths, { opacity: 0, filter: blur });
       gsap.set(words, { opacity: 0, filter: blur });
@@ -62,53 +60,7 @@ export function usePreloader(pathname: string) {
         .timeline({ delay: 0.8 })
         .set(svgEl, { autoAlpha: 1 })
         .to(paths, { opacity: 1, filter: clear, duration: 0.8, stagger: 0.025, ease: 'cin' })
-        // Glitch sequence — interference builds, stutters, then resolves before text
-        .addLabel('glitch', '+=0.25')
-        // Wave 1 — subtle first hit
-        .to(glitchPaths, {
-          x: () => gsap.utils.random(-5, 5),
-          color: brandOrange,
-          filter: 'blur(2px)',
-          duration: 0.1,
-          stagger: { each: 0.02, from: 'random' },
-          ease: 'power3.in',
-        }, 'glitch')
-        .to(glitchPaths, {
-          x: 0,
-          color: 'currentColor',
-          filter: clear,
-          duration: 0.14,
-          stagger: { each: 0.015, from: 'random' },
-          ease: 'power2.out',
-        }, 'glitch+=0.1')
-        // Wave 2 — stronger, wider jitter
-        .to(glitchPaths, {
-          x: () => gsap.utils.random(-10, 10),
-          color: brandOrange,
-          filter: 'blur(4px)',
-          duration: 0.08,
-          stagger: { each: 0.015, from: 'random' },
-          ease: 'power4.in',
-        }, 'glitch+=0.35')
-        .to(glitchPaths, {
-          x: () => gsap.utils.random(-3, 3),
-          color: brandOrange,
-          filter: 'blur(2px)',
-          duration: 0.06,
-          stagger: { each: 0.01, from: 'random' },
-          ease: 'none',
-        }, 'glitch+=0.45')
-        // Wave 3 — final snap to order
-        .to(glitchPaths, {
-          x: 0,
-          color: 'currentColor',
-          filter: clear,
-          duration: 0.2,
-          stagger: { each: 0.01, from: 'random' },
-          ease: 'power2.out',
-        }, 'glitch+=0.55')
-        // Settle — brief pause before text
-        .addLabel('textIn', '+=0.3')
+        .addLabel('textIn', '+=0.4')
         .set(textEl, { autoAlpha: 1 }, 'textIn')
         .to(words, { opacity: 1, filter: clear, duration: 0.85, stagger: 0.08, ease: 'cin' }, 'textIn')
         .addLabel('hold', '+=0.7')
