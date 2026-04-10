@@ -55,18 +55,18 @@ export default async function ContactPage() {
           </div>
         </div>
 
-        <div className="contact_hero-contain u-container">
-          <div className="contact_hero-layout u-flex-vertical-nowrap u-gap-5 u-alignment-start">
+        <div className="project_hero-contain u-container">
+          <div className="project_hero-layout u-flex-vertical-nowrap u-alignment-center u-gap-7">
 
             {/* Eyebrow */}
-            <div data-stagger="" className="contact_hero-eyebrow u-flex-horizontal-nowrap u-gap-2">
+            <div data-stagger="" className="project_hero-eyebrow u-flex-horizontal-nowrap u-gap-2">
               <EyebrowSvg className="global_eyebrow-svg" />
               <div data-anim-hero="" data-split="word" className="contact_hero_eyebrow-heading u-text-style-large u-text-transform-uppercase u-weight-bold">{heroEyebrow}</div>
             </div>
 
             {/* Heading */}
-            <div className="contact_hero_heading-wrap">
-              <h1 data-split="word" data-anim-hero="" className="contact_hero-heading u-max-width-70rem u-text-style-h1 u-text-decoration-justify-last u-text-transform-uppercase">{heroHeading}</h1>
+            <div className="about_hero_heading-wrap">
+              <h1 data-split="word" data-anim-hero="" className="about_hero-heading u-max-width-30ch u-text-style-h2 u-text-transform-uppercase">{heroHeading}</h1>
             </div>
 
           </div>
@@ -90,12 +90,12 @@ export default async function ContactPage() {
 
                 {/* Name */}
                 <div className="contact_info-col u-column-start-1 u-column-span-4 u-position-relative">
-                  <div className="u-text-style-h4 u-text-transform-uppercase">
+                  <div data-split="word" className="u-text-style-h4 u-text-transform-uppercase">
                     {contact.name?.includes('MRICS')
                       ? contact.name.replace('MRICS', '').trim()
                       : contact.name}
                   </div>
-                  <div className="u-text-style-small u-text-transform-uppercase u-color-faded u-margin-top-1">
+                  <div data-split="word" className="u-text-style-small u-text-transform-uppercase u-color-faded u-margin-top-1">
                     {[contact.name?.includes('MRICS') ? 'MRICS' : null, contact.role].filter(Boolean).join(' / ')}
                   </div>
                 </div>
@@ -148,7 +148,7 @@ export default async function ContactPage() {
               <div className="contact_info-border u-position-absolute u-width-full"></div>
 
               <div className="contact_info-col u-column-start-1 u-column-span-4 u-position-relative">
-                <div className="u-text-style-h4 u-text-transform-uppercase">General Enquiries</div>
+                <div data-split="word" className="u-text-style-h4 u-text-transform-uppercase">General Enquiries</div>
               </div>
 
               <div className="contact_info-col u-column-start-7 u-column-span-3 u-position-relative">
@@ -172,7 +172,7 @@ export default async function ContactPage() {
               <div className="contact_info-border u-position-absolute u-width-full"></div>
 
               <div className="contact_address-col u-column-start-1 u-column-span-4 u-position-relative">
-                <div className="u-text-style-h4 u-text-transform-uppercase">{addressEyebrow}</div>
+                <div data-split="word" className="u-text-style-h4 u-text-transform-uppercase">{addressEyebrow}</div>
               </div>
 
               <div className="contact_address-col u-column-start-7 u-column-span-3 u-position-relative">

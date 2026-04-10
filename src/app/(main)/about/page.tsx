@@ -101,10 +101,10 @@ export default async function AboutPage() {
                   )}
                   <div className="u-flex-vertical-nowrap u-gap-2">
                     {member.name && (
-                      <div className="u-text-style-large u-weight-bold">{member.name}</div>
+                      <div data-split="word" className="u-text-style-large u-weight-bold">{member.name}</div>
                     )}
                     {member.role && (
-                      <div className="u-text-style-small u-text-transform-uppercase u-weight-bold u-color-faded">{member.role}</div>
+                      <div data-split="word" className="u-text-style-small u-text-transform-uppercase u-weight-bold u-color-faded">{member.role}</div>
                     )}
                   </div>
                 </div>

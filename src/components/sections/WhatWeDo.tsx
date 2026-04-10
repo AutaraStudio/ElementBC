@@ -36,7 +36,7 @@ export default function WhatWeDo({ heading, subtitle, tagline, serviceGroups, th
             {/* Service groups */}
             {serviceGroups.map((group) => (
               <div key={group._key} className="u-flex-vertical-nowrap u-gap-3">
-                <h3 className="u-text-style-h5 u-text-transform-uppercase">
+                <h3 data-split="word" className="u-text-style-h5 u-text-transform-uppercase">
                   {group.groupTitle}
                 </h3>
                 <ul data-stagger="" role="list" className="u-flex-vertical-nowrap u-gap-1" style={{ listStyle: 'disc', paddingLeft: '1.25rem' }}>

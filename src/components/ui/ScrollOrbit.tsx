@@ -238,10 +238,10 @@ export default function ScrollOrbit({
       {/* Heading — in normal flow, scrolls away naturally */}
       <div className={styles['scroll-orbit_heading-wrap']}>
         <div className={styles['scroll-orbit_heading-inner']}>
-          <h2 className={`${styles['scroll-orbit_heading']} u-text-style-h1 u-text-transform-uppercase`}>{heading}</h2>
+          <h2 data-split="word" className={`${styles['scroll-orbit_heading']} u-text-style-h1 u-text-transform-uppercase`}>{heading}</h2>
         </div>
         <div className={styles['scroll-orbit_heading-inner']}>
-          <p className={`${styles['scroll-orbit_subheading']} u-text-style-main`}>{subheading}</p>
+          <p data-split="line" className={`${styles['scroll-orbit_subheading']} u-text-style-main`}>{subheading}</p>
         </div>
       </div>
 
