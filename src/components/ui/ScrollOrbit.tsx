@@ -66,6 +66,7 @@ export default function ScrollOrbit({
     const preloaderDone = !!(window as any)._preloaderComplete;
 
     function setup() {
+    if (!section || !sticky || !ring || !centerDot || !armsWrap) return;
     const mm = gsap.matchMedia();
 
     mm.add('(min-width: 768px)', () => {
