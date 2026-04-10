@@ -66,7 +66,6 @@ export default async function AboutPage() {
           TEAM MEMBERS SECTION
       ============================================================ */}
       <section data-theme="buff" className="about_team-wrap u-position-relative u-theme-buff" style={{ position: 'relative', zIndex: 2, backgroundColor: 'var(--_theme---background)', color: 'var(--_theme---text)' }}>
-        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="about_team-contain u-container">
           <div className="about_team-layout u-grid-custom u-gap-row-8">
 
@@ -113,7 +112,6 @@ export default async function AboutPage() {
 
           </div>
         </div>
-        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
 
       <SectionDivider theme="buff" />
