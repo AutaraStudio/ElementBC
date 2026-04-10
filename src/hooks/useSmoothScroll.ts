@@ -6,6 +6,13 @@ import LocomotiveScroll from 'locomotive-scroll';
 
 const DISABLE_LENIS = false;
 
+const isTouchDevice = () =>
+  'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+const isIOS = () =>
+  /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
 export function useSmoothScroll() {
   useEffect(() => {
     if (DISABLE_LENIS) return;
@@ -37,6 +44,8 @@ export function useSmoothScroll() {
       fadeTimer = setTimeout(() => { if (!isDragging) track!.classList.remove('is-visible'); }, 1200);
     }
 
+    const ios = isIOS();
+
     window.locomotiveScroll = new LocomotiveScroll({
       lenisOptions: {
         wrapper: window,
@@ -45,10 +54,10 @@ export function useSmoothScroll() {
         orientation: 'vertical',
         gestureOrientation: 'vertical',
         smoothWheel: true,
-        syncTouch: true,           // Smooth touch scrolling on tablets
+        syncTouch: !ios,           // Disable on iOS — known Lenis crash with Safari gesture handling
         syncTouchLerp: 0.06,       // Slightly slower lerp for touch (feels natural on mobile)
         wheelMultiplier: 0.8,      // Natural wheel feel — less sluggish than 0.45
-        touchMultiplier: 1.8,
+        touchMultiplier: ios ? 1.0 : 1.8, // Reduce on iOS to prevent jank
         autoResize: true,
       },
       triggerRootMargin: '-1px -1px -1px -1px',
@@ -118,6 +127,11 @@ export function useSmoothScroll() {
       (window as any)._lenisProxyReady = true;
       document.dispatchEvent(new CustomEvent('lenisReady'));
     }());
+
+    // Skip custom scrollbar interactions on touch devices — users scroll natively
+    if (isTouchDevice()) {
+      track.style.display = 'none';
+    }
 
     // Click track to jump
     track.addEventListener('click', (e) => {

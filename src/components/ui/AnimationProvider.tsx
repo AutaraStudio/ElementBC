@@ -3,6 +3,13 @@
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import gsap from '@/lib/gsap';
+
+// ---------------------------------------------------------------------------
+// Touch detection — skip desktop-only features (cursor, hover) on mobile
+// ---------------------------------------------------------------------------
+const isTouchDevice = () =>
+  typeof window !== 'undefined' &&
+  ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 import { ScrollTrigger } from '@/lib/gsap';
 import { useAnimUtils } from '@/hooks/useAnimUtils';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
@@ -15,6 +22,7 @@ import { useThemeScroller, reinitThemeScroller } from '@/hooks/useThemeScroller'
 // List Hover
 // ---------------------------------------------------------------------------
 function initListHover() {
+  if (isTouchDevice()) return; // Hover effects don't apply on touch devices
   if (!document.querySelector('[data-hover]')) return;
 
   const transforms: Record<string, string> = {
@@ -262,6 +270,7 @@ let _cursorInitialized = false;
 
 function initCustomCursor() {
   if (_cursorInitialized) return;
+  if (isTouchDevice()) return; // No cursor on touch devices
 
   const wrap = document.querySelector('[data-cursor-marquee-status]') as Element | null;
   if (!wrap) return;
@@ -354,6 +363,7 @@ function initHeroScrollFade() {
 // Hero Image Hover (View Project trigger)
 // ---------------------------------------------------------------------------
 function initHeroImageHover() {
+  if (isTouchDevice()) return; // Mouse hover effect, skip on touch
   const trigger = document.querySelector('[data-hero-trigger]') as HTMLElement | null;
   if (!trigger) return;
 
@@ -510,12 +520,12 @@ export default function AnimationProvider() {
 
   // Initial mount — one-time inits
   useEffect(() => {
-    try { initListHover(); } catch (e) { console.error('[Anim] initListHover failed:', e); }
-    try { initCarouselManager(); } catch (e) { console.error('[Anim] initCarouselManager failed:', e); }
-    try { initCustomCursor(); } catch (e) { console.error('[Anim] initCustomCursor failed:', e); }
-    try { initProjectSlider(); } catch (e) { console.error('[Anim] initProjectSlider failed:', e); }
-    try { initHeroImageHover(); } catch (e) { console.error('[Anim] initHeroImageHover failed:', e); }
-    try { initHeroScrollFade(); } catch (e) { console.error('[Anim] initHeroScrollFade failed:', e); }
+    initListHover();
+    initCarouselManager();
+    initCustomCursor();
+    initProjectSlider();
+    initHeroImageHover();
+    initHeroScrollFade();
 
     return () => {
       ScrollTrigger.getAll().forEach((st) => st.kill());
