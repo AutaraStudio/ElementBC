@@ -1872,6 +1872,15 @@
   object-fit: cover;
 }
 
+/* Marquee image reveal — all overlays fade together when section enters view */
+.marquee-reveal-overlay {
+  transition: opacity 0.6s ease;
+}
+
+.marquee-revealed .marquee-reveal-overlay {
+  opacity: 0;
+}
+
 .project_image-marquee-overlay {
   background-color: rgba(0, 0, 0, 0.35);
   transition: opacity 0.4s ease;

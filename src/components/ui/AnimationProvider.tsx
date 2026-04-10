@@ -446,6 +446,16 @@ function reinitPageAnimations() {
   if (typeof w.initSplitText === 'function') (w.initSplitText as () => void)();
   if (typeof w.initStaggerReveal === 'function') (w.initStaggerReveal as () => void)();
 
+  // Marquee reveal — add class when in view so CSS fades all overlays
+  document.querySelectorAll('[data-marquee-reveal]').forEach((el) => {
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 80%',
+      once: true,
+      onEnter: () => el.classList.add('marquee-revealed'),
+    });
+  });
+
   // Re-init theme scroller for new page
   reinitThemeScroller();
 

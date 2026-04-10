@@ -77,7 +77,7 @@ export default async function ProjectDetailPage({
 
         {/* Image marquee */}
         {project.galleryImages && project.galleryImages.length > 0 && (
-          <div data-marquee-duplicate="2" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-reveal-children=".marquee-reveal-overlay" data-reveal-start="top 80%" className="project_image-marquee">
+          <div data-marquee-duplicate="2" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-marquee-reveal="" className="project_image-marquee">
             <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
             <div data-marquee-mask="" className="project_image-marquee-mask u-width-full u-overflow-hidden">
               <div data-marquee-track="" className="project_image-marquee-track">
