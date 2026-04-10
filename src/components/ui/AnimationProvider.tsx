@@ -419,12 +419,26 @@ function cleanupPageAnimations() {
   gsap.killTweensOf(pageMain.querySelectorAll('*'));
 
   // Clear init flags so scroll-reveal functions re-process new page elements
-  pageMain.querySelectorAll('[data-_overlay-init]').forEach((el) => delete (el as HTMLElement).dataset._overlayInit);
-  pageMain.querySelectorAll('[data-_stagger-init]').forEach((el) => delete (el as HTMLElement).dataset._staggerInit);
-  pageMain.querySelectorAll('[data-_instant-svg-init]').forEach((el) => delete (el as HTMLElement).dataset._instantSvgInit);
-  pageMain.querySelectorAll('[data-_svg-reveal-init]').forEach((el) => delete (el as HTMLElement).dataset._svgRevealInit);
-  pageMain.querySelectorAll('[data-_split-init]').forEach((el) => delete (el as HTMLElement).dataset._splitInit);
-  pageMain.querySelectorAll('[data-_reveal-children-init]').forEach((el) => delete (el as HTMLElement).dataset._revealChildrenInit);
+  // dataset._overlayInit → HTML attr data--overlay-init etc.
+  pageMain.querySelectorAll('[data-overlay]').forEach((el) => delete (el as HTMLElement).dataset._overlayInit);
+  pageMain.querySelectorAll('[data-stagger]').forEach((el) => delete (el as HTMLElement).dataset._staggerInit);
+  pageMain.querySelectorAll('[data-svg-stagger]').forEach((el) => delete (el as HTMLElement).dataset._instantSvgInit);
+  pageMain.querySelectorAll('[data-svg-reveal]').forEach((el) => delete (el as HTMLElement).dataset._svgRevealInit);
+  pageMain.querySelectorAll('[data-split]').forEach((el) => {
+    delete (el as HTMLElement).dataset._splitInit;
+    // Restore original text if SplitText modified it
+    if ((el as HTMLElement).dataset._originalText) {
+      el.textContent = (el as HTMLElement).dataset._originalText!;
+      delete (el as HTMLElement).dataset._originalText;
+    }
+  });
+  pageMain.querySelectorAll('[data-split-wrapper]').forEach((el) => delete (el as HTMLElement).dataset._wrapperInit);
+  pageMain.querySelectorAll('[data-reveal-children]').forEach((el) => delete (el as HTMLElement).dataset._revealChildrenInit);
+
+  // Also reset visibility on stagger items (they start hidden)
+  pageMain.querySelectorAll('[data-stagger-item]').forEach((el) => {
+    (el as HTMLElement).style.visibility = '';
+  });
 
   // Kill stale slider tweens
   if (_sliderProgressTween) { _sliderProgressTween.kill(); _sliderProgressTween = null; }
@@ -522,9 +536,10 @@ export default function AnimationProvider() {
       window.scrollTo(0, 0);
     }
 
+    // Wait for React to commit new DOM before reinitializing
     const timer = setTimeout(() => {
       reinitPageAnimations();
-    }, 150);
+    }, 300);
 
     return () => clearTimeout(timer);
   }, [pathname]);
