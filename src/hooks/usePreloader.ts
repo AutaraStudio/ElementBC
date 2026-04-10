@@ -21,6 +21,8 @@ export function usePreloader(pathname: string) {
 
       // Use rAF to ensure useScrollReveal's preloader:complete listener is registered first
       requestAnimationFrame(() => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any)._preloaderComplete = true;
         window.dispatchEvent(new Event('preloader:complete'));
       });
       return;
@@ -87,6 +89,8 @@ export function usePreloader(pathname: string) {
                 document.documentElement.style.overflow = '';
               }
               sessionStorage.setItem('preloaderDone', '1');
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (window as any)._preloaderComplete = true;
               window.dispatchEvent(new Event('preloader:complete'));
             },
           },

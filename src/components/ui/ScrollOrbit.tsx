@@ -62,6 +62,10 @@ export default function ScrollOrbit({
     const armsWrap = armsRef.current;
     if (!section || !sticky || !ring || !centerDot || !armsWrap) return;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const preloaderDone = !!(window as any)._preloaderComplete;
+
+    function setup() {
     const mm = gsap.matchMedia();
 
     mm.add('(min-width: 768px)', () => {
@@ -225,6 +229,26 @@ export default function ScrollOrbit({
     });
 
     return () => { mm.revert(); };
+    } // end setup()
+
+    let cleanupFn: (() => void) | undefined;
+
+    if (preloaderDone) {
+      // Client-side navigation — defer slightly for Lenis proxy refresh
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+        cleanupFn = setup();
+      }, 350);
+      return () => { clearTimeout(timer); cleanupFn?.(); };
+    } else {
+      const handler = () => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any)._preloaderComplete = true;
+        cleanupFn = setup();
+      };
+      window.addEventListener('preloader:complete', handler, { once: true });
+      return () => { window.removeEventListener('preloader:complete', handler); cleanupFn?.(); };
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

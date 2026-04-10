@@ -98,18 +98,29 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
       return tl
     }
 
-    /* Defer until Lenis ScrollTrigger proxy is ready */
+    /* Defer until Lenis ScrollTrigger proxy is ready.
+       On first load, wait for preloader:complete.
+       On client-side navigation, the proxy is already active — init immediately
+       after a short delay to let React finish rendering. */
     let tl: gsap.core.Timeline | null = null
-    if (ScrollTrigger.getAll().length > 0) {
-      tl = init()
-    } else {
-      const handler = () => { tl = init() }
-      window.addEventListener('preloader:complete', handler, { once: true })
-      return () => { window.removeEventListener('preloader:complete', handler) }
-    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const preloaderDone = !!(window as any)._preloaderComplete
 
-    return () => {
-      if (tl) tl.kill()
+    if (preloaderDone) {
+      // Client-side navigation — proxy ready, init after brief DOM settle
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh()
+        tl = init()
+      }, 350)
+      return () => { clearTimeout(timer); if (tl) tl.kill() }
+    } else {
+      const handler = () => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any)._preloaderComplete = true
+        tl = init()
+      }
+      window.addEventListener('preloader:complete', handler, { once: true })
+      return () => { window.removeEventListener('preloader:complete', handler); if (tl) tl.kill() }
     }
   }, [])
 

@@ -87,12 +87,22 @@ export default function StatsBarGraph({ stats, heading, subheading, theme }: Sta
       }, '-=0.4')
     }
 
-    // Wait for preloader to finish so ScrollTrigger proxy (Lenis) is ready
-    if (ScrollTrigger.getAll().length > 0) {
-      // Proxy already set up — init immediately
-      init()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const preloaderDone = !!(window as any)._preloaderComplete
+
+    if (preloaderDone) {
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh()
+        init()
+      }, 350)
+      return () => { clearTimeout(timer); if (tl) tl.kill() }
     } else {
-      window.addEventListener('preloader:complete', init, { once: true })
+      const handler = () => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any)._preloaderComplete = true
+        init()
+      }
+      window.addEventListener('preloader:complete', handler, { once: true })
     }
 
     return () => {
