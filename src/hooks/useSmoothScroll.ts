@@ -81,52 +81,66 @@ export function useSmoothScroll() {
     });
 
     // GSAP ScrollTrigger proxy
-    (function applyProxy() {
-      const lenis = window.locomotiveScroll?.lenisInstance;
-      if (!lenis) { requestAnimationFrame(applyProxy); return; }
+    const isTouch = isTouchDevice();
 
-      // Only call ScrollTrigger.update() when Lenis is actually scrolling,
-      // not on every single GSAP ticker frame (saves ~60 update() calls/s when idle).
-      let scrolling = false;
-      let idleTimer: ReturnType<typeof setTimeout> | null = null;
-
-      const onScrollUpdate = () => {
-        ScrollTrigger.update();
-
-        // Mark as scrolling, clear idle timer
-        scrolling = true;
-        if (idleTimer) clearTimeout(idleTimer);
-        idleTimer = setTimeout(() => {
-          scrolling = false;
-          // Final update to ensure ScrollTrigger catches the resting position
-          ScrollTrigger.update();
-        }, 150);
-      };
-
-      // Use GSAP ticker but only update ScrollTrigger when scroll is active
-      const tickerCallback = () => {
-        if (scrolling) ScrollTrigger.update();
-      };
-      gsap.ticker.add(tickerCallback);
-
-      // Lenis scroll event triggers the scrolling flag
-      lenis.on('scroll', onScrollUpdate);
-
-      ScrollTrigger.scrollerProxy(document.documentElement, {
-        scrollTop(value?: number) {
-          if (arguments.length && value !== undefined) lenis.scrollTo(value, { immediate: true });
-          return lenis.animatedScroll ?? window.scrollY;
-        },
-        getBoundingClientRect: () => ({ top: 0, left: 0, width: window.innerWidth, height: window.innerHeight }),
-      });
-      ScrollTrigger.addEventListener('refresh', () => {
-        window.locomotiveScroll?.update?.();
-      });
+    if (isTouch) {
+      // On touch devices: skip Lenis proxy, let ScrollTrigger use native scroll.
+      // Lenis syncTouch is disabled on iOS so it won't track touch scroll position,
+      // meaning the proxy would return stale values and ScrollTrigger would never fire.
+      ScrollTrigger.defaults({ scroller: window });
       ScrollTrigger.refresh();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any)._lenisProxyReady = true;
       document.dispatchEvent(new CustomEvent('lenisReady'));
-    }());
+    } else {
+      // On desktop: proxy ScrollTrigger through Lenis for smooth scroll integration
+      (function applyProxy() {
+        const lenis = window.locomotiveScroll?.lenisInstance;
+        if (!lenis) { requestAnimationFrame(applyProxy); return; }
+
+        // Only call ScrollTrigger.update() when Lenis is actually scrolling,
+        // not on every single GSAP ticker frame (saves ~60 update() calls/s when idle).
+        let scrolling = false;
+        let idleTimer: ReturnType<typeof setTimeout> | null = null;
+
+        const onScrollUpdate = () => {
+          ScrollTrigger.update();
+
+          // Mark as scrolling, clear idle timer
+          scrolling = true;
+          if (idleTimer) clearTimeout(idleTimer);
+          idleTimer = setTimeout(() => {
+            scrolling = false;
+            // Final update to ensure ScrollTrigger catches the resting position
+            ScrollTrigger.update();
+          }, 150);
+        };
+
+        // Use GSAP ticker but only update ScrollTrigger when scroll is active
+        const tickerCallback = () => {
+          if (scrolling) ScrollTrigger.update();
+        };
+        gsap.ticker.add(tickerCallback);
+
+        // Lenis scroll event triggers the scrolling flag
+        lenis.on('scroll', onScrollUpdate);
+
+        ScrollTrigger.scrollerProxy(document.documentElement, {
+          scrollTop(value?: number) {
+            if (arguments.length && value !== undefined) lenis.scrollTo(value, { immediate: true });
+            return lenis.animatedScroll ?? window.scrollY;
+          },
+          getBoundingClientRect: () => ({ top: 0, left: 0, width: window.innerWidth, height: window.innerHeight }),
+        });
+        ScrollTrigger.addEventListener('refresh', () => {
+          window.locomotiveScroll?.update?.();
+        });
+        ScrollTrigger.refresh();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any)._lenisProxyReady = true;
+        document.dispatchEvent(new CustomEvent('lenisReady'));
+      }());
+    }
 
     // Skip custom scrollbar interactions on touch devices — users scroll natively
     if (isTouchDevice()) {
