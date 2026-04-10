@@ -79,7 +79,11 @@ export function useNavAnimation() {
           paused: true,
           onStart: () => {
             menu?.classList.add('is-open');
-            window.locomotiveScroll?.stop();
+            if (window.locomotiveScroll) {
+              window.locomotiveScroll.stop();
+            } else {
+              document.body.style.overflow = 'hidden';
+            }
           },
         });
         openTl.fromTo(menu, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: anim.duration.xl, ease: 'menuReveal' }, 0);
@@ -103,7 +107,11 @@ export function useNavAnimation() {
           paused: true,
           onComplete: () => {
             menu?.classList.remove('is-open');
-            window.locomotiveScroll?.start();
+            if (window.locomotiveScroll) {
+              window.locomotiveScroll.start();
+            } else {
+              document.body.style.overflow = '';
+            }
 
             // Restore nav color to current section's theme
             if (navBarEl) {
