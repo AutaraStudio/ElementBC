@@ -2308,9 +2308,14 @@
     grid-column: 1 / -1;
   }
 
-  /* Project cards — 2 per row */
+  /* Project cards on 12-col grid — 2 per row */
   [data-stagger-item][class*="u-column-span-3"] {
     grid-column: span 6;
+  }
+
+  /* Homepage project cards on 24-col grid — 2 per row (span 12 of 24) */
+  .projects_archive-list .projects_archive-item {
+    grid-column: span 12;
   }
 
   /* Case studies filter bar — stack */
@@ -2352,8 +2357,13 @@
     grid-column: 1 / -1;
   }
 
-  /* Project cards — single column on mobile */
+  /* Project cards on 12-col grid — single column on mobile */
   [data-stagger-item][class*="u-column-span-3"] {
+    grid-column: 1 / -1;
+  }
+
+  /* Homepage project cards on 24-col grid — single column */
+  .projects_archive-list .projects_archive-item {
     grid-column: 1 / -1;
   }
 
