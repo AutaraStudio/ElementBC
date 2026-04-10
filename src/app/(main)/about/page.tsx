@@ -31,7 +31,7 @@ export default async function AboutPage() {
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
-      <section data-hero-wrap="" data-theme="buff" className="about_hero-wrap u-min-height-screen u-position-relative u-theme-buff">
+      <section data-hero-wrap="" data-theme="buff" className="about_hero-wrap u-position-relative u-theme-buff">
         <div data-wf--spacer--variant="page-top" className="u-section-spacer is-page-top u-ignore-trim"></div>
 
         {/* Background SVG */}
@@ -59,7 +59,7 @@ export default async function AboutPage() {
           </div>
         </div>
 
-        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+        <div data-wf--spacer--variant="large" className="u-section-spacer is-large u-ignore-trim"></div>
       </section>
 
       {/* ============================================================
