@@ -113,6 +113,7 @@ export default async function AboutPage() {
 
           </div>
         </div>
+        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
 
       <SectionDivider theme="charcoal" />
