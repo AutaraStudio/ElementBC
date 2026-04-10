@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Approach</title>
+<style>
+  :root {
+    --primary-color: #ae9ea1;
+    --secondary-color: #e85b54;
+    --dark-color: #2a2a2a;
+    --light-color: #f0e7e9;
+    --lines-light: #d4cacc;
+    --text-secondary-light: #6f6769;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Suisseintl', Verdana, sans-serif;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    overflow-x: hidden;
+  }
+
+  h2 { font-size: 3rem; font-weight: 500; line-height: 1.2; margin: 0; }
+  h3 { font-size: 1.5rem; font-weight: 500; line-height: 1.2; margin: 0; }
+  p  { margin-bottom: 0; }
+
+  .section {
+    flex-direction: column;
+    justify-content: center;
+    max-width: 100vw;
+    display: flex;
+    position: relative;
+    overflow-x: clip;
+  }
+
+  .section.services_diagram_section {
+    min-height: 100svh;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    overflow: hidden;
+  }
+
+  .padding-global { padding-left: 4rem; padding-right: 4rem; }
+  .padding-section-large { padding-top: 8rem; padding-bottom: 8rem; }
+
+  .container-large {
+    width: 100%;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .w-layout-hflex { flex-direction: row; align-items: flex-start; display: flex; }
+  .space_between   { justify-content: space-between; }
+  .relative        { position: relative; }
+  .gap_2           { gap: 1rem; }
+
+  .max-width-medium-large { width: 100%; max-width: 42.75rem; }
+  .max-width-xxxsmall     { max-width: 12.5rem; }
+
+  .heading-style-h2 {
+    letter-spacing: -0.03em;
+    padding-bottom: 10px;
+    font-size: 4.5rem;
+    line-height: 1.1;
+  }
+
+  .text_indent { text-indent: 6rem; }
+  .text_indent.heading-style-h2 { font-size: 3rem; }
+
+  .overline {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    position: absolute;
+    inset: 0% auto auto 0%;
+  }
+
+  .text-size-small { font-size: 1rem; line-height: 1.2; }
+  .text-size-large { font-size: 1.5rem; line-height: 1.2; }
+
+  /* ─── Diagram ─── */
+  .diagram_content {
+    flex: 1 1 0%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    overflow: visible;
+  }
+
+  .diagram_content.container-large { min-height: 90svh; }
+
+  .diagram_central_circle {
+    background-color: var(--primary-color);
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    width: 18.25rem;
+    height: 18.25rem;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .diagram_central_circle_inner {
+    background-color: var(--light-color);
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    width: 18.125rem;
+    height: 18.125rem;
+    display: flex;
+  }
+
+  .diagram_central_circle_marker {
+    transform-origin: 0% center;
+    justify-content: flex-end;
+    width: 9.125rem;
+    height: 128px;
+    position: absolute;
+    right: 0px;
+    overflow: hidden;
+  }
+
+  .diagram_central_circle_marker_inner {
+    background-color: var(--light-color);
+    mix-blend-mode: darken;
+    border: 1px solid rgba(42, 42, 42, 0.5);
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    width: 18.25rem;
+    height: 18.25rem;
+    display: flex;
+    position: absolute;
+    top: -82px;
+    left: -9.125rem;
+    right: 0%;
+  }
+
+  .diagram_central_dot {
+    z-index: 2;
+    background-color: var(--secondary-color);
+    filter: blur(5px);
+    border-radius: 100px;
+    width: 1.25rem;
+    height: 1.25rem;
+    position: absolute;
+    left: -0.625rem;
+  }
+
+  .diagram_rotating_line {
+    z-index: 1;
+    transform-origin: 0% 50%;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50vw;
+    height: 1px;
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: 0;
+  }
+
+  .diagram_rotating_line_el {
+    z-index: 0;
+    background-color: var(--primary-color);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+
+  .diagram_line_dot {
+    z-index: 5;
+    background-color: var(--secondary-color);
+    filter: blur(2px);
+    border-radius: 100px;
+    width: 0.5rem;
+    height: 0.5rem;
+    position: relative;
+    left: 8.85rem;
+    flex-shrink: 0;
+  }
+
+  /* Services */
+  .service_content_list {
+    z-index: 5;
+    flex: 1 1 0%;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    position: absolute;
+  }
+
+  .service_content {
+    gap: 1rem;
+    flex-flow: column;
+    max-width: 22rem;
+    transition: opacity 0.4s;
+    display: flex;
+    position: absolute;
+    opacity: 0.2;
+  }
+
+  .service_content.active           { opacity: 1; }
+  .service_content.neighbor_service { opacity: 0.55; }
+
+  .service_content_text {
+    font-size: 0.875rem;
+    line-height: 1.2;
+    color: var(--text-secondary-light);
+  }
+
+  .service_content_dot { display: none; }
+
+  /* 8 items — 45° each, matching original layout positions */
+  .service_content.service_1 { top: -1rem;    left: 20.5%; }
+  .service_content.service_2 { top: -1rem;    right: 20.5%; }
+  .service_content.service_3 { top: 24.5%;    right: 0; }
+  .service_content.service_4 { bottom: 24.5%; right: 0; }
+  .service_content.service_5 { bottom: -1rem; right: 20.5%; }
+  .service_content.service_6 { bottom: -1rem; left: 20.5%; }
+  .service_content.service_7 { bottom: 24.5%; left: 0; }
+  .service_content.service_8 { top: 24.5%;    left: 0; }
+
+  .hide { display: none !important; }
+
+  /* ─── Mobile ─── */
+  @media screen and (max-width: 991px) {
+    .padding-global { padding-left: 2rem; padding-right: 2rem; }
+    .heading-style-h2 { font-size: 4rem; }
+    .text_indent.heading-style-h2 { font-size: 2.5rem; }
+    .m_gap_3 { gap: 1.5rem; }
+    .mobile_max_width { width: 100%; }
+
+    .diagram_content.container-large {
+      min-height: auto;
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+
+    .diagram_central_circle,
+    .diagram_rotating_line { display: none; }
+
+    .service_content_list {
+      gap: 1.5rem;
+      border-left: 1px solid var(--lines-light);
+      flex-flow: column;
+      padding-bottom: 1.5rem;
+      padding-left: 1.5rem;
+      display: flex;
+      position: relative;
+    }
+
+    .service_content {
+      max-width: none;
+      position: static;
+      opacity: 1;
+    }
+
+    .service_content_dot {
+      background-color: var(--secondary-color);
+      filter: blur(2px);
+      border-radius: 100%;
+      width: 0.5rem;
+      height: 0.5rem;
+      margin-top: 0.5rem;
+      position: absolute;
+      left: -0.3rem;
+      display: block;
+    }
+
+    .mobile_col { flex-flow: column; display: flex; }
+    .padding-section-large { padding-top: 6rem; padding-bottom: 6rem; }
+  }
+
+  @media screen and (max-width: 767px) {
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.5rem; }
+    .heading-style-h2 { font-size: 2rem; line-height: 1.15; }
+    .padding-global { padding-left: 2rem; padding-right: 2rem; }
+    .section.services_diagram_section { padding-top: 0; padding-bottom: 1.5rem; }
+    .service_content { gap: 0.5rem; }
+    .text_indent { text-indent: 4.8rem; }
+    .overline { font-size: 0.625rem; }
+    .padding-section-large { padding-top: 4rem; padding-bottom: 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<section class="section services_diagram_section">
+
+  <div class="padding-global padding-section-large">
+    <div class="container-large">
+      <div class="w-layout-hflex space_between mobile_col gap_2 m_gap_3">
+        <div class="max-width-medium-large relative">
+          <h2 class="text_indent heading-style-h2">Our Approach.</h2>
+          <div class="overline">How We Work</div>
+        </div>
+        <p class="text-size-small max-width-xxxsmall mobile_max_width">From acquisition to disposal, we manage every detail — fully integrated across the entire property lifecycle.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="diagram_content container-large">
+
+    <div class="diagram_rotating_line">
+      <div class="diagram_rotating_line_el"></div>
+      <div class="diagram_line_dot"></div>
+      <div class="diagram_central_dot"></div>
+    </div>
+
+    <div class="diagram_central_circle">
+      <div class="diagram_central_circle_inner"></div>
+      <div class="diagram_central_circle_marker">
+        <div class="diagram_central_circle_marker_inner"></div>
+      </div>
+    </div>
+
+    <div class="service_content_list">
+
+      <!-- 8 stages × 45° = 360° -->
+
+      <div data-angles="217,262" class="service_content service_1">
+        <h3 class="text-size-large">Acquisition</h3>
+        <p class="service_content_text">Fully integrated from the outset — ensuring every acquisition decision is grounded in strategy and long-term value.</p>
+        <div class="service_content_dot"></div>
+      </div>
+
+      <div data-angles="262,307" class="service_content service_2 neighbor_service">
+        <h3 class="text-size-large">Due Diligence</h3>
+        <p class="service_content_text">Rigorous assessment of risk, condition, and opportunity before commitment, so every decision is made with full commercial clarity.</p>
+        <div class="service_content_dot"></div>
+      </div>
+
+      <div data-angles="307,352" class="service_content service_3 active">
+        <h3 class="text-size-large">Planning &amp; Feasibility</h3>
+        <p class="service_content_text">Director-led: experienced, agile &amp; responsive to the complexities of planning and early-stage feasibility.</p>
+        <div class="service_content_dot"></div>
+      </div>
+
+      <div data-angles="352,37" class="service_content service_4 neighbor_service">
+        <h3 class="text-size-large">Design &amp; Procurement</h3>
+        <p class="service_content_text">A proven track record across several sectors &amp; property types, bringing commercial rigour to every design decision.</p>
+        <div class="service_content_dot"></div>
+      </div>
+
+      <div data-angles="37,82" class="service_content service_5">
+        <div class="service_content_dot"></div>
+        <h3 class="text-size-large">Construction</h3>
+        <p class="service_content_text">Strategic advice rooted in commercial awareness — keeping programmes on time and budgets on track.</p>
+      </div>
+
+      <div data-angles="82,127" class="service_content service_6">
+        <div class="service_content_dot"></div>
+        <h3 class="text-size-large">Operation &amp; Maintenance</h3>
+        <p class="service_content_text">We build long-term relationships with clients who value trust, expertise &amp; continuity well beyond handover.</p>
+      </div>
+
+      <div data-angles="127,172" class="service_content service_7">
+        <h3 class="text-size-large">Disposal</h3>
+        <p class="service_content_text">Maximising asset value at exit through considered disposal strategy, informed by the same commercial intelligence applied throughout.</p>
+        <div class="service_content_dot"></div>
+      </div>
+
+      <div data-angles="172,217" class="service_content service_8">
+        <h3 class="text-size-large">Strategic Advisory</h3>
+        <p class="service_content_text">Ongoing consultancy that draws on end-to-end lifecycle experience to inform future acquisitions, portfolio strategy, and long-term growth.</p>
+        <div class="service_content_dot"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+<script>
+class RotatingServicesDiagram {
+  constructor(parentSection) {
+    this.parentSection = parentSection;
+    this.rotatingLine  = document.querySelector('.diagram_rotating_line');
+    this.services      = document.querySelectorAll('.service_content');
+    this.currentAngle  = 0;
+
+    this.updateContent(0);
+    this.setupEventListeners();
+  }
+
+  getCenter() {
+    const r = this.parentSection.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+  }
+
+  setupEventListeners() {
+    document.addEventListener('mousemove', (e) => {
+      this.handleMouseMove(e.clientX, e.clientY);
+    });
+  }
+
+  handleMouseMove(mouseX, mouseY) {
+    const center = this.getCenter();
+    const deg    = Math.atan2(mouseY - center.y, mouseX - center.x) * (180 / Math.PI);
+    const angle  = deg < 0 ? deg + 360 : deg;
+
+    gsap.set(this.rotatingLine,         { rotation: angle });
+    gsap.set('.diagram_central_circle', { rotation: angle });
+
+    this.currentAngle = angle;
+    this.updateContent(angle);
+  }
+
+  updateContent(angle) {
+    let activeIndex = -1;
+
+    this.services.forEach((s, i) => {
+      const [start, end] = s.dataset.angles.split(',').map(Number);
+      const inRange = start > end
+        ? angle >= start || angle <= end
+        : angle >= start && angle <= end;
+
+      s.classList.toggle('active', inRange);
+      if (inRange) activeIndex = i;
+    });
+
+    this.services.forEach((s, i) => {
+      s.classList.remove('neighbor_service');
+      if (activeIndex !== -1) {
+        const total = this.services.length;
+        if (i === (activeIndex - 1 + total) % total ||
+            i === (activeIndex + 1) % total) {
+          s.classList.add('neighbor_service');
+        }
+      }
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const diagramSection = document.querySelector('.services_diagram_section .diagram_content');
+
+  if (diagramSection && window.innerWidth > 991) {
+    const rotatingLine = document.querySelector('.diagram_rotating_line');
+    if (rotatingLine) {
+      Object.assign(rotatingLine.style, {
+        position:        'absolute',
+        left:            '50%',
+        top:             '50%',
+        transformOrigin: '0% 50%',
+        margin:          '0'
+      });
+    }
+
+    new RotatingServicesDiagram(diagramSection);
+
+    gsap.to('.diagram_central_dot', {
+      scale:    1.2,
+      duration: 2,
+      repeat:   -1,
+      yoyo:     true,
+      ease:     'sine.inOut'
+    });
+  }
+});
+</script>
+</body>
+</html>
