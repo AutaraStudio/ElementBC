@@ -27,11 +27,12 @@ export default async function MainLayout({
 
   return (
     <>
-      <Script
+      {/* TEMP DEBUG: disabled to test mobile loading */}
+      {/* <Script
         src="https://cdn.jsdelivr.net/gh/lumosframework/scripts@v1.1.1/theme-collector.js"
         strategy="beforeInteractive"
-      />
-      <AnimationProvider />
+      /> */}
+      {/* <AnimationProvider /> */}
       <div aria-hidden="true" data-bg="current" className="bg-current"></div>
       <div className="page_wrap">
         <div className="page_overlay u-position-fixed u-fixed-overlay">
