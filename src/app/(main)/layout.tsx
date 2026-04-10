@@ -3,6 +3,7 @@ import Script from 'next/script';
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AnimationProvider from "@/components/ui/AnimationProvider";
+import AnimationErrorBoundary from "@/components/ui/AnimationErrorBoundary";
 import { getNavigation, getFooter, getSiteSettings } from "@/lib/sanity/queries";
 
 export const revalidate = 3600;
@@ -27,12 +28,13 @@ export default async function MainLayout({
 
   return (
     <>
-      {/* TEMP DEBUG: theme-collector still disabled */}
-      {/* <Script
+      <Script
         src="https://cdn.jsdelivr.net/gh/lumosframework/scripts@v1.1.1/theme-collector.js"
         strategy="beforeInteractive"
-      /> */}
-      <AnimationProvider />
+      />
+      <AnimationErrorBoundary>
+        <AnimationProvider />
+      </AnimationErrorBoundary>
       <div aria-hidden="true" data-bg="current" className="bg-current"></div>
       <div className="page_wrap">
         <div className="page_overlay u-position-fixed u-fixed-overlay">

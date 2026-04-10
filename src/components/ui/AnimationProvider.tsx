@@ -510,12 +510,12 @@ export default function AnimationProvider() {
 
   // Initial mount — one-time inits
   useEffect(() => {
-    initListHover();
-    initCarouselManager();
-    initCustomCursor();
-    initProjectSlider();
-    initHeroImageHover();
-    initHeroScrollFade();
+    try { initListHover(); } catch (e) { console.error('[Anim] initListHover failed:', e); }
+    try { initCarouselManager(); } catch (e) { console.error('[Anim] initCarouselManager failed:', e); }
+    try { initCustomCursor(); } catch (e) { console.error('[Anim] initCustomCursor failed:', e); }
+    try { initProjectSlider(); } catch (e) { console.error('[Anim] initProjectSlider failed:', e); }
+    try { initHeroImageHover(); } catch (e) { console.error('[Anim] initHeroImageHover failed:', e); }
+    try { initHeroScrollFade(); } catch (e) { console.error('[Anim] initHeroScrollFade failed:', e); }
 
     return () => {
       ScrollTrigger.getAll().forEach((st) => st.kill());
