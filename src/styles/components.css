@@ -1899,41 +1899,7 @@
   transform: scale(1.05);
 }
 
-/* ── Project card colour wash on hover ──
-   Alternates between egg-blue (odd) and brand orange (even).
-   Uses mix-blend-mode: color to tint while preserving luminosity. */
-
-.projects_archive_image-wrap::after,
-.project_related-image::after,
-.project_image-marquee-inner::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0;
-  mix-blend-mode: color;
-  transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  background-color: var(--_brand-egg-blue---swatch--brand-eggblue-500);
-}
-
-/* Odd items → egg-blue (default above), even items → brand orange */
-.projects_archive-item:nth-child(even) .projects_archive_image-wrap::after,
-.project_image-marquee-item:nth-child(even) .project_image-marquee-inner::after {
-  background-color: var(--_red---swatch--brand-500);
-}
-
-/* Related projects — parent column div is the repeating sibling */
-:nth-child(even) > .project_related-image::after {
-  background-color: var(--_red---swatch--brand-500);
-}
-
-/* Show wash on hover */
-.projects_archive_image-wrap:hover::after,
-.project_related-image:hover::after,
-.project_image-marquee-inner:hover::after {
-  opacity: 1;
-}
+/* ── Project card colour wash on hover — REMOVED ── */
 
 .footer_main-wrap {
   overflow: hidden;
