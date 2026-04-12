@@ -157,7 +157,10 @@ export async function getContactPage() {
 }
 
 export async function getPartnerCarousel() {
-  return sanityClient.fetch<SanityPartnerCarousel | null>(`
+  const data = await sanityClient.fetch<{
+    heading?: string;
+    partners?: Array<{ name: string; logoUrl: string }>;
+  } | null>(`
     *[_type == "partnerCarousel"][0] {
       heading,
       partners[] {
@@ -166,6 +169,22 @@ export async function getPartnerCarousel() {
       }
     }
   `);
+
+  if (!data?.partners) return data as SanityPartnerCarousel | null;
+
+  // Fetch SVG content for each partner so we can render inline <svg>
+  const partners = await Promise.all(
+    data.partners.map(async (p) => {
+      let logoSvg = '';
+      try {
+        const res = await fetch(p.logoUrl);
+        if (res.ok) logoSvg = await res.text();
+      } catch { /* fallback to empty */ }
+      return { name: p.name, logoUrl: p.logoUrl, logoSvg };
+    })
+  );
+
+  return { ...data, partners } as SanityPartnerCarousel;
 }
 
 export async function getProjectsPage() {
@@ -325,6 +344,7 @@ export interface SanityPartnerCarousel {
   partners?: Array<{
     name: string;
     logoUrl: string;
+    logoSvg: string;
   }>;
 }
 

@@ -1,6 +1,7 @@
 interface Partner {
   name: string
   logoUrl: string
+  logoSvg: string
 }
 
 interface PartnerCarouselProps {
@@ -32,12 +33,10 @@ export default function PartnerCarousel({ heading, partners, theme }: PartnerCar
                   partners.map((partner, i) => (
                     <div key={i} data-marquee-item="" className="partner_carousel-item u-flex-vertical-nowrap u-gap-4 u-alignment-center">
                       <div className="partner_carousel-card u-ratio-1-1 u-flex-vertical-wrap u-alignment-center">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={partner.logoUrl}
-                          alt={partner.name}
+                        <div
                           className="partner_carousel-logo"
-                          style={{ width: '100%', height: 'auto' }}
+                          style={{ width: '100%' }}
+                          dangerouslySetInnerHTML={{ __html: partner.logoSvg }}
                         />
                       </div>
                       <div className="partner_carousel-name u-text-style-small u-text-transform-uppercase">{partner.name}</div>
