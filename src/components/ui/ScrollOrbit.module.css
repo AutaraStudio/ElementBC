@@ -1,13 +1,14 @@
 /* =============================================================================
-   ScrollOrbit — rotary stats animation (NO PIN approach)
+   ScrollOrbit — straight-line stats animation (NO PIN approach)
 
    The <section> itself is tall (N × 100vh via inline style).
    A position: sticky viewport inside it stays in view while the
    section scrolls. The ScrollTrigger scrubs the timeline from
    start: 'top top' to end: 'bottom bottom' — no pin, no pin-spacer.
 
-   This means data-theme on the section naturally covers the full
-   scroll range with zero theme-scroller conflicts.
+   Layout: a vertical line on the left (~20 vw) with full-width
+   horizontal arms. Arms translate upward on scroll so each stat
+   passes through a highlight zone at viewport centre.
    ============================================================================= */
 
 /* ─── Section wrapper — tall, solid background, covers hero ─── */
@@ -66,54 +67,35 @@
   overflow: hidden;
 }
 
-/* ─── Circle wrap ─── */
-.scroll-orbit_circle-wrap {
+/* ─── Top horizontal line — draws in at section top ─── */
+.scroll-orbit_top-line {
   position: absolute;
-  width: 100vw;
-  height: 100vw;
-  left: -80vw;
-  top: calc(50vh - 50vw);
-  transform-origin: 50% 50%;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: var(--_theme---border);
+  transform-origin: left center;
+  transform: scaleX(0);
 }
 
-/* ─── SVG ring ─── */
-.scroll-orbit_ring-svg {
+/* ─── Vertical line ─── */
+.scroll-orbit_vert-line {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
+  left: 20vw;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--_theme---border);
+  transform-origin: center top;
 }
 
-.scroll-orbit_ring {
-  fill: none;
-  stroke: var(--_theme---border);
-  stroke-width: 0.25;
-  stroke-dasharray: 311;
-  stroke-dashoffset: 311;
-  transform-origin: 50% 50%;
-  transform: rotate(-90deg);
-}
-
-/* ─── Centre square ─── */
-.scroll-orbit_center-dot {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  width: 1.375rem;
-  height: 1.375rem;
-  background: var(--_theme---orbit-accent);
-  opacity: 0;
-  z-index: 10;
-}
-
-/* ─── Arms container ─── */
+/* ─── Arms container — translates vertically ─── */
 .scroll-orbit_arms-wrap {
   position: absolute;
+  left: 0;
   top: 50%;
-  left: 50%;
-  width: 0;
+  width: 100%;
   height: 0;
   z-index: 5;
 }
@@ -122,19 +104,16 @@
 .scroll-orbit_arm {
   position: absolute;
   left: 0;
-  top: -13.125rem;
-  width: 220vw;
-  height: 26.25rem;
-  overflow: visible;
-  transform-origin: 0px 13.125rem;
+  width: 100%;
+  height: 0;
 }
 
-/* ─── Arm line ─── */
+/* ─── Arm line (horizontal — full width) ─── */
 .scroll-orbit_arm-line {
   position: absolute;
   left: 0;
-  top: 13.125rem;
-  width: 100%;
+  right: 0;
+  top: 0;
   height: 1px;
   background: var(--_theme---border);
   transform-origin: left center;
@@ -144,8 +123,8 @@
 /* ─── Arm dot (square) ─── */
 .scroll-orbit_arm-dot {
   position: absolute;
-  left: 49.5vw;
-  top: 13.125rem;
+  left: 20vw;
+  top: 0;
   translate: -50% -50%;
   width: 0.5rem;
   height: 0.5rem;
@@ -157,8 +136,8 @@
 /* ─── Arm content ─── */
 .scroll-orbit_arm-content {
   position: absolute;
-  left: 70vw;
-  top: 13.125rem;
+  left: calc(20vw + 6rem);
+  top: 0;
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
@@ -212,11 +191,8 @@
    ============================================================================= */
 @media (max-width: 991px) {
   .scroll-orbit_arm-content {
-    left: 60vw;
+    left: calc(20vw + 3.5rem);
     max-width: 20rem;
-  }
-  .scroll-orbit_arm-dot {
-    left: 45vw;
   }
 }
 
