@@ -200,7 +200,7 @@ export default async function ContactPage() {
       {/* ============================================================
           PARTNER CAROUSEL
       ============================================================ */}
-      <PartnerCarousel heading={partnerCarousel?.heading} />
+      <PartnerCarousel heading={partnerCarousel?.heading} partners={partnerCarousel?.partners} />
     </>
   );
 }

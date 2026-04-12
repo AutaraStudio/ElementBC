@@ -159,7 +159,11 @@ export async function getContactPage() {
 export async function getPartnerCarousel() {
   return sanityClient.fetch<SanityPartnerCarousel | null>(`
     *[_type == "partnerCarousel"][0] {
-      heading
+      heading,
+      partners[] {
+        name,
+        "logoUrl": logo.asset->url
+      }
     }
   `);
 }
@@ -318,6 +322,10 @@ export interface SanityAboutPage {
 
 export interface SanityPartnerCarousel {
   heading?: string;
+  partners?: Array<{
+    name: string;
+    logoUrl: string;
+  }>;
 }
 
 export interface SanityContactPage {

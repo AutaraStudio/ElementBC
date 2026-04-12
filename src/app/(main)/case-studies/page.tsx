@@ -272,7 +272,7 @@ export default async function ProjectsPage() {
       {/* ============================================================
           PARTNER CAROUSEL
       ============================================================ */}
-      <PartnerCarousel heading={partnerCarousel?.heading} />
+      <PartnerCarousel heading={partnerCarousel?.heading} partners={partnerCarousel?.partners} />
 
     </>
   );

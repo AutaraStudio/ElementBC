@@ -223,7 +223,7 @@ export default async function ProjectDetailPage({
           PARTNER CAROUSEL
       ============================================================ */}
       <div data-theme="charcoal" className="u-theme-charcoal">
-        <PartnerCarousel heading={partnerCarousel?.heading} />
+        <PartnerCarousel heading={partnerCarousel?.heading} partners={partnerCarousel?.partners} />
       </div>
 
     </main>

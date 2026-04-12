@@ -133,7 +133,7 @@ export default async function AboutPage() {
       {/* ============================================================
           PARTNER CAROUSEL SECTION
       ============================================================ */}
-      <PartnerCarousel heading={partnerCarousel?.heading} theme="charcoal" />
+      <PartnerCarousel heading={partnerCarousel?.heading} partners={partnerCarousel?.partners} theme="charcoal" />
 
     </>
   );
