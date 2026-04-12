@@ -14,7 +14,20 @@ interface StatsBarGraphProps {
 const EASE_NAME = 'barGrow'
 const EASE_CURVE = 'M0,0 C0.16,1 0.3,1 1,1'
 
-// Default widths when barWidth isn't set in Sanity — gives visual variety
+// Hardcoded short descriptions + bar widths for client review
+const BAR_OVERRIDES: Record<string, { label: string; width: number }> = {
+  '200+':       { label: 'Years Advising Blue Chip Clients',   width: 85 },
+  '£350M':      { label: 'Projects Delivered',                 width: 95 },
+  '50+':        { label: 'Acquisitions Advised',               width: 55 },
+  '1M SQFT':    { label: 'Surveyed Pre-Acquisition',           width: 70 },
+  '6M SQFT':    { label: 'Property Worked On',                 width: 80 },
+  '<1%':        { label: 'Project Overspend',                  width: 35 },
+  '50,000 FT²': { label: 'Dilapidations Settled',              width: 60 },
+  '£40M':       { label: 'Cost Assessments',                   width: 50 },
+  '665+':       { label: 'Residential Units Advised',           width: 65 },
+}
+
+// Fallback widths when no override matches
 const DEFAULT_WIDTHS = [55, 95, 45, 70, 85, 35, 60, 50, 40]
 
 export default function StatsBarGraph({ stats, heading, subheading, theme }: StatsBarGraphProps) {
@@ -132,7 +145,10 @@ export default function StatsBarGraph({ stats, heading, subheading, theme }: Sta
 
         <div ref={listRef} className={styles['stats-bar_list']}>
           {stats.map((stat, i) => {
-            const width = stat.barWidth ?? DEFAULT_WIDTHS[i % DEFAULT_WIDTHS.length]
+            const key = stat.statLabel?.trim() ?? ''
+            const override = BAR_OVERRIDES[key]
+            const width = override?.width ?? stat.barWidth ?? DEFAULT_WIDTHS[i % DEFAULT_WIDTHS.length]
+            const label = override?.label ?? stat.statValue ?? ''
             return (
               <div key={i} data-bar-row="" className={styles['stats-bar_row']}>
                 <div
@@ -145,7 +161,7 @@ export default function StatsBarGraph({ stats, heading, subheading, theme }: Sta
                       {stat.statLabel}
                     </p>
                     <p data-bar-label="" className={`${styles['stats-bar_label']} u-text-style-main`}>
-                      {stat.statValue}
+                      {label}
                     </p>
                   </div>
                 </div>
