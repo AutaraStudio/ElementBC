@@ -1,9 +1,11 @@
 import { defineType, defineField } from "sanity";
+import { StarIcon } from "@sanity/icons";
 
 export const partnerCarousel = defineType({
   name: "partnerCarousel",
   title: "Partner Carousel",
   type: "document",
+  icon: StarIcon,
   fields: [
     defineField({
       name: "heading",

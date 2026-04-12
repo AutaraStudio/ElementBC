@@ -1,31 +1,63 @@
 import { defineType, defineField } from "sanity";
+import { HomeIcon } from "@sanity/icons";
 
 export const homePage = defineType({
   name: "homePage",
   title: "Home Page",
   type: "document",
+  icon: HomeIcon,
+  groups: [
+    { name: "hero", title: "Hero", default: true },
+    { name: "about", title: "About" },
+    { name: "services", title: "Services" },
+    { name: "stats", title: "Stats" },
+    { name: "projects", title: "Featured Projects" },
+  ],
   fields: [
-    defineField({ name: "heroHeading", title: "Hero Heading", type: "string" }),
-    defineField({ name: "heroViewProjectText", title: "Hero View Project Text", type: "string" }),
+    /* ── Hero ── */
+    defineField({
+      name: "heroHeading",
+      title: "Heading",
+      type: "string",
+      group: "hero",
+      description: "Main hero headline",
+    }),
+    defineField({
+      name: "heroViewProjectText",
+      title: "View Project Text",
+      type: "string",
+      group: "hero",
+      description: 'CTA label, e.g. "View Project"',
+    }),
     defineField({
       name: "heroProject",
-      title: "Hero Featured Project",
+      title: "Featured Project",
       description: "The project displayed in the homepage hero. Its Featured Image 1 becomes the primary image and Featured Image 2 becomes the hover image.",
       type: "reference",
       to: [{ type: "project" }],
+      group: "hero",
     }),
-    defineField({ name: "aboutHeading", title: "About Heading", type: "string" }),
+
+    /* ── About ── */
+    defineField({
+      name: "aboutHeading",
+      title: "Heading",
+      type: "string",
+      group: "about",
+    }),
     defineField({
       name: "aboutParagraph",
-      title: "About Paragraph",
+      title: "Paragraph",
       type: "text",
+      group: "about",
       description: "The paragraph that appears below the about heading.",
     }),
     defineField({
       name: "aboutValueProps",
-      title: "About Value Props",
+      title: "Value Propositions",
       description: "Three short value proposition blocks shown below the about paragraph.",
       type: "array",
+      group: "about",
       of: [{
         type: "object",
         fields: [
@@ -37,33 +69,72 @@ export const homePage = defineType({
     }),
     defineField({
       name: "aboutImage",
-      title: "About Image",
+      title: "Image",
       type: "image",
+      group: "about",
       fields: [defineField({ name: "alt", title: "Alt Text", type: "string" })],
     }),
-    defineField({ name: "servicesHeading", title: "Services Heading", type: "string", description: 'e.g. "What We Do"' }),
-    defineField({ name: "servicesSubtitle", title: "Services Subtitle", type: "string", description: 'e.g. "Core Services"' }),
-    defineField({ name: "servicesTagline", title: "Services Tagline", type: "text", description: 'The quote/tagline shown alongside the services list.' }),
-    defineField({ name: "serviceGroups", title: "Service Groups", type: "array", of: [{ type: "serviceGroup" }] }),
-    defineField({ name: "statsHeading", title: "Stats Heading", type: "string" }),
+
+    /* ── Services ── */
     defineField({
-      name: 'statsSubheading',
-      title: 'Stats Subheading Paragraph',
-      type: 'text',
-      description: 'The paragraph that appears next to the stats heading. e.g. "From programme to budget, we manage every detail..."',
+      name: "servicesHeading",
+      title: "Heading",
+      type: "string",
+      group: "services",
+      description: 'e.g. "What We Do"',
+    }),
+    defineField({
+      name: "servicesSubtitle",
+      title: "Subtitle",
+      type: "string",
+      group: "services",
+      description: 'e.g. "Core Services"',
+    }),
+    defineField({
+      name: "servicesTagline",
+      title: "Tagline",
+      type: "text",
+      group: "services",
+      description: "The quote/tagline shown alongside the services list.",
+    }),
+    defineField({
+      name: "serviceGroups",
+      title: "Service Groups",
+      type: "array",
+      group: "services",
+      of: [{ type: "serviceGroup" }],
+    }),
+
+    /* ── Stats ── */
+    defineField({
+      name: "statsHeading",
+      title: "Heading",
+      type: "string",
+      group: "stats",
+    }),
+    defineField({
+      name: "statsSubheading",
+      title: "Subheading",
+      type: "text",
+      group: "stats",
+      description: 'The paragraph next to the stats heading.',
     }),
     defineField({
       name: "statsItems",
       title: "Stats Items",
       type: "array",
+      group: "stats",
       of: [{ type: "orbitStatItem" }],
     }),
+
+    /* ── Featured Projects ── */
     defineField({
       name: "featuredProjects",
       title: "Featured Projects",
       type: "array",
+      group: "projects",
       of: [{ type: "reference", to: [{ type: "project" }] }],
     }),
   ],
-  preview: { prepare: () => ({ title: 'Home Page' }) },
+  preview: { prepare: () => ({ title: "Home Page" }) },
 });

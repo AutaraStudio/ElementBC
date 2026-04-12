@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import "@/styles/globals.css";
+import "@/styles/lumos-utilities.css";
+import "@/styles/components.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AnimationProvider from "@/components/ui/AnimationProvider";

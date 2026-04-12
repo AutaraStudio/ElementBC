@@ -1,9 +1,11 @@
 import { defineType, defineField } from "sanity";
+import { LinkIcon } from "@sanity/icons";
 
 export const footer = defineType({
   name: "footer",
   title: "Footer",
   type: "document",
+  icon: LinkIcon,
   fields: [
     defineField({
       name: "footerNavLinks",

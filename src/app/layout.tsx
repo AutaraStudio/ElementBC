@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "@/styles/globals.css";
-import "@/styles/lumos-utilities.css";
-import "@/styles/components.css";
 
 const adelphi = localFont({
   src: "../../public/fonts/AdelphiPEVFWeb-All.woff2",

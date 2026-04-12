@@ -1,9 +1,11 @@
 import { defineType, defineField } from "sanity";
+import { CaseIcon } from "@sanity/icons";
 
 export const projectsPage = defineType({
   name: "projectsPage",
   title: "Projects Page",
   type: "document",
+  icon: CaseIcon,
   fields: [
     defineField({ name: "pageHeading", title: "Page Heading", type: "string" }),
     defineField({ name: "heroEyebrow", title: "Hero Eyebrow", type: "string" }),
