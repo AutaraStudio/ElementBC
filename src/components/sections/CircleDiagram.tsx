@@ -170,7 +170,7 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
                 className={`${styles['diagram_service']} ${styles[`diagram_service--${i + 1}`]}`}
               >
                 <div className={styles['diagram_service-dot']}></div>
-                <h3 className={`${styles['diagram_service-title']} u-text-style-h5`}>
+                <h3 className={`${styles['diagram_service-title']} u-text-style-h5 u-text-transform-uppercase`}>
                   {item.title}
                 </h3>
                 <p className={`${styles['diagram_service-text']} u-text-style-main`}>
