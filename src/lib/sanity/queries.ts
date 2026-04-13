@@ -38,6 +38,7 @@ export async function getProjectBySlug(slug: string) {
       ourRole,
       duration,
       completedDate,
+      projectStats[] { label, value },
       featuredImage1 { ..., alt },
       galleryImages[] {
         _key,
@@ -256,6 +257,7 @@ export interface SanityProjectFull extends SanityProject {
   ourRole?: string;
   duration?: string;
   completedDate?: string;
+  projectStats?: Array<{ label: string; value: string }>;
   galleryImages?: Array<{
     _key: string;
     asset?: { _id: string; url: string; metadata?: { dimensions?: { width: number; height: number } } };

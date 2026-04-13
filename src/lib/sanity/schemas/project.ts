@@ -43,6 +43,21 @@ export const project = defineType({
     defineField({ name: "ourRole", title: "Our Role", type: "text", rows: 3, group: "details" }),
     defineField({ name: "duration", title: "Duration", type: "string", group: "details" }),
     defineField({ name: "completedDate", title: "Completed Date", type: "string", group: "details" }),
+    defineField({
+      name: "projectStats",
+      title: "Project Stats",
+      description: "Custom stats displayed on the case study page. If empty, falls back to the individual fields above (Client, Location, etc.).",
+      type: "array",
+      group: "details",
+      of: [{
+        type: "object",
+        fields: [
+          defineField({ name: "label", title: "Label", type: "string", validation: (r) => r.required() }),
+          defineField({ name: "value", title: "Value", type: "string", validation: (r) => r.required() }),
+        ],
+        preview: { select: { title: "label", subtitle: "value" } },
+      }],
+    }),
 
     /* ── Images ── */
     defineField({
