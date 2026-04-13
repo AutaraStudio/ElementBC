@@ -2074,13 +2074,13 @@
 
 .project_stats-label {
   color: color-mix(in srgb, var(--_theme---text) 45%, transparent);
-  flex-shrink: 0;
-  width: 8rem;
+  flex: 1;
   font-weight: 600;
 }
 
 .project_stats-value {
   color: var(--_theme---text);
+  flex-shrink: 0;
 }
 
 @media (max-width: 767px) {
