@@ -2059,7 +2059,6 @@
   border-bottom: var(--border-width--main) solid var(--_theme---border);
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
   gap: var(--_spacing---space--3-16px);
 }
 
@@ -2076,12 +2075,12 @@
 .project_stats-label {
   color: color-mix(in srgb, var(--_theme---text) 45%, transparent);
   flex-shrink: 0;
+  width: 8rem;
   font-weight: 600;
 }
 
 .project_stats-value {
   color: var(--_theme---text);
-  text-align: right;
 }
 
 @media (max-width: 767px) {
