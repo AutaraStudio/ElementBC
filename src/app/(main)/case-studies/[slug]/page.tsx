@@ -48,19 +48,7 @@ export default async function ProjectDetailPage({
     ...allProjects.filter((p) => p.slug !== slug && p.category?.slug !== project.category?.slug),
   ].slice(0, 4);
 
-  // Use custom projectStats from Sanity if available, otherwise fall back to individual fields
-  const stats = project.projectStats && project.projectStats.length > 0
-    ? project.projectStats
-    : ([
-        { label: 'Client', value: project.client },
-        { label: 'Type', value: project.category?.name },
-        { label: 'Location', value: project.location },
-        { label: 'Size', value: project.size },
-        { label: 'Duration', value: project.duration },
-        { label: 'Completed', value: project.completedDate },
-        { label: 'Contractor', value: project.contractor },
-        { label: 'MEP', value: project.mep },
-      ] as const).filter(row => row.value);
+  const stats = project.projectStats ?? [];
 
   return (
     <main>

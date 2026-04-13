@@ -30,14 +30,7 @@ export async function getProjectBySlug(slug: string) {
       projectName,
       "slug": slug.current,
       "category": projectCategory-> { name, "slug": slug.current },
-      location,
-      size,
-      client,
-      contractor,
-      mep,
       ourRole,
-      duration,
-      completedDate,
       projectStats[] { label, value },
       featuredImage1 { ..., alt },
       galleryImages[] {
@@ -249,14 +242,7 @@ export interface SanityProject {
 }
 
 export interface SanityProjectFull extends SanityProject {
-  location?: string;
-  size?: string;
-  client?: string;
-  contractor?: string;
-  mep?: string;
   ourRole?: string;
-  duration?: string;
-  completedDate?: string;
   projectStats?: Array<{ label: string; value: string }>;
   galleryImages?: Array<{
     _key: string;
