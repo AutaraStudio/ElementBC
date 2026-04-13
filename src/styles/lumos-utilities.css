@@ -224,6 +224,10 @@
   height: var(--_spacing---section-space--small-80px);
 }
 
+.u-section-spacer.is-divider {
+  height: var(--_spacing---section-space--divider);
+}
+
 .u-section-spacer.is-main {
   height: var(--_spacing---section-space--main-112px);
 }
