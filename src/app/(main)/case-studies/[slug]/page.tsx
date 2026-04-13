@@ -100,15 +100,8 @@ export default async function ProjectDetailPage({
           </div>
         )}
 
-      </section>
-
-      <SectionDivider theme="buff" />
-
-      {/* ============================================================
-          IMAGE MARQUEE
-      ============================================================ */}
-      {project.galleryImages && project.galleryImages.length > 0 && (
-        <section data-theme="buff" className="u-theme-buff">
+        {/* ── Image marquee — directly after stats ── */}
+        {project.galleryImages && project.galleryImages.length > 0 && (
           <div data-marquee-duplicate="2" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-marquee-reveal="" className="project_image-marquee">
             <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
             <div data-marquee-mask="" className="project_image-marquee-mask u-width-full u-overflow-hidden">
@@ -141,9 +134,9 @@ export default async function ProjectDetailPage({
               </div>
             </div>
           </div>
-          <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
-        </section>
-      )}
+        )}
+
+      </section>
 
       <SectionDivider theme="buff" />
 

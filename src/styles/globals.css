@@ -26,7 +26,7 @@
   --_responsive---small: 0;
   --_responsive---xsmall: 0;
   --_spacing---space--6-40px: clamp(2.5 * 1rem, ((2.5 - ((3.5 - 2.5) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((3.5 - 2.5) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 3.5 * 1rem);
-  --_spacing---section-space--main-112px: clamp(4 * 1rem, ((4 - ((7 - 4) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((7 - 4) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 7 * 1rem);
+  --_spacing---section-space--main-112px: clamp(3 * 1rem, ((3 - ((5 - 3) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((5 - 3) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 5 * 1rem);
   --_spacing---space--5-32px: clamp(2 * 1rem, ((2 - ((2.5 - 2) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((2.5 - 2) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 2.5 * 1rem);
   --max-width--small: 50rem;
   --site--margin: clamp(1.5 * 1rem, ((1.5 - ((3 - 1.5) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((3 - 1.5) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 3 * 1rem);
@@ -38,9 +38,9 @@
   --_text-style---margin-bottom: var(--_spacing---space--4-24px);
   --_spacing---space--2-12px: clamp(.5 * 1rem, ((.5 - ((1 - .5) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((1 - .5) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 1 * 1rem);
   --_spacing---section-space--none: 0px;
-  --_spacing---section-space--small-80px: clamp(3 * 1rem, ((3 - ((5 - 3) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((5 - 3) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 5 * 1rem);
-  --_spacing---section-space--large-160px: clamp(5.5 * 1rem, ((5.5 - ((10 - 5.5) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((10 - 5.5) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 10 * 1rem);
-  --_spacing---section-space--page-top-224px: clamp(10 * 1rem, ((10 - ((14 - 10) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((14 - 10) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 14 * 1rem);
+  --_spacing---section-space--small-80px: clamp(2.5 * 1rem, ((2.5 - ((4 - 2.5) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((4 - 2.5) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 4 * 1rem);
+  --_spacing---section-space--large-160px: clamp(4 * 1rem, ((4 - ((7.5 - 4) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((7.5 - 4) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 7.5 * 1rem);
+  --_spacing---section-space--page-top-224px: clamp(8 * 1rem, ((8 - ((11 - 8) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((11 - 8) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 11 * 1rem);
   --max-width--main: 90rem;
   --max-width--full: 100%;
   --_text-style---margin-top: var(--_spacing---space--4-24px);
