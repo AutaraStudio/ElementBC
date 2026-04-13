@@ -2020,6 +2020,53 @@
 .project_hero-heading {
 }
 
+/* ── Project stats row — compact key/value pairs under hero ── */
+.project_stats-contain {
+  padding-top: var(--_spacing---space--8-64px);
+  padding-bottom: var(--_spacing---space--8-64px);
+}
+
+.project_stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border-top: var(--border-width--main) solid var(--_theme---border);
+}
+
+.project_stats-item {
+  flex: 0 0 auto;
+  padding: 1.25rem 2rem 1.25rem 0;
+  border-bottom: var(--border-width--main) solid var(--_theme---border);
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  width: 50%;
+}
+
+.project_stats-label {
+  color: color-mix(in srgb, var(--_theme---text) 45%, transparent);
+  flex-shrink: 0;
+  min-width: 7rem;
+  font-weight: 600;
+}
+
+.project_stats-value {
+  color: var(--_theme---text);
+}
+
+@media (max-width: 767px) {
+  .project_stats-item {
+    width: 100%;
+    padding-right: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .project_stats-item {
+    width: 50%;
+  }
+}
+
 .project_hero_featured-wrap {
   width: 60rem;
 }

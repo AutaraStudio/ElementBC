@@ -48,13 +48,24 @@ export default async function ProjectDetailPage({
     ...allProjects.filter((p) => p.slug !== slug && p.category?.slug !== project.category?.slug),
   ].slice(0, 4);
 
+  const stats = ([
+    { label: 'Client', value: project.client },
+    { label: 'Type', value: project.category?.name },
+    { label: 'Location', value: project.location },
+    { label: 'Size', value: project.size },
+    { label: 'Duration', value: project.duration },
+    { label: 'Completed', value: project.completedDate },
+    { label: 'Contractor', value: project.contractor },
+    { label: 'MEP', value: project.mep },
+  ] as const).filter(row => row.value);
+
   return (
     <main>
 
       {/* ============================================================
-          HERO SECTION
+          HERO + PROJECT INFO
       ============================================================ */}
-      <section data-hero-wrap="" data-theme="buff" className="project_hero-wrap u-min-height-screen u-theme-buff">
+      <section data-hero-wrap="" data-theme="buff" className="project_hero-wrap u-theme-buff">
         <div data-wf--spacer--variant="page-top" className="u-section-spacer is-page-top u-ignore-trim"></div>
         <div className="project_hero-contain u-container">
           <div className="project_hero-layout u-flex-vertical-nowrap u-alignment-center u-gap-7">
@@ -75,8 +86,29 @@ export default async function ProjectDetailPage({
           </div>
         </div>
 
-        {/* Image marquee */}
-        {project.galleryImages && project.galleryImages.length > 0 && (
+        {/* ── Project stats — compact row directly under hero ── */}
+        {stats.length > 0 && (
+          <div className="project_stats-contain u-container">
+            <div data-stagger="" className="project_stats-row">
+              {stats.map((row) => (
+                <div key={row.label} data-stagger-item="" className="project_stats-item">
+                  <div className="project_stats-label u-text-style-small u-text-transform-uppercase">{row.label}</div>
+                  <div className="project_stats-value u-text-style-small">{row.value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+      </section>
+
+      <SectionDivider theme="buff" />
+
+      {/* ============================================================
+          IMAGE MARQUEE
+      ============================================================ */}
+      {project.galleryImages && project.galleryImages.length > 0 && (
+        <section data-theme="buff" className="u-theme-buff">
           <div data-marquee-duplicate="2" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-marquee-reveal="" className="project_image-marquee">
             <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
             <div data-marquee-mask="" className="project_image-marquee-mask u-width-full u-overflow-hidden">
@@ -109,73 +141,10 @@ export default async function ProjectDetailPage({
               </div>
             </div>
           </div>
-        )}
+          <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
+        </section>
+      )}
 
-      </section>
-
-      <SectionDivider theme="buff" />
-
-      {/* ============================================================
-          DETAILS SECTION
-      ============================================================ */}
-      <section data-theme="buff" className="project_details-wrap u-theme-buff">
-        <div className="project_details-contain u-container">
-
-          {/* Eyebrow + Our Role heading */}
-          <div className="project_details-header u-grid-custom u-gap-row-6">
-            <div className="project_details-col u-column-start-1 u-column-span-3">
-              <div data-stagger="" className="u-flex-horizontal-nowrap u-gap-2">
-                <EyebrowSvg className="global_eyebrow-svg" />
-                <div data-stagger-item="" className="u-text-style-main u-text-transform-uppercase u-weight-bold">Details</div>
-              </div>
-            </div>
-            {project.ourRole && (
-              <div className="project_details-col u-column-start-5 u-column-span-8">
-                <h2 data-split="word" className="u-text-style-h3">{project.ourRole}</h2>
-              </div>
-            )}
-          </div>
-
-          {/* Stats table with hover tiles */}
-          <div className="u-grid-custom">
-            <div className="u-column-start-5 u-column-span-8" data-hover-axis="y" data-hover="">
-
-              {/* Data rows */}
-              <div data-stagger="" className="project_details-list">
-                {([
-                  { label: 'Client', value: project.client },
-                  { label: 'Type', value: project.category?.name },
-                  { label: 'Location', value: project.location },
-                  { label: 'Size', value: project.size },
-                  { label: 'Duration', value: project.duration },
-                  { label: 'Completed', value: project.completedDate },
-                  { label: 'Contractor', value: project.contractor },
-                  { label: 'MEP', value: project.mep },
-                ] as const).filter(row => row.value).map((row) => (
-                  <div key={row.label} data-stagger-item="" data-hover-item="" className="project_details-item u-flex-horizontal-nowrap u-justify-content-between u-align-items-center u-overflow-hidden u-position-relative">
-                    <div data-hover-tile="" className="contact_info-tile u-cover-absolute"></div>
-                    <div className="contact_info-border u-position-absolute u-width-full"></div>
-
-                    <div className="u-position-relative">
-                      <div className="u-text-style-small u-weight-bold u-text-transform-uppercase">{row.label}</div>
-                    </div>
-                    <div className="u-position-relative">
-                      <div className="u-text-style-small">{row.value}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-        <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
-      </section>
-
-      {/* ============================================================
-          DIVIDER
-      ============================================================ */}
       <SectionDivider theme="buff" />
 
       {/* ============================================================
