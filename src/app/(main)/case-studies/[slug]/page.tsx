@@ -68,27 +68,32 @@ export default async function ProjectDetailPage({
       <section data-hero-wrap="" data-theme="buff" className="project_hero-wrap u-theme-buff">
         <div data-wf--spacer--variant="page-top" className="u-section-spacer is-page-top u-ignore-trim"></div>
         <div className="project_hero-contain u-container">
-          <div className="project_hero-layout u-flex-vertical-nowrap u-alignment-center u-gap-7">
-
-            <div data-stagger="" className="project_hero-eyebrow u-flex-horizontal-nowrap u-gap-2">
-              <EyebrowSvg className="global_eyebrow-svg" />
-              <h1 data-anim-hero="" data-split="word" className="project_hero_eyebrow-heading u-text-style-large u-text-transform-uppercase u-weight-bold">
-                {project.projectName}
-              </h1>
-            </div>
-
-            <div className="project_hero_heading-wrap">
-              <div data-split="word" data-anim-hero="" className="project_hero-heading u-max-width-20ch u-text-style-h2 u-text-transform-uppercase">
-                {[project.category?.name, project.location].filter(Boolean).join(' / ')}
+          {/* ── Hero header — heading left, description right ── */}
+          <div className="project_hero-header">
+            <div className="project_hero-header-left">
+              <div data-stagger="" className="project_hero-eyebrow u-flex-horizontal-nowrap u-gap-2">
+                <EyebrowSvg className="global_eyebrow-svg" />
+                <h1 data-anim-hero="" data-split="word" className="project_hero_eyebrow-heading u-text-style-large u-text-transform-uppercase u-weight-bold">
+                  {project.projectName}
+                </h1>
+              </div>
+              <div className="project_hero_heading-wrap">
+                <div data-split="word" data-anim-hero="" className="project_hero-heading u-max-width-20ch u-text-style-h2 u-text-transform-uppercase">
+                  {[project.category?.name, project.location].filter(Boolean).join(' / ')}
+                </div>
               </div>
             </div>
-
+            {project.ourRole && (
+              <div className="project_hero-header-right">
+                <p data-split="line" className="u-text-style-main u-text-decoration-justify-last">{project.ourRole}</p>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* ── Project stats — compact row directly under hero ── */}
-        {stats.length > 0 && (
-          <div className="project_stats-contain u-container">
+        {/* ── Project stats — full width ── */}
+        <div className="project_stats-contain u-container">
+          {stats.length > 0 && (
             <div data-stagger="" className="project_stats-row">
               {stats.map((row) => (
                 <div key={row.label} data-stagger-item="" className="project_stats-item">
@@ -97,8 +102,8 @@ export default async function ProjectDetailPage({
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* ── Image marquee — directly after stats ── */}
         {project.galleryImages && project.galleryImages.length > 0 && (

@@ -16,7 +16,7 @@
   --_text-style---letter-spacing: var(--_typography---letter-spacing--normal);
   --_text-style---text-wrap: pretty;
   --site--gutter: clamp(1.25 * 1rem, ((1.25 - ((1.75 - 1.25) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((1.75 - 1.25) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 1.75 * 1rem);
-  --_spacing---space--8-64px: clamp(4 * 1rem, ((4 - ((7 - 4) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((7 - 4) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 7 * 1rem);
+  --_spacing---space--8-64px: clamp(3 * 1rem, ((3 - ((5 - 3) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((5 - 3) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 5 * 1rem);
   --radius--main: 1rem;
   --_theme---background-2: var(--swatch--light-100);
   --site--column-count: 12;
@@ -47,7 +47,7 @@
   --_text-style---margin-top: var(--_spacing---space--4-24px);
   --_text-style---trim-top: var(--_typography---font--primary-trim-top);
   --_text-style---trim-bottom: var(--_typography---font--primary-trim-bottom);
-  --_spacing---space--7-48px: clamp(3 * 1rem, ((3 - ((5 - 3) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((5 - 3) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 5 * 1rem);
+  --_spacing---space--7-48px: clamp(2.5 * 1rem, ((2.5 - ((4 - 2.5) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((4 - 2.5) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 4 * 1rem);
   --_typography---line-height--small: 1;
   --_typography---line-height--medium: 1.1;
   --_typography---line-height--large: 1.2;
@@ -153,11 +153,11 @@
   --_typography---font-size--text-medium: clamp(1.15 * 1rem, ((1.15 - ((1.22 - 1.15) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((1.22 - 1.15) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 1.22 * 1rem);
   --_typography---font-size--text-main: clamp(1 * 1rem, ((1 - ((1.125 - 1) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((1.125 - 1) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 1.125 * 1rem);
   --_typography---font-size--h6: clamp(1 * 1rem, ((1 - ((1.125 - 1) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((1.125 - 1) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 1.125 * 1rem);
-  --_typography---font-size--h5: clamp(1.125 * 1rem, ((1.125 - ((1.5 - 1.125) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((1.5 - 1.125) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 1.5 * 1rem);
-  --_typography---font-size--h4: clamp(1.375 * 1rem, ((1.375 - ((2 - 1.375) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((2 - 1.375) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 2 * 1rem);
-  --_typography---font-size--h3: clamp(1.75 * 1rem, ((1.75 - ((4 - 1.75) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((4 - 1.75) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 4 * 1rem);
-  --_typography---font-size--h2: clamp(2 * 1rem, ((2 - ((5 - 2) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((5 - 2) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 5 * 1rem);
-  --_typography---font-size--h1: clamp(2.5 * 1rem, ((2.5 - ((6 - 2.5) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((6 - 2.5) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 6 * 1rem);
+  --_typography---font-size--h5: clamp(1 * 1rem, ((1 - ((1.2 - 1) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((1.2 - 1) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 1.2 * 1rem);
+  --_typography---font-size--h4: clamp(1.125 * 1rem, ((1.125 - ((1.5 - 1.125) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((1.5 - 1.125) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 1.5 * 1rem);
+  --_typography---font-size--h3: clamp(1.25 * 1rem, ((1.25 - ((2 - 1.25) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((2 - 1.25) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 2 * 1rem);
+  --_typography---font-size--h2: clamp(1.75 * 1rem, ((1.75 - ((3.5 - 1.75) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((3.5 - 1.75) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 3.5 * 1rem);
+  --_typography---font-size--h1: clamp(2 * 1rem, ((2 - ((4.5 - 2) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((4.5 - 2) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 4.5 * 1rem);
   --_typography---font-size--display: clamp(3.5 * 1rem, ((3.5 - ((13 - 3.5) / (var(--site--viewport-max)  - var(--site--viewport-min)) * var(--site--viewport-min))) * 1rem + ((13 - 3.5) / (var(--site--viewport-max)  - var(--site--viewport-min))) * 100vw), 13 * 1rem);
   --_typography---text-transform--none: var(--text-transform, none);
   --_typography---text-transform--uppercase: uppercase;

@@ -33,7 +33,7 @@ function makeNoise(d = 0.2): string {
 }
 
 /* Vertical spacing between arms (rem) */
-const ARM_SPACING_REM = 20;
+const ARM_SPACING_REM = 18;
 
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
@@ -53,7 +53,7 @@ export default function ScrollOrbit({
   const contentCount = stats.length;
 
   /* Scroll budget as a multiplier — section height = budget × 100vh */
-  const budgetMultiplier = Math.max(contentCount, 6) * 0.85;
+  const budgetMultiplier = Math.max(contentCount, 6) * 0.7;
 
   useEffect(() => {
     const section = sectionRef.current;

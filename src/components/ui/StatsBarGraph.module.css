@@ -18,8 +18,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: var(--_spacing---space--4-24px);
+  margin-bottom: var(--_spacing---space--5-32px);
 }
 
 .stats-bar_heading {
@@ -44,7 +44,7 @@
 
 .stats-bar_row {
   position: relative;
-  height: 5.5rem;
+  height: 4rem;
   overflow: hidden;
 }
 
@@ -64,7 +64,7 @@
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  padding: 0 1.75rem;
+  padding: 0 var(--_spacing---space--3-16px);
   white-space: nowrap;
 }
 

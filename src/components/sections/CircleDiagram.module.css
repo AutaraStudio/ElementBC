@@ -8,7 +8,7 @@
   position: relative;
   z-index: 2;
   overflow-x: clip;
-  height: 250vh;
+  height: 220vh;
 }
 
 .diagram_contain {
@@ -30,7 +30,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 2rem;
+  gap: var(--_spacing---space--4-24px);
 }
 
 .diagram_heading {
@@ -161,7 +161,7 @@
 }
 
 .diagram_service {
-  gap: 0.5rem;
+  gap: var(--_spacing---space--1-8px);
   flex-flow: column;
   max-width: 16rem;
   transition: opacity 0.4s ease, border-color 0.4s ease;
@@ -169,7 +169,7 @@
   position: absolute;
   opacity: 0.2;
   border-left: var(--border-width--main) solid var(--_theme---border);
-  padding-left: 1rem;
+  padding-left: var(--_spacing---space--3-16px);
 }
 
 .diagram_service--active {
@@ -224,11 +224,11 @@
   }
 
   .diagram_service-list {
-    gap: 1.5rem;
+    gap: var(--_spacing---space--3-16px);
     border-left: var(--border-width--main) solid var(--_theme---border);
     flex-flow: column;
-    padding-bottom: 1.5rem;
-    padding-left: 1.5rem;
+    padding-bottom: var(--_spacing---space--3-16px);
+    padding-left: var(--_spacing---space--3-16px);
     display: flex;
     position: relative;
   }

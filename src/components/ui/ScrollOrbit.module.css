@@ -138,10 +138,10 @@
   position: absolute;
   left: calc(20vw + 6rem);
   top: 0;
-  padding-top: 1rem;
+  padding-top: var(--_spacing---space--2-12px);
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: var(--_spacing---space--1-8px);
   max-width: 26rem;
   opacity: 0;
 }
@@ -166,9 +166,9 @@
 .scroll-orbit_mobile-item {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  gap: var(--_spacing---space--1-8px);
+  padding-top: var(--_spacing---space--3-16px);
+  padding-bottom: var(--_spacing---space--3-16px);
   border-top: 1px solid var(--_theme---border);
 }
 
