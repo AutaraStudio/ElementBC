@@ -116,7 +116,7 @@ export default async function AboutPage() {
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
 
-      <SectionDivider theme="buff" />
+      <SectionDivider theme="charcoal" />
 
       {/* ============================================================
           OUR APPROACH — CIRCLE DIAGRAM
@@ -125,10 +125,10 @@ export default async function AboutPage() {
         heading={aboutPage?.approachHeading ?? 'Our Approach.'}
         description={aboutPage?.approachDescription ?? 'From acquisition to disposal, we manage every detail — fully integrated across the entire property lifecycle.'}
         items={aboutPage?.approachItems ?? []}
-        theme="buff"
+        theme="charcoal"
       />
 
-      <SectionDivider theme="buff" />
+      <SectionDivider theme="charcoal" />
 
       {/* ============================================================
           PARTNER CAROUSEL SECTION
