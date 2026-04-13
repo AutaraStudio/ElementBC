@@ -70,7 +70,7 @@ export default async function ProjectDetailPage({
               </div>
               <div className="project_hero_heading-wrap">
                 <div data-split="word" data-anim-hero="" className="project_hero-heading u-max-width-20ch u-text-style-h2 u-text-transform-uppercase">
-                  {[project.category?.name, project.location].filter(Boolean).join(' / ')}
+                  {[project.category?.name, stats.find(s => s.label === 'Location')?.value].filter(Boolean).join(' / ')}
                 </div>
               </div>
             </div>
