@@ -2023,7 +2023,7 @@
 /* ── Project stats row — compact key/value pairs under hero ── */
 .project_stats-contain {
   padding-top: var(--_spacing---space--8-64px);
-  padding-bottom: var(--_spacing---space--5-32px);
+  padding-bottom: var(--_spacing---space--7-48px);
 }
 
 .project_stats-row {
