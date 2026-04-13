@@ -107,7 +107,7 @@ export default async function ProjectDetailPage({
 
         {/* ── Image marquee — directly after stats ── */}
         {project.galleryImages && project.galleryImages.length > 0 && (
-          <div data-marquee-duplicate="2" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-marquee-reveal="" className="project_image-marquee">
+          <div data-marquee-duplicate={Math.max(3, Math.ceil(8 / project.galleryImages.length))} data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-marquee-reveal="" className="project_image-marquee">
             <div data-marquee-mask="" className="project_image-marquee-mask u-width-full u-overflow-hidden">
               <div data-marquee-track="" className="project_image-marquee-track">
                 <div data-marquee-collection="" className="project_image-marquee-collection">
