@@ -43,9 +43,11 @@ export function usePreloader(pathname: string) {
 
       if (!paths.length) return;
 
+      const roguePaths = gsap.utils.toArray('[data-preloader-rogue]') as Element[];
+      const normalPaths = paths.filter((p) => !roguePaths.includes(p));
+
       const blur = 'blur(4px)';
       const clear = 'blur(0px)';
-      // brand orange removed with glitch
 
       gsap.set(paths, { opacity: 0, filter: blur });
       gsap.set(words, { opacity: 0, filter: blur });
@@ -59,21 +61,29 @@ export function usePreloader(pathname: string) {
       }
 
       gsap
-        .timeline({ delay: 0.8 })
+        .timeline({ delay: 0.5 })
         .set(svgEl, { autoAlpha: 1 })
-        .to(paths, { opacity: 1, filter: clear, duration: 0.8, stagger: 0.025, ease: 'cin' })
-        .addLabel('textIn', '+=0.4')
+        // All paths fade in together
+        .to(paths, { opacity: 1, filter: clear, duration: 0.6, stagger: 0.018, ease: 'cin' })
+        // Shimmer/flicker on rogue paths — multiple stutters
+        .to(roguePaths, { opacity: 0.3, duration: 0.1, ease: 'power2.in' })
+        .to(roguePaths, { opacity: 0.8, duration: 0.08, ease: 'power1.out' })
+        .to(roguePaths, { opacity: 0.15, duration: 0.07, ease: 'power2.in' })
+        .to(roguePaths, { opacity: 0.9, duration: 0.1, ease: 'power1.out' })
+        .to(roguePaths, { opacity: 0.4, duration: 0.06, ease: 'power2.in' })
+        .to(roguePaths, { opacity: 1, duration: 0.2, ease: 'power1.out' })
+        .addLabel('textIn', '+=0.15')
         .set(textEl, { autoAlpha: 1 }, 'textIn')
-        .to(words, { opacity: 1, filter: clear, duration: 0.85, stagger: 0.08, ease: 'cin' }, 'textIn')
-        .addLabel('hold', '+=0.7')
-        .to(words, { opacity: 0, filter: blur, duration: 0.55, stagger: { each: 0.03, from: 'end' }, ease: 'cinOut' }, 'hold')
-        .to(paths, { opacity: 0, filter: blur, duration: 0.55, stagger: { each: 0.015, from: 'end' }, ease: 'cinOut' }, 'hold+=0.15')
-        .set(endSvg, { autoAlpha: 1 }, '+=0.35')
-        .to(endIcon, { opacity: 1, filter: clear, duration: 0.75, ease: 'cin' }, '+=0.3')
-        .to(endPaths, { opacity: 1, filter: clear, duration: 0.65, stagger: 0.05, ease: 'cin' }, '-=0.35')
-        .addLabel('endHold', '+=0.65')
-        .to(endPaths, { opacity: 0, filter: blur, duration: 0.5, stagger: { each: 0.03, from: 'end' }, ease: 'cinOut' }, 'endHold')
-        .to(endIcon, { opacity: 0, filter: blur, duration: 0.5, ease: 'cinOut' }, '-=0.25')
+        .to(words, { opacity: 1, filter: clear, duration: 0.6, stagger: 0.06, ease: 'cin' }, 'textIn')
+        .addLabel('hold', '+=0.4')
+        .to(words, { opacity: 0, filter: blur, duration: 0.4, stagger: { each: 0.025, from: 'end' }, ease: 'cinOut' }, 'hold')
+        .to(paths, { opacity: 0, filter: blur, duration: 0.4, stagger: { each: 0.01, from: 'end' }, ease: 'cinOut' }, 'hold+=0.1')
+        .set(endSvg, { autoAlpha: 1 }, '+=0.2')
+        .to(endIcon, { opacity: 1, filter: clear, duration: 0.5, ease: 'cin' }, '+=0.15')
+        .to(endPaths, { opacity: 1, filter: clear, duration: 0.45, stagger: 0.035, ease: 'cin' }, '-=0.25')
+        .addLabel('endHold', '+=0.4')
+        .to(endPaths, { opacity: 0, filter: blur, duration: 0.35, stagger: { each: 0.025, from: 'end' }, ease: 'cinOut' }, 'endHold')
+        .to(endIcon, { opacity: 0, filter: blur, duration: 0.35, ease: 'cinOut' }, '-=0.2')
         .fromTo(
           wrap,
           { clipPath: 'inset(0% 0% 0% 0%)' },
