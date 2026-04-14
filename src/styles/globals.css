@@ -199,7 +199,8 @@
   --_brand-buff---swatch--brand-buff-900: color-mix(in srgb, var(--_brand-buff---swatch--brand-buff-500), black 80%);
   --_brand-buff---swatch--brand-buff-text: var(--swatch--dark-900);
   --_brand-buff---swatch--brand-buff-text-o20: color-mix(in srgb, var(--_brand-buff---swatch--brand-buff-text) 20%, transparent);
-  --_brand-buff---swatch--brand-buff-svg: #b3b1a0;
+  --_brand-buff---swatch--brand-buff-svg: #c5c3b3;
+  --_brand-buff---swatch--brand-buff-svg-dark: #b3b1a0;
   --_brand-stone---swatch--brand-stone-100: color-mix(in srgb, var(--_brand-stone---swatch--brand-stone-500), white 80%);
   --_brand-stone---swatch--brand-stone-200: color-mix(in srgb, var(--_brand-stone---swatch--brand-stone-500), white 60%);
   --_brand-stone---swatch--brand-stone-300: color-mix(in srgb, var(--_brand-stone---swatch--brand-stone-500), white 40%);

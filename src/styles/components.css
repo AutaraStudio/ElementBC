@@ -2498,6 +2498,11 @@
   color: var(--_theme---svg-accent);
 }
 
+/* Darker SVG variant for the home about section */
+.home_about-wrap .breathing-bars_wrap {
+  color: var(--_brand-buff---swatch--brand-buff-svg-dark);
+}
+
 .breathing-bars_wrap .bar--accent {
   fill: var(--_theme---accent-1);
 }
