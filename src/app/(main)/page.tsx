@@ -10,6 +10,7 @@ import SectionDivider from '@/components/ui/SectionDivider';
 import ScrollOrbit from '@/components/ui/ScrollOrbit';
 import StatsBarGraph from '@/components/ui/StatsBarGraph';
 import WhatWeDo from '@/components/sections/WhatWeDo';
+import ProgressNav from '@/components/ui/ProgressNav';
 export const revalidate = 3600;
 
 
@@ -63,11 +64,12 @@ export default async function HomePage() {
   const [homePage, projectsPage] = await Promise.all([getHomePage(), getProjectsPage()]);
   return (
     <>
+      <ProgressNav />
 
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
-      <div data-hero-wrap="" data-theme="img-bg" className="home_hero_featured-wrap u-theme-img-bg">
+      <div id="top" data-hero-wrap="" data-theme="img-bg" data-progress-nav-anchor="" className="home_hero_featured-wrap u-theme-img-bg">
         <div data-hero-featured="list" role="list" className="home_hero_featured-list u-min-height-screen">
           <div data-hero-item="" role="listitem" className="home_hero_featured-item u-cover-absolute u-theme-charcoal">
             <div className="u-embed-css w-embed">
@@ -132,7 +134,7 @@ export default async function HomePage() {
       {/* ============================================================
           ABOUT SECTION
       ============================================================ */}
-      <section data-theme="buff" className="home_about-wrap u-position-relative u-theme-buff">
+      <section id="about" data-progress-nav-anchor="" data-theme="buff" className="home_about-wrap u-position-relative u-theme-buff">
         <div data-wf--spacer--variant="large" className="u-section-spacer is-large u-ignore-trim"></div>
         <div className="home_about-contain u-container">
           <div className="home_about-layout u-grid-custom u-gap-row-8">
@@ -164,12 +166,14 @@ export default async function HomePage() {
       {/* ============================================================
           STATS SECTION
       ============================================================ */}
-      <ScrollOrbit
-        stats={homePage?.statsItems ?? []}
-        heading={homePage?.statsHeading ?? 'Built on detail. Proven in results.'}
-        subheading={homePage?.statsSubheading ?? 'From programme to budget, we manage every detail — and the results speak for themselves.'}
-        theme="charcoal"
-      />
+      <div id="stats" data-progress-nav-anchor="">
+        <ScrollOrbit
+          stats={homePage?.statsItems ?? []}
+          heading={homePage?.statsHeading ?? 'Built on detail. Proven in results.'}
+          subheading={homePage?.statsSubheading ?? 'From programme to budget, we manage every detail — and the results speak for themselves.'}
+          theme="charcoal"
+        />
+      </div>
 
       <SectionDivider theme="buff" />
 
@@ -186,6 +190,7 @@ export default async function HomePage() {
           SERVICES SECTION
       ============================================================ */}
       <WhatWeDo
+        id="services"
         heading={homePage?.servicesHeading ?? 'Services Built on Precision.'}
         tagline={homePage?.servicesTagline ?? 'We tailor our approach to meet each client\'s specific needs, with expert, director-level involvement throughout.'}
         serviceGroups={homePage?.serviceGroups ?? []}
@@ -197,7 +202,7 @@ export default async function HomePage() {
       {/* ============================================================
           PROJECTS ARCHIVE SECTION
       ============================================================ */}
-      <section data-theme="buff" className="projects_archive-wrap u-position-relative u-theme-buff">
+      <section id="case-studies" data-progress-nav-anchor="" data-theme="buff" className="projects_archive-wrap u-position-relative u-theme-buff">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="u-embed-css w-embed">
           <style dangerouslySetInnerHTML={{ __html: projectsArchiveCSS }} />
@@ -264,7 +269,7 @@ export default async function HomePage() {
       {/* ============================================================
           PARTNER CAROUSEL SECTION
       ============================================================ */}
-      <section data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-theme="charcoal" className="partner_carousel-wrap u-position-relative u-theme-charcoal">
+      <section id="bottom" data-progress-nav-anchor="" data-marquee-duplicate="3" data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-theme="charcoal" className="partner_carousel-wrap u-position-relative u-theme-charcoal">
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
         <div className="partner_carousel-contain">
           <div className="partner_carousel_heading-contain u-container u-margin-bottom-8">

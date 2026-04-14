@@ -1616,8 +1616,10 @@
 
 .preloader_text-wrap {
   z-index: 1;
-  min-width: 40rem;
+  width: 30rem;
+  padding: 0 1rem;
   position: relative;
+  box-sizing: border-box;
 }
 
 .preloader_text-span {
@@ -2545,5 +2547,76 @@
   .services_columns {
     grid-template-columns: 1fr;
     gap: 0;
+  }
+}
+
+/* ── Progress Navigation ── */
+.progress-nav {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 900;
+  pointer-events: auto;
+}
+
+.progress-nav__list {
+  background: var(--_theme---svg-accent);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.5s ease;
+}
+
+.progress-nav__indicator {
+  position: absolute;
+  z-index: 1;
+  background: var(--_theme---background);
+  height: 100%;
+  left: -100%;
+  width: 0;
+  transition: left 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              width 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.5s ease;
+}
+
+.progress-nav__btn {
+  position: relative;
+  z-index: 2;
+  color: var(--_theme---text);
+  text-decoration: none;
+  transition: color 0.5s ease;
+  padding: var(--_spacing---space--2-12px) var(--_spacing---space--3-16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.progress-nav__btn.is--boundary {
+  position: absolute;
+  width: 2rem;
+  height: 100%;
+  padding: 0;
+  pointer-events: none;
+}
+
+.progress-nav__btn.is--boundary:first-child {
+  right: 100%;
+}
+
+.progress-nav__btn.is--boundary:last-child {
+  left: 100%;
+}
+
+.progress-nav__btn.is--active {
+  color: var(--_theme---text);
+}
+
+@media (max-width: 767px) {
+  .progress-nav {
+    display: none;
   }
 }

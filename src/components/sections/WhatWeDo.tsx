@@ -8,9 +8,10 @@ interface WhatWeDoProps {
   tagline: string
   serviceGroups: Array<{ _key: string; groupTitle?: string; items?: string[] }>
   theme?: string
+  id?: string
 }
 
-export default function WhatWeDo({ heading, tagline, serviceGroups, theme = 'buff' }: WhatWeDoProps) {
+export default function WhatWeDo({ heading, tagline, serviceGroups, theme = 'buff', id }: WhatWeDoProps) {
   const leftGroup = serviceGroups[0]
   const rightGroup = serviceGroups[1]
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -71,7 +72,9 @@ export default function WhatWeDo({ heading, tagline, serviceGroups, theme = 'buf
 
   return (
     <section
+      id={id}
       data-theme={theme}
+      data-progress-nav-anchor={id ? '' : undefined}
       className={`u-position-relative u-theme-${theme}`}
       style={{ position: 'relative', zIndex: 3, backgroundColor: 'var(--_theme---background)', color: 'var(--_theme---text)' }}
     >
