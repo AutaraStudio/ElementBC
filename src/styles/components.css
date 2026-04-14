@@ -2515,3 +2515,35 @@
 [data-theme="stone"] .breathing-bars_wrap .bar--accent {
   fill: var(--_red---swatch--brand-500);
 }
+
+/* ── Services — two-column list layout ── */
+.services_columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 var(--_spacing---space--7-48px);
+}
+
+.services_column-header {
+  padding: var(--_spacing---space--3-16px) 0;
+  color: color-mix(in srgb, var(--_theme---text) 45%, transparent);
+  font-weight: 600;
+}
+
+.services_column-item {
+  padding: var(--_spacing---space--3-16px) 0;
+}
+
+/* Animated border lines */
+.services_line {
+  height: var(--border-width--main);
+  background: var(--_theme---border);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+@media (max-width: 767px) {
+  .services_columns {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

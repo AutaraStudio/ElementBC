@@ -79,7 +79,6 @@ export async function getHomePage() {
       aboutParagraph,
       aboutImage { ..., alt },
       servicesHeading,
-      servicesSubtitle,
       servicesTagline,
       serviceGroups[] { _key, groupTitle, items },
       statsHeading,
@@ -291,7 +290,6 @@ export interface SanityHomePage {
   aboutParagraph?: string;
   aboutImage?: SanityImage | null;
   servicesHeading?: string;
-  servicesSubtitle?: string;
   servicesTagline?: string;
   serviceGroups?: SanityServiceGroup[];
   statsHeading?: string;

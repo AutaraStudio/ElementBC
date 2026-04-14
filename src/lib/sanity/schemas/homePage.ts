@@ -68,14 +68,7 @@ export const homePage = defineType({
       group: "services",
       description: 'e.g. "What We Do"',
     }),
-    defineField({
-      name: "servicesSubtitle",
-      title: "Subtitle",
-      type: "string",
-      group: "services",
-      description: 'e.g. "Core Services"',
-    }),
-    defineField({
+defineField({
       name: "servicesTagline",
       title: "Tagline",
       type: "text",

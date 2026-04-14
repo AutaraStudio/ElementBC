@@ -9,6 +9,7 @@ import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import SectionDivider from '@/components/ui/SectionDivider';
 import ScrollOrbit from '@/components/ui/ScrollOrbit';
 import StatsBarGraph from '@/components/ui/StatsBarGraph';
+import WhatWeDo from '@/components/sections/WhatWeDo';
 export const revalidate = 3600;
 
 
@@ -177,6 +178,18 @@ export default async function HomePage() {
         heading={homePage?.statsHeading ?? 'Built on detail. Proven in results.'}
         subheading={homePage?.statsSubheading ?? 'From programme to budget, we manage every detail — and the results speak for themselves.'}
         theme="buff"
+      />
+
+      <SectionDivider theme="buff" />
+
+      {/* ============================================================
+          SERVICES SECTION
+      ============================================================ */}
+      <WhatWeDo
+        heading={homePage?.servicesHeading ?? 'Services Built on Precision.'}
+        tagline={homePage?.servicesTagline ?? 'We tailor our approach to meet each client\'s specific needs, with expert, director-level involvement throughout.'}
+        serviceGroups={homePage?.serviceGroups ?? []}
+        theme="charcoal"
       />
 
       <SectionDivider theme="buff" />
