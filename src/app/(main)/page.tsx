@@ -151,7 +151,7 @@ export default async function HomePage() {
             </div>
 
             {/* About paragraph — bottom right */}
-            <div className="home_about-col u-column-start-8 u-column-span-5">
+            <div className="home_about-col u-column-start-8 u-column-span-5 u-flex-vertical-nowrap u-justify-content-end">
               <p data-split="line" className="u-text-style-main u-text-decoration-justify-last u-max-width-40ch">{homePage?.aboutParagraph ?? 'Element is not your ordinary building consultancy. For us, precision is everything. We spot opportunities to save time and money, embrace the latest technologies, and oversee every project with absolute efficiency. We minimise risk, maximise profitability and build trust. We ensure every detail is managed.'}</p>
             </div>
 
