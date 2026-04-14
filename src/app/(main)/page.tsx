@@ -11,11 +11,6 @@ import ScrollOrbit from '@/components/ui/ScrollOrbit';
 import StatsBarGraph from '@/components/ui/StatsBarGraph';
 export const revalidate = 3600;
 
-const defaultValueProps = [
-  { _key: '1', title: '', description: "We're here to take action, a doing brand that uses active language to motivate and inspire." },
-  { _key: '2', title: '', description: "We are confident. That's what, when you understand every detail. But we are never cocky or patronising." },
-  { _key: '3', title: '', description: "We get to the point quickly. We don't waffle or use over complicated language." },
-];
 
 export async function generateMetadata(): Promise<Metadata> {
   const [homePage, settings] = await Promise.all([getHomePage(), getSiteSettings()]);
@@ -148,30 +143,16 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="home_about-col u-position-relative u-column-start-1 u-column-span-3 ">
+            <div className="home_about-col u-position-relative u-column-start-1 u-column-span-4">
               <div data-overlay-start="top center" data-overlay="" className="color_reveal-overlay u-cover-absolute u-pointer-off"></div>
               <div className="breathing-bars_wrap">
                 <HomeAboutWaveSvg className="home_about_wave-svg" />
               </div>
             </div>
 
-            
-
-            {/* Row 3 — Value props */}
-            <div className="home_about-col u-column-start-1 u-column-span-4 u-flex-horizontal-nowrap u-justify-content- ">
-              <div className="home_about_value-wrap">
-                <p data-split="line" className="home_about_value-desc u-text-style-small u-text-decoration-justify-last u-max-width-30ch">{(homePage?.aboutValueProps ?? defaultValueProps)[0]?.description}</p>
-              </div>
-            </div>
-            <div className="home_about-col u-column-start-5 u-column-span-4">
-              <div className="home_about_value-wrap">
-                <p data-split="line" className="home_about_value-desc u-text-style-small u-text-decoration-justify-last u-max-width-30ch">{(homePage?.aboutValueProps ?? defaultValueProps)[1]?.description}</p>
-              </div>
-            </div>
-            <div className="home_about-col u-column-start-9 u-column-span-4">
-              <div className="home_about_value-wrap">
-                <p data-split="line" className="home_about_value-desc u-text-style-small u-text-decoration-justify-last u-max-width-30ch">{(homePage?.aboutValueProps ?? defaultValueProps)[2]?.description}</p>
-              </div>
+            {/* About paragraph — bottom right */}
+            <div className="home_about-col u-column-start-8 u-column-span-5">
+              <p data-split="line" className="u-text-style-main u-text-decoration-justify-last u-max-width-40ch">{homePage?.aboutParagraph ?? 'Element is not your ordinary building consultancy. For us, precision is everything. We spot opportunities to save time and money, embrace the latest technologies, and oversee every project with absolute efficiency. We minimise risk, maximise profitability and build trust. We ensure every detail is managed.'}</p>
             </div>
 
           </div>
