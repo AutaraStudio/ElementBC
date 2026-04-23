@@ -1,7 +1,8 @@
 import { PortableText, type PortableTextComponents } from '@portabletext/react';
 import AboutHeroBackgroundSvg from '@/components/ui/svgs/AboutHeroBackgroundSvg';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
-import type { SanityLegalPage } from '@/lib/sanity/queries';
+import PartnerCarousel from '@/components/sections/PartnerCarousel';
+import type { SanityLegalPage, SanityPartnerCarousel } from '@/lib/sanity/queries';
 
 const portableComponents: PortableTextComponents = {
   block: {
@@ -38,9 +39,10 @@ interface LegalPageProps {
   fallbackEyebrow: string;
   fallbackHeading: string;
   fallbackBody: SanityLegalPage['body'];
+  partnerCarousel?: SanityPartnerCarousel | null;
 }
 
-export default function LegalPage({ data, fallbackEyebrow, fallbackHeading, fallbackBody }: LegalPageProps) {
+export default function LegalPage({ data, fallbackEyebrow, fallbackHeading, fallbackBody, partnerCarousel }: LegalPageProps) {
   const heroEyebrow = data?.heroEyebrow ?? fallbackEyebrow;
   const heroHeading = data?.heroHeading ?? fallbackHeading;
   const body = (data?.body && data.body.length > 0 ? data.body : fallbackBody) ?? [];
@@ -99,6 +101,11 @@ export default function LegalPage({ data, fallbackEyebrow, fallbackHeading, fall
         </div>
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
       </section>
+
+      {/* ============================================================
+          PARTNER CAROUSEL
+      ============================================================ */}
+      <PartnerCarousel heading={partnerCarousel?.heading} partners={partnerCarousel?.partners} />
     </>
   );
 }

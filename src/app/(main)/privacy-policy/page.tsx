@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getLegalPage } from '@/lib/sanity/queries';
+import { getLegalPage, getPartnerCarousel } from '@/lib/sanity/queries';
 import LegalPage from '@/components/sections/LegalPage';
 import { privacyPolicyDefaultBody } from '@/lib/sanity/legalDefaults';
 
@@ -14,7 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PrivacyPolicyPage() {
-  const data = await getLegalPage('privacyPolicy');
+  const [data, partnerCarousel] = await Promise.all([
+    getLegalPage('privacyPolicy'),
+    getPartnerCarousel(),
+  ]);
 
   return (
     <LegalPage
@@ -22,6 +25,7 @@ export default async function PrivacyPolicyPage() {
       fallbackEyebrow="Legal"
       fallbackHeading="Privacy Policy"
       fallbackBody={privacyPolicyDefaultBody}
+      partnerCarousel={partnerCarousel}
     />
   );
 }
