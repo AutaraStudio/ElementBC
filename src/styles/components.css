@@ -1729,6 +1729,12 @@
   color: var(--_theme---text);
 }
 
+/* Trim the footer height — was 100svh, now ~75svh so there's less dead
+   space above the nav links while keeping room for the staggered reveal. */
+.footer_main-wrap .footer_main-layout.u-min-height-screen {
+  min-height: 75svh;
+}
+
 
 .global_eyebrow-svg {
   width: 1.8rem;

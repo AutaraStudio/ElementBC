@@ -2,6 +2,7 @@ import { PortableText, type PortableTextComponents } from '@portabletext/react';
 import AboutHeroBackgroundSvg from '@/components/ui/svgs/AboutHeroBackgroundSvg';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
+import SectionDivider from '@/components/ui/SectionDivider';
 import type { SanityLegalPage, SanityPartnerCarousel } from '@/lib/sanity/queries';
 
 const portableComponents: PortableTextComponents = {
@@ -103,9 +104,14 @@ export default function LegalPage({ data, fallbackEyebrow, fallbackHeading, fall
       </section>
 
       {/* ============================================================
+          DIVIDER
+      ============================================================ */}
+      <SectionDivider theme="buff" />
+
+      {/* ============================================================
           PARTNER CAROUSEL
       ============================================================ */}
-      <PartnerCarousel heading={partnerCarousel?.heading} partners={partnerCarousel?.partners} />
+      <PartnerCarousel heading={partnerCarousel?.heading} partners={partnerCarousel?.partners} theme="charcoal" />
     </>
   );
 }
