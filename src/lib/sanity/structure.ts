@@ -56,6 +56,22 @@ export const structure: StructureResolver = (S) =>
                     .schemaType('contactPage')
                     .documentId('contactPage')
                 ),
+              S.listItem()
+                .title('Privacy Policy')
+                .icon(DocumentsIcon)
+                .child(
+                  S.document()
+                    .schemaType('legalPage')
+                    .documentId('privacyPolicy')
+                ),
+              S.listItem()
+                .title('Terms & Conditions')
+                .icon(DocumentsIcon)
+                .child(
+                  S.document()
+                    .schemaType('legalPage')
+                    .documentId('termsConditions')
+                ),
             ])
         ),
 

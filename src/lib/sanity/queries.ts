@@ -211,6 +211,19 @@ export async function getFooter() {
   `);
 }
 
+export async function getLegalPage(documentId: 'privacyPolicy' | 'termsConditions') {
+  return sanityClient.fetch<SanityLegalPage | null>(`
+    *[_id == $id][0] {
+      heroEyebrow,
+      heroHeading,
+      lastUpdated,
+      body,
+      seoTitle,
+      seoDescription
+    }
+  `, { id: documentId });
+}
+
 export async function getSiteSettings() {
   return sanityClient.fetch<SanitySiteSettings | null>(`
     *[_type == "siteSettings"][0] {
@@ -361,6 +374,15 @@ export interface SanityContactPage {
 export interface SanityProjectsPage {
   pageHeading?: string;
   heroEyebrow?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+}
+
+export interface SanityLegalPage {
+  heroEyebrow?: string;
+  heroHeading?: string;
+  lastUpdated?: string;
+  body?: unknown[];
   seoTitle?: string;
   seoDescription?: string;
 }

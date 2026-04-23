@@ -10,6 +10,7 @@ import { siteSettings } from "./siteSettings";
 import { orbitStatItem } from "./orbitStatItem";
 import { serviceGroup } from "./serviceGroup";
 import { partnerCarousel } from "./partnerCarousel";
+import { legalPage } from "./legalPage";
 
 export const schemas = [
   project,
@@ -24,4 +25,5 @@ export const schemas = [
   orbitStatItem,
   serviceGroup,
   partnerCarousel,
+  legalPage,
 ];
