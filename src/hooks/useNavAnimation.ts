@@ -35,13 +35,18 @@ export function useNavAnimation() {
     let _showNav: (() => void) | null = null;
 
     function run() {
-      if (!document.querySelector('[data-nav-toggle]')) return;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const dlog = (msg: string) => (window as any).__debugHud?.log('nav> ' + msg);
+      dlog('run start');
+      if (!document.querySelector('[data-nav-toggle]')) { dlog('no toggle'); return; }
 
       const { ANIM: anim, shuffleArray } = window.animUtils;
+      dlog('got animUtils');
 
       CustomEase.create('menuReveal', anim.ease.menuIn);
       CustomEase.create('menuHide', anim.ease.menuOut);
       CustomEase.create('linkReveal', anim.ease.reveal);
+      dlog('easings created');
 
       const toggleBtn = document.querySelector('[data-nav-toggle]');
       const menu = document.querySelector('[data-nav-menu]');
@@ -51,6 +56,7 @@ export function useNavAnimation() {
       const linkText = toggleBtn?.querySelector('.nav_main_link-text') as HTMLElement | null;
       const logoEl = document.querySelector('[data-nav-logo]');
       const logoLetters = gsap.utils.toArray('[data-nav-letter]') as Element[];
+      dlog('selectors ok');
 
       // Resolve the charcoal theme's light text color for the mega menu
       const menuProbe = document.createElement('div');
@@ -59,6 +65,7 @@ export function useNavAnimation() {
       document.body.appendChild(menuProbe);
       const menuLightColor = getComputedStyle(menuProbe).getPropertyValue('--_theme---text').trim();
       document.body.removeChild(menuProbe);
+      dlog('probe ok ' + menuLightColor.slice(0, 10));
 
       let navColorTween: gsap.core.Tween | null = null;
       let isOpen = false;
@@ -147,10 +154,12 @@ export function useNavAnimation() {
         _toggleBtn = toggleBtn;
         _toggleHandler = toggleMenu;
         _keyHandler = keyHandler;
+        dlog('click bound');
       }
 
       // Logo letter hover animations
       if (logoEl && logoLetters.length) {
+        dlog('logo setup ' + logoLetters.length);
         gsap.set(logoLetters, { opacity: 0, filter: `blur(${anim.blur.md}px)` });
         let inTl: gsap.core.Timeline | null = null;
         let outTl: gsap.core.Timeline | null = null;
@@ -179,6 +188,7 @@ export function useNavAnimation() {
         _hideLetters = hideLetters;
       }
 
+      dlog('pre-glow');
       // Nav path glow on mouse move (store ref for cleanup)
       _glowStyle = document.createElement('style');
       _glowStyle.textContent = `
@@ -250,6 +260,7 @@ export function useNavAnimation() {
 
       _stopGlow = stopGlow;
 
+      dlog('pre-observer');
       if (menu) {
         _observer = new MutationObserver((entries) => {
           for (const entry of entries) {
@@ -266,6 +277,7 @@ export function useNavAnimation() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).siteNav = { isOpen: () => isOpen, open: openMenu, close: closeMenu, toggle: toggleMenu };
 
+      dlog('pre-scroll-hide');
       // ---- Scroll hide/show nav ----
       // Animate only .nav_main-contain (not the wrapper) so we never put a
       // transform on the fixed-positioned parent — that would break the mega
@@ -313,10 +325,21 @@ export function useNavAnimation() {
 
     let _scrollHandler: ((e: Event) => void) | null = null;
 
+    const safeRun = () => {
+      try {
+        run();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).__debugHud?.log('useNavAnimation: ok');
+      } catch (err) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).__debugHud?.log('useNavAnimation CRASH: ' + ((err as Error)?.message ?? err));
+      }
+    };
+
     if (window.animUtils) {
-      run();
+      safeRun();
     } else {
-      window.addEventListener('animUtils:ready', run, { once: true });
+      window.addEventListener('animUtils:ready', safeRun, { once: true });
     }
 
     return () => {
