@@ -19,6 +19,18 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${settings?.siteTitle ?? 'Element BC'}`,
     },
     description: settings?.seoDescription ?? 'Element BC — Building Consultancy',
+    icons: settings?.faviconUrl
+      ? {
+          icon: [
+            {
+              url: settings.faviconUrl,
+              type: settings.faviconMime ?? undefined,
+            },
+          ],
+          shortcut: settings.faviconUrl,
+          apple: settings.faviconUrl,
+        }
+      : undefined,
   };
 }
 

@@ -232,7 +232,9 @@ export async function getSiteSettings() {
       siteTitle,
       seoTitle,
       seoDescription,
-      seoImage
+      seoImage,
+      "faviconUrl": favicon.asset->url,
+      "faviconMime": favicon.asset->mimeType
     }
   `);
 }
@@ -415,4 +417,6 @@ export interface SanitySiteSettings {
   seoTitle?: string;
   seoDescription?: string;
   seoImage?: SanityImage | null;
+  faviconUrl?: string | null;
+  faviconMime?: string | null;
 }
