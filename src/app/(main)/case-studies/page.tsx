@@ -12,7 +12,7 @@ export const revalidate = 3600;
 export async function generateMetadata(): Promise<Metadata> {
   const projectsPage = await getProjectsPage();
   return {
-    title: projectsPage?.seoTitle ?? 'Case Studies',
+    title: { absolute: projectsPage?.seoTitle ?? 'Case Studies | Element BC' },
     description: projectsPage?.seoDescription,
   };
 }

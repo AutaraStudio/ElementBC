@@ -8,7 +8,7 @@ export const revalidate = 3600;
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getLegalPage('termsConditions');
   return {
-    title: page?.seoTitle ?? 'Terms & Conditions | Element BC',
+    title: { absolute: page?.seoTitle ?? 'Terms & Conditions | Element BC' },
     description: page?.seoDescription ?? 'The terms governing your use of the Element BC website.',
   };
 }

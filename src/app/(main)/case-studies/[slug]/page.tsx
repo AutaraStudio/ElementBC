@@ -23,7 +23,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = await getProjectBySlug(slug);
   return {
-    title: project?.seoTitle ?? project?.projectName ?? 'Project',
+    title: { absolute: project?.seoTitle ?? `${project?.projectName ?? 'Project'} | Element BC` },
     description: project?.seoDescription,
   };
 }

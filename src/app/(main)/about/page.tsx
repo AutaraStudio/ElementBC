@@ -15,7 +15,7 @@ export const revalidate = 3600;
 export async function generateMetadata(): Promise<Metadata> {
   const aboutPage = await getAboutPage();
   return {
-    title: aboutPage?.seoTitle ?? 'About | Element BC',
+    title: { absolute: aboutPage?.seoTitle ?? 'About | Element BC' },
     description: aboutPage?.seoDescription,
   };
 }

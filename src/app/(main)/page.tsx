@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
     ? `${settings?.siteTitle ?? 'Element BC'} | ${homePage.heroHeading}`
     : settings?.siteTitle ?? 'Element BC';
   return {
-    title: homePage?.seoTitle ?? settings?.seoTitle ?? fallbackTitle,
+    title: { absolute: homePage?.seoTitle ?? settings?.seoTitle ?? fallbackTitle },
     description: homePage?.seoDescription ?? settings?.seoDescription,
   };
 }
