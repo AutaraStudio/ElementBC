@@ -114,6 +114,23 @@ export function usePreloader(pathname: string) {
       window.addEventListener('animUtils:ready', run, { once: true });
     }
 
-    // No cleanup needed — preloader runs once on mount only
+    // Safety net: if the preloader timeline never completes for any reason
+    // (GSAP error, HMR glitch, mobile browser quirk), force-fire the event
+    // anyway after 12 seconds so hero animations queued via afterPreloader()
+    // don't get stuck forever.
+    const failsafe = setTimeout(() => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if ((window as any)._preloaderComplete) return;
+      const wrap = document.querySelector('[data-preloader-wrap]') as HTMLElement | null;
+      if (wrap) wrap.style.setProperty('display', 'none', 'important');
+      if (window.locomotiveScroll) window.locomotiveScroll.start();
+      else document.documentElement.style.overflow = '';
+      sessionStorage.setItem('preloaderDone', '1');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any)._preloaderComplete = true;
+      window.dispatchEvent(new Event('preloader:complete'));
+    }, 12000);
+
+    return () => { clearTimeout(failsafe); };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 }

@@ -560,10 +560,20 @@ export function useScrollReveal() {
       (window as any).initStaggerReveal = initStaggerReveal;
     }
 
-    window.addEventListener('preloader:complete', run, { once: true });
+    // Run as soon as animUtils is available — don't wait for preloader:complete.
+    // Hero animations are independently deferred via `afterPreloader()` inside
+    // run(), so everything else can (and should) initialise immediately. Relying
+    // on preloader:complete is a fragile single point of failure — if that event
+    // ever misses a listener (e.g. a flaky preloader timeline on mobile), the
+    // entire scroll-reveal pipeline goes silent.
+    if (window.animUtils) {
+      run();
+    } else {
+      window.addEventListener('animUtils:ready', run, { once: true });
+    }
 
     return () => {
-      window.removeEventListener('preloader:complete', run);
+      window.removeEventListener('animUtils:ready', run);
       clearTimeout(resizeTimer);
       if (rafId) cancelAnimationFrame(rafId);
       if (glowMouseHandler) document.removeEventListener('mousemove', glowMouseHandler);
