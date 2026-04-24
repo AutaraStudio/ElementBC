@@ -535,26 +535,28 @@ export default function AnimationProvider() {
 
   // Initial mount — one-time inits
   useEffect(() => {
-    // Debug HUD — pill is created by an inline script in <head> as soon as the
-    // page loads. That script attaches `window.__debugHud` which we reuse here
-    // to append React-side milestones. Only present when ?debug=1 is in the
-    // URL, so production users never see it.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const hud = (window as any).__debugHud as { log: (msg: string) => void } | undefined;
-    const log = (msg: string) => hud?.log(msg);
-    log('react: mounted');
-    log('animUtils: ' + !!window.animUtils);
+    // Absolute first line: prove the useEffect fired at all.
+    hud?.log('effect: fired');
 
-    // Tell the CSS that JS has taken over: elements with
-    // [data-split] / [data-stagger-item] can safely hide themselves now.
-    document.documentElement.classList.add('js-ready');
+    try {
+      const log = (msg: string) => hud?.log(msg);
+      log('react: mounted');
+      log('animUtils: ' + !!window.animUtils);
 
-    try { initListHover(); log('listHover ok'); } catch (e) { log('listHover ERR: ' + (e as Error).message); }
-    try { initCarouselManager(); log('carousel ok'); } catch (e) { log('carousel ERR: ' + (e as Error).message); }
-    try { initCustomCursor(); log('cursor ok'); } catch (e) { log('cursor ERR: ' + (e as Error).message); }
-    try { initProjectSlider(); log('slider ok'); } catch (e) { log('slider ERR: ' + (e as Error).message); }
-    try { initHeroImageHover(); log('heroHover ok'); } catch (e) { log('heroHover ERR: ' + (e as Error).message); }
-    try { initHeroScrollFade(); log('heroFade ok'); } catch (e) { log('heroFade ERR: ' + (e as Error).message); }
+      // Tell the CSS that JS has taken over.
+      document.documentElement.classList.add('js-ready');
+
+      try { initListHover(); log('listHover ok'); } catch (e) { log('listHover ERR: ' + (e as Error).message); }
+      try { initCarouselManager(); log('carousel ok'); } catch (e) { log('carousel ERR: ' + (e as Error).message); }
+      try { initCustomCursor(); log('cursor ok'); } catch (e) { log('cursor ERR: ' + (e as Error).message); }
+      try { initProjectSlider(); log('slider ok'); } catch (e) { log('slider ERR: ' + (e as Error).message); }
+      try { initHeroImageHover(); log('heroHover ok'); } catch (e) { log('heroHover ERR: ' + (e as Error).message); }
+      try { initHeroScrollFade(); log('heroFade ok'); } catch (e) { log('heroFade ERR: ' + (e as Error).message); }
+    } catch (e) {
+      hud?.log('EFFECT CRASH: ' + ((e as Error)?.message ?? e));
+    }
 
     // Periodically append a one-line status snapshot for 15 seconds after
     // mount so we can watch things come online on the user's phone.

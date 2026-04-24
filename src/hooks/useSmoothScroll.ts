@@ -20,6 +20,8 @@ const isIOS = () =>
 
 export function useSmoothScroll() {
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).__debugHud?.log('useSmoothScroll: fired');
     if (DISABLE_LENIS) return;
     const isTouch = isTouchDevice();
 

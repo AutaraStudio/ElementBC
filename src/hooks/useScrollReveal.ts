@@ -5,6 +5,8 @@ import { ScrollTrigger } from '@/lib/gsap';
 
 export function useScrollReveal() {
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).__debugHud?.log('useScrollReveal: fired');
     let resizeTimer: ReturnType<typeof setTimeout>;
     let rafId: number | null = null;
     let glowMouseHandler: ((evt: MouseEvent) => void) | null = null;

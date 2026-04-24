@@ -18,6 +18,8 @@ function setCharStaggerText(container: HTMLElement, text: string) {
 
 export function useNavAnimation() {
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).__debugHud?.log('useNavAnimation: fired');
     let openTl: gsap.core.Timeline | null = null;
     let closeTl: gsap.core.Timeline | null = null;
 
