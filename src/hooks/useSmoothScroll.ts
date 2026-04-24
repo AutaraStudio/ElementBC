@@ -19,34 +19,29 @@ export function useSmoothScroll() {
     const isTouch = isTouchDevice();
 
     // ── TOUCH DEVICES: skip Locomotive entirely, use native scroll ──
+    // No Lenis, no normalizeScroll — pure native scrolling so the page feels
+    // like every other mobile site. ScrollTrigger defaults to `window` as the
+    // scroller, so we don't need to configure anything special.
     if (isTouch) {
       // Hide custom scrollbar
       const track = document.querySelector('[data-scroll-track]') as HTMLElement | null;
       if (track) track.style.display = 'none';
 
-      // ScrollTrigger uses native scroll — no proxy needed
-      ScrollTrigger.defaults({ scroller: window });
-
-      // iOS Safari: normalise scroll so ScrollTrigger doesn't skip events during
-      // the URL-bar hide/show transition, and ignore the mobile resize that
-      // fires when the URL bar collapses (prevents constant re-layout churn).
-      ScrollTrigger.config({ ignoreMobileResize: true });
-      try { ScrollTrigger.normalizeScroll(true); } catch { /* older GSAP */ }
-
-      // Refresh after layout settles. A single refresh at mount time is too
-      // early — image dimensions and fonts aren't final yet, so trigger
-      // positions end up wrong and elements that are below the viewport
-      // never animate in. Two staggered refreshes catch both cases.
-      ScrollTrigger.refresh();
-      setTimeout(() => ScrollTrigger.refresh(), 500);
-      setTimeout(() => ScrollTrigger.refresh(), 1500);
-
+      // Flag ready so other modules know the (trivial) scroll setup is done.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any)._lenisProxyReady = true;
       document.dispatchEvent(new CustomEvent('lenisReady'));
 
+      // Refresh trigger positions once fonts and images have had time to
+      // settle — on mobile there's no scroll proxy driving continuous updates,
+      // so the initial measurement needs to catch the final layout.
+      const refresh = () => ScrollTrigger.refresh();
+      requestAnimationFrame(refresh);
+      const timers = [setTimeout(refresh, 600), setTimeout(refresh, 2000)];
+
       return () => {
-        ScrollTrigger.getAll().forEach(t => t.kill());
+        timers.forEach((t) => clearTimeout(t));
+        ScrollTrigger.getAll().forEach((t) => t.kill());
       };
     }
 

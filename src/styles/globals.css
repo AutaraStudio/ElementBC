@@ -652,11 +652,16 @@ input:focus-visible {
   opacity: 0;
 }
 
-[data-split] {
+/* Only hide reveal targets while the animation engine is booting. The
+   `.js-ready` class is added by AnimationProvider on mount (and after a
+   3-second timeout the provider force-removes it as a failsafe). If JS is
+   disabled or crashes, content stays visible instead of being invisible
+   forever. */
+html.js-ready [data-split] {
   visibility: hidden;
 }
 
-[data-stagger-item] {
+html.js-ready [data-stagger-item] {
   visibility: hidden;
 }
 

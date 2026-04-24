@@ -224,8 +224,13 @@ function initCarouselManager() {
 
     // Bail and retry if measurements aren't ready yet — can happen on mobile
     // when the marquee mounts before its parent section has finished layout.
+    // Cap the retry count so we never loop forever if the parent is hidden.
     if (collection.offsetWidth === 0) {
-      requestAnimationFrame(() => initCarouselManager());
+      const attempts = parseInt((el as HTMLElement).dataset._marqueeRetry || '0', 10);
+      if (attempts < 20) {
+        (el as HTMLElement).dataset._marqueeRetry = String(attempts + 1);
+        requestAnimationFrame(() => initCarouselManager());
+      }
       return;
     }
 
@@ -528,6 +533,10 @@ export default function AnimationProvider() {
 
   // Initial mount — one-time inits
   useEffect(() => {
+    // Tell the CSS that JS has taken over: elements with
+    // [data-split] / [data-stagger-item] can safely hide themselves now.
+    document.documentElement.classList.add('js-ready');
+
     initListHover();
     initCarouselManager();
     initCustomCursor();
@@ -535,7 +544,23 @@ export default function AnimationProvider() {
     initHeroImageHover();
     initHeroScrollFade();
 
+    // Failsafe — if the animation pipeline hasn't finished booting by the
+    // time this fires (slow mobile network, JS error somewhere, preloader
+    // event never dispatched), force every reveal target back to its
+    // natural visibility so the page is at least readable. Timed well
+    // after the preloader (~6s) + scroll reveal init so we don't clobber
+    // the normal happy path.
+    const failsafe = setTimeout(() => {
+      document.documentElement.classList.remove('js-ready');
+      document.querySelectorAll<HTMLElement>('[data-split], [data-stagger-item]').forEach((el) => {
+        if (getComputedStyle(el).visibility === 'hidden') {
+          el.style.visibility = 'visible';
+        }
+      });
+    }, 10000);
+
     return () => {
+      clearTimeout(failsafe);
       ScrollTrigger.getAll().forEach((st) => st.kill());
     };
   }, []);
