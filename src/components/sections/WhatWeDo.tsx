@@ -81,16 +81,16 @@ export default function WhatWeDo({ heading, tagline, serviceGroups, theme = 'buf
       <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
 
       <div className="u-container">
-        {/* Header — heading left, tagline bottom-right */}
-        <div className="u-grid-custom u-gap-row-6">
-          <div className="u-column-start-1 u-column-span-7">
+        {/* Header — heading left, tagline bottom-right (stacks on mobile) */}
+        <div className="services_header-grid u-grid-custom u-gap-row-6">
+          <div className="services_header-heading u-column-start-1 u-column-span-7">
             <div data-split-wrapper="">
               <h2 data-split="word" className="u-text-style-h1 u-text-transform-uppercase u-text-decoration-justify-last u-max-width-14ch">
                 {heading}
               </h2>
             </div>
           </div>
-          <div className="u-column-start-8 u-column-span-5 u-flex-vertical-nowrap u-justify-content-end">
+          <div className="services_header-tagline u-column-start-8 u-column-span-5 u-flex-vertical-nowrap u-justify-content-end">
             <p data-split="line" className="u-text-style-main u-text-decoration-justify-last u-max-width-40ch">
               {tagline}
             </p>

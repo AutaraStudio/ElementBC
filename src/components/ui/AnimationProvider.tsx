@@ -217,11 +217,19 @@ function initCarouselManager() {
 
   document.querySelectorAll('[data-marquee]').forEach((el) => {
     if ((el as HTMLElement).dataset._marqueeInit) return;
-    (el as HTMLElement).dataset._marqueeInit = 'true';
 
     const collection = el.querySelector('[data-marquee-collection]') as HTMLElement | null;
     const track = el.querySelector('[data-marquee-track]') as HTMLElement | null;
     if (!collection || !track) return;
+
+    // Bail and retry if measurements aren't ready yet — can happen on mobile
+    // when the marquee mounts before its parent section has finished layout.
+    if (collection.offsetWidth === 0) {
+      requestAnimationFrame(() => initCarouselManager());
+      return;
+    }
+
+    (el as HTMLElement).dataset._marqueeInit = 'true';
 
     const direction = (el as HTMLElement).dataset.marqueeDirection || 'left';
     const speed = parseFloat((el as HTMLElement).dataset.marqueeSpeed || '') || 30;

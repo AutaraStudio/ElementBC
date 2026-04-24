@@ -1599,6 +1599,18 @@
 .nav_logo-svg {
 }
 
+/* Mobile: bigger logo + less cramped MENU button */
+@media (max-width: 767px) {
+  .nav_logo-svg {
+    max-width: 14rem;
+    width: 14rem;
+  }
+  .nav_main_link-text {
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+}
+
 .preloader_wrap {
   z-index: 1000;
   display: none;
@@ -2471,8 +2483,14 @@
   overflow: hidden;
   display: inline-block;
   position: relative;
-  line-height: inherit;
+  /* Force a tight line-box so the text-shadow duplicate (1.3em below) isn't
+     visible inside the wrap when this component is placed in a parent with
+     a "huge" line-height (e.g. the nav MENU button on mobile). */
+  line-height: 1;
   vertical-align: top;
+  /* Keep all characters on one line so narrow mobile viewports don't wrap
+     "MENU" into a vertical stack. */
+  white-space: nowrap;
 }
 
 .char-stagger-wrap span {
@@ -2552,7 +2570,22 @@
 @media (max-width: 767px) {
   .services_columns {
     grid-template-columns: 1fr;
-    gap: 0;
+    gap: var(--_spacing---space--7-48px) 0;
+  }
+  .services_column-header {
+    font-size: 1.25rem;
+    padding-bottom: var(--_spacing---space--4-24px);
+    color: var(--_theme---text);
+    opacity: 0.85;
+  }
+  .services_column-item {
+    font-size: 1rem;
+  }
+  /* Stack the "What We Do" heading and tagline vertically on mobile instead
+     of the 7-col / 5-col side-by-side layout used on desktop. */
+  .services_header-heading,
+  .services_header-tagline {
+    grid-column: 1 / -1;
   }
 }
 

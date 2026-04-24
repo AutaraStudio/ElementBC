@@ -539,6 +539,12 @@ export function useScrollReveal() {
         heroQueue.length = 0;
       };
 
+      // After all triggers are registered, force a refresh so positions are
+      // computed from the final layout (post-font-load, post-image-load).
+      // Critical on mobile where there's no Lenis proxy to drive updates.
+      requestAnimationFrame(() => ScrollTrigger.refresh());
+      setTimeout(() => ScrollTrigger.refresh(), 800);
+
       // Expose to window for use by other scripts
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).initOverlayFadeouts = initOverlayFadeouts;

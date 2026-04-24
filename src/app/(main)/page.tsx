@@ -107,12 +107,6 @@ export default async function HomePage() {
                     <div className="home_hero-featured-text u-text-style-main u-text-transform-uppercase">Featured Project</div>
                   </div>
                   <div data-stagger-item="" className="home_hero_featured-col">
-                    <div className="home_hero-featured-text u-text-style-main u-text-transform-uppercase">{homePage?.heroProject?.projectName ?? ''}</div>
-                  </div>
-                  <div data-stagger-item="" className="home_hero_featured-col">
-                    <div className="home_hero-featured-text u-text-style-main u-text-transform-uppercase">{homePage?.heroProject?.category?.name ?? ''}</div>
-                  </div>
-                  <div data-stagger-item="" className="home_hero_featured-col">
                     <TransitionLink
                       href={homePage?.heroProject?.slug ? `/case-studies/${homePage.heroProject.slug}` : '/case-studies'}
                       data-hero-trigger=""

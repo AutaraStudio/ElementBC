@@ -26,7 +26,20 @@ export function useSmoothScroll() {
 
       // ScrollTrigger uses native scroll — no proxy needed
       ScrollTrigger.defaults({ scroller: window });
+
+      // iOS Safari: normalise scroll so ScrollTrigger doesn't skip events during
+      // the URL-bar hide/show transition, and ignore the mobile resize that
+      // fires when the URL bar collapses (prevents constant re-layout churn).
+      ScrollTrigger.config({ ignoreMobileResize: true });
+      try { ScrollTrigger.normalizeScroll(true); } catch { /* older GSAP */ }
+
+      // Refresh after layout settles. A single refresh at mount time is too
+      // early — image dimensions and fonts aren't final yet, so trigger
+      // positions end up wrong and elements that are below the viewport
+      // never animate in. Two staggered refreshes catch both cases.
       ScrollTrigger.refresh();
+      setTimeout(() => ScrollTrigger.refresh(), 500);
+      setTimeout(() => ScrollTrigger.refresh(), 1500);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any)._lenisProxyReady = true;
