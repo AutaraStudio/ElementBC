@@ -508,7 +508,10 @@ export function useScrollReveal() {
 
       // Set up glow if svg paths present (store handler refs for cleanup)
       // Skip glow on touch devices — follows mouse position, irrelevant on mobile
-      const _isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const _isTouch =
+        new URLSearchParams(window.location.search).get('touch') === '1' ||
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0;
       glowPaths = _isTouch ? [] : gsap.utils.toArray('[data-svg-path]') as Element[];
       if (glowPaths.length) {
         glowActive = true;

@@ -6,8 +6,13 @@ import LocomotiveScroll from 'locomotive-scroll';
 
 const DISABLE_LENIS = false;
 
-const isTouchDevice = () =>
-  'ontouchstart' in window || navigator.maxTouchPoints > 0;
+const isTouchDevice = () => {
+  if (typeof window === 'undefined') return false;
+  // Debug override: ?touch=1 in the URL forces the touch code path so we can
+  // reproduce mobile behaviour on desktop.
+  if (new URLSearchParams(window.location.search).get('touch') === '1') return true;
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+};
 
 const isIOS = () =>
   /iPad|iPhone|iPod/.test(navigator.userAgent) ||

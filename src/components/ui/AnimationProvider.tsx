@@ -7,9 +7,11 @@ import gsap from '@/lib/gsap';
 // ---------------------------------------------------------------------------
 // Touch detection — skip desktop-only features (cursor, hover) on mobile
 // ---------------------------------------------------------------------------
-const isTouchDevice = () =>
-  typeof window !== 'undefined' &&
-  ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+const isTouchDevice = () => {
+  if (typeof window === 'undefined') return false;
+  if (new URLSearchParams(window.location.search).get('touch') === '1') return true;
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+};
 import { ScrollTrigger } from '@/lib/gsap';
 import { useAnimUtils } from '@/hooks/useAnimUtils';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
@@ -533,16 +535,48 @@ export default function AnimationProvider() {
 
   // Initial mount — one-time inits
   useEffect(() => {
+    // Debug HUD — enable on mobile with ?debug=1 to see which animation steps
+    // actually run. Shows as a fixed pill in the bottom-left corner.
+    const debugOn = new URLSearchParams(window.location.search).get('debug') === '1';
+    let hud: HTMLDivElement | null = null;
+    if (debugOn) {
+      hud = document.createElement('div');
+      hud.style.cssText = 'position:fixed;bottom:8px;left:8px;z-index:99999;background:rgba(0,0,0,0.85);color:#fff;padding:8px 10px;font:11px/1.4 monospace;border-radius:6px;max-width:90vw;white-space:pre;pointer-events:none;';
+      document.body.appendChild(hud);
+    }
+    const log = (step: string) => {
+      if (!hud) return;
+      hud.textContent = (hud.textContent || '') + step + '\n';
+    };
+    log('ready: ' + (new Date().getTime() % 100000));
+    log('touch: ' + isTouchDevice());
+    log('animUtils: ' + !!window.animUtils);
+
     // Tell the CSS that JS has taken over: elements with
     // [data-split] / [data-stagger-item] can safely hide themselves now.
     document.documentElement.classList.add('js-ready');
 
-    initListHover();
-    initCarouselManager();
-    initCustomCursor();
-    initProjectSlider();
-    initHeroImageHover();
-    initHeroScrollFade();
+    try { initListHover(); log('listHover ok'); } catch (e) { log('listHover ERR: ' + (e as Error).message); }
+    try { initCarouselManager(); log('carousel ok'); } catch (e) { log('carousel ERR: ' + (e as Error).message); }
+    try { initCustomCursor(); log('cursor ok'); } catch (e) { log('cursor ERR: ' + (e as Error).message); }
+    try { initProjectSlider(); log('slider ok'); } catch (e) { log('slider ERR: ' + (e as Error).message); }
+    try { initHeroImageHover(); log('heroHover ok'); } catch (e) { log('heroHover ERR: ' + (e as Error).message); }
+    try { initHeroScrollFade(); log('heroFade ok'); } catch (e) { log('heroFade ERR: ' + (e as Error).message); }
+
+    // Poll animation state over the next 5s so we can see what finally ends up initialised
+    if (hud) {
+      const updateHud = () => {
+        const splitTotal = document.querySelectorAll('[data-split]').length;
+        const splitInit = [...document.querySelectorAll('[data-split]')].filter(el => (el as HTMLElement).dataset._splitInit).length;
+        const staggerInit = [...document.querySelectorAll('[data-stagger]')].filter(el => (el as HTMLElement).dataset._staggerInit).length;
+        const marqueeInit = !!document.querySelector('[data-marquee]')?.dataset._marqueeInit;
+        const marqueeStatus = document.querySelector('[data-marquee]')?.dataset.marqueeStatus || '-';
+        const preloadDone = !!(window as unknown as { _preloaderComplete?: boolean })._preloaderComplete;
+        hud!.textContent = `split: ${splitInit}/${splitTotal}\nstagger: ${staggerInit}\nmarquee: ${marqueeInit} (${marqueeStatus})\npreload: ${preloadDone}\ntouch: ${isTouchDevice()}`;
+      };
+      const hudTimer = setInterval(updateHud, 500);
+      setTimeout(() => clearInterval(hudTimer), 15000);
+    }
 
     // Failsafe — if the animation pipeline hasn't finished booting by the
     // time this fires (slow mobile network, JS error somewhere, preloader
