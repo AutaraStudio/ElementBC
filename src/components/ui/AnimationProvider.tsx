@@ -535,21 +535,14 @@ export default function AnimationProvider() {
 
   // Initial mount — one-time inits
   useEffect(() => {
-    // Debug HUD — enable on mobile with ?debug=1 to see which animation steps
-    // actually run. Shows as a fixed pill in the bottom-left corner.
-    const debugOn = new URLSearchParams(window.location.search).get('debug') === '1';
-    let hud: HTMLDivElement | null = null;
-    if (debugOn) {
-      hud = document.createElement('div');
-      hud.style.cssText = 'position:fixed;bottom:8px;left:8px;z-index:99999;background:rgba(0,0,0,0.85);color:#fff;padding:8px 10px;font:11px/1.4 monospace;border-radius:6px;max-width:90vw;white-space:pre;pointer-events:none;';
-      document.body.appendChild(hud);
-    }
-    const log = (step: string) => {
-      if (!hud) return;
-      hud.textContent = (hud.textContent || '') + step + '\n';
-    };
-    log('ready: ' + (new Date().getTime() % 100000));
-    log('touch: ' + isTouchDevice());
+    // Debug HUD — pill is created by an inline script in <head> as soon as the
+    // page loads. That script attaches `window.__debugHud` which we reuse here
+    // to append React-side milestones. Only present when ?debug=1 is in the
+    // URL, so production users never see it.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const hud = (window as any).__debugHud as { log: (msg: string) => void } | undefined;
+    const log = (msg: string) => hud?.log(msg);
+    log('react: mounted');
     log('animUtils: ' + !!window.animUtils);
 
     // Tell the CSS that JS has taken over: elements with
@@ -563,19 +556,22 @@ export default function AnimationProvider() {
     try { initHeroImageHover(); log('heroHover ok'); } catch (e) { log('heroHover ERR: ' + (e as Error).message); }
     try { initHeroScrollFade(); log('heroFade ok'); } catch (e) { log('heroFade ERR: ' + (e as Error).message); }
 
-    // Poll animation state over the next 5s so we can see what finally ends up initialised
+    // Periodically append a one-line status snapshot for 15 seconds after
+    // mount so we can watch things come online on the user's phone.
     if (hud) {
-      const updateHud = () => {
+      let last = '';
+      const hudTimer = setInterval(() => {
         const splitTotal = document.querySelectorAll('[data-split]').length;
         const splitInit = [...document.querySelectorAll('[data-split]')].filter(el => (el as HTMLElement).dataset._splitInit).length;
         const staggerInit = [...document.querySelectorAll('[data-stagger]')].filter(el => (el as HTMLElement).dataset._staggerInit).length;
         const marqueeEl = document.querySelector<HTMLElement>('[data-marquee]');
-        const marqueeInit = !!marqueeEl?.dataset._marqueeInit;
-        const marqueeStatus = marqueeEl?.dataset.marqueeStatus || '-';
-        const preloadDone = !!(window as unknown as { _preloaderComplete?: boolean })._preloaderComplete;
-        hud!.textContent = `split: ${splitInit}/${splitTotal}\nstagger: ${staggerInit}\nmarquee: ${marqueeInit} (${marqueeStatus})\npreload: ${preloadDone}\ntouch: ${isTouchDevice()}`;
-      };
-      const hudTimer = setInterval(updateHud, 500);
+        const marqueeStatus = marqueeEl?.dataset._marqueeInit ? (marqueeEl.dataset.marqueeStatus || 'yes') : 'no';
+        const snapshot = `split ${splitInit}/${splitTotal} · stagger ${staggerInit} · marquee ${marqueeStatus}`;
+        if (snapshot !== last) {
+          last = snapshot;
+          hud.log(snapshot);
+        }
+      }, 600);
       setTimeout(() => clearInterval(hudTimer), 15000);
     }
 
