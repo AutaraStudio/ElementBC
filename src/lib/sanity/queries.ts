@@ -91,7 +91,9 @@ export async function getHomePage() {
         "category": projectCategory-> { name, "slug": slug.current },
         featuredImage1 { ..., alt },
         featuredImage2 { ..., alt }
-      }
+      },
+      seoTitle,
+      seoDescription
     }
   `);
 }
@@ -228,6 +230,7 @@ export async function getSiteSettings() {
   return sanityClient.fetch<SanitySiteSettings | null>(`
     *[_type == "siteSettings"][0] {
       siteTitle,
+      seoTitle,
       seoDescription,
       seoImage
     }
@@ -309,6 +312,8 @@ export interface SanityHomePage {
   statsSubheading?: string;
   statsItems?: SanityStatItem[];
   featuredProjects?: (SanityProject & { featuredImage2?: SanityImage | null })[];
+  seoTitle?: string;
+  seoDescription?: string;
 }
 
 export interface SanityApproachItem {
@@ -407,6 +412,7 @@ export interface SanityFooter {
 
 export interface SanitySiteSettings {
   siteTitle?: string;
+  seoTitle?: string;
   seoDescription?: string;
   seoImage?: SanityImage | null;
 }

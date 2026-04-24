@@ -19,13 +19,13 @@ const SYSTEM_FIELDS = new Set([
 const ALLOWED = {
   project: ['projectName', 'slug', 'projectCategory', 'ourRole', 'projectStats', 'featuredImage1', 'featuredImage2', 'galleryImages', 'seoTitle', 'seoDescription'],
   projectCategory: ['name', 'slug'],
-  homePage: ['heroHeading', 'heroViewProjectText', 'heroProject', 'aboutHeading', 'aboutParagraph', 'aboutImage', 'servicesHeading', 'servicesTagline', 'serviceGroups', 'statsHeading', 'statsSubheading', 'statsItems', 'featuredProjects'],
+  homePage: ['heroHeading', 'heroViewProjectText', 'heroProject', 'aboutHeading', 'aboutParagraph', 'aboutImage', 'servicesHeading', 'servicesTagline', 'serviceGroups', 'statsHeading', 'statsSubheading', 'statsItems', 'featuredProjects', 'seoTitle', 'seoDescription'],
   aboutPage: ['heroEyebrow', 'heroHeading', 'teamEyebrow', 'teamDescription', 'teamMembers', 'approachHeading', 'approachDescription', 'approachItems', 'seoTitle', 'seoDescription'],
   projectsPage: ['pageHeading', 'heroEyebrow', 'seoTitle', 'seoDescription'],
   contactPage: ['heroEyebrow', 'heroHeading', 'getInTouchEyebrow', 'teamContacts', 'phoneLabel', 'phoneNumber', 'emailLabel', 'emailAddress', 'addressEyebrow', 'addressLine1', 'addressLine2', 'addressLine3', 'googleMapsUrl', 'visitLabel', 'bookVisitUrl', 'seoTitle', 'seoDescription'],
   navigation: ['navLinks', 'ctaLabel', 'ctaUrl'],
   footer: ['footerNavLinks', 'legalLinks', 'builtByText', 'builtByUrl'],
-  siteSettings: ['siteTitle', 'seoDescription', 'seoImage', 'favicon'],
+  siteSettings: ['siteTitle', 'seoTitle', 'seoDescription', 'seoImage', 'favicon'],
   partnerCarousel: ['heading', 'partners'],
   legalPage: ['heroEyebrow', 'heroHeading', 'lastUpdated', 'body', 'seoTitle', 'seoDescription'],
 }

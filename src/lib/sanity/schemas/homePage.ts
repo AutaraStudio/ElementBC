@@ -12,6 +12,7 @@ export const homePage = defineType({
     { name: "services", title: "Services" },
     { name: "stats", title: "Stats" },
     { name: "projects", title: "Featured Projects" },
+    { name: "seo", title: "SEO" },
   ],
   fields: [
     /* ── Hero ── */
@@ -112,6 +113,24 @@ defineField({
       type: "array",
       group: "projects",
       of: [{ type: "reference", to: [{ type: "project" }] }],
+    }),
+
+    /* ── SEO ── */
+    defineField({
+      name: "seoTitle",
+      title: "SEO Title",
+      type: "string",
+      group: "seo",
+      description: "Overrides the default homepage title in search results. Keep under 60 characters.",
+      validation: (r) => r.max(60).warning("Keep under 60 characters"),
+    }),
+    defineField({
+      name: "seoDescription",
+      title: "SEO Description",
+      type: "text",
+      group: "seo",
+      description: "Overrides the site-wide description for the homepage. Keep under 160 characters.",
+      validation: (r) => r.max(160).warning("Keep under 160 characters"),
     }),
   ],
   preview: { prepare: () => ({ title: "Home Page" }) },

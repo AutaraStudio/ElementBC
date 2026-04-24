@@ -16,11 +16,12 @@ export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const [homePage, settings] = await Promise.all([getHomePage(), getSiteSettings()]);
+  const fallbackTitle = homePage?.heroHeading
+    ? `${settings?.siteTitle ?? 'Element BC'} | ${homePage.heroHeading}`
+    : settings?.siteTitle ?? 'Element BC';
   return {
-    title: homePage?.heroHeading
-      ? `${settings?.siteTitle ?? 'Element BC'} | ${homePage.heroHeading}`
-      : settings?.siteTitle ?? 'Element BC',
-    description: settings?.seoDescription,
+    title: homePage?.seoTitle ?? settings?.seoTitle ?? fallbackTitle,
+    description: homePage?.seoDescription ?? settings?.seoDescription,
   };
 }
 
