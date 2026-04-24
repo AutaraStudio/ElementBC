@@ -569,8 +569,9 @@ export default function AnimationProvider() {
         const splitTotal = document.querySelectorAll('[data-split]').length;
         const splitInit = [...document.querySelectorAll('[data-split]')].filter(el => (el as HTMLElement).dataset._splitInit).length;
         const staggerInit = [...document.querySelectorAll('[data-stagger]')].filter(el => (el as HTMLElement).dataset._staggerInit).length;
-        const marqueeInit = !!document.querySelector('[data-marquee]')?.dataset._marqueeInit;
-        const marqueeStatus = document.querySelector('[data-marquee]')?.dataset.marqueeStatus || '-';
+        const marqueeEl = document.querySelector<HTMLElement>('[data-marquee]');
+        const marqueeInit = !!marqueeEl?.dataset._marqueeInit;
+        const marqueeStatus = marqueeEl?.dataset.marqueeStatus || '-';
         const preloadDone = !!(window as unknown as { _preloaderComplete?: boolean })._preloaderComplete;
         hud!.textContent = `split: ${splitInit}/${splitTotal}\nstagger: ${staggerInit}\nmarquee: ${marqueeInit} (${marqueeStatus})\npreload: ${preloadDone}\ntouch: ${isTouchDevice()}`;
       };
