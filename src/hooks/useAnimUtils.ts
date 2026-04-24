@@ -4,7 +4,10 @@ import { useEffect } from 'react';
 export function useAnimUtils() {
   useEffect(() => {
     const style = getComputedStyle(document.documentElement);
-    const cssVar = (prop: string) => style.getPropertyValue(prop).trim();
+    // Strip surrounding quotes so quoted values (used for multi-token eases
+    // that Safari would otherwise serialise inconsistently) come back clean.
+    const cssVar = (prop: string) =>
+      style.getPropertyValue(prop).trim().replace(/^"(.*)"$/, '$1');
     const cssNum = (prop: string) => parseFloat(cssVar(prop));
 
     const ANIM = {

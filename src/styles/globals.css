@@ -237,10 +237,14 @@
   --anim-ease-in: power2.in;
   --anim-ease-in-out: power2.inOut;
   --anim-ease-sine: sine.inOut;
-  --anim-ease-reveal: M0,0 C0.16,1 0.3,1 1,1;
-  --anim-ease-menu-in: M0,0 C0.22,0.61 0.36,1 1,1;
-  --anim-ease-menu-out: M0,0 C0.64,0 0.78,0.39 1,1;
-  --anim-ease-wipe: M0,0 C0.62,0.05 0.01,0.99 1,1;
+  /* SVG-path eases — wrapped in strings so Safari parses them as literal
+     token sequences instead of trying (and failing) to validate the raw
+     "M0,0 C..." text when retrieved via getComputedStyle. useAnimUtils
+     strips the surrounding quotes before handing the value to CustomEase. */
+  --anim-ease-reveal: "M0,0 C0.16,1 0.3,1 1,1";
+  --anim-ease-menu-in: "M0,0 C0.22,0.61 0.36,1 1,1";
+  --anim-ease-menu-out: "M0,0 C0.64,0 0.78,0.39 1,1";
+  --anim-ease-wipe: "M0,0 C0.62,0.05 0.01,0.99 1,1";
   /* Blur (unitless px — parsed by JS) */
   --anim-blur-sm: 3;
   --anim-blur-md: 4;

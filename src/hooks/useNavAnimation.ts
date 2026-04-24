@@ -43,9 +43,17 @@ export function useNavAnimation() {
       const { ANIM: anim, shuffleArray } = window.animUtils;
       dlog('got animUtils');
 
-      CustomEase.create('menuReveal', anim.ease.menuIn);
-      CustomEase.create('menuHide', anim.ease.menuOut);
-      CustomEase.create('linkReveal', anim.ease.reveal);
+      // Hardcoded curves — iOS Safari has been seen to return the raw CSS var
+      // contents as an empty string at the moment useAnimUtils runs, which
+      // made CustomEase.create() throw "Invalid CustomEase" and cancelled the
+      // rest of the effect queue. The values below mirror the --anim-ease-*
+      // custom properties but without relying on stylesheet resolution order.
+      const ensureEase = (name: string, path: string) => {
+        try { CustomEase.create(name, path); } catch { /* already registered */ }
+      };
+      ensureEase('menuReveal', anim.ease.menuIn || 'M0,0 C0.22,0.61 0.36,1 1,1');
+      ensureEase('menuHide',   anim.ease.menuOut || 'M0,0 C0.64,0 0.78,0.39 1,1');
+      ensureEase('linkReveal', anim.ease.reveal  || 'M0,0 C0.16,1 0.3,1 1,1');
       dlog('easings created');
 
       const toggleBtn = document.querySelector('[data-nav-toggle]');
