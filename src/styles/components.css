@@ -1619,7 +1619,9 @@
 .preloader_svg-wrap {
   z-index: 0;
   color: var(--_theme---svg-accent);
-  width: 30rem;
+  /* Cap at 30rem on desktop, scale down on narrow viewports so the SVG
+     never spills outside the screen on mobile. */
+  width: min(30rem, 88vw);
 }
 
 .preloader_layout {
@@ -1628,10 +1630,21 @@
 
 .preloader_text-wrap {
   z-index: 1;
-  width: 30rem;
+  /* Match the SVG wrap so the heading is always confined inside the
+     visible bars on mobile. */
+  width: min(30rem, 88vw);
   padding: 0 1rem;
   position: relative;
   box-sizing: border-box;
+}
+
+/* Mobile: scale the heading itself so all three words ("Every Detail
+   Managed.") fit inside the 88vw frame without overflow. */
+@media (max-width: 600px) {
+  .preloader_text {
+    font-size: clamp(1.75rem, 9vw, 2.75rem);
+    line-height: 1.05;
+  }
 }
 
 .preloader_text-span {
@@ -1641,7 +1654,7 @@
 }
 
 .preloader_end-svg {
-  width: 20rem;
+  width: min(20rem, 70vw);
 }
 
 .preloader_svg-path {
