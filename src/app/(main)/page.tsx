@@ -8,7 +8,6 @@ import { urlFor } from '@/lib/sanity/imageUrl';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import SectionDivider from '@/components/ui/SectionDivider';
 import ScrollOrbit from '@/components/ui/ScrollOrbit';
-import StatsBarGraph from '@/components/ui/StatsBarGraph';
 import WhatWeDo from '@/components/sections/WhatWeDo';
 export const revalidate = 3600;
 
@@ -166,15 +165,6 @@ export default async function HomePage() {
           theme="charcoal"
         />
       </div>
-
-      <SectionDivider theme="buff" />
-
-      <StatsBarGraph
-        stats={homePage?.statsItems ?? []}
-        heading={homePage?.statsHeading ?? 'Built on detail. Proven in results.'}
-        subheading={homePage?.statsSubheading ?? 'From programme to budget, we manage every detail — and the results speak for themselves.'}
-        theme="buff"
-      />
 
       <SectionDivider theme="buff" />
 
