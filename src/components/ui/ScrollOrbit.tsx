@@ -300,7 +300,7 @@ export default function ScrollOrbit({
       ref={sectionRef}
       data-theme={theme}
       className={`${styles['scroll-orbit_wrap']} u-theme-${theme}`}
-      style={{ height: `${budgetMultiplier * 100}vh` }}
+      style={{ height: `${budgetMultiplier * 100}svh` }}
     >
       {/* Heading — in normal flow, scrolls away naturally */}
       <div className={styles['scroll-orbit_heading-wrap']}>
