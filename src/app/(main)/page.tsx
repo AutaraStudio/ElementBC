@@ -10,7 +10,6 @@ import SectionDivider from '@/components/ui/SectionDivider';
 import ScrollOrbit from '@/components/ui/ScrollOrbit';
 import StatsBarGraph from '@/components/ui/StatsBarGraph';
 import WhatWeDo from '@/components/sections/WhatWeDo';
-import ProgressNav from '@/components/ui/ProgressNav';
 export const revalidate = 3600;
 
 
@@ -65,8 +64,6 @@ export default async function HomePage() {
   const [homePage, projectsPage] = await Promise.all([getHomePage(), getProjectsPage()]);
   return (
     <>
-      <ProgressNav />
-
       {/* ============================================================
           HERO SECTION
       ============================================================ */}
