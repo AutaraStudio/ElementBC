@@ -2592,16 +2592,32 @@
   width: 100%;
 }
 
-.project_gallery-button {
+.project_gallery-button.projects_hero-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 4;
+  /* Smaller, solid-white pill with a black arrow. Override the
+     translucent gradient defined on .projects_hero-button. */
+  height: 2.5rem;
+  width: 2.5rem;
+  background: #fff;
+  color: #000;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.project_gallery-button.projects_hero-button:hover {
+  background: var(--_red---swatch--brand-500);
+  color: #fff;
+}
+.project_gallery-button .projects_hero-arrow {
+  width: 0.95rem;
+  height: 0.62rem;
 }
 .project_gallery-button.is-prev {
   left: var(--_spacing---space--3-16px);
-  /* Flip horizontally so the arrow glyph points left (matches the data-
-     slider-prev rotation used on the archive hero). */
+  /* Flip horizontally so the arrow glyph points left. */
   transform: translateY(-50%) rotate(180deg);
 }
 .project_gallery-button.is-next {
@@ -2610,8 +2626,8 @@
 
 @media (max-width: 767px) {
   .project_gallery-button.projects_hero-button {
-    height: 2.75rem;
-    width: 2.75rem;
+    height: 2.25rem;
+    width: 2.25rem;
   }
   .project_gallery-button.is-prev { left: var(--_spacing---space--2-12px); }
   .project_gallery-button.is-next { right: var(--_spacing---space--2-12px); }
