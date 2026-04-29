@@ -176,7 +176,7 @@ export default async function HomePage() {
         heading={homePage?.servicesHeading ?? 'Services Built on Precision.'}
         tagline={homePage?.servicesTagline ?? 'We tailor our approach to meet each client\'s specific needs, with expert, director-level involvement throughout.'}
         serviceGroups={homePage?.serviceGroups ?? []}
-        theme="charcoal"
+        theme="buff"
       />
 
       <SectionDivider theme="buff" />
