@@ -2484,21 +2484,19 @@
     height: 50%;
   }
 
-  /* Footer background SVG — taller and pushed further off-screen so it
-     doesn't crowd the nav links on mobile (PDF feedback #3). */
-  .footer_bg-wrap {
-    width: 95%;
-    height: 110%;
-    inset: -5% -22% 0% auto;
+  /* Hide both decorative bar SVGs on mobile — too busy in the small
+     viewport, and they kept overlapping the nav links / menu copy. */
+  .footer_bg-wrap,
+  .nav_mega_bg-wrap {
+    display: none !important;
   }
 
-  /* Mega-menu background SVG — same treatment as the footer (PDF #4).
-     Bumped specificity to override the .u-position-absolute combinator
-     selector in lumos-utilities.css that locks the desktop sizing. */
-  .nav_mega_bg-wrap.u-position-absolute {
-    width: 95%;
-    height: 110%;
-    inset: -5% -22% 0% auto;
+  /* Footer legal links — stack vertically on mobile so Privacy Policy,
+     Terms & Conditions and "Built by Autara" line up under each other. */
+  .footer_main_legal-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--_spacing---space--2-12px);
   }
 
   /* Case Studies archive header — stack eyebrow and heading vertically and
