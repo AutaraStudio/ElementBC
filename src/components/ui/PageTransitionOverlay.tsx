@@ -47,7 +47,6 @@ function prefersReducedMotion(): boolean {
 export default function PageTransitionOverlay() {
   const overlayRef = useRef<HTMLDivElement>(null);
   const panelRef   = useRef<HTMLDivElement>(null);
-  const labelRef   = useRef<HTMLSpanElement>(null);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -71,7 +70,7 @@ export default function PageTransitionOverlay() {
       }
     };
 
-    const transition = async (href: string, pageName?: string) => {
+    const transition = async (href: string) => {
       // prefers-reduced-motion → no panel, just route.
       if (prefersReducedMotion()) {
         router.push(href);
@@ -80,7 +79,6 @@ export default function PageTransitionOverlay() {
 
       const overlay = overlayRef.current;
       const panel   = panelRef.current;
-      const label   = labelRef.current;
       if (!overlay || !panel) {
         router.push(href);
         return;
@@ -105,7 +103,6 @@ export default function PageTransitionOverlay() {
         autoAlpha: 0,
         willChange: 'transform, opacity',
       });
-      if (label) gsap.set(label, { autoAlpha: 0 });
 
       const leaveTl = gsap.timeline();
       leaveTl.to(panel, { autoAlpha: 1, duration: 0 }, 0);
@@ -120,14 +117,6 @@ export default function PageTransitionOverlay() {
           duration: LEAVE_PANEL_DURATION,
           ease: EASE,
         }, 0);
-      }
-      if (label && pageName) {
-        label.textContent = pageName;
-        leaveTl.to(label, {
-          autoAlpha: 1,
-          duration: 0.3,
-          ease: 'none',
-        }, '<+=0.2');
       }
       await leaveTl;
 
@@ -176,13 +165,6 @@ export default function PageTransitionOverlay() {
         ease: EASE,
         immediateRender: false,
       }, 0);
-      if (label && pageName) {
-        enterTl.to(label, {
-          autoAlpha: 0,
-          duration: 0.3,
-          ease: 'none',
-        }, 0.1);
-      }
       if (newMain) {
         enterTl.to(newMain, {
           y: 0,
@@ -202,7 +184,6 @@ export default function PageTransitionOverlay() {
 
       // Reset bookkeeping.
       gsap.set(panel, { autoAlpha: 0, yPercent: 0, willChange: '' });
-      if (label) gsap.set(label, { autoAlpha: 0 });
       if (newMain) gsap.set(newMain, { clearProps: 'transform' });
       try { lenis?.start?.(); } catch {}
     };
@@ -213,12 +194,7 @@ export default function PageTransitionOverlay() {
 
   return (
     <div ref={overlayRef} className="page-transition" aria-hidden="true">
-      <div ref={panelRef} className="page-transition__panel">
-        <span
-          ref={labelRef}
-          className="page-transition__label u-text-style-h2 u-text-transform-uppercase"
-        />
-      </div>
+      <div ref={panelRef} className="page-transition__panel" />
     </div>
   );
 }

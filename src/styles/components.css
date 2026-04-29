@@ -2592,9 +2592,8 @@
   z-index: 100;
   pointer-events: none;
   overflow: clip;
-  /* Per-page tints can override these on a parent inline style. */
+  /* Per-page tints can override this on a parent inline style. */
   --transition-bg: var(--swatch--dark-900, #14110f);
-  --transition-text: var(--swatch--buff-100, #d6d4c5);
 }
 
 .page-transition__panel {
@@ -2604,18 +2603,7 @@
   width: 100%;
   height: 100%;
   background-color: var(--transition-bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   visibility: hidden;
-}
-
-.page-transition__label {
-  color: var(--transition-text);
-  visibility: hidden;
-  /* Typography (size, weight, letter-spacing, text-transform) comes from
-     the u-text-style-h2 + u-text-transform-uppercase utility classes
-     applied alongside this class on the element itself. */
 }
 
 /* ==========================================================================
