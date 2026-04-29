@@ -287,16 +287,13 @@ export function useNavAnimation() {
 
       dlog('pre-scroll-hide');
       // ---- Scroll hide/show nav ----
-      // Skip on touch devices: mobile browsers fire scroll events constantly
-      // during URL-bar collapse animations and momentum scrolls, which makes
-      // the nav flicker and feels glitchy. Native browser chrome already
-      // handles the same UX on mobile by hiding the URL bar on scroll-down.
-      const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
       // Animate only .nav_main-contain (not the wrapper) so we never put a
       // transform on the fixed-positioned parent — that would break the mega
-      // menu's own position:fixed.
+      // menu's own position:fixed. The handler is rAF-throttled with a
+      // 24px directional threshold below, which keeps it stable on mobile
+      // while the URL bar collapses (no flicker on small scroll deltas).
       const navBar = document.querySelector<HTMLElement>('.nav_main-contain');
-      if (navBar && !isTouch) {
+      if (navBar) {
         let lastScrollY = window.scrollY;
         let navHidden = false;
         let raf = 0;

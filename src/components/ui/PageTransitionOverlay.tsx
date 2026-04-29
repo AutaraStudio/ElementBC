@@ -186,6 +186,12 @@ export default function PageTransitionOverlay() {
       gsap.set(panel, { autoAlpha: 0, yPercent: 0, willChange: '' });
       if (newMain) gsap.set(newMain, { clearProps: 'transform' });
       try { lenis?.start?.(); } catch {}
+      // Final refresh now that the page transform is cleared and the
+      // new layout is settled — without this, theme-scroller and other
+      // ScrollTrigger-driven things reference positions measured while
+      // the page was still translated by 12vh, so the nav won't update
+      // theme as the user scrolls past sections.
+      try { ScrollTrigger.refresh(); } catch {}
     };
 
     registerTransition(transition);
