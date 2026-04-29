@@ -2612,11 +2612,10 @@
 
 .page-transition__label {
   color: var(--transition-text);
-  font-family: var(--_typography---font--primary-family, inherit);
-  font-size: clamp(1rem, 4vw, 1.5rem);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
   visibility: hidden;
+  /* Typography (size, weight, letter-spacing, text-transform) comes from
+     the u-text-style-h2 + u-text-transform-uppercase utility classes
+     applied alongside this class on the element itself. */
 }
 
 /* ==========================================================================

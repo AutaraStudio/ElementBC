@@ -22,6 +22,33 @@ type TransitionLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 const isExternalUrl = (href: string): boolean =>
   /^(https?:|mailto:|tel:)/i.test(href);
 
+/**
+ * Best-effort label for the panel when the caller hasn't passed an explicit
+ * pageName. Maps the first path segment to a friendly title so every
+ * TransitionLink shows a label, not just the mega-menu canaries.
+ */
+const PAGE_LABELS: Record<string, string> = {
+  '': 'Home',
+  about: 'About',
+  contact: 'Contact',
+  'case-studies': 'Case Studies',
+  'privacy-policy': 'Privacy Policy',
+  'terms-conditions': 'Terms & Conditions',
+};
+
+function defaultPageName(href: string): string | undefined {
+  try {
+    const path = href.split(/[?#]/)[0] ?? '';
+    const segments = path.split('/').filter(Boolean);
+    // /case-studies/<slug>  → use "Case Study" so we don't show raw slugs.
+    if (segments[0] === 'case-studies' && segments.length > 1) return 'Case Study';
+    const first = segments[0] ?? '';
+    return PAGE_LABELS[first];
+  } catch {
+    return undefined;
+  }
+}
+
 const TransitionLink = forwardRef<HTMLAnchorElement, TransitionLinkProps>(
   ({ href, transition = true, pageName, external, onClick, target, download, ...rest }, ref) => {
     const { triggerTransition } = usePageTransitionContext();
@@ -69,7 +96,7 @@ const TransitionLink = forwardRef<HTMLAnchorElement, TransitionLinkProps>(
       if (!transition) return;
 
       event.preventDefault();
-      void triggerTransition(href, pageName);
+      void triggerTransition(href, pageName ?? defaultPageName(href));
     };
 
     return (

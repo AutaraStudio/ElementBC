@@ -214,7 +214,10 @@ export default function PageTransitionOverlay() {
   return (
     <div ref={overlayRef} className="page-transition" aria-hidden="true">
       <div ref={panelRef} className="page-transition__panel">
-        <span ref={labelRef} className="page-transition__label" />
+        <span
+          ref={labelRef}
+          className="page-transition__label u-text-style-h2 u-text-transform-uppercase"
+        />
       </div>
     </div>
   );
