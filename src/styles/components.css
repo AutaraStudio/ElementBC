@@ -1914,14 +1914,13 @@
   opacity: 0;
 }
 
+/* Dark image tint disabled per user request — only the home hero and
+   the case studies archive slider keep their dark overlays
+   (those use the data-overlay-dark attribute, not this class).
+   The element stays in the DOM so existing hover bookkeeping doesn't
+   need to be unwired. */
 .project_image-marquee-overlay {
-  background-color: rgba(0, 0, 0, 0.35);
-  transition: opacity 0.4s ease;
-}
-
-.project_image-marquee-inner:hover .project_image-marquee-overlay,
-.project_related-image:hover .project_image-marquee-overlay {
-  opacity: 0;
+  background-color: transparent;
 }
 
 .project_related-image img {
