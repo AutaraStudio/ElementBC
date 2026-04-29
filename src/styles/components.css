@@ -2052,9 +2052,8 @@
 .project_hero-heading {
 }
 
-/* ── Project stats — stats left, description bottom-right ── */
+/* ── Project stats — full-width grid below the centred hero column ── */
 .project_stats-contain {
-  padding-top: var(--_spacing---space--8-64px);
   padding-bottom: var(--_spacing---space--7-48px);
 }
 
@@ -2063,27 +2062,6 @@
   grid-template-columns: 1fr 1fr;
   gap: 0;
   border-top: var(--border-width--main) solid var(--_theme---border);
-}
-
-/* ── Hero header — heading left, description right ── */
-.project_hero-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: var(--_spacing---space--8-64px);
-}
-
-.project_hero-header-left {
-  display: flex;
-  flex-direction: column;
-  gap: var(--_spacing---space--5-32px);
-}
-
-.project_hero-header-right {
-  max-width: 30ch;
-  flex-shrink: 0;
-  align-self: flex-end;
-  text-align: right;
 }
 
 .project_stats-item {
@@ -2116,13 +2094,25 @@
 }
 
 @media (max-width: 767px) {
-  .project_hero-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--_spacing---space--5-32px);
+  /* Centre the eyebrow row, heading and paragraph on mobile so the
+     case study hero matches the about / contact / legal feel. */
+  .project_hero-wrap .project_hero-eyebrow {
+    justify-content: center;
   }
-  .project_hero-header-right {
-    max-width: none;
+  .project_hero-wrap .project_hero_eyebrow-heading {
+    text-align: center;
+  }
+  .project_hero-wrap .project_hero-heading {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .project_hero-wrap .project_hero-paragraph {
+    text-align: center;
+  }
+  .project_hero-wrap .project_hero-paragraph p {
+    margin-left: auto;
+    margin-right: auto;
   }
   .project_stats-row {
     grid-template-columns: 1fr;
@@ -2620,15 +2610,16 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 4;
-  /* Smaller, solid-white pill with a black arrow. Override the
-     translucent gradient defined on .projects_hero-button. */
+  /* Smaller pill but keep the same translucent glass treatment used
+     on the case studies archive hero (backdrop-blur + soft white
+     gradient). Hover swaps in the brand orange. */
   height: 2.5rem;
   width: 2.5rem;
-  background: #fff;
-  color: #000;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  background: linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.2));
+  -webkit-backdrop-filter: blur(2rem);
+  backdrop-filter: blur(2rem);
+  color: currentColor;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 .project_gallery-button.projects_hero-button:hover {
   background: var(--_red---swatch--brand-500);
