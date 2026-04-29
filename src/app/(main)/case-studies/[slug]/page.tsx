@@ -97,11 +97,9 @@ export default async function ProjectDetailPage({
           )}
         </div>
 
-        {/* ── Gallery slider — directly after stats ── */}
+        {/* ── Gallery slider — full-bleed (replaces the directional marquee) ── */}
         {project.galleryImages && project.galleryImages.length > 0 && (
-          <div className="project_gallery-contain u-container">
-            <ProjectGallerySlider images={project.galleryImages} alt={project.projectName} />
-          </div>
+          <ProjectGallerySlider images={project.galleryImages} alt={project.projectName} />
         )}
 
       </section>
