@@ -473,8 +473,18 @@ export function useScrollReveal() {
         });
       }
 
-      // Resize — re-init split/stagger animations (store ref for cleanup)
+      // Resize — re-init split/stagger animations only when the WIDTH
+      // actually changes (orientation or window resize), not on every
+      // height tick. Mobile browsers fire `resize` constantly while the
+      // URL bar collapses and expands during scroll; those events were
+      // re-clearing every init flag and replaying the animations from
+      // their initial state, which felt like the page "re-animating"
+      // every time the user scrolled up. Tracking width-only filters
+      // those nuisance events out.
+      let lastResizeWidth = window.innerWidth;
       resizeHandler = () => {
+        if (window.innerWidth === lastResizeWidth) return;
+        lastResizeWidth = window.innerWidth;
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
           document.querySelectorAll('[data-split]').forEach((el) => { delete (el as HTMLElement).dataset._splitInit; });
