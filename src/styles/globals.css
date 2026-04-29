@@ -669,6 +669,13 @@ html.js-ready [data-stagger-item] {
   visibility: hidden;
 }
 
+/* Disable Chrome's pull-to-refresh so users on mobile don't accidentally
+   reload the page when they scroll up past the top. Also stop a swipe at
+   the bottom from triggering history navigation on some browsers. */
+html, body {
+  overscroll-behavior-y: none;
+}
+
 
 /* =============================================================================
    PRELOADER

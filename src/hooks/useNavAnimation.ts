@@ -287,13 +287,21 @@ export function useNavAnimation() {
 
       dlog('pre-scroll-hide');
       // ---- Scroll hide/show nav ----
+      // Skip on touch devices: mobile browsers fire scroll events constantly
+      // during URL-bar collapse animations and momentum scrolls, which makes
+      // the nav flicker and feels glitchy. Native browser chrome already
+      // handles the same UX on mobile by hiding the URL bar on scroll-down.
+      const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
       // Animate only .nav_main-contain (not the wrapper) so we never put a
       // transform on the fixed-positioned parent — that would break the mega
       // menu's own position:fixed.
       const navBar = document.querySelector<HTMLElement>('.nav_main-contain');
-      if (navBar) {
+      if (navBar && !isTouch) {
         let lastScrollY = window.scrollY;
         let navHidden = false;
+        let raf = 0;
+        const HIDE_THRESHOLD = 24; // px of intent before we react
+        const TOP_BUFFER = 100;    // always-visible zone near page top
 
         _showNav = () => {
           if (navHidden) {
@@ -304,26 +312,28 @@ export function useNavAnimation() {
         };
 
         const onScroll = () => {
-          if (isOpen || window.scrollY < 100) {
-            if (navHidden) {
+          if (raf) return;
+          raf = requestAnimationFrame(() => {
+            raf = 0;
+            if (isOpen || window.scrollY < TOP_BUFFER) {
+              if (navHidden) {
+                gsap.to(navBar, { y: 0, duration: 0.4, ease: 'power2.out' });
+                navHidden = false;
+              }
+              lastScrollY = window.scrollY;
+              return;
+            }
+            const delta = window.scrollY - lastScrollY;
+            if (delta > HIDE_THRESHOLD && !navHidden) {
+              gsap.to(navBar, { y: '-100%', duration: 0.4, ease: 'power2.inOut' });
+              navHidden = true;
+              lastScrollY = window.scrollY;
+            } else if (delta < -HIDE_THRESHOLD && navHidden) {
               gsap.to(navBar, { y: 0, duration: 0.4, ease: 'power2.out' });
               navHidden = false;
+              lastScrollY = window.scrollY;
             }
-            lastScrollY = window.scrollY;
-            return;
-          }
-
-          const delta = window.scrollY - lastScrollY;
-
-          if (delta > 5 && !navHidden) {
-            gsap.to(navBar, { y: '-100%', duration: 0.4, ease: 'power2.inOut' });
-            navHidden = true;
-          } else if (delta < -5 && navHidden) {
-            gsap.to(navBar, { y: 0, duration: 0.4, ease: 'power2.out' });
-            navHidden = false;
-          }
-
-          lastScrollY = window.scrollY;
+          });
         };
 
         window.addEventListener('scroll', onScroll, { passive: true });
