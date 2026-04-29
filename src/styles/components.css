@@ -2509,6 +2509,17 @@
     margin-top: var(--_spacing---space--4-24px);
   }
 
+  /* Home page case-studies section — the heading column uses
+     u-justify-content-end which shoves the heading to the right edge of
+     the screen on mobile. Force it back to the left. */
+  .projects_filter-col .projects_filter_col-inner.u-justify-content-end {
+    justify-content: flex-start;
+  }
+  .projects_heading-heading {
+    text-align: left;
+    max-width: none;
+  }
+
   /* Contact page — give each contact item more vertical breathing room
      (PDF #8). */
   .contact_info-item {
@@ -2563,6 +2574,9 @@
     max-width: var(--max-width--main) !important;
     margin-left: auto !important;
     margin-right: auto !important;
+    /* Breathing room between the section heading/paragraph and the first
+       approach item underneath. */
+    margin-top: var(--_spacing---space--7-48px) !important;
     display: block !important;
     overflow: visible !important;
   }
