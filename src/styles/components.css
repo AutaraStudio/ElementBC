@@ -2582,6 +2582,83 @@
   }
 }
 
+/* ==========================================================================
+   PROJECT DETAIL — gallery slider (replaces the directional marquee)
+   ========================================================================== */
+.project_gallery-contain {
+  margin-top: var(--_spacing---section-space--main-112px);
+  margin-bottom: var(--_spacing---section-space--main-112px);
+}
+
+.project_gallery-slider {
+  width: 100%;
+}
+
+.project_gallery-slider-track {
+  position: relative;
+  width: 100%;
+  background: color-mix(in srgb, var(--_theme---text) 4%, transparent);
+}
+
+.project_gallery-aspect {
+  width: 100%;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.project_gallery-slide {
+  position: absolute;
+  inset: 0;
+}
+
+.project_gallery-slide-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Reuse the .projects_hero-button style from the archive hero, but pin
+   each button to the vertical centre on the left/right edge. */
+.project_gallery-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+}
+.project_gallery-button.is-prev {
+  left: var(--_spacing---space--3-16px);
+  /* The shared .projects_hero-button rule rotates the prev arrow via
+     the [data-slider-prev] selector which we don't apply here — flip
+     it manually so the prev arrow points left. */
+  transform: translateY(-50%) rotate(180deg);
+}
+.project_gallery-button.is-next {
+  right: var(--_spacing---space--3-16px);
+}
+
+.project_gallery-counter {
+  bottom: var(--_spacing---space--3-16px);
+  right: var(--_spacing---space--3-16px);
+  z-index: 4;
+  background: color-mix(in srgb, var(--_theme---text) 8%, transparent);
+  padding: var(--_spacing---space--1-8px) var(--_spacing---space--3-16px);
+  color: var(--_theme---text);
+}
+
+/* Mobile — shrink button hit area + bring them in from the edge */
+@media (max-width: 767px) {
+  .project_gallery-button.projects_hero-button {
+    height: 2.75rem;
+    width: 2.75rem;
+  }
+  .project_gallery-button.is-prev { left: var(--_spacing---space--2-12px); }
+  .project_gallery-button.is-next { right: var(--_spacing---space--2-12px); }
+  .project_gallery-counter {
+    bottom: var(--_spacing---space--2-12px);
+    right: var(--_spacing---space--2-12px);
+  }
+}
+
 /* Char Stagger Animation */
 .char-stagger-wrap {
   overflow: hidden;

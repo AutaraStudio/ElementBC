@@ -7,6 +7,7 @@ import TransitionLink from '@/components/ui/TransitionLink';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import SectionDivider from '@/components/ui/SectionDivider';
+import ProjectGallerySlider from '@/components/sections/ProjectGallerySlider';
 
 export const revalidate = 3600;
 
@@ -96,38 +97,10 @@ export default async function ProjectDetailPage({
           )}
         </div>
 
-        {/* ── Image marquee — directly after stats ── */}
+        {/* ── Gallery slider — directly after stats ── */}
         {project.galleryImages && project.galleryImages.length > 0 && (
-          <div data-marquee-duplicate={Math.max(3, Math.ceil(8 / project.galleryImages.length))} data-marquee="" data-marquee-direction="left" data-marquee-speed="90" data-marquee-scroll-speed="20" data-marquee-reveal="" className="project_image-marquee">
-            <div data-marquee-mask="" className="project_image-marquee-mask u-width-full u-overflow-hidden">
-              <div data-marquee-track="" className="project_image-marquee-track">
-                <div data-marquee-collection="" className="project_image-marquee-collection">
-                  {project.galleryImages.map((image) => {
-                    const src = urlFor(image);
-                    if (!src) return null;
-                    const w = image.asset?.metadata?.dimensions?.width ?? 4;
-                    const h = image.asset?.metadata?.dimensions?.height ?? 3;
-                    const aspectRatio = w / h;
-                    return (
-                      <div key={image._key} data-marquee-item="" className="project_image-marquee-item">
-                        <div className="project_image-marquee-inner u-position-relative u-overflow-hidden">
-                          <Image
-                            src={src}
-                            width={Math.round(320 * aspectRatio)}
-                            height={320}
-                            alt={image.alt ?? project.projectName}
-                            className="project_image-marquee-img"
-                            style={{ aspectRatio: `${w} / ${h}` }}
-                          />
-                          <div className="color_reveal-overlay marquee-reveal-overlay u-cover-absolute u-pointer-off"></div>
-                          <div className="project_image-marquee-overlay u-cover-absolute u-pointer-off"></div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
+          <div className="project_gallery-contain u-container">
+            <ProjectGallerySlider images={project.galleryImages} alt={project.projectName} />
           </div>
         )}
 
