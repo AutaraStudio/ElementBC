@@ -2492,8 +2492,10 @@
     inset: -5% -22% 0% auto;
   }
 
-  /* Mega-menu background SVG — same treatment as the footer (PDF #4). */
-  .nav_mega_bg-wrap {
+  /* Mega-menu background SVG — same treatment as the footer (PDF #4).
+     Bumped specificity to override the .u-position-absolute combinator
+     selector in lumos-utilities.css that locks the desktop sizing. */
+  .nav_mega_bg-wrap.u-position-absolute {
     width: 95%;
     height: 110%;
     inset: -5% -22% 0% auto;
@@ -2556,6 +2558,15 @@
   [class*="diagram_content"] {
     height: auto !important;
     min-height: 0 !important;
+    /* The desktop module sets width:100% which clobbers u-container's
+       margin-auto centering — restore the standard container gutters so
+       the list (and its orange dots) sit inside the page padding. */
+    width: calc(100% - var(--site--margin) * 2) !important;
+    max-width: var(--max-width--main) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+    overflow: visible !important;
   }
 }
 

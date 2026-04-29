@@ -73,14 +73,21 @@ const heroCSS = `
 @container (width < 40em) {
   .projects_hero-bar {
     bottom: 2rem;
-    gap: 1rem;
+    gap: 0.75rem;
+    flex-wrap: wrap;
   }
-  /* On mobile, drop the absolute-positioned nav and instead show compact
-     prev/next buttons inline at the right of the bottom bar. */
+  /* Hide the progress track on mobile so the inline prev/next buttons get
+     room to breathe — the page-counter (01 / 05) still gives the user an
+     idea of position. */
+  .projects_hero-bar > .projects_hero-progress {
+    display: none;
+  }
+  /* Inline prev/next buttons live at the right edge of the bar. */
   .projects_hero-bar-nav {
     display: flex !important;
     gap: 0.5rem;
     flex-shrink: 0;
+    margin-left: auto;
   }
   .projects_hero-bar-nav .projects_hero-button {
     height: 2.75rem;
