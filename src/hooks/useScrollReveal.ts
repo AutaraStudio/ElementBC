@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import gsap from '@/lib/gsap';
 import { ScrollTrigger } from '@/lib/gsap';
+import { awaitTransitionEnd } from '@/lib/transition/transitionState';
 
 export function useScrollReveal() {
   useEffect(() => {
@@ -452,23 +453,36 @@ export function useScrollReveal() {
             });
             heroQueue.push({ tl });
           } else {
-            ScrollTrigger.batch(items, {
-              start,
-              once: true,
-              onEnter: (batch) => {
-                batch.forEach((item, idx) => {
-                  const hds = (item as Element).querySelectorAll('[data-stagger-heading]');
-                  const bds = (item as Element).querySelectorAll('[data-stagger-body]');
-                  if (hds.length || bds.length) {
-                    const tl2 = gsap.timeline({ delay: idx * each });
-                    if (hds.length) tl2.to(hds, { opacity: 1, y: 0, filter: blurVal ? 'blur(0px)' : 'none', duration, ease, stagger: 0.05 }, 0);
-                    if (bds.length) tl2.to(bds, { opacity: 1, y: 0, filter: blurVal ? 'blur(0px)' : 'none', duration, ease, stagger: 0.05 }, pause);
-                  } else {
-                    gsap.to(item, { opacity: 1, y: 0, filter: blurVal ? 'blur(0px)' : 'none', duration, ease, delay: idx * each });
-                  }
-                });
-              },
+            // Wait for the transition / preloader lock to clear before
+            // registering the batch — otherwise observers fire while
+            // those overlays still cover the viewport and the user
+            // never sees the reveal.
+            let cancelled = false;
+            awaitTransitionEnd().then(() => {
+              if (cancelled) return;
+              ScrollTrigger.batch(items, {
+                start,
+                once: true,
+                onEnter: (batch) => {
+                  batch.forEach((item, idx) => {
+                    const hds = (item as Element).querySelectorAll('[data-stagger-heading]');
+                    const bds = (item as Element).querySelectorAll('[data-stagger-body]');
+                    if (hds.length || bds.length) {
+                      const tl2 = gsap.timeline({ delay: idx * each });
+                      if (hds.length) tl2.to(hds, { opacity: 1, y: 0, filter: blurVal ? 'blur(0px)' : 'none', duration, ease, stagger: 0.05 }, 0);
+                      if (bds.length) tl2.to(bds, { opacity: 1, y: 0, filter: blurVal ? 'blur(0px)' : 'none', duration, ease, stagger: 0.05 }, pause);
+                    } else {
+                      gsap.to(item, { opacity: 1, y: 0, filter: blurVal ? 'blur(0px)' : 'none', duration, ease, delay: idx * each });
+                    }
+                  });
+                },
+              });
             });
+            // The cancelled flag is captured by the closure above, but
+            // we currently re-init via cleanupPageAnimations on route
+            // change instead of unsubscribing per-item; leaving this as
+            // documentation in case we later add a granular cleanup.
+            void cancelled;
           }
         });
       }

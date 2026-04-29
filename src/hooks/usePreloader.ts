@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import gsap from '@/lib/gsap';
 import { CustomEase } from '@/lib/gsap';
+import { beginTransition, endTransition } from '@/lib/transition/transitionState';
 
 export function usePreloader(pathname: string) {
   useEffect(() => {
@@ -11,6 +12,12 @@ export function usePreloader(pathname: string) {
     CustomEase.create('reveal', 'M0,0 C0.62,0.05 0.01,0.99 1,1');
 
     const shouldPlay = pathname === '/' && !sessionStorage.getItem('preloaderDone');
+
+    // While the preloader is on-screen, hold the same lock the page-
+    // transition overlay uses. Reveal observers register through
+    // awaitTransitionEnd() and only start firing once we drop the lock
+    // at preloader completion (or below in the no-preloader path).
+    if (shouldPlay) beginTransition();
 
     if (!shouldPlay) {
       // Skip preloader — hide wraps immediately and fire the event
@@ -114,6 +121,12 @@ export function usePreloader(pathname: string) {
       window.addEventListener('animUtils:ready', run, { once: true });
     }
 
+    // Drop the transition lock the moment the preloader is gone — works
+    // for both the play path (timeline.onComplete dispatches the event)
+    // and the skip path (rAF dispatch above), and for the 12s failsafe.
+    const onPreloaderComplete = () => endTransition();
+    window.addEventListener('preloader:complete', onPreloaderComplete, { once: true });
+
     // Safety net: if the preloader timeline never completes for any reason
     // (GSAP error, HMR glitch, mobile browser quirk), force-fire the event
     // anyway after 12 seconds so hero animations queued via afterPreloader()
@@ -131,6 +144,9 @@ export function usePreloader(pathname: string) {
       window.dispatchEvent(new Event('preloader:complete'));
     }, 12000);
 
-    return () => { clearTimeout(failsafe); };
+    return () => {
+      clearTimeout(failsafe);
+      window.removeEventListener('preloader:complete', onPreloaderComplete);
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 }

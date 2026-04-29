@@ -73,6 +73,8 @@ export default function Navbar({ navLinks: sanityNavLinks }: NavbarProps) {
                       <TransitionLink
                         data-nav-link=""
                         href={url}
+                        transition
+                        pageName={label}
                         aria-current={isActive ? 'page' : undefined}
                         className={`nav_mega-link w-inline-block${isActive ? ' w--current' : ''}`}
                       >

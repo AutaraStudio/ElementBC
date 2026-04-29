@@ -2584,6 +2584,42 @@
 }
 
 /* ==========================================================================
+   PAGE TRANSITION — single-panel vertical wipe overlay
+   ========================================================================== */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  overflow: clip;
+  /* Per-page tints can override these on a parent inline style. */
+  --transition-bg: var(--swatch--dark-900, #14110f);
+  --transition-text: var(--swatch--buff-100, #d6d4c5);
+}
+
+.page-transition__panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--transition-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+}
+
+.page-transition__label {
+  color: var(--transition-text);
+  font-family: var(--_typography---font--primary-family, inherit);
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  visibility: hidden;
+}
+
+/* ==========================================================================
    PROJECT DETAIL — gallery slider (replaces the directional marquee)
    The visual treatment is identical to the original marquee: edge-to-edge
    horizontal flex of 28rem-tall images. The wrapper just adds prev/next

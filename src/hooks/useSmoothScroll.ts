@@ -120,6 +120,12 @@ export function useSmoothScroll() {
       const lenis = window.locomotiveScroll?.lenisInstance;
       if (!lenis) { requestAnimationFrame(applyProxy); return; }
 
+      // Expose the Lenis instance under the name the page-transition
+      // system expects, so its stop / start / scrollTo calls work
+      // without the transition code needing to know about Locomotive.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).__lenis = lenis;
+
       let scrolling = false;
       let idleTimer: ReturnType<typeof setTimeout> | null = null;
 

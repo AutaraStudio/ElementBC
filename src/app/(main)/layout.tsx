@@ -7,6 +7,8 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AnimationProvider from "@/components/ui/AnimationProvider";
 import AnimationErrorBoundary from "@/components/ui/AnimationErrorBoundary";
+import { PageTransitionProvider } from "@/components/ui/PageTransitionProvider";
+import PageTransitionOverlay from "@/components/ui/PageTransitionOverlay";
 import { getNavigation, getFooter, getSiteSettings } from "@/lib/sanity/queries";
 
 export const revalidate = 3600;
@@ -50,6 +52,7 @@ export default async function MainLayout({
       <AnimationErrorBoundary>
         <AnimationProvider />
       </AnimationErrorBoundary>
+      <PageTransitionProvider>
       <div aria-hidden="true" data-bg="current" className="bg-current"></div>
       <div className="page_wrap">
         <div className="page_overlay u-position-fixed u-fixed-overlay">
@@ -150,6 +153,8 @@ export default async function MainLayout({
           builtByUrl={footer?.builtByUrl}
         />
       </div>
+      <PageTransitionOverlay />
+      </PageTransitionProvider>
     </>
   );
 }
