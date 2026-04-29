@@ -7,11 +7,11 @@ import { usePageTransitionContext } from './PageTransitionProvider';
 type TransitionLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;
   /**
-   * Opt-in: when true, clicking this link plays the panel-wipe page
-   * transition before the route changes. Default false during rollout.
-   * Flip the default to true site-wide once QA has confirmed the behaviour
-   * across every existing usage (PR review checklist: hash-only links,
-   * external URLs, modified clicks, _blank).
+   * Default true: every internal link plays the panel wipe before the
+   * route changes. Pass `transition={false}` to skip the wipe for a
+   * specific call site. The Link's other safety branches (external URL,
+   * hash anchors, `_blank`, modified clicks, download) bypass the wipe
+   * automatically regardless of this flag.
    */
   transition?: boolean;
   /** Optional label rendered inside the panel during the wipe. */
@@ -23,7 +23,7 @@ const isExternalUrl = (href: string): boolean =>
   /^(https?:|mailto:|tel:)/i.test(href);
 
 const TransitionLink = forwardRef<HTMLAnchorElement, TransitionLinkProps>(
-  ({ href, transition = false, pageName, external, onClick, target, download, ...rest }, ref) => {
+  ({ href, transition = true, pageName, external, onClick, target, download, ...rest }, ref) => {
     const { triggerTransition } = usePageTransitionContext();
 
     const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {

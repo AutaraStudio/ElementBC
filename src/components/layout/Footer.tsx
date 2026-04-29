@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import TransitionLink from '@/components/ui/TransitionLink';
 import { usePathname } from 'next/navigation';
 import type { SanityNavLink } from '@/lib/sanity/queries';

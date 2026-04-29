@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import TransitionLink from '@/components/ui/TransitionLink';
 import { usePathname } from 'next/navigation';
 import type { SanityNavLink } from '@/lib/sanity/queries';
@@ -28,9 +27,10 @@ export default function Navbar({ navLinks: sanityNavLinks }: NavbarProps) {
         <div data-nav-bar="" className="nav_main-layout u-grid-custom">
 
           <div className="nav_main-col u-column-start-1 u-column-span-2 u-flex-horizontal-nowrap u-gap-3">
-            <Link
+            <TransitionLink
               data-nav-logo=""
               href="/"
+              pageName="Home"
               aria-current={pathname === '/' ? 'page' : undefined}
               className={`nav_logo-link u-pointer-on w-inline-block${pathname === '/' ? ' w--current' : ''}`}
             >
@@ -44,7 +44,7 @@ export default function Navbar({ navLinks: sanityNavLinks }: NavbarProps) {
                 <path d="M148.161 27.6201V12.3562H150.305L150.849 15.4281V27.6201H148.161ZM158.817 27.6201V17.9881C158.817 16.8575 158.497 15.9828 157.857 15.3641C157.238 14.7242 156.374 14.4042 155.265 14.4042C153.43 14.4042 151.926 15.1935 150.753 16.7721L149.953 15.2361C151.275 13.0602 153.217 11.9722 155.777 11.9722C157.59 11.9722 158.998 12.4842 160.001 13.5082C161.004 14.5322 161.505 15.9508 161.505 17.7641V27.6201H158.817Z" fill="currentColor" data-nav-letter="" className="nav_logo-path" />
                 <path d="M172.753 28.0042C171.153 28.0042 169.905 27.5669 169.009 26.6922C168.134 25.8176 167.697 24.5696 167.697 22.9482V8.10022L170.385 7.42822V22.8202C170.385 23.7162 170.62 24.4096 171.089 24.9002C171.58 25.3696 172.273 25.6042 173.169 25.6042C173.553 25.6042 173.937 25.5509 174.321 25.4442C174.726 25.3376 175.121 25.1989 175.505 25.0282L176.241 27.2362C175.196 27.7482 174.033 28.0042 172.753 28.0042ZM164.657 14.7242V12.3562H175.473V14.7242H164.657Z" fill="currentColor" data-nav-letter="" className="nav_logo-path" />
               </svg>
-            </Link>
+            </TransitionLink>
           </div>
 
           <div className="nav_main-col u-column-start-11 u-column-span-2 u-flex-vertical-nowrap u-align-items-end u-gap-3">
