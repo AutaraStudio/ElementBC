@@ -224,11 +224,11 @@
   }
 
   .diagram_service-list {
-    gap: var(--_spacing---space--3-16px);
+    gap: var(--_spacing---space--5-32px);
     border-left: var(--border-width--main) solid var(--_theme---border);
     flex-flow: column;
     padding-bottom: var(--_spacing---space--3-16px);
-    padding-left: var(--_spacing---space--3-16px);
+    padding-left: var(--_spacing---space--4-24px);
     display: flex;
     position: relative;
   }
@@ -249,8 +249,16 @@
     height: 0.5rem;
     margin-top: 0.5rem;
     position: absolute;
-    left: -0.3rem;
+    /* Sit centred on the vertical guide line so the dots line up with the
+       container's left edge instead of the screen edge (PDF #9). */
+    left: -0.25rem;
     display: block;
+  }
+
+  .diagram_service-title,
+  .diagram_service-text {
+    /* Allow long sentences to wrap naturally onto two lines (PDF #9). */
+    white-space: normal;
   }
 
   .diagram_header {

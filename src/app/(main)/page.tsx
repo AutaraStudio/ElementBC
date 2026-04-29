@@ -98,9 +98,9 @@ export default async function HomePage() {
             </div>
             <div className="home_hero_featured-contain u-container u-height-full">
               <div className="home_hero_featured-layout u-height-full u-flex-vertical-nowrap">
-                <div data-anim-hero="" data-stagger="" className="home_hero_featured-row u-flex-horizontal-nowrap u-justify-content-between">
+                <div data-anim-hero="" data-stagger="" className="home_hero_featured-row u-flex-horizontal-nowrap u-justify-content-between u-align-items-end">
                   <div data-stagger-item="" className="home_hero_featured-col">
-                    <div className="home_hero-featured-text u-text-style-main u-text-transform-uppercase">Featured Project</div>
+                    <div className="home_hero-featured-text u-text-style-main u-text-transform-uppercase u-padding-bottom-1">Featured Project</div>
                   </div>
                   <div data-stagger-item="" className="home_hero_featured-col">
                     <TransitionLink

@@ -90,8 +90,8 @@ function initProjectSlider() {
   const indicator = sliderEl.querySelector('[data-slider-indicator]');
   const indicatorTitle = sliderEl.querySelector('[data-slider-indicator-title]');
   const progressEl = sliderEl.querySelector('[data-slider-progress]');
-  const prevBtn = sliderEl.querySelector('[data-slider-prev]');
-  const nextBtn = sliderEl.querySelector('[data-slider-next]');
+  const prevBtns = sliderEl.querySelectorAll('[data-slider-prev]');
+  const nextBtns = sliderEl.querySelectorAll('[data-slider-next]');
   const slidesContainer = sliderEl.querySelector('[data-slider-slides]');
   const template = sliderEl.querySelector('[data-slider-slide-template]') as HTMLElement | null;
   const items = Array.from(sliderEl.querySelectorAll('[data-slider-item]'));
@@ -181,8 +181,8 @@ function initProjectSlider() {
     if (Math.abs(dx) > 50 && Math.abs(dx) > dy) go(dx > 0 ? -1 : 1);
   }, { passive: true });
 
-  prevBtn?.addEventListener('click', () => go(-1));
-  nextBtn?.addEventListener('click', () => go(1));
+  prevBtns.forEach((b) => b.addEventListener('click', () => go(-1)));
+  nextBtns.forEach((b) => b.addEventListener('click', () => go(1)));
 
   gsap.set(slideEls, { autoAlpha: 0 });
   gsap.set(assets, { zIndex: 1, xPercent: 0, pointerEvents: 'none' });

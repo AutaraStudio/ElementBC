@@ -75,6 +75,22 @@ const heroCSS = `
     bottom: 2rem;
     gap: 1rem;
   }
+  /* On mobile, drop the absolute-positioned nav and instead show compact
+     prev/next buttons inline at the right of the bottom bar. */
+  .projects_hero-bar-nav {
+    display: flex !important;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+  .projects_hero-bar-nav .projects_hero-button {
+    height: 2.75rem;
+    width: 2.75rem;
+  }
+}
+/* The inline (in-bar) nav is hidden on desktop — the floating .projects_hero-nav
+   above the bar handles desktop. */
+.projects_hero-bar-nav {
+  display: none;
 }
 /* Title label */
 .projects_hero-title {
@@ -199,6 +215,18 @@ export default async function ProjectsPage() {
                 <div data-slider-progress="" className="projects_hero-progress-bar"></div>
               </div>
               <div data-slider-indicator="" className="projects_hero-indicator u-text-style-main"></div>
+              <div data-cursor-marquee-hide="" className="projects_hero-bar-nav u-flex-horizontal-nowrap u-pointer-on">
+                <button data-slider-prev="" aria-label="Previous slide" className="projects_hero-button u-flex-horizontal-nowrap u-align-items-center u-justify-content-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 9" fill="none" width="100%" className="projects_hero-arrow">
+                    <path d="M0 3.56641L10.7969 3.56641L8.00488 0.900391L7.94043 0.839844L8.00098 0.774414L8.65332 0.0673828L8.71484 0L8.78125 0.0625L12.9727 4.06348L13.04 4.12793L12.9727 4.19336L8.78125 8.19336L8.71484 8.25586L8.65332 8.18848L8.00098 7.48145L7.94043 7.41602L8.00488 7.35547L10.7969 4.69043L0 4.69043L0 3.56641Z" fill="currentColor" />
+                  </svg>
+                </button>
+                <button data-slider-next="" aria-label="Next slide" className="projects_hero-button u-flex-horizontal-nowrap u-align-items-center u-justify-content-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 9" fill="none" width="100%" className="projects_hero-arrow">
+                    <path d="M0 3.56641L10.7969 3.56641L8.00488 0.900391L7.94043 0.839844L8.00098 0.774414L8.65332 0.0673828L8.71484 0L8.78125 0.0625L12.9727 4.06348L13.04 4.12793L12.9727 4.19336L8.78125 8.19336L8.71484 8.25586L8.65332 8.18848L8.00098 7.48145L7.94043 7.41602L8.00488 7.35547L10.7969 4.69043L0 4.69043L0 3.56641Z" fill="currentColor" />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div data-cursor-marquee-hide="" className="projects_hero-nav u-position-absolute u-flex-horizontal-nowrap u-pointer-on">
               <button data-slider-prev="" className="projects_hero-button u-flex-horizontal-nowrap u-align-items-center u-justify-content-center">
@@ -223,14 +251,14 @@ export default async function ProjectsPage() {
         <div data-wf--spacer--variant="main" className="u-section-spacer is-main u-ignore-trim"></div>
 
         <div className="u-container">
-          <div className="u-grid-custom">
-            <div className="u-column-start-1 u-column-span-4">
+          <div className="projects_archive-header u-grid-custom">
+            <div className="projects_archive-header_eyebrow u-column-start-1 u-column-span-4">
               <div data-stagger="" className="u-flex-horizontal-nowrap u-gap-2">
                 <EyebrowSvg className="global_eyebrow-svg" />
                 <div data-stagger-item="" className="u-text-style-large u-text-transform-uppercase u-weight-bold">Case Studies</div>
               </div>
             </div>
-            <div className="u-column-start-6 u-column-span-7">
+            <div className="projects_archive-header_heading u-column-start-6 u-column-span-7">
               <h2 data-split="word" className="u-text-style-h2 u-text-transform-uppercase u-text-decoration-justify-last">{projectsPage?.pageHeading ?? 'Detail in every project.'}</h2>
             </div>
           </div>

@@ -33,7 +33,8 @@
       "Bash(npx next:*)",
       "mcp__Claude_Preview__preview_start",
       "Bash(grep -r \"\\\\-\\\\-anim\\\\-\\\\|page-transition\\\\|locomotiveScroll\" . --include=*.css --include=*.scss -l)",
-      "Bash(grep -n \"page-transition\\\\|page_main\\\\|page_wrap\" src/styles/*.css)"
+      "Bash(grep -n \"page-transition\\\\|page_main\\\\|page_wrap\" src/styles/*.css)",
+      "mcp__9f361f19-2689-4b04-bc52-1639e32ae1e1__list_workspace_schemas"
     ]
   }
 }

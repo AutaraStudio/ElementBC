@@ -2484,10 +2484,78 @@
     height: 50%;
   }
 
-  /* Footer background SVG — reduce */
+  /* Footer background SVG — taller and pushed further off-screen so it
+     doesn't crowd the nav links on mobile (PDF feedback #3). */
   .footer_bg-wrap {
-    width: 80%;
-    inset: auto -10% 0% auto;
+    width: 95%;
+    height: 110%;
+    inset: -5% -22% 0% auto;
+  }
+
+  /* Mega-menu background SVG — same treatment as the footer (PDF #4). */
+  .nav_mega_bg-wrap {
+    width: 95%;
+    height: 110%;
+    inset: -5% -22% 0% auto;
+  }
+
+  /* Case Studies archive header — stack eyebrow and heading vertically and
+     left-align both (PDF #2 / #6). */
+  .projects_archive-header_eyebrow,
+  .projects_archive-header_heading {
+    grid-column: 1 / -1 !important;
+  }
+  .projects_archive-header_heading {
+    margin-top: var(--_spacing---space--4-24px);
+  }
+
+  /* Contact page — give each contact item more vertical breathing room
+     (PDF #8). */
+  .contact_info-item {
+    padding-top: var(--_spacing---space--6-40px);
+    padding-bottom: var(--_spacing---space--6-40px);
+  }
+  .contact_info-col + .contact_info-col,
+  .contact_address-col + .contact_address-col {
+    margin-top: var(--_spacing---space--6-40px);
+  }
+
+  /* Hero breathing room on About / Contact / Legal pages — the eyebrow
+     was sitting right under the nav SVG bars on mobile (PDF #7). */
+  .about_hero-wrap,
+  .contact_hero-wrap,
+  .legal_body-wrap {
+    padding-top: var(--_spacing---space--6-40px);
+  }
+
+  /* Founders Journey eyebrow → paragraph: justify-content-between collapses
+     to zero gap on auto-height mobile column. Force explicit spacing
+     between the eyebrow row and the description paragraph (PDF #7). */
+  .about_team-wrap .u-justify-content-between {
+    justify-content: flex-start;
+    gap: var(--_spacing---space--5-32px);
+  }
+}
+
+/* ==========================================================================
+   APPROACH SECTION — mobile: scroll normally, no sticky pin (PDF #9)
+   ========================================================================== */
+@media screen and (max-width: 991px) {
+  /* CircleDiagram styles are scoped via CSS modules — target them by their
+     base local class names with [class*="..."] so we don't have to import
+     the generated module hash here. */
+  [class*="diagram_wrap"] {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  [class*="diagram_sticky"] {
+    position: static !important;
+    height: auto !important;
+    display: block !important;
+  }
+  [class*="diagram_content"] {
+    height: auto !important;
+    min-height: 0 !important;
   }
 }
 
