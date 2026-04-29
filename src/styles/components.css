@@ -2531,12 +2531,13 @@
     margin-top: var(--_spacing---space--6-40px);
   }
 
-  /* Hero breathing room on About / Contact / Legal pages — the eyebrow
-     was sitting right under the nav SVG bars on mobile (PDF #7). */
+  /* Hero breathing room on About / Contact / Legal / Case Study detail
+     pages — push the eyebrow well clear of the nav bar on mobile. */
   .about_hero-wrap,
   .contact_hero-wrap,
-  .legal_body-wrap {
-    padding-top: var(--_spacing---space--6-40px);
+  .legal_body-wrap,
+  .project_hero-wrap {
+    padding-top: var(--_spacing---space--8-64px);
   }
 
   /* Founders Journey eyebrow → paragraph: justify-content-between collapses
