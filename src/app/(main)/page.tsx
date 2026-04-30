@@ -82,6 +82,7 @@ export default async function HomePage() {
                   alt={homePage.heroProject.featuredImage1.alt ?? homePage.heroProject.projectName ?? ''}
                   sizes="100vw"
                   className="home_hero_featured-img u-cover-absolute u-height-full"
+                  style={{ objectFit: 'cover' }}
                 />
               )}
               {homePage?.heroProject?.featuredImage2 && (
@@ -93,6 +94,7 @@ export default async function HomePage() {
                   alt={homePage.heroProject.featuredImage2.alt ?? homePage.heroProject.projectName ?? ''}
                   sizes="100vw"
                   className="home_hero_featured-img u-cover-absolute u-height-full"
+                  style={{ objectFit: 'cover' }}
                 />
               )}
             </div>
