@@ -2529,6 +2529,21 @@
     padding-top: var(--_spacing---space--8-64px);
   }
 
+  /* Eyebrow icon + text — scale down across every hero / section
+     header on mobile. Targets all the eyebrow text classes used in
+     the codebase as well as the global EyebrowSvg. */
+  .global_eyebrow-svg {
+    width: 1.1rem;
+  }
+  .about_hero_eyebrowe-heading,
+  .contact_hero_eyebrow-heading,
+  .project_hero_eyebrow-heading,
+  .projects_filter-heading,
+  .project_hero-eyebrow .u-text-style-large {
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
   /* Founders Journey eyebrow → paragraph: justify-content-between collapses
      to zero gap on auto-height mobile column. Force explicit spacing
      between the eyebrow row and the description paragraph (PDF #7). */
