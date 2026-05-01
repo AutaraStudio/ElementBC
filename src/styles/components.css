@@ -1599,11 +1599,11 @@
 .nav_logo-svg {
 }
 
-/* Mobile: bigger logo + less cramped MENU button */
+/* Mobile: smaller logo + less cramped MENU button */
 @media (max-width: 767px) {
   .nav_logo-svg {
-    max-width: 14rem;
-    width: 14rem;
+    max-width: 9rem;
+    width: 9rem;
   }
   .nav_main_link-text {
     font-size: 1rem;
