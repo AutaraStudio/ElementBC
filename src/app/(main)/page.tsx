@@ -110,7 +110,7 @@ export default async function HomePage() {
                       data-hero-trigger=""
                       className="link_underline-wrap link-stagger u-padding-bottom-1"
                     >
-                      <div data-featured-text="" className="link_underline-text u-text-style-main u-text-transform-uppercase"><CharStagger>{homePage?.heroViewProjectText ?? 'View Project'}</CharStagger></div>
+                      <div data-featured-text="" className="link_underline-text u-text-style-main u-text-transform-uppercase">{homePage?.heroViewProjectText ?? 'View Project'}</div>
                       <div className="link_underline-line"></div>
                     </TransitionLink>
                   </div>
