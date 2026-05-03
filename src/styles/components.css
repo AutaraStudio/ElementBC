@@ -2662,6 +2662,19 @@
   .project_gallery-button.is-next { right: var(--_spacing---space--2-12px); }
 }
 
+/* Home hero featured row — Featured Project label vs the View Case
+   Study link. The link's CharStagger wrap (overflow:hidden,
+   line-height:1) ends up half a line higher than the plain label
+   because its inline-block baseline is the bottom of its clipping
+   box, not the visual baseline of its text. Center the CharStagger
+   wrap vertically inside the link's text box and the two read on
+   the same line. */
+.home_hero_featured-row .link_underline-text {
+  display: inline-flex;
+  align-items: center;
+  line-height: var(--_typography---line-height--huge);
+}
+
 /* Char Stagger Animation */
 .char-stagger-wrap {
   overflow: hidden;

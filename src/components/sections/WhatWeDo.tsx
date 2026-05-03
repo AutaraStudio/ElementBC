@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import gsap from '@/lib/gsap'
+import gsap, { ScrollTrigger } from '@/lib/gsap'
+import { awaitTransitionEnd } from '@/lib/transition/transitionState'
 
 interface WhatWeDoProps {
   heading: string
@@ -27,47 +28,72 @@ export default function WhatWeDo({ heading, tagline, serviceGroups, theme = 'buf
 
     const headers = wrap.querySelectorAll('.services_column-header')
     const items = wrap.querySelectorAll('.services_column-item')
-    const lines = wrap.querySelectorAll('.services_line')
 
     gsap.set(headers, { opacity: 0, y: 10 })
     gsap.set(items, { opacity: 0, y: 8 })
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: wrap,
-        start: 'top 80%',
-        once: true,
-      },
+    let tl: gsap.core.Timeline | null = null
+    let cancelled = false
+
+    // Defer trigger creation until the page-transition / preloader lock
+    // has lifted. Without this, the trigger registers while the page is
+    // still translated by the transition's 12vh page-lift and computes
+    // positions wrong — fast scrolls then never cross the start line and
+    // the section never animates in. Bumping the start to "top 90%"
+    // also gives the trigger more headroom on a fast mobile scroll.
+    awaitTransitionEnd().then(() => {
+      if (cancelled) return
+      tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrap,
+          start: 'top 90%',
+          once: true,
+        },
+      })
+
+      // 1. Headers fade in together
+      tl.to(headers, { opacity: 1, y: 0, duration: dur, ease, stagger: 0.1 }, 0)
+
+      // 2. Header underlines draw in
+      const headerLines = wrap.querySelectorAll('.services_line-header')
+      tl.to(headerLines, { scaleX: 1, duration: dur, ease, stagger: 0.1 }, 0.15)
+
+      // 3. Left column items stagger in with their lines
+      const leftItems = wrap.querySelectorAll('.services_column:first-child .services_column-item')
+      const leftLines = wrap.querySelectorAll('.services_column:first-child .services_line-item')
+      leftItems.forEach((item, i) => {
+        const offset = 0.3 + i * staggerEach
+        tl!.to(item, { opacity: 1, y: 0, duration: dur, ease }, offset)
+        if (leftLines[i]) tl!.to(leftLines[i], { scaleX: 1, duration: dur * 0.7, ease }, offset + 0.08)
+      })
+
+      // 4. Right column items stagger in slightly delayed
+      const rightItems = wrap.querySelectorAll('.services_column:last-child .services_column-item')
+      const rightLines = wrap.querySelectorAll('.services_column:last-child .services_line-item')
+      rightItems.forEach((item, i) => {
+        const offset = 0.4 + i * staggerEach
+        tl!.to(item, { opacity: 1, y: 0, duration: dur, ease }, offset)
+        if (rightLines[i]) tl!.to(rightLines[i], { scaleX: 1, duration: dur * 0.7, ease }, offset + 0.08)
+      })
+
+      // Refresh once the trigger is in place so its start position is
+      // measured against the final, settled layout.
+      ScrollTrigger.refresh()
+
+      // Failsafe — if the user has already scrolled the section past
+      // the start line (very fast mobile scroll), the once-off trigger
+      // will never fire. Force-play the timeline immediately in that
+      // case so the section never stays invisible.
+      const wrapTop = wrap.getBoundingClientRect().top
+      if (wrapTop < window.innerHeight * 0.9) {
+        tl.play()
+      }
     })
 
-    // 1. Headers fade in together
-    tl.to(headers, { opacity: 1, y: 0, duration: dur, ease, stagger: 0.1 }, 0)
-
-    // 2. Header underlines draw in
-    const headerLines = wrap.querySelectorAll('.services_line-header')
-    tl.to(headerLines, { scaleX: 1, duration: dur, ease, stagger: 0.1 }, 0.15)
-
-    // 3. Left column items stagger in with their lines
-    const leftItems = wrap.querySelectorAll('.services_column:first-child .services_column-item')
-    const leftLines = wrap.querySelectorAll('.services_column:first-child .services_line-item')
-
-    leftItems.forEach((item, i) => {
-      const offset = 0.3 + i * staggerEach
-      tl.to(item, { opacity: 1, y: 0, duration: dur, ease }, offset)
-      if (leftLines[i]) tl.to(leftLines[i], { scaleX: 1, duration: dur * 0.7, ease }, offset + 0.08)
-    })
-
-    // 4. Right column items stagger in slightly delayed
-    const rightItems = wrap.querySelectorAll('.services_column:last-child .services_column-item')
-    const rightLines = wrap.querySelectorAll('.services_column:last-child .services_line-item')
-
-    rightItems.forEach((item, i) => {
-      const offset = 0.4 + i * staggerEach
-      tl.to(item, { opacity: 1, y: 0, duration: dur, ease }, offset)
-      if (rightLines[i]) tl.to(rightLines[i], { scaleX: 1, duration: dur * 0.7, ease }, offset + 0.08)
-    })
-
-    return () => { tl.kill() }
+    return () => {
+      cancelled = true
+      tl?.kill()
+    }
   }, [])
 
   return (
