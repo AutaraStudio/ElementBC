@@ -186,7 +186,7 @@ export default async function ProjectsPage() {
         {/* Image items */}
         <div className="projects_hero-list">
           <div data-slider-items="" role="list" className="projects_hero-items u-position-relative u-width-full">
-            {projects.slice(0, 5).map((project) => (
+            {projects.map((project) => (
               <div key={project._id} data-slider-item="" role="listitem" className="projects_hero-item u-cover-absolute u-pointer-off u-position-absolute">
                 <div data-overlay-dark="" data-slider-asset="" className="projects_hero-asset u-cover-absolute u-overflow-clip">
                   <TransitionLink href={`/case-studies/${project.slug}`} className="projects_hero-link u-cover-absolute u-zindex-1"></TransitionLink>
