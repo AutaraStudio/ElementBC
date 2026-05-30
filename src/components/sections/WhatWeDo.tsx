@@ -35,14 +35,8 @@ export default function WhatWeDo({ heading, tagline, serviceGroups, theme = 'buf
     let tl: gsap.core.Timeline | null = null
     let cancelled = false
 
-    // Defer trigger creation until the page-transition / preloader lock
-    // has lifted. Without this, the trigger registers while the page is
-    // still translated by the transition's 12vh page-lift and computes
-    // positions wrong — fast scrolls then never cross the start line and
-    // the section never animates in. Bumping the start to "top 90%"
-    // also gives the trigger more headroom on a fast mobile scroll.
-    awaitTransitionEnd().then(() => {
-      if (cancelled) return
+    function setup() {
+      if (cancelled || !wrap) return
       tl = gsap.timeline({
         scrollTrigger: {
           trigger: wrap,
@@ -88,10 +82,36 @@ export default function WhatWeDo({ heading, tagline, serviceGroups, theme = 'buf
       if (wrapTop < window.innerHeight * 0.9) {
         tl.play()
       }
-    })
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const preloaderDone = !!(window as any)._preloaderComplete
+
+    let timer: ReturnType<typeof setTimeout> | undefined
+    if (preloaderDone) {
+      // Client-side navigation. AnimationProvider runs cleanupPageAnimations()
+      // ~300ms after the route commits, which kills every ScrollTrigger inside
+      // .page_main. If we created the trigger any sooner (e.g. on
+      // pagetransition:end), that cleanup would destroy it and — unlike the
+      // global reveal sections — nothing re-creates this bespoke one, leaving
+      // the items stuck invisible. Defer past the cleanup so the trigger
+      // survives. (Mirrors ScrollOrbit's nav handling.)
+      timer = setTimeout(() => {
+        ScrollTrigger.refresh()
+        setup()
+      }, 350)
+    } else {
+      // First load — wait for the preloader / transition lock to lift.
+      // Without this, the trigger registers while the page is still
+      // translated by the transition's 12vh page-lift and computes
+      // positions wrong. "top 90%" also gives more headroom on fast scroll.
+      awaitTransitionEnd().then(setup)
+    }
 
     return () => {
       cancelled = true
+      if (timer) clearTimeout(timer)
+      tl?.scrollTrigger?.kill()
       tl?.kill()
     }
   }, [])
