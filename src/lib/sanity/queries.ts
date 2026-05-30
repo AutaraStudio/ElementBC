@@ -17,7 +17,7 @@ const projectListFields = `
 
 export async function getAllProjects() {
   return sanityClient.fetch<SanityProject[]>(`
-    *[_type == "project"] | order(_createdAt desc) {
+    *[_type == "project"] | order(orderRank asc, _createdAt desc) {
       ${projectListFields}
     }
   `);

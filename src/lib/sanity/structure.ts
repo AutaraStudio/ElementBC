@@ -1,4 +1,5 @@
 import type { StructureResolver } from 'sanity/structure'
+import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
 import {
   HomeIcon,
   UsersIcon,
@@ -12,7 +13,7 @@ import {
   TagIcon,
 } from '@sanity/icons'
 
-export const structure: StructureResolver = (S) =>
+export const structure: StructureResolver = (S, context) =>
   S.list()
     .title('Element BC')
     .items([
@@ -77,14 +78,14 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
-      /* ── Projects ── */
-      S.listItem()
-        .title('Projects')
-        .icon(CaseIcon)
-        .child(
-          S.documentTypeList('project')
-            .title('All Projects')
-        ),
+      /* ── Projects (drag to reorder) ── */
+      orderableDocumentListDeskItem({
+        type: 'project',
+        title: 'Projects',
+        icon: CaseIcon,
+        S,
+        context,
+      }),
       S.listItem()
         .title('Project Categories')
         .icon(TagIcon)
