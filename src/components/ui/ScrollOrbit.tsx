@@ -16,22 +16,6 @@ interface ScrollOrbitProps {
   theme?: string;
 }
 
-/* ------------------------------------------------------------------ */
-/*  Glitch — canvas noise mask                                         */
-/* ------------------------------------------------------------------ */
-function makeNoise(d = 0.2): string {
-  const c = document.createElement('canvas');
-  c.width = c.height = 400;
-  const ctx = c.getContext('2d')!;
-  for (let y = 0; y < 400; y += 100)
-    for (let x = 0; x < 400; x += 100)
-      if (Math.random() > d) {
-        ctx.fillStyle = 'white';
-        ctx.fillRect(x, y, 100, 100);
-      }
-  return c.toDataURL();
-}
-
 /* Vertical spacing between arms (rem) */
 const ARM_SPACING_REM = 18;
 
@@ -225,34 +209,9 @@ export default function ScrollOrbit({
           '<'
         );
 
-        /* ── Glitch on vertical line ── */
-        const lineNoise = () => {
-          const u = makeNoise(gsap.utils.random(0.1, 0.35));
-          vertLine.style.maskImage = vertLine.style.webkitMaskImage = `url(${u})`;
-        };
-        const lineClear = () => {
-          vertLine.style.maskImage = vertLine.style.webkitMaskImage = 'none';
-        };
-        const glitchTl = gsap.timeline({ repeat: -1 });
-        glitchTl
-          .to(
-            {},
-            {
-              delay: gsap.utils.random(3, 9),
-              duration: gsap.utils.random(0.15, 0.4),
-            }
-          )
-          .call(lineNoise)
-          .to({}, { duration: gsap.utils.random(0.04, 0.15) })
-          .call(lineNoise)
-          .to({}, { duration: gsap.utils.random(0.06, 0.12) })
-          .call(lineClear);
-
         ScrollTrigger.refresh();
 
         return () => {
-          lineClear();
-          glitchTl.kill();
           tl.kill();
           gsap.killTweensOf(armLines);
           gsap.killTweensOf(armDots);

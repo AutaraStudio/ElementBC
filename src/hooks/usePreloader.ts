@@ -50,9 +50,6 @@ export function usePreloader(pathname: string) {
 
       if (!paths.length) return;
 
-      const roguePaths = gsap.utils.toArray('[data-preloader-rogue]') as Element[];
-      const normalPaths = paths.filter((p) => !roguePaths.includes(p));
-
       const blur = 'blur(4px)';
       const clear = 'blur(0px)';
 
@@ -72,13 +69,6 @@ export function usePreloader(pathname: string) {
         .set(svgEl, { autoAlpha: 1 })
         // All paths fade in together
         .to(paths, { opacity: 1, filter: clear, duration: 0.6, stagger: 0.018, ease: 'cin' })
-        // Shimmer/flicker on rogue paths — multiple stutters
-        .to(roguePaths, { opacity: 0.3, duration: 0.1, ease: 'power2.in' })
-        .to(roguePaths, { opacity: 0.8, duration: 0.08, ease: 'power1.out' })
-        .to(roguePaths, { opacity: 0.15, duration: 0.07, ease: 'power2.in' })
-        .to(roguePaths, { opacity: 0.9, duration: 0.1, ease: 'power1.out' })
-        .to(roguePaths, { opacity: 0.4, duration: 0.06, ease: 'power2.in' })
-        .to(roguePaths, { opacity: 1, duration: 0.2, ease: 'power1.out' })
         .addLabel('textIn', '+=0.15')
         .set(textEl, { autoAlpha: 1 }, 'textIn')
         .to(words, { opacity: 1, filter: clear, duration: 0.6, stagger: 0.06, ease: 'cin' }, 'textIn')

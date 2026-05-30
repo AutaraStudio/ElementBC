@@ -102,7 +102,7 @@ async function createFooter() {
       { _key: randomUUID(), label: 'Terms & Conditions', url: '#' },
     ],
     builtByText: 'Built by Autara Studio',
-    builtByUrl: 'https://autarastudio.com',
+    builtByUrl: 'https://autara.studio',
   })
   console.log('  ✓ footer')
 }
