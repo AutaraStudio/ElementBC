@@ -7,7 +7,7 @@ import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import SectionDivider from '@/components/ui/SectionDivider';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const projectsPage = await getProjectsPage();

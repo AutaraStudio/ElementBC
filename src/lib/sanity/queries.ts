@@ -150,6 +150,18 @@ export async function getContactPage() {
   `);
 }
 
+/**
+ * Rewrite an SVG so its fills/strokes inherit `currentColor`, letting the
+ * partner logos pick up the theme text colour (and the red hover colour)
+ * exactly like the original hardcoded inline SVGs. `none` is preserved so
+ * stroke-only shapes don't get filled in.
+ */
+function recolorSvg(svg: string): string {
+  return svg
+    .replace(/(fill|stroke)="(?!none\b)[^"]*"/gi, '$1="currentColor"')
+    .replace(/(fill|stroke)\s*:\s*(?!none\b)[^;"'}]+/gi, '$1:currentColor');
+}
+
 export async function getPartnerCarousel() {
   const data = await sanityClient.fetch<{
     heading?: string;
@@ -172,7 +184,7 @@ export async function getPartnerCarousel() {
       let logoSvg = '';
       try {
         const res = await fetch(p.logoUrl);
-        if (res.ok) logoSvg = await res.text();
+        if (res.ok) logoSvg = recolorSvg(await res.text());
       } catch { /* fallback to empty */ }
       return { name: p.name, logoUrl: p.logoUrl, logoSvg };
     })

@@ -1839,18 +1839,27 @@
   width: 18rem;
 }
 
+/* Wrapper is transparent to layout so the injected <svg> becomes the
+   centered flex child of the (square, centered) card — matching how the
+   original inline SVGs sat directly in the card. Colour is set here and
+   inherited by the SVG via currentColor so the hover swap works. */
 .partner_carousel-logo {
-  opacity: 1;
+  display: contents;
   color: var(--_theme---text);
-  object-fit: contain;
+}
+
+.partner_carousel-logo svg {
+  opacity: 1;
+  width: 100%;
+  height: auto;
   max-width: 60%;
   max-height: 40%;
+  object-fit: contain;
   transition: color 0.3s ease, filter 0.3s ease;
 }
 
 .partner_carousel-card:hover .partner_carousel-logo {
   color: var(--_red---swatch--brand-500);
-  filter: brightness(1);
 }
 
 .partner_carousel-name {
