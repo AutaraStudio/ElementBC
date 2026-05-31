@@ -66,7 +66,7 @@ export default function Footer({ navLinks: sanityNavLinks, legalLinks, builtByTe
                     </>
                   )}
                   {(builtByText || builtByUrl) && (
-                    <StaggerLink href={builtByUrl ?? '#'} className="footer_main_legal-link u-text-style-x-small u-text-transform-uppercase">{builtByText ?? 'Built by'}</StaggerLink>
+                    <StaggerLink external href={builtByUrl ?? '#'} className="footer_main_legal-link u-text-style-x-small u-text-transform-uppercase">{builtByText ?? 'Built by'}</StaggerLink>
                   )}
                 </div>
               </div>
