@@ -155,11 +155,37 @@ export async function getContactPage() {
  * partner logos pick up the theme text colour (and the red hover colour)
  * exactly like the original hardcoded inline SVGs. `none` is preserved so
  * stroke-only shapes don't get filled in.
+ *
+ * "Solid" brand logos exported with an embedded `<style>` block (e.g. AXA:
+ * coloured panel + knockout wordmark + accent line) are handled separately —
+ * see {@link recolorPanelSvg}.
  */
 function recolorSvg(svg: string): string {
+  if (/<style[\s>]/i.test(svg)) return recolorPanelSvg(svg);
   return svg
     .replace(/(fill|stroke)="(?!none\b)[^"]*"/gi, '$1="currentColor"')
     .replace(/(fill|stroke)\s*:\s*(?!none\b)[^;"'}]+/gi, '$1:currentColor');
+}
+
+/**
+ * A "solid" brand logo is a coloured panel with knockout marks painted on top.
+ * Make it theme-aware: the panel — the first colour, which sits at the bottom of
+ * the paint order — becomes `currentColor` (theme text at rest, brand colour on
+ * hover, just like the wordmarks), while every mark on top becomes the knockout
+ * colour. `--logo-knockout` is white at rest and flips to the theme text colour
+ * on hover, so the panel and its marks always invert against each other.
+ */
+function recolorPanelSvg(svg: string): string {
+  let panel: string | null = null;
+  const map = (val: string): string => {
+    const c = val.trim().toLowerCase();
+    if (c === 'none') return val;
+    if (panel === null) panel = c;
+    return c === panel ? 'currentColor' : 'var(--logo-knockout,#fff)';
+  };
+  return svg
+    .replace(/(fill|stroke)="([^"]*)"/gi, (_, p, v) => `${p}="${map(v)}"`)
+    .replace(/(fill|stroke)(\s*:\s*)([^;"'}]+)/gi, (_, p, s, v) => `${p}${s}${map(v)}`);
 }
 
 export async function getPartnerCarousel() {

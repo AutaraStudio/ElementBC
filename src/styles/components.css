@@ -1846,6 +1846,9 @@
 .partner_carousel-logo {
   display: contents;
   color: var(--_theme---text);
+  /* Knockout marks on "solid" panel logos (e.g. AXA) match the grid cell
+     colour the panel sits on, so they read as cut out of the panel. */
+  --logo-knockout: var(--_theme---svg-accent);
 }
 
 .partner_carousel-logo svg {
@@ -1858,7 +1861,10 @@
   transition: color 0.3s ease, filter 0.3s ease;
 }
 
-.partner_carousel-card:hover .partner_carousel-logo {
+/* `color` set on the display:contents logo div doesn't inherit into the SVG
+   (it inherits from the card instead), so drive currentColor on the SVG itself.
+   The panel goes text → brand on hover; the knockout marks stay the cell colour. */
+.partner_carousel-card:hover .partner_carousel-logo svg {
   color: var(--_red---swatch--brand-500);
 }
 

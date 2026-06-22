@@ -81,7 +81,7 @@ export default async function ProjectDetailPage({
             {/* Paragraph */}
             {project.ourRole && (
               <div className="project_hero-paragraph">
-                <p data-split="line" className="u-text-style-main u-max-width-50ch u-text-decoration-justify-last">{project.ourRole}</p>
+                <p data-split="line" className="u-text-style-main u-max-width-50ch">{project.ourRole}</p>
               </div>
             )}
 

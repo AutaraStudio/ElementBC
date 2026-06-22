@@ -124,7 +124,7 @@ export default function StatsTreemap({ stats, heading, subheading, theme }: Stat
           <h2 data-stagger-item="" className={`${styles['stats-treemap_heading']} u-text-style-h2 u-text-transform-uppercase`}>
             {heading}
           </h2>
-          <p data-stagger-item="" className={`${styles['stats-treemap_subheading']} u-text-style-main u-text-decoration-justify-last`}>
+          <p data-stagger-item="" className={`${styles['stats-treemap_subheading']} u-text-style-main`}>
             {subheading}
           </p>
         </div>

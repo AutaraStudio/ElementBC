@@ -137,7 +137,7 @@ export default function CircleDiagram({ heading, description, items, theme = 'bu
           <h2 data-split="word" className={`${styles['diagram_heading']} u-text-style-h2 u-text-transform-uppercase`}>
             {heading}
           </h2>
-          <p data-split="line" className={`${styles['diagram_description']} u-text-style-main u-text-decoration-justify-last`}>
+          <p data-split="line" className={`${styles['diagram_description']} u-text-style-main`}>
             {description}
           </p>
         </div>

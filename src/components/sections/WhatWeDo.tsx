@@ -137,7 +137,7 @@ export default function WhatWeDo({ heading, tagline, serviceGroups, theme = 'buf
             </div>
           </div>
           <div className="services_header-tagline u-column-start-8 u-column-span-5 u-flex-vertical-nowrap u-justify-content-end">
-            <p data-split="line" className="u-text-style-main u-text-decoration-justify-last u-max-width-40ch">
+            <p data-split="line" className="u-text-style-main u-max-width-40ch">
               {tagline}
             </p>
           </div>
