@@ -39,6 +39,7 @@ export function usePreloader(pathname: string) {
       if (!window.animUtils) return;
 
       const wrap = document.querySelector('[data-preloader-wrap]');
+      const stage = document.querySelector('[data-preloader-stage]');
       const svgEl = document.querySelector('[data-preloader-svg]');
       const paths = gsap.utils.toArray('[data-preloader-path]') as Element[];
       const textEl = document.querySelector('[data-preloader-text]');
@@ -53,9 +54,10 @@ export function usePreloader(pathname: string) {
       const blur = 'blur(4px)';
       const clear = 'blur(0px)';
 
-      gsap.set(paths, { opacity: 0, filter: blur });
-      gsap.set(words, { opacity: 0, filter: blur });
-      gsap.set(endIcon, { opacity: 0, filter: blur });
+      gsap.set(stage, { scale: 1, transformOrigin: '50% 50%' });
+      gsap.set(paths, { opacity: 0, filter: blur, y: 14 });
+      gsap.set(words, { opacity: 0, filter: blur, y: 18 });
+      gsap.set(endIcon, { opacity: 0, filter: blur, scale: 0.94, transformOrigin: '50% 50%' });
       gsap.set(endPaths, { opacity: 0, filter: blur });
 
       if (window.locomotiveScroll) {
@@ -64,23 +66,27 @@ export function usePreloader(pathname: string) {
         document.documentElement.style.overflow = 'hidden';
       }
 
+      // Slow cinematic push-in across the whole sequence. Runs in parallel
+      // with the timeline; front-loaded easing lands most of the drift early
+      // so it has settled by the time the page is revealed.
+      gsap.fromTo(stage, { scale: 1 }, { scale: 1.06, duration: 14, ease: 'sine.out', delay: 0.6 });
+
       gsap
-        .timeline({ delay: 0.5 })
+        .timeline({ delay: 0.6 })
         .set(svgEl, { autoAlpha: 1 })
-        // All paths fade in together
-        .to(paths, { opacity: 1, filter: clear, duration: 0.6, stagger: 0.018, ease: 'cin' })
-        .addLabel('textIn', '+=0.15')
+        // Bars settle up into place together.
+        .to(paths, { opacity: 1, filter: clear, y: 0, duration: 0.9, stagger: 0.02, ease: 'cin' })
+        .addLabel('textIn', '-=0.2')
         .set(textEl, { autoAlpha: 1 }, 'textIn')
-        .to(words, { opacity: 1, filter: clear, duration: 0.6, stagger: 0.06, ease: 'cin' }, 'textIn')
-        .addLabel('hold', '+=0.4')
-        .to(words, { opacity: 0, filter: blur, duration: 0.4, stagger: { each: 0.025, from: 'end' }, ease: 'cinOut' }, 'hold')
-        .to(paths, { opacity: 0, filter: blur, duration: 0.4, stagger: { each: 0.01, from: 'end' }, ease: 'cinOut' }, 'hold+=0.1')
-        .set(endSvg, { autoAlpha: 1 }, '+=0.2')
-        .to(endIcon, { opacity: 1, filter: clear, duration: 0.5, ease: 'cin' }, '+=0.15')
-        .to(endPaths, { opacity: 1, filter: clear, duration: 0.45, stagger: 0.035, ease: 'cin' }, '-=0.25')
-        .addLabel('endHold', '+=0.4')
-        .to(endPaths, { opacity: 0, filter: blur, duration: 0.35, stagger: { each: 0.025, from: 'end' }, ease: 'cinOut' }, 'endHold')
-        .to(endIcon, { opacity: 0, filter: blur, duration: 0.35, ease: 'cinOut' }, '-=0.2')
+        .to(words, { opacity: 1, filter: clear, y: 0, duration: 0.8, stagger: 0.09, ease: 'cin' }, 'textIn')
+        .addLabel('hold', '+=1.4')
+        .to(words, { opacity: 0, filter: blur, y: -14, duration: 0.5, stagger: { each: 0.04, from: 'end' }, ease: 'cinOut' }, 'hold')
+        .to(paths, { opacity: 0, filter: blur, duration: 0.5, stagger: { each: 0.012, from: 'end' }, ease: 'cinOut' }, 'hold+=0.12')
+        .set(endSvg, { autoAlpha: 1 }, '+=0.3')
+        .to(endIcon, { opacity: 1, filter: clear, scale: 1, duration: 0.9, ease: 'cin' }, '+=0.15')
+        .to(endPaths, { opacity: 1, filter: clear, duration: 0.6, stagger: 0.045, ease: 'cin' }, '-=0.5')
+        .addLabel('logoHold', '+=0.5')
+        // Lift the whole charcoal curtain — logo and all — to reveal the page.
         .fromTo(
           wrap,
           { clipPath: 'inset(0% 0% 0% 0%)' },
@@ -89,6 +95,7 @@ export function usePreloader(pathname: string) {
             duration: 1.1,
             ease: 'reveal',
             onComplete: () => {
+              gsap.killTweensOf(stage);
               (wrap as HTMLElement).style.setProperty('display', 'none', 'important');
               if (window.locomotiveScroll) {
                 window.locomotiveScroll.start();
@@ -101,7 +108,7 @@ export function usePreloader(pathname: string) {
               window.dispatchEvent(new Event('preloader:complete'));
             },
           },
-          '+=0.3'
+          'logoHold'
         );
     }
 

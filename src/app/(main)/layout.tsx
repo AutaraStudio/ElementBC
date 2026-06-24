@@ -61,7 +61,7 @@ export default async function MainLayout({
           {/* Preloader */}
           <div data-preloader-wrap="" className="preloader_wrap u-position-fixed u-theme-charcoal">
             <div className="preloader_contain u-container u-height-full">
-              <div className="preloader_layout u-flex-vertical-nowrap u-height-full u-alignment-center">
+              <div data-preloader-stage="" className="preloader_layout u-flex-vertical-nowrap u-height-full u-alignment-center">
                 <svg className="preloader_svg-wrap u-position-absolute preloader_svg-wrap" data-preloader-svg="" width="100%" viewBox="0 0 301 319" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path data-preloader-path="" d="M33.9496 0H0V0.215596H33.9496C53.6393 0.215596 62.4575 7.54586 73.6104 7.54586H300.967V0H33.9496Z" fill="currentColor" className="preloader_svg-path"></path>
                   <path data-preloader-path="" d="M300.967 8.62988H0V9.0491H40.1277C59.8174 9.0491 68.6356 16.1757 79.7885 16.1757H300.967V8.62988Z" fill="currentColor" className="preloader_svg-path"></path>
