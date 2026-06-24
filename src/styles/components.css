@@ -2766,6 +2766,15 @@
   transform: scaleX(0);
 }
 
+/* Desktop: the tagline block is shifted to the bottom-right of the grid,
+   flush to the container's right edge, while its text stays left-aligned.
+   On mobile it stacks full-width (see the max-width:767px block below). */
+@media (min-width: 768px) {
+  .services_header-tagline {
+    align-items: flex-end;
+  }
+}
+
 @media (max-width: 767px) {
   .services_columns {
     grid-template-columns: 1fr;
