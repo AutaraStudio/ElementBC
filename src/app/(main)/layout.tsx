@@ -9,7 +9,8 @@ import AnimationProvider from "@/components/ui/AnimationProvider";
 import AnimationErrorBoundary from "@/components/ui/AnimationErrorBoundary";
 import { PageTransitionProvider } from "@/components/ui/PageTransitionProvider";
 import PageTransitionOverlay from "@/components/ui/PageTransitionOverlay";
-import { getNavigation, getFooter, getSiteSettings } from "@/lib/sanity/queries";
+import { getNavigation, getFooter, getSiteSettings, getContactPage } from "@/lib/sanity/queries";
+import BusinessSchema from "@/components/seo/BusinessSchema";
 
 export const revalidate = 3600;
 
@@ -41,10 +42,16 @@ export default async function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [nav, footer] = await Promise.all([getNavigation(), getFooter()]);
+  const [nav, footer, contact, settings] = await Promise.all([
+    getNavigation(),
+    getFooter(),
+    getContactPage(),
+    getSiteSettings(),
+  ]);
 
   return (
     <>
+      <BusinessSchema contact={contact} settings={settings} />
       <Script
         src="https://cdn.jsdelivr.net/gh/lumosframework/scripts@v1.1.1/theme-collector.js"
         strategy="beforeInteractive"
