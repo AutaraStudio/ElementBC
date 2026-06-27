@@ -4,6 +4,7 @@ import TransitionLink from '@/components/ui/TransitionLink';
 import CharStagger from '@/components/ui/CharStagger';
 import { getAboutPage, getPartnerCarousel } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
+import { buildMetadata } from '@/lib/seo';
 import AboutHeroBackgroundSvg from '@/components/ui/svgs/AboutHeroBackgroundSvg';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
@@ -14,10 +15,11 @@ export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const aboutPage = await getAboutPage();
-  return {
-    title: { absolute: aboutPage?.seoTitle ?? 'About | Element BC' },
+  return buildMetadata({
+    title: aboutPage?.seoTitle ?? 'About | Element BC',
     description: aboutPage?.seoDescription,
-  };
+    path: '/about',
+  });
 }
 
 export default async function AboutPage() {

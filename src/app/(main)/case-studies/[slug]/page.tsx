@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getAllProjects, getProjectBySlug, getPartnerCarousel } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
+import { buildMetadata } from '@/lib/seo';
 import TransitionLink from '@/components/ui/TransitionLink';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
@@ -23,10 +24,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const project = await getProjectBySlug(slug);
-  return {
-    title: { absolute: project?.seoTitle ?? `${project?.projectName ?? 'Project'} | Element BC` },
+  const baseImage = project?.featuredImage1 ? urlFor(project.featuredImage1) : '';
+  return buildMetadata({
+    title: project?.seoTitle ?? `${project?.projectName ?? 'Project'} | Element BC`,
     description: project?.seoDescription,
-  };
+    path: `/case-studies/${slug}`,
+    image: baseImage ? `${baseImage}?w=1200&h=630&fit=crop&auto=format` : undefined,
+  });
 }
 
 export default async function ProjectDetailPage({

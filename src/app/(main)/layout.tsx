@@ -11,12 +11,14 @@ import { PageTransitionProvider } from "@/components/ui/PageTransitionProvider";
 import PageTransitionOverlay from "@/components/ui/PageTransitionOverlay";
 import { getNavigation, getFooter, getSiteSettings, getContactPage } from "@/lib/sanity/queries";
 import BusinessSchema from "@/components/seo/BusinessSchema";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
   return {
+    metadataBase: new URL(SITE_URL),
     title: {
       default: settings?.siteTitle ?? 'Element BC',
       template: `%s | ${settings?.siteTitle ?? 'Element BC'}`,

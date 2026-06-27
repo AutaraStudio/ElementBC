@@ -1,16 +1,18 @@
 import type { Metadata } from 'next';
 import { getLegalPage, getPartnerCarousel } from '@/lib/sanity/queries';
 import LegalPage from '@/components/sections/LegalPage';
+import { buildMetadata } from '@/lib/seo';
 import { termsConditionsDefaultBody } from '@/lib/sanity/legalDefaults';
 
 export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getLegalPage('termsConditions');
-  return {
-    title: { absolute: page?.seoTitle ?? 'Terms & Conditions | Element BC' },
+  return buildMetadata({
+    title: page?.seoTitle ?? 'Terms & Conditions | Element BC',
     description: page?.seoDescription ?? 'The terms governing your use of the Element BC website.',
-  };
+    path: '/terms-conditions',
+  });
 }
 
 export default async function TermsConditionsPage() {

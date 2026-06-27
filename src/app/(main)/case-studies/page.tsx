@@ -3,6 +3,7 @@ import Image from 'next/image';
 import TransitionLink from '@/components/ui/TransitionLink';
 import { getAllProjects, getProjectsPage, getPartnerCarousel } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
+import { buildMetadata } from '@/lib/seo';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import SectionDivider from '@/components/ui/SectionDivider';
 import PartnerCarousel from '@/components/sections/PartnerCarousel';
@@ -11,10 +12,11 @@ export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const projectsPage = await getProjectsPage();
-  return {
-    title: { absolute: projectsPage?.seoTitle ?? 'Case Studies | Element BC' },
+  return buildMetadata({
+    title: projectsPage?.seoTitle ?? 'Case Studies | Element BC',
     description: projectsPage?.seoDescription,
-  };
+    path: '/case-studies',
+  });
 }
 
 const heroCSS = `

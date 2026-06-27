@@ -5,6 +5,7 @@ import HomeAboutWaveSvg from '@/components/ui/svgs/HomeAboutWaveSvg';
 import CharStagger from '@/components/ui/CharStagger';
 import { getHomePage, getProjectsPage, getSiteSettings, getPartnerCarousel } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/imageUrl';
+import { buildMetadata } from '@/lib/seo';
 import EyebrowSvg from '@/components/ui/svgs/EyebrowSvg';
 import SectionDivider from '@/components/ui/SectionDivider';
 import ScrollOrbit from '@/components/ui/ScrollOrbit';
@@ -18,10 +19,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const fallbackTitle = homePage?.heroHeading
     ? `${settings?.siteTitle ?? 'Element BC'} | ${homePage.heroHeading}`
     : settings?.siteTitle ?? 'Element BC';
-  return {
-    title: { absolute: homePage?.seoTitle ?? settings?.seoTitle ?? fallbackTitle },
+  return buildMetadata({
+    title: homePage?.seoTitle ?? settings?.seoTitle ?? fallbackTitle,
     description: homePage?.seoDescription ?? settings?.seoDescription,
-  };
+    path: '/',
+  });
 }
 
 const heroCSS = `

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getContactPage, getPartnerCarousel } from '@/lib/sanity/queries';
+import { buildMetadata } from '@/lib/seo';
 import StaggerLink from '@/components/ui/StaggerLink';
 import AboutHeroBackgroundSvg from '@/components/ui/svgs/AboutHeroBackgroundSvg';
 import SectionDivider from '@/components/ui/SectionDivider';
@@ -10,10 +11,11 @@ export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const contactPage = await getContactPage();
-  return {
-    title: { absolute: contactPage?.seoTitle ?? 'Contact | Element BC' },
+  return buildMetadata({
+    title: contactPage?.seoTitle ?? 'Contact | Element BC',
     description: contactPage?.seoDescription,
-  };
+    path: '/contact',
+  });
 }
 
 export default async function ContactPage() {
