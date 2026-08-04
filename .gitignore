@@ -42,9 +42,16 @@ yarn-error.log*
 # Local project images (upload to Sanity instead)
 /public/element-bc-project-images/
 
+# Local Sanity content backup (large; regenerate with: node scripts/backup-sanity.mjs)
+/sanity-backup/
+
 # reference files
 
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# NOTE: public/sanity-offline/ and src/lib/sanity/offline-*.json are deliberately
+# committed — they are the deployed content while Sanity is blocked (402).
+# Regenerate from the backup with: node scripts/restore-offline.mjs

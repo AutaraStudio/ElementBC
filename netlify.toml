@@ -4,6 +4,10 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # TEMPORARY: serve content from the committed Sanity backup while the Sanity
+  # project is blocked for non-payment (API and cdn.sanity.io both return 402).
+  # Set to "false" — or delete these two lines — once billing is resolved.
+  NEXT_PUBLIC_SANITY_OFFLINE = "true"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

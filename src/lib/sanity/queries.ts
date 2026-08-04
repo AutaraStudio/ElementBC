@@ -1,4 +1,4 @@
-import { sanityClient } from './client';
+import { cmsFetch, fetchAssetText } from './cmsFetch';
 
 // ---------------------------------------------------------------------------
 // Shared field projection for project list items
@@ -16,7 +16,7 @@ const projectListFields = `
 // ---------------------------------------------------------------------------
 
 export async function getAllProjects() {
-  return sanityClient.fetch<SanityProject[]>(`
+  return cmsFetch<SanityProject[]>(`
     *[_type == "project"] | order(orderRank asc, _createdAt desc) {
       ${projectListFields}
     }
@@ -24,7 +24,7 @@ export async function getAllProjects() {
 }
 
 export async function getProjectBySlug(slug: string) {
-  return sanityClient.fetch<SanityProjectFull | null>(`
+  return cmsFetch<SanityProjectFull | null>(`
     *[_type == "project" && slug.current == $slug][0] {
       _id,
       projectName,
@@ -49,7 +49,7 @@ export async function getProjectBySlug(slug: string) {
 // ---------------------------------------------------------------------------
 
 export async function getAllProjectCategories() {
-  return sanityClient.fetch<SanityProjectCategory[]>(`
+  return cmsFetch<SanityProjectCategory[]>(`
     *[_type == "projectCategory"] | order(name asc) {
       _id,
       name,
@@ -63,7 +63,7 @@ export async function getAllProjectCategories() {
 // ---------------------------------------------------------------------------
 
 export async function getHomePage() {
-  return sanityClient.fetch<SanityHomePage | null>(`
+  return cmsFetch<SanityHomePage | null>(`
     *[_type == "homePage"][0] {
       heroHeading,
       heroViewProjectText,
@@ -99,7 +99,7 @@ export async function getHomePage() {
 }
 
 export async function getAboutPage() {
-  return sanityClient.fetch<SanityAboutPage | null>(`
+  return cmsFetch<SanityAboutPage | null>(`
     *[_type == "aboutPage"][0] {
       heroEyebrow,
       heroHeading,
@@ -127,7 +127,7 @@ export async function getAboutPage() {
 
 
 export async function getContactPage() {
-  return sanityClient.fetch<SanityContactPage | null>(`
+  return cmsFetch<SanityContactPage | null>(`
     *[_type == "contactPage"][0] {
       heroEyebrow,
       heroHeading,
@@ -189,7 +189,7 @@ function recolorPanelSvg(svg: string): string {
 }
 
 export async function getPartnerCarousel() {
-  const data = await sanityClient.fetch<{
+  const data = await cmsFetch<{
     heading?: string;
     partners?: Array<{ name: string; logoUrl: string }>;
   } | null>(`
@@ -209,8 +209,8 @@ export async function getPartnerCarousel() {
     data.partners.map(async (p) => {
       let logoSvg = '';
       try {
-        const res = await fetch(p.logoUrl);
-        if (res.ok) logoSvg = recolorSvg(await res.text());
+        const svg = await fetchAssetText(p.logoUrl);
+        if (svg) logoSvg = recolorSvg(svg);
       } catch { /* fallback to empty */ }
       return { name: p.name, logoUrl: p.logoUrl, logoSvg };
     })
@@ -220,7 +220,7 @@ export async function getPartnerCarousel() {
 }
 
 export async function getProjectsPage() {
-  return sanityClient.fetch<SanityProjectsPage | null>(`
+  return cmsFetch<SanityProjectsPage | null>(`
     *[_type == "projectsPage"][0] {
       pageHeading,
       heroEyebrow,
@@ -231,7 +231,7 @@ export async function getProjectsPage() {
 }
 
 export async function getNavigation() {
-  return sanityClient.fetch<SanityNavigation | null>(`
+  return cmsFetch<SanityNavigation | null>(`
     *[_type == "navigation"][0] {
       navLinks[] { label, url },
       ctaLabel,
@@ -241,7 +241,7 @@ export async function getNavigation() {
 }
 
 export async function getFooter() {
-  return sanityClient.fetch<SanityFooter | null>(`
+  return cmsFetch<SanityFooter | null>(`
     *[_type == "footer"][0] {
       footerNavLinks[] { label, url },
       legalLinks[] { label, url },
@@ -252,7 +252,7 @@ export async function getFooter() {
 }
 
 export async function getLegalPage(documentId: 'privacyPolicy' | 'termsConditions') {
-  return sanityClient.fetch<SanityLegalPage | null>(`
+  return cmsFetch<SanityLegalPage | null>(`
     *[_id == $id][0] {
       heroEyebrow,
       heroHeading,
@@ -265,7 +265,7 @@ export async function getLegalPage(documentId: 'privacyPolicy' | 'termsCondition
 }
 
 export async function getSiteSettings() {
-  return sanityClient.fetch<SanitySiteSettings | null>(`
+  return cmsFetch<SanitySiteSettings | null>(`
     *[_type == "siteSettings"][0] {
       siteTitle,
       seoTitle,
