@@ -52,6 +52,3 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# NOTE: public/sanity-offline/ and src/lib/sanity/offline-*.json are deliberately
-# committed — they are the deployed content while Sanity is blocked (402).
-# Regenerate from the backup with: node scripts/restore-offline.mjs

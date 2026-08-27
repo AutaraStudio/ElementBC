@@ -4,15 +4,11 @@
 
 [build.environment]
   NODE_VERSION = "22"
-  # Content now comes from the migrated Sanity project (3mm963le). The previous
-  # project was blocked for non-payment; this one is pinned here rather than in
-  # the Netlify UI so the deploy is reproducible from the repo.
+  # Content comes from the Sanity project migrated to in Aug 2026. Pinned here
+  # rather than in the Netlify UI so the deploy is reproducible from the repo —
+  # the UI may still hold the previous project id.
   NEXT_PUBLIC_SANITY_PROJECT_ID = "3mm963le"
   NEXT_PUBLIC_SANITY_DATASET = "production"
-  # Offline fallback is off — the live API is used again. The backup and the
-  # offline code path are still in the repo as a safety net; see
-  # scripts/restore-offline.mjs and src/lib/sanity/cmsFetch.ts.
-  NEXT_PUBLIC_SANITY_OFFLINE = "false"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
