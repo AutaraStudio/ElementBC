@@ -91,7 +91,9 @@ export default async function AboutPage() {
                     <div className="about_team_image-wrap u-position-relative u-ratio-4-5">
                       <Image
                         fill
-                        src={member.photo.asset.url}
+                        priority
+                        sizes="(max-width: 767px) 100vw, 33vw"
+                        src={urlFor(member.photo, 1200)}
                         alt={member.photo.alt ?? member.name ?? ''}
                         className="about_team-img u-cover-absolute"
                         style={{ objectFit: 'cover' }}
